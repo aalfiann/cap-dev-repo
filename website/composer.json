@@ -1,0 +1,13 @@
+{
+    "name":"cap-dev-repo/website",
+    "type":"framework",
+    "description":"Development manager",
+    "keywords":["development", "manager", "backend", "rest", "router", "PSR7", "PSR11"],
+    "homepage":"https://github.com/aalfiann/cap-dev-repo",
+    "license":"https://github.com/aalfiann/cap-dev-repo/blob/master/license.md MIT",
+    "authors":[
+        {
+            "name":"M ABD AZIZ ALFIAN (aalfiann@gmail.com)"
+        }
+    ]
+}
