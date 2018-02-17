@@ -1,6 +1,6 @@
 CAP Development Progress
 =======
-[Skeleton](https://img.shields.io/badge/skeleton-100%25-greenlight.svg)<br>
+(https://img.shields.io/badge/skeleton-100%25-greenlight.svg)<br>
 [Website](https://img.shields.io/badge/website-10%25-red.svg)<br>
 [License](https://img.shields.io/badge/license-MIT-blue.svg)<br>
 
