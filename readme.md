@@ -1,12 +1,12 @@
-CAP Development Progress
+CAP Development
 =======
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aalfiann/cap-dev-repo/blob/master/license.md)<br>
 ![Skeleton](https://img.shields.io/badge/skeleton-100%25-green.svg)<br>
 ![Website](https://img.shields.io/badge/website-10%25-red.svg)<br>
 
-CAP System progress development.<br>
+Untuk melihat status proses development [klik disini](https://github.com/aalfiann/cap-dev-repo/commits/master).<br>
 
-Base CAP System:
+CAP Skeleton System:
 ---------------
 Build with essentials of user management system in rest api way.
 
@@ -25,9 +25,8 @@ Build with essentials of user management system in rest api way.
 13. Server Side Caching
 14. Etc.
 
-Roadmap Development
+Next Roadmap Development
 ---------------
 
-1. Skeleton Rest API
-2. Web Company App
-3. Transaction Cargo
+1. Web Company App
+2. Transaction Cargo
