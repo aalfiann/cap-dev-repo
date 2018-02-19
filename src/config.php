@@ -24,9 +24,9 @@ $config['language'] = 'en';
  * @var $config['db']['dbname'] = the database name
  */
 $config['db']['host']   = 'localhost';
-$config['db']['user']   = 'cap_api';
+$config['db']['user']   = 'cap_dev';
 $config['db']['pass']   = 'rahasia0';
-$config['db']['dbname'] = 'cap_api';
+$config['db']['dbname'] = 'cap_dev';
 
 /**
  * Configuration SMTP for Mailer
