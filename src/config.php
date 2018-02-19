@@ -24,9 +24,9 @@ $config['language'] = 'en';
  * @var $config['db']['dbname'] = the database name
  */
 $config['db']['host']   = 'localhost';
-$config['db']['user']   = 'root';
-$config['db']['pass']   = 'root';
-$config['db']['dbname'] = 'reSlim';
+$config['db']['user']   = 'cap_api';
+$config['db']['pass']   = 'rahasia0';
+$config['db']['dbname'] = 'cap_api';
 
 /**
  * Configuration SMTP for Mailer
