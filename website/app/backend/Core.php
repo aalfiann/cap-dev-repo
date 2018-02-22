@@ -75,7 +75,7 @@
 		 * @return string with message data
 		 */
         public static function getMessage($type,$primaryMessage,$secondaryMessage=null){
-            return '<div class="alert alert-'.$type.'" role="alert">
+            return '<div class="alert alert-'.$type.'">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <strong>'.$primaryMessage.'</strong> '.$secondaryMessage.'
                         </div>';
