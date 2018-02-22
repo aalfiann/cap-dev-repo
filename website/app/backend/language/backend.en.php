@@ -34,6 +34,11 @@ $lang = [
     'core_process_add' => 'Process Add',
     'core_process_update' => 'Process Update',
     'core_process_delete' => 'Process Delete',
+    //development
+    'develop_process_title' => 'Under Constructions',
+    'develop_process_info' => 'Sorry, this page still on process construction.',
+    'maintenance_process_title' => 'Under Maintenance',
+    'maintenance_process_info' => 'Sorry, this page still on process maintenance.',
     //login
     'login' => 'Login',
     'form_login' => 'Form Login',

@@ -284,7 +284,7 @@
                 if ($data->{'status'} == "success"){
                     if ($post_array['Rememberme'] == "on"){
 						setcookie('username', $post_array['Username'], time() + (3600 * 168), "/", NULL); // expired = 7 days
-				  		setcookie('token', $data->{'token'}, time() + (3600 * 168), "/", NULL); // expired = 7 days
+                          setcookie('token', $data->{'token'}, time() + (3600 * 168), "/", NULL); // expired = 7 days
 					} else {
                         session_start();
                         $_SESSION['username'] = $post_array['Username'];
@@ -326,7 +326,7 @@
                         setcookie($name, '', time()-1000, '/');
                 	}
 	        }
-        	header("Location: ".self::getInstance()->basepath."/modul-login.php?m=1");
+        	header("Location: ".self::getInstance()->basepath."/modul-login.php");
         }
 
         /**

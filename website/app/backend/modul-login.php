@@ -1,9 +1,10 @@
+<?php spl_autoload_register(function ($classname) {require ( $classname . ".php");});?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?php echo Core::getInstance()->setlang?>">
 
 <head>
     <?php include_once 'global-meta.php';?>
-    <title>Admin Press Admin Template - The Ultimate Bootstrap 4 Admin Template</title>
+    <title><?php echo Core::lang('login')?> - <?php echo Core::getInstance()->title?></title>
 </head>
 
 <body>
@@ -15,39 +16,36 @@
         <div class="login-register" style="background-image:url(../assets/images/background/login-register.jpg);">
             <div class="login-box card">
                 <div class="card-body">
-                    <form class="form-horizontal form-material" id="loginform" action="index.html">
-                        <h3 class="box-title m-b-20">Sign In</h3>
+                    <?php 
+                        if (isset($_POST['submitlogin'])){
+                            $post_array = array(
+                            	'Username' => $_POST['username'],
+                            	'Password' => $_POST['password'],
+                                'Rememberme' => (!empty($_POST['remember'])?$_POST['remember']:'')
+                            );
+                            Core::login(Core::getInstance()->api.'/user/login',$post_array);
+                        }
+                    ?>
+                    <form class="form-horizontal form-material" id="loginform" action="<?php $_SERVER['PHP_SELF']?>" method="post">
+                        <h3 class="box-title m-b-20"><?php echo Core::lang('login')?></h3>
                         <div class="form-group ">
                             <div class="col-xs-12">
-                                <input class="form-control" type="text" required="" placeholder="Username"> </div>
+                                <input name="username" class="form-control" type="text" required="" placeholder="<?php echo Core::lang('username')?>"> </div>
                         </div>
                         <div class="form-group">
                             <div class="col-xs-12">
-                                <input class="form-control" type="password" required="" placeholder="Password"> </div>
+                                <input name="password" class="form-control" type="password" required="" placeholder="<?php echo Core::lang('password')?>"> </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-12 font-14">
                                 <div class="checkbox checkbox-primary pull-left p-t-0">
-                                    <input id="checkbox-signup" type="checkbox">
-                                    <label for="checkbox-signup"> Remember me </label>
-                                </div> <a href="javascript:void(0)" id="to-recover" class="text-dark pull-right"><!-- <i class="fa fa-lock m-r-5"></i> --> Forgot pwd?</a> </div>
+                                    <input name="remember" id="checkbox-signup" type="checkbox">
+                                    <label for="checkbox-signup"> <?php echo Core::lang('remember_me')?> </label>
+                                </div> <a href="javascript:void(0)" id="to-recover" class="text-dark pull-right"><i class="fa fa-lock m-r-5"></i> <?php echo Core::lang('forgot_password')?></a> </div>
                         </div>
                         <div class="form-group text-center m-t-20">
                             <div class="col-xs-12">
-                                <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Log In</button>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-12 m-t-10 text-center">
-                                <div class="social">
-                                    <a href="javascript:void(0)" class="btn  btn-facebook" data-toggle="tooltip" title="Login with Facebook"> <i aria-hidden="true" class="fa fa-facebook"></i> </a>
-                                    <a href="javascript:void(0)" class="btn btn-googleplus" data-toggle="tooltip" title="Login with Google"> <i aria-hidden="true" class="fa fa-google-plus"></i> </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group m-b-0">
-                            <div class="col-sm-12 text-center">
-                                <div>Don't have an account? <a href="pages-register.html" class="text-info m-l-5"><b>Sign Up</b></a></div>
+                                <button name="submitlogin" class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit"><?php echo Core::lang('login')?></button>
                             </div>
                         </div>
                     </form>

@@ -2,7 +2,7 @@
             <!-- footer -->
             <!-- ============================================================== -->
             <footer class="footer">
-                © 2017 Admin Press Admin by themedesigner.in
+                &copy; <script>document.write(new Date().getFullYear())</script> <?php echo Core::getInstance()->title;?>
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->

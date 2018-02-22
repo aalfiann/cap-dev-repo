@@ -1,7 +1,7 @@
 {
 	"menu": [
         {
-            "header": "personal",
+            "header": "app",
             "subheader":[
                 {
                     "id":"1",
@@ -9,8 +9,8 @@
                     "icon_class":"mdi mdi-gauge",
                     "label_class":"label label-rouded label-themecolor pull-right",
                     "menus": [{
-                            "title": "minimal",
-    			        	"link": "index.html"
+                            "title": "system",
+    			        	"link": "modul-dashboard.php"
     				    },
         				{   
 	            			"title": "analytical",

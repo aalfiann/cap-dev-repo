@@ -1,5 +1,4 @@
-<?php spl_autoload_register(function ($classname) {require ( $classname . ".php");});
-$datalogin = Core::checkSessions();?>
+<?php spl_autoload_register(function ($classname) {require ( $classname . ".php");});?>
 <!DOCTYPE html>
 <html lang="<?php echo Core::getInstance()->setlang?>">
 <head>

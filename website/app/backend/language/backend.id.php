@@ -34,6 +34,11 @@ $lang = [
     'core_process_add' => 'Proses Menambahkan',
     'core_process_update' => 'Proses Pembaharuan',
     'core_process_delete' => 'Proses Hapus',
+    //development
+    'develop_process_title' => 'Proses Pembangunan',
+    'develop_process_info' => 'Maaf, halaman ini masih dalam proses pembangunan.',
+    'maintenance_process_title' => 'Proses Perawatan',
+    'maintenance_process_info' => 'Maaf, halaman ini masih dalam proses perawatan.',
     //login
     'login' => 'Masuk',
     'form_login' => 'Form Masuk',

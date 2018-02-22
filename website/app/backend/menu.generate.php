@@ -46,6 +46,6 @@ function generateMenuJson($menujson){
     return $result;
 }
 
-$datamenu = file_get_contents('menu.json');
+$datamenu = file_get_contents('menu.all.json');
 echo generateMenuJson($datamenu);
 ?>
