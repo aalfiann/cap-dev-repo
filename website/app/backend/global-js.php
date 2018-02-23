@@ -55,5 +55,69 @@
                     error: function(x, e) {}
                 });';
             }?>
+
+            <?php if(Core::isPageMatch('modul-register.php')) {
+                echo '/* Register start */
+                $("#sendregister").on("submit",sendingregister);
+                function sendingregister(e){
+                    console.log("Process sending data register...");
+                    e.preventDefault();
+                    var that = $(this);
+                    that.off("submit"); /* remove handler */
+                    var div = document.getElementById("report-register");
+                    var aaa = parseInt($("#key-aaa").val());
+                    var bbb = parseInt($("#key-bbb").val());
+                    var key = parseInt($("#post-key").val());
+                    if ((bbb + aaa) == key){
+                        if ($("#password1").val() === $("#password2").val()){
+                            $.ajax({
+                                url: "'.Core::getInstance()->api.'/user/register",
+                                data : {
+                                    Username: $("#username").val(),
+                                    Email: $("#email").val(),
+                                    Password: $("#password2").val(),
+                                    Fullname: $("#username").val(),
+                                    Address: "",
+                                    Phone: "",
+                                    Aboutme: "",
+                                    Avatar: "",
+                                    Role: "3"
+                                },
+                                dataType: "json",
+                                type: "POST",
+                                success: function(data) {
+                                    div.innerHTML = "";
+                                    if (data.status == "success"){
+                                        div.innerHTML = \'<div class="col-lg-12"><div class="alert alert-success alert-dismissible"><strong>'.Core::lang('core_register_success').'</strong></div></div>\';
+                                        /* clear from */
+                                        $("#register")
+                                        .find("input,textarea,select")
+                                        .val("")
+                                        .end()
+                                        .find("input[type=checkbox]")
+                                        .prop("checked", "")
+                                        .end()
+                                        .find("button[type=submit]")
+                                        .attr("disabled", "disabled")
+                                        .end();
+                                        console.log("Process sending register success! Thank you...");
+                                    } else {
+                                        div.innerHTML = \'<div class="col-lg-12"><div class="alert alert-danger alert-dismissible"><strong>'.Core::lang('core_register_failed').'</strong> \'+data.message+\'</div></div>\';
+                                        that.on("submit", sendingregister); /* add handler back after ajax */
+                                    }
+                                },
+                                error: function(x, e) {}
+                            });
+                        } else {
+                            div.innerHTML = \'<div class="col-lg-12"><div class="alert alert-danger alert-dismissible"><strong>'.Core::lang('not_match_password').'</strong> </div></div>\';
+                            that.on("submit", sendingregister); /* add handler back after ajax */
+                        }
+                    } else {
+                        div.innerHTML = \'<div class="col-lg-12"><div class="alert alert-danger alert-dismissible"><strong>'.Core::lang('wrong_security_key').'</strong> </div></div>\';
+                        that.on("submit", sendingregister); /* add handler back after ajax */
+                    }
+                }
+                /* Send Report end */';
+            }?>
         });
     </script>

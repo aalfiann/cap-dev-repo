@@ -45,6 +45,7 @@ $lang = [
     //register
     'register' => 'Register',
     'form_register' => 'Form Register',
+    'have_account' => 'Already have an account?',
     //contact
     'contact_us' => 'Contact Us',
     'form_contact_us' => 'Form Contact Us',

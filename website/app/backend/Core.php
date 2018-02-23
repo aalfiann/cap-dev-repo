@@ -653,7 +653,7 @@
                 {
                     $out['username'] = null;
                     $out['token'] = null;
-                    header("Location: ".self::getInstance()->basepath."/modul-login.php?m=1");
+                    header("Location: ".self::getInstance()->basepath."/modul-login.php");
                 }
                 else
                 {
@@ -663,7 +663,7 @@
                     } else {
                         $out['username'] = null;
                         $out['token'] = null;
-                        header("Location: ".self::getInstance()->basepath."/modul-login.php?m=1");
+                        header("Location: ".self::getInstance()->basepath."/modul-login.php");
                     }                     
                 }
             }
@@ -675,7 +675,7 @@
                 } else {
                     $out['username'] = null;
                     $out['token'] = null;
-                    header("Location: ".self::getInstance()->basepath."/modul-login.php?m=1");
+                    header("Location: ".self::getInstance()->basepath."/modul-login.php");
                 }
     	    }
 	        return $out;
@@ -1016,6 +1016,21 @@
                     }
                 }
             }
+        }
+
+        /**
+         * Check is current page is match with filename
+         * 
+         * @param filename = Filename of your page
+         * 
+         * @return bool
+         */
+        public static function isPageMatch($filename){
+            $filename = preg_replace('/\\.[^.\\s]{2,4}$/', '', $filename);
+            if (pathinfo(basename($_SERVER['REQUEST_URI']), PATHINFO_FILENAME) == $filename){
+                return true;
+            }
+            return false;
         }
 
 }

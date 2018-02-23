@@ -45,6 +45,7 @@ $lang = [
     //register
     'register' => 'Pendaftaran',
     'form_register' => 'Form Pendaftaran',
+    'have_account' => 'Sudah punya akun?',
     //contact
     'contact_us' => 'Hubungi Kami',
     'form_contact_us' => 'Form Hubungi Kami',
