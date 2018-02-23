@@ -109,83 +109,84 @@ $datalogin = Core::checkSessions();?>
                                                             <br>
                                                             <p class="text-muted">'.$data->result[0]->Fullname.'</p>
                                                         </div>
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong>'.Core::lang('status').'</strong>
-                                                <br>
-                                                <p class="text-muted">'.$data->result[0]->Status.'</p>
+                                                        <div class="col-md-3 col-xs-6 b-r"> <strong>'.Core::lang('status').'</strong>
+                                                            <br>
+                                                            <p class="text-muted">'.$data->result[0]->Status.'</p>
+                                                        </div>
+                                                        <div class="col-md-3 col-xs-6 b-r"> <strong>'.Core::lang('registered').'</strong>
+                                                            <br>
+                                                            <p class="text-muted">'.$data->result[0]->Created_at.'</p>
+                                                        </div>
+                                                        <div class="col-md-3 col-xs-6"> <strong>'.Core::lang('last_updated').'</strong>
+                                                            <br>
+                                                            <p class="text-muted">'.$data->result[0]->Updated_at.'</p>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <h5>'.Core::lang('about_me').'</h5>
+                                                    <p class="m-t-30">'.$data->result[0]->Aboutme.'</p>
+                                                </div>
                                             </div>
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong>'.Core::lang('registered').'</strong>
-                                                <br>
-                                                <p class="text-muted">'.$data->result[0]->Created_at.'</p>
-                                            </div>
-                                            <div class="col-md-3 col-xs-6"> <strong>'.Core::lang('last_updated').'</strong>
-                                                <br>
-                                                <p class="text-muted">'.$data->result[0]->Updated_at.'</p>
+                                
+                                            <div class="tab-pane" id="settings" role="tabpanel">
+                                                <div class="card-body">
+                                                    <form class="form-horizontal form-material" method="post" action="'.$_SERVER['PHP_SELF'].'">
+                                                        <div class="form-group">
+                                                            <label class="col-md-12">'.Core::lang('tb_username').'</label>
+                                                             <div class="col-md-12">
+                                                                <input name="username" type="text" placeholder="'.Core::lang('input_username').'" class="form-control form-control-line" value="'.$data->result[0]->Username.'" readonly>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-12">'.Core::lang('fullname').'</label>
+                                                            <div class="col-md-12">
+                                                                <input name="fullname" type="text" placeholder="'.Core::lang('input_fullname').'" class="form-control form-control-line" value="'.$data->result[0]->Fullname.'">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="example-email" class="col-md-12">'.Core::lang('email_address').'</label>
+                                                            <div class="col-md-12">
+                                                                <input name="email" type="email" placeholder="'.Core::lang('input_email').'" class="form-control form-control-line" name="email" value="'.$data->result[0]->Email.'">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-12">'.Core::lang('phone').'</label>
+                                                            <div class="col-md-12">
+                                                                <input name="phone" type="text" placeholder="'.Core::lang('input_phone').'" class="form-control form-control-line" value="'.$data->result[0]->Phone.'">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-12">'.Core::lang('avatar').'</label>
+                                                            <div class="col-md-12">
+                                                                <input name="avatar" type="text" placeholder="'.Core::lang('input_avatar').'" class="form-control form-control-line" value="'.$data->result[0]->Avatar.'">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-12">'.Core::lang('address').'</label>
+                                                            <div class="col-md-12">
+                                                                <textarea name="address" rows="5" class="form-control form-control-line">'.$data->result[0]->Address.'</textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-12">'.Core::lang('about_me').'</label>
+                                                            <div class="col-md-12">
+                                                                <textarea name="aboutme" rows="5" class="form-control form-control-line">'.$data->result[0]->Aboutme.'</textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="col-sm-12">
+                                                                <button name="submitupdate" type="submit" class="btn btn-success">'.Core::lang('update').' '.Core::lang('profile').'</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
-                                        <hr>
-                                        <h5>'.Core::lang('about_me').'</h5>
-                                        <p class="m-t-30">'.$data->result[0]->Aboutme.'</p>
                                     </div>
                                 </div>
-                                <div class="tab-pane" id="settings" role="tabpanel">
-                                    <div class="card-body">
-                                        <form class="form-horizontal form-material" method="post" action="'.$_SERVER['PHP_SELF'].'">
-                                            <div class="form-group">
-                                                <label class="col-md-12">'.Core::lang('tb_username').'</label>
-                                                <div class="col-md-12">
-                                                    <input name="username" type="text" placeholder="'.Core::lang('input_username').'" class="form-control form-control-line" value="'.$data->result[0]->Username.'" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-md-12">'.Core::lang('fullname').'</label>
-                                                <div class="col-md-12">
-                                                    <input name="fullname" type="text" placeholder="'.Core::lang('input_fullname').'" class="form-control form-control-line" value="'.$data->result[0]->Fullname.'">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="example-email" class="col-md-12">'.Core::lang('email_address').'</label>
-                                                <div class="col-md-12">
-                                                    <input name="email" type="email" placeholder="'.Core::lang('input_email').'" class="form-control form-control-line" name="email" value="'.$data->result[0]->Email.'">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-md-12">'.Core::lang('phone').'</label>
-                                                <div class="col-md-12">
-                                                    <input name="phone" type="text" placeholder="'.Core::lang('input_phone').'" class="form-control form-control-line" value="'.$data->result[0]->Phone.'">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-md-12">'.Core::lang('avatar').'</label>
-                                                <div class="col-md-12">
-                                                    <input name="avatar" type="text" placeholder="'.Core::lang('input_avatar').'" class="form-control form-control-line" value="'.$data->result[0]->Avatar.'">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-md-12">'.Core::lang('address').'</label>
-                                                <div class="col-md-12">
-                                                    <textarea name="address" rows="5" class="form-control form-control-line">'.$data->result[0]->Address.'</textarea>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-md-12">'.Core::lang('about_me').'</label>
-                                                <div class="col-md-12">
-                                                    <textarea name="aboutme" rows="5" class="form-control form-control-line">'.$data->result[0]->Aboutme.'</textarea>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-12">
-                                                    <button name="submitupdate" type="submit" class="btn btn-success">'.Core::lang('update').' '.Core::lang('profile').'</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
+                                <!-- Column -->
                             </div>
-                        </div>
-                    </div>
-                    <!-- Column -->
-                </div>
-                <!-- Row -->';
+                            <!-- Row -->';
                         } else {
                             echo '<div class="row page-titles">
                                 <div class="col-md-5 col-8 align-self-center">
