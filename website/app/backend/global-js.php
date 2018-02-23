@@ -71,7 +71,7 @@
                     if ((bbb + aaa) == key){
                         if ($("#password1").val() === $("#password2").val()){
                             $.ajax({
-                                url: "'.Core::getInstance()->api.'/user/register",
+                                url: Crypto.decode("'.base64_encode(Core::getInstance()->api.'/user/register').'"),
                                 data : {
                                     Username: $("#username").val(),
                                     Email: $("#email").val(),

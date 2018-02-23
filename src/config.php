@@ -43,14 +43,14 @@ $config['db']['dbname'] = 'cap_dev';
  *                               To work using rest api, You should set debug 1,
  *                               because other than 1, there is special characters that will broke json format. 
  */
-$config['smtp']['host'] = 'smtp.gmail.com';
+$config['smtp']['host'] = 'server.cap-express.co.id';
 $config['smtp']['autotls'] = false;
 $config['smtp']['auth'] = true;
 $config['smtp']['secure'] = 'tls';
 $config['smtp']['port'] = 587;
-$config['smtp']['defaultnamefrom'] = 'reSlim admin';
-$config['smtp']['username'] = 'youremail@gmail.com';
-$config['smtp']['password'] = 'secret';
+$config['smtp']['defaultnamefrom'] = 'CAP Express admin';
+$config['smtp']['username'] = 'noreply@cap-express.co.id';
+$config['smtp']['password'] = 'noreply1234';
 $config['smtp']['debug'] = 1;
 
 // Configuration timezone

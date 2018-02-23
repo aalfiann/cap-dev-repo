@@ -25,6 +25,12 @@
                             );
                             Core::login(Core::getInstance()->api.'/user/login',$post_array);
                         }
+                        if (isset($_POST['submitforgot'])){
+                            $post_array = array(
+                                'Email' => $_POST['email']
+                            );
+                            Core::forgotPassword($post_array);
+                        }
                     ?>
                     <form class="form-horizontal form-material" id="loginform" action="<?php $_SERVER['PHP_SELF']?>" method="post">
                         <h3 class="box-title m-b-20"><?php echo Core::lang('login')?></h3>
@@ -49,20 +55,19 @@
                             </div>
                         </div>
                     </form>
-                    <form class="form-horizontal" id="recoverform" action="index.html">
+                    <form class="form-horizontal" id="recoverform" action="<?php $_SERVER['PHP_SELF']?>" method="post">
                         <div class="form-group ">
                             <div class="col-xs-12">
-                                <h3>Recover Password</h3>
-                                <p class="text-muted">Enter your Email and instructions will be sent to you! </p>
+                                <h3><?php echo Core::lang('form_reset_password')?></h3>                            
                             </div>
                         </div>
                         <div class="form-group ">
                             <div class="col-xs-12">
-                                <input class="form-control" type="text" required="" placeholder="Email"> </div>
+                                <input class="form-control" name="email" type="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$" required="" placeholder="<?php echo Core::lang('input_email')?>"> </div>
                         </div>
                         <div class="form-group text-center m-t-20">
                             <div class="col-xs-12">
-                                <button class="btn btn-primary btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Reset</button>
+                                <button name="submitforgot" class="btn btn-primary btn-lg btn-block text-uppercase waves-effect waves-light" type="submit"><?php echo Core::lang('submit')?></button>
                             </div>
                         </div>
                     </form>
