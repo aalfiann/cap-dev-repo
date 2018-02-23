@@ -40,7 +40,7 @@
             <?php if(!empty($datalogin)) {
                 echo '/* Get user information */
                 $.ajax({
-                    url: "'.Core::getInstance()->api.'/user/profile/'.$datalogin['username'].'/'.$datalogin['token'].'?_="+randomText(2),
+                    url: "'.Core::getInstance()->api.'/user/profile/'.$datalogin['username'].'/'.$datalogin['token'].'?_="+randomText(10),
                     dataType: "json",
                     type: "GET",
                     success: function(data) {
