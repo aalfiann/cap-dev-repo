@@ -1,4 +1,8 @@
 <!-- ============================================================== -->
+    <!-- Lazyload Image or iFrame -->
+    <!-- ============================================================== -->
+    <script src="js/lazysizes.min.js"></script>
+    <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
     <script src="../assets/plugins/jquery/jquery.min.js"></script>
@@ -30,26 +34,28 @@
         /* Format random text client */
 		var _0x97f1=["\x73\x6C\x69\x63\x65","\x30\x30","\x67\x65\x74\x4D\x6F\x6E\x74\x68","","\x67\x65\x74\x44\x61\x74\x65","\x67\x65\x74\x46\x75\x6C\x6C\x59\x65\x61\x72","\x2D","\x67\x65\x74\x48\x6F\x75\x72\x73","\x67\x65\x74\x4D\x69\x6E\x75\x74\x65\x73"];function randomText(_0x294cx2){var _0x294cx3= new Date();var _0x294cx4=(_0x97f1[1]+ (_0x294cx3[_0x97f1[2]]()+ 1))[_0x97f1[0]](-2) + _0x97f1[3] + (_0x97f1[1]+ _0x294cx3[_0x97f1[4]]())[_0x97f1[0]](-2) + _0x97f1[3] + _0x294cx3[_0x97f1[5]]() + _0x97f1[6] + (_0x97f1[1]+ _0x294cx3[_0x97f1[7]]())[_0x97f1[0]](-2) + _0x97f1[3];var _0x294cx5=_0x294cx3[_0x97f1[8]]();var _0x294cx6=60;var _0x294cx7=_0x294cx2;var _0x294cx8=0;var _0x294cx9;for(_0x294cx9= 0;_0x294cx9<= _0x294cx6;_0x294cx9+= _0x294cx7){if(_0x294cx9<= _0x294cx5){_0x294cx8++}};return _0x294cx4+ _0x294cx8}
         $(function() { 
+            $("head").append("<style>.lazyload {opacity: 0;} .lazyloading {opacity: 1;transition: opacity 300ms;background: #f7f7f7 url(../assets/images/blank.gif) no-repeat center;}</style>");
+            $('iframe').attr('data-src', function() { return $(this).attr('src'); }).removeAttr('src').addClass("lazyload");
+			$('img').attr('data-src', function() { return $(this).attr('src'); }).removeAttr('src').addClass("lazyload");
             <?php if(!empty($datalogin)) {
                 echo '/* Get user information */
                 $.ajax({
-                    url: "'.Core::getInstance()->api.'/user/profile/'.$datalogin['username'].'/'.$datalogin['token'].'",
+                    url: "'.Core::getInstance()->api.'/user/profile/'.$datalogin['username'].'/'.$datalogin['token'].'?_="+randomText(2),
                     dataType: "json",
                     type: "GET",
-                    success: function(data,status) {
-                        if (status === "success") {
-                            if (data.status == "success"){
-                                if ($.isEmptyObject(data.result[0].Avatar)){
-                                    $("#my_image_navbar").attr("src","../assets/images/users/no-pic.jpg");
-                                    $("#my_image_navbar_small").attr("src","../assets/images/users/no-pic.jpg");
-                                    $("#my_image_sidebar").attr("src","../assets/images/users/no-pic.jpg");
-                                } else {
-                                    $("#my_image_navbar").attr("src",data.result[0].Avatar);
-                                    $("#my_image_navbar_small").attr("src",data.result[0].Avatar);
-                                    $("#my_image_sidebar").attr("src",data.result[0].Avatar);
-                                }
-                                $("#my_email_navbar")[0].innerHTML=data.result[0].Email;
+                    success: function(data) {
+                        if (data.status == "success"){
+                            if (!$.trim(data.result[0].Avatar)){
+                                $("#my_image_navbar").attr("src","../assets/images/users/no-pic.jpg");
+                                $("#my_image_navbar_small").attr("src","../assets/images/users/no-pic.jpg");
+                                $("#my_image_sidebar").attr("src","../assets/images/users/no-pic.jpg");
+                            } else {
+                                $("#my_image_navbar").attr("src",data.result[0].Avatar);
+                                $("#my_image_navbar_small").attr("src",data.result[0].Avatar);
+                                $("#my_image_sidebar").attr("src",data.result[0].Avatar);
                             }
+                            $("#my_email_navbar")[0].innerHTML=data.result[0].Email;
+                            $("img").attr("data-src", function() { return $(this).attr("src"); }).removeAttr("src").addClass("lazyload");
                         }
                     },
                     error: function(x, e) {}
