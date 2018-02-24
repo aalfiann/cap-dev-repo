@@ -29,6 +29,7 @@ $datalogin = Core::checkSessions();?>
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">App</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0)"><?php echo Core::lang('user')?></a></li>
                         <li class="breadcrumb-item active"><?php echo Core::lang('user_profile')?></li>
                     </ol>
                 </div>
@@ -97,7 +98,7 @@ $datalogin = Core::checkSessions();?>
                                         <!-- Nav tabs -->
                                         <ul class="nav nav-tabs profile-tab" role="tablist">
                                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#profile" role="tab">'.Core::lang('profile').'</a> </li>
-                                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#settings" role="tab">'.Core::lang('settings').'</a> </li>
+                                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#settings" role="tab">'.Core::lang('edit').'</a> </li>
                                         </ul>
                                         <!-- Tab panes -->
                                         <div class="tab-content">
