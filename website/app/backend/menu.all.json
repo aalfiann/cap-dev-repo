@@ -11,70 +11,34 @@
                     "menus": [{
                             "title": "system",
     			        	"link": "modul-dashboard.php"
-    				    },
-        				{   
-	            			"title": "analytical",
-			                "link": "index2.html"
-                        },
-                        {   
-		        		    "title": "demographical",
-    			    	    "link": "index3.html"
-                        },
-                        {   
-		                	"title": "modern",
-			            	"link": "index4.html"
-        		        }
+    				    }
         		    ]
                 },
                 {
                     "id":"2",
-                    "title":"apps",
-                    "icon_class":"mdi mdi-bullseye",
+                    "title":"user",
+                    "icon_class":"mdi mdi-account",
                     "label_class":"",
                     "menus": [{
-                            "title": "calendar",
-    			        	"link": "app-calendar.html"
+                            "title": "data",
+    			        	"link": "modul-data-user.php"
     				    },
         				{   
-	            			"title": "chat app",
-			                "link": "app-chat.html"
+	            			"title": "profile",
+			                "link": "modul-user-profile.php"
                         },
                         {   
-		        		    "title": "support ticket",
-    			    	    "link": "app-ticket.html"
-                        },
-                        {   
-		                	"title": "contact / employee",
-			            	"link": "app-contact.html"
-                        },
-                        {   
-		                	"title": "contact grid",
-			            	"link": "app-contact2.html"
-        		        },
-                        {   
-		                	"title": "contact detail",
-			            	"link": "app-contact-detail.html"
-        		        }
+		        		    "title": "access",
+    			    	    "link": "modul-user-access.php"
+                        }
         		    ]
                 },
                 {
                     "id":"3",
-                    "title":"inbox",
-                    "icon_class":"mdi mdi-email",
+                    "title":"api",
+                    "icon_class":"mdi mdi-bullseye",
                     "label_class":"",
-                    "menus": [{
-                            "title": "mailbox",
-    			        	"link": "app-email.html"
-    				    },
-        				{   
-	            			"title": "mailbox detail",
-			                "link": "app-email-detail.html"
-                        },
-                        {   
-		        		    "title": "compose mail",
-    			    	    "link": "app-compose.html"
-                        }
-        		    ]
+                    "link":"modul-data-api.php"
                 }
             ]
 		},
