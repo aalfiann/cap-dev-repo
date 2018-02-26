@@ -39,6 +39,10 @@ $lang = [
     'develop_process_info' => 'Maaf, halaman ini masih dalam proses pembangunan.',
     'maintenance_process_title' => 'Proses Perawatan',
     'maintenance_process_info' => 'Maaf, halaman ini masih dalam proses perawatan.',
+    //theme
+    'theme_panel' => 'Panel Tema',
+    'theme_light' => 'Tema Cerah',
+    'theme_dark' => 'Tema Gelap',
     //login
     'login' => 'Masuk',
     'form_login' => 'Form Masuk',

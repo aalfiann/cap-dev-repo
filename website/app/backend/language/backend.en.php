@@ -39,6 +39,10 @@ $lang = [
     'develop_process_info' => 'Sorry, this page still on process construction.',
     'maintenance_process_title' => 'Under Maintenance',
     'maintenance_process_info' => 'Sorry, this page still on process maintenance.',
+    //theme
+    'theme_panel' => 'Theme Panel',
+    'theme_light' => 'Light Theme',
+    'theme_dark' => 'Dark Theme',
     //login
     'login' => 'Login',
     'form_login' => 'Form Login',
