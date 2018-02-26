@@ -178,6 +178,12 @@ $lang = [
     'tb_upload_by' => 'Uploaded by',
     'tb_file_type' => 'File Type',
     'tb_direct_link' => 'Direct Link',
+    //datatables default
+    'dt_not_found' => 'Sorry, Data is not found',
+    'dt_display' => 'Display _MENU_ records per page',
+    'dt_info' => 'Showing page _PAGE_ of _PAGES_',
+    'dt_info_empty' => 'No records available',
+    'dt_filtered' => '(filtered from _MAX_ total records)',
     //general input form
     'input_username' => 'Your Username',
     'input_password' => 'Your Password',

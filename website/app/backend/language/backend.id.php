@@ -178,6 +178,12 @@ $lang = [
     'tb_upload_by' => 'Diunggah oleh',
     'tb_file_type' => 'Tipe File',
     'tb_direct_link' => 'Direct Link',
+    //datatables default
+    'dt_not_found' => 'Maaf, Data tidak ditemukan',
+    'dt_display' => 'Tampilkan _MENU_ data per halaman',
+    'dt_info' => 'Menampilkan halaman _PAGE_ dari _PAGES_',
+    'dt_info_empty' => 'Data tidak tersedia',
+    'dt_filtered' => '(memfilter dari _MAX_ total data)',
     //general input form
     'input_username' => 'Nama Pengguna Anda',
     'input_password' => 'Kata Sandi Anda',
