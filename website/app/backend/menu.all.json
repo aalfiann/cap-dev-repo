@@ -35,39 +35,35 @@
                 },
                 {
                     "id":"3",
+                    "title":"file sharing",
+                    "icon_class":"mdi mdi-recycle",
+                    "label_class":"",
+                    "link":"modul-file-sharing.php"
+                },
+                {
+                    "id":"4",
                     "title":"api",
                     "icon_class":"mdi mdi-bullseye",
                     "label_class":"",
                     "link":"modul-data-api.php"
+                },
+                {
+                    "id":"5",
+                    "title":"settings",
+                    "icon_class":"mdi mdi-settings",
+                    "label_class":"",
+                    "link":"modul-settings.php"
                 }
             ]
 		},
 		{
-			"header": "widget",
+			"header": "extension",
             "subheader":[
                 {
-                    "id":"3",
-                    "title":"forms",
+                    "id":"1",
+                    "title":"pages",
                     "icon_class":"mdi mdi-file",
-                    "menus": [{
-                            "title": "basic forms",
-                            "link": "basic-forms/",
-                            "label_class":"label label-rounded label-success",
-                            "submenus": [{
-                                    "title": "sub basic forms",
-                                    "link": "sub-basic-forms/"
-                                },
-                                {
-                                    "title": "sub form layout",
-                                    "link": "sub-form-layout/"
-                                }
-                            ]
-				        },
-	    			    {
-                            "title": "form layout",
-    			    		"link": "form-layout/"
-	    			    }
-		    	    ]
+                    "link":"modul-data-page.php"
                 }
             ]
 		}
