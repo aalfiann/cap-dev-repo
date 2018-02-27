@@ -172,8 +172,14 @@ $datalogin = Core::checkSessions();?>
                 ajax: {
                     type: "GET",
                     url: "<?php echo Core::getInstance()->api.'/user/token/data/'.$datalogin['username'].'/'.$datalogin['token']?>",
-                    dataSrc: "results",
-                    cache: false
+                    cache: false,
+                    dataSrc: function ( json ) {
+                        if (json.status == "success"){
+                            return json.results;
+                        } else {
+                            return [];
+                        }
+                    }
                 },
                 columns: [
                     { "render": function(data,type,row,meta) { // render event defines the markup of the cell text 
@@ -181,10 +187,10 @@ $datalogin = Core::checkSessions();?>
                             return a;
                         } 
                     },
-                    { data: 'Username'},
-                    { data: 'RS_Token' },
-                    { data: 'Created' },
-                    { data: 'Expired'},
+                    { data: "Username" },
+                    { data: "RS_Token" },
+                    { data: "Created" },
+                    { data: "Expired" },
                     { "render": function(data,type,row,meta) { // render event defines the markup of the cell text 
                             var a = '<button onclick="revokeCall(\''+row.RS_Token+'\');" class="btn btn-danger btn-fill btn-wd"><?php echo Core::lang('revoke_access')?></button>'; // row object contains the row data
                             if (row.RS_Token == "<?php echo $datalogin['token']?>"){
@@ -206,30 +212,35 @@ $datalogin = Core::checkSessions();?>
                     infoEmpty: "<?php echo Core::lang('dt_info_empty')?>",
                     infoFiltered: "<?php echo Core::lang('dt_filtered')?>"
                 },
-                dom: 'Bfrtip',
+                dom: "Bfrtip",
                 buttons: [
                     {
-                        extend: 'copy',
+                        extend: "copy",
+                        text: "<i class=\"mdi mdi-content-copy\"></i> Copy",
                         exportOptions: {
                             columns: selectCol
                         }
                     }, {
-                        extend: 'csv',
+                        extend: "csv",
+                        text: "<i class=\"mdi mdi-file-document\"></i> CSV",
                         exportOptions: {
                             columns: selectCol
                         }
                     }, {
-                        extend: 'excel',
+                        extend: "excel",
+                        text: "<i class=\"mdi mdi-file-excel\"></i> Excel",
                         exportOptions: {
                             columns: selectCol
                         }
                     }, {
-                        extend: 'pdf',
+                        extend: "pdf",
+                        text: "<i class=\"mdi mdi-file-pdf\"></i> PDF",
                         exportOptions: {
                             columns: selectCol
                         }
                     }, {
-                        extend: 'print',
+                        extend: "print",
+                        text: "<i class=\"mdi mdi-printer\"></i> Print",
                         exportOptions: {
                             columns: selectCol
                         }
