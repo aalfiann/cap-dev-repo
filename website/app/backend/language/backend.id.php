@@ -35,6 +35,9 @@ $lang = [
     'core_process_update' => 'Proses Pembaharuan',
     'core_process_delete' => 'Proses Hapus',
     //development
+    'app' => 'Aplikasi',
+    'maintenance' => 'Perawatan',
+    'extension' => 'Extension',
     'develop_process_title' => 'Proses Pembangunan',
     'develop_process_info' => 'Maaf, halaman ini masih dalam proses pembangunan.',
     'maintenance_process_title' => 'Proses Perawatan',
@@ -75,6 +78,7 @@ $lang = [
     'view_profile' => 'Lihat Profil',
     //explore file
     'explore_file' => 'Jelajah File',
+    'file_cloud' => 'File Cloud',
     'upload_file' => 'Unggah File ke Server',
     'upload_now' => 'Unggah Sekarang',
     'detail_file' => 'Detil File',

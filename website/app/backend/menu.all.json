@@ -35,10 +35,10 @@
                 },
                 {
                     "id":"3",
-                    "title":"file sharing",
+                    "title":"File Cloud",
                     "icon_class":"mdi mdi-recycle",
                     "label_class":"",
-                    "link":"modul-file-sharing.php"
+                    "link":"modul-file-cloud.php"
                 },
                 {
                     "id":"4",
@@ -49,10 +49,18 @@
                 },
                 {
                     "id":"5",
-                    "title":"settings",
+                    "title":"maintenance",
                     "icon_class":"mdi mdi-settings",
                     "label_class":"",
-                    "link":"modul-settings.php"
+                    "menus": [{
+                        "title": "settings",
+                        "link": "modul-settings.php"
+                    },
+                    {   
+                        "title": "error log",
+                        "link": "modul-error-log.php"
+                    }
+                ]
                 }
             ]
 		},

@@ -35,6 +35,9 @@ $lang = [
     'core_process_update' => 'Process Update',
     'core_process_delete' => 'Process Delete',
     //development
+    'app' => 'App',
+    'maintenance' => 'Maintenance',
+    'extension' => 'Extension',
     'develop_process_title' => 'Under Constructions',
     'develop_process_info' => 'Sorry, this page still on process construction.',
     'maintenance_process_title' => 'Under Maintenance',
@@ -75,6 +78,7 @@ $lang = [
     'view_profile' => 'View Profile',
     //explore file
     'explore_file' => 'Explore File',
+    'file_cloud' => 'File Cloud',
     'upload_file' => 'Upload File to Server',
     'upload_now' => 'Upload Now',
     'detail_file' => 'Detail File',

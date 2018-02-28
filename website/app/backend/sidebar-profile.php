@@ -9,7 +9,7 @@
                     <div class="profile-text"> 
                             <h5><?php echo $datalogin['username']?></h5>
                             <a href="#" class="dropdown-toggle u-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="mdi mdi-settings"></i></a>
-                            <a href="logout.php" class="" data-toggle="tooltip" title="Logout"><i class="mdi mdi-power"></i></a>
+                            <a href="logout.php" class="" data-toggle="tooltip" title="<?php echo Core::lang('logout')?>"><i class="mdi mdi-power"></i></a>
 
                         <div class="dropdown-menu animated flipInY">
                         <!-- text--> 
