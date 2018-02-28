@@ -217,30 +217,35 @@ $datalogin = Core::checkSessions();?>
                     {
                         extend: "copy",
                         text: "<i class=\"mdi mdi-content-copy\"></i> Copy",
+                        className: "bg-theme",
                         exportOptions: {
                             columns: selectCol
                         }
                     }, {
                         extend: "csv",
                         text: "<i class=\"mdi mdi-file-document\"></i> CSV",
+                        className: "bg-theme",
                         exportOptions: {
                             columns: selectCol
                         }
                     }, {
                         extend: "excel",
                         text: "<i class=\"mdi mdi-file-excel\"></i> Excel",
+                        className: "bg-theme",
                         exportOptions: {
                             columns: selectCol
                         }
                     }, {
                         extend: "pdf",
                         text: "<i class=\"mdi mdi-file-pdf\"></i> PDF",
+                        className: "bg-theme",
                         exportOptions: {
                             columns: selectCol
                         }
                     }, {
                         extend: "print",
                         text: "<i class=\"mdi mdi-printer\"></i> Print",
+                        className: "bg-theme",
                         exportOptions: {
                             columns: selectCol
                         }
