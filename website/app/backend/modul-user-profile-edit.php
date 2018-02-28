@@ -25,7 +25,7 @@ $user = (!empty($_GET['username'])?$_GET['username']:'');?>
             <!-- ============================================================== -->
             <div class="row page-titles">
                 <div class="col-md-5 align-self-center">
-                    <h3 class="text-themecolor"><?php echo Core::lang('user_profile')?></h3>
+                    <h3 class="text-themecolor"><a href="modul-data-user.php"><i class="mdi mdi-arrow-left"></i> <?php echo Core::lang('data').' '.Core::lang('user')?></a></h3>
                 </div>
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
@@ -60,7 +60,15 @@ $user = (!empty($_GET['username'])?$_GET['username']:'');?>
                             'Token' => $datalogin['token']
                         );
                         Core::update(Core::getInstance()->api.'/user/update',$post_array);
-                    } 
+                    }
+
+                    if (isset($_POST['submitdelete'])){
+                        $post_array = array(
+                        	'Username' => $_POST['username'],
+                            'Token' => $datalogin['token']
+                        );
+                        Core::processDelete(Core::getInstance()->api.'/user/delete',$post_array,Core::lang('user'));
+                    }
                 ?>
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
@@ -108,7 +116,7 @@ $user = (!empty($_GET['username'])?$_GET['username']:'');?>
                                         <!-- Nav tabs -->
                                         <ul class="nav nav-tabs profile-tab" role="tablist">
                                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#profile" role="tab">'.Core::lang('profile').'</a> </li>
-                                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#settings" role="tab">'.Core::lang('settings').'</a> </li>
+                                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#settings" role="tab">'.Core::lang('edit').'</a> </li>
                                         </ul>
                                         <!-- Tab panes -->
                                         <div class="tab-content">
@@ -209,7 +217,14 @@ $user = (!empty($_GET['username'])?$_GET['username']:'');?>
                                             </div>
                                             <div class="form-group">
                                                 <div class="col-sm-12">
-                                                    <button name="submitupdate" class="btn btn-success">'.Core::lang('update').' '.Core::lang('profile').'</button>
+                                                    <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+                                                        <div class="btn-group mr-2" role="group" aria-label="First group">
+                                                            <button name="submitupdate" class="btn btn-success">'.Core::lang('update').' '.Core::lang('profile').'</button>
+                                                        </div>
+                                                        <div class="btn-group mr-2" role="group" aria-label="Second group">
+                                                            <button name="submitdelete" class="btn btn-danger">'.Core::lang('delete').' '.Core::lang('user').'</button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </form>
