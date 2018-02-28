@@ -182,8 +182,8 @@ $datalogin = Core::checkSessions();?>
                     }
                 },
                 columns: [
-                    { "render": function(data,type,row,meta) { // render event defines the markup of the cell text 
-                            var a = meta.row + meta.settings._iDisplayStart + 1; // row object contains the row data
+                    { "render": function(data,type,row,meta) { 
+                            var a = meta.row + meta.settings._iDisplayStart + 1;
                             return a;
                         } 
                     },
@@ -191,8 +191,8 @@ $datalogin = Core::checkSessions();?>
                     { data: "RS_Token" },
                     { data: "Created" },
                     { data: "Expired" },
-                    { "render": function(data,type,row,meta) { // render event defines the markup of the cell text 
-                            var a = '<button onclick="revokeCall(\''+row.RS_Token+'\');" class="btn btn-danger btn-fill btn-wd"><?php echo Core::lang('revoke_access')?></button>'; // row object contains the row data
+                    { "render": function(data,type,row,meta) {
+                            var a = '<button onclick="revokeCall(\''+row.RS_Token+'\');" class="btn btn-danger btn-fill btn-wd"><?php echo Core::lang('revoke_access')?></button>';
                             if (row.RS_Token == "<?php echo $datalogin['token']?>"){
                                 return '<b class="text-success"><?php echo Core::lang('active_access')?></b>';
                             } else {

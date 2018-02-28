@@ -47,7 +47,7 @@
                 document.getElementById("themecolors").querySelector("ul > li > a."+classTheme+"-theme").className = classTheme+"-theme working";
             }
         }
-        //check localstorage
+        /* Check localstorage */
 		if (localStorage.getItem("<?php echo str_replace(' ','',Core::getInstance()->title)?>_theme") == "" || localStorage.getItem("<?php echo str_replace(' ','',Core::getInstance()->title)?>_theme") == "undefined") {
 			console.log("Using default theme blue...");
 			getTheme = "blue";
@@ -71,9 +71,9 @@
 		function addCommas(a){a+='',x=a.split('.'),x1=x[0],x2=1<x.length?'.'+x[1]:'';for(var b=/(\d+)(\d{3})/;b.test(x1);)x1=x1.replace(b,'$1,$2');return x1+x2}
         /* Get url parameter value by name */
         function getURLParameter(name){return decodeURIComponent((new RegExp('[?|&]'+name+'=([^&;]+?)(&|#|;|$)').exec(location.search)||[null,''])[1].replace(/\+/g,'%20'))||null}
-        /* write message jQuery */
+        /* Write message jQuery */
         function writeMessage(selector,type,message1,message2=""){$(function() { return $(selector).html('<div class="col-lg-12"><div class="alert alert-'+type+' alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button><strong>'+message1+'</strong> '+message2+'</div></div>'); });}
-        /* message html string */
+        /* Message html string */
         function messageHtml(type,message1,message2=""){
             return '<div class="col-lg-12"><div class="alert alert-'+type+' alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button><strong>'+message1+'</strong> '+message2+'</div></div>'; 
         }
