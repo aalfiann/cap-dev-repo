@@ -284,7 +284,7 @@
                 if ($data->{'status'} == "success"){
                     if ($post_array['Rememberme'] == "on"){
 						setcookie('username', $post_array['Username'], time() + (3600 * 168), "/", NULL); // expired = 7 days
-                          setcookie('token', $data->{'token'}, time() + (3600 * 168), "/", NULL); // expired = 7 days
+                        setcookie('token', $data->{'token'}, time() + (3600 * 168), "/", NULL); // expired = 7 days
 					} else {
                         session_start();
                         $_SESSION['username'] = $post_array['Username'];
@@ -304,19 +304,22 @@
          *
          * @return redirect to login page
 		 */
-        public static function logout()
-        {
+        public static function logout(){
             //Unset SESSION
-        	if (!isset($_SESSION['username'])) session_start();
+        	session_start();
+            if(isset($_SESSION['username']) && !empty($_SESSION['username'])) {
                 if (self::revokeToken($_SESSION['username'],$_SESSION['token'])){
                     unset($_SESSION['username']);
-                	unset($_SESSION['token']);
+                    unset($_SESSION['token']);
                 }
+            }
         	// unset cookies
         	if (isset($_SERVER['HTTP_COOKIE'])) {
-                if (self::revokeToken($_COOKIE['username'],$_COOKIE['token'])){
-                    setcookie('username', '', time()-1000, '/');
-                    setcookie('token', '', time()-1000, '/');
+                if(isset($_COOKIE['username']) && !empty($_COOKIE['username'])) {
+                    if (self::revokeToken($_COOKIE['username'],$_COOKIE['token'])){
+                        setcookie('username', '', time()-1000, '/');
+                        setcookie('token', '', time()-1000, '/');
+                    }
                 }
             	$cookies = explode(';', $_SERVER['HTTP_COOKIE']);
             	    foreach($cookies as $cookie) {
@@ -325,7 +328,8 @@
                     	setcookie($name, '', time()-1000);
                         setcookie($name, '', time()-1000, '/');
                 	}
-	        }
+            }
+            unset($_SESSION['groupid']); //user group session menu
         	header("Location: ".self::getInstance()->basepath."/modul-login.php");
         }
 
