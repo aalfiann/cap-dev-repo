@@ -52,10 +52,26 @@ function generateMenuJson($menujson){
     return $result;
 }
 
+function getUserGroup($token){
+    // If group id found
+    if (isset($_SESSION['groupid']) && !empty($_SESSION['groupid'])){
+        return $_SESSION['groupid'];
+    } else {
+        $groupid = Core::getRole($token);
+        $_SESSION['groupid'] = $groupid;
+        return $groupid;
+    }
+}
+
 if (empty($datalogin)){
     $datamenu = file_get_contents('menu.public.json');
 } else {
-    $datamenu = file_get_contents('menu.all.json');
+    $usergroup = getUserGroup($datalogin['token']);
+    if ($usergroup == '1'){
+        $datamenu = file_get_contents('menu.superuser.json');
+    } else if($usergroup == '2'){
+        $datamenu = file_get_contents('menu.admin.json');
+    }
 }
 
 echo generateMenuJson($datamenu);
