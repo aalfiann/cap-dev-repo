@@ -52,7 +52,7 @@ $datalogin = Core::checkSessions();?>
                         <div class="input-group">
                             <input id="searchdt" type="text" class="form-control" placeholder="<?php echo Core::lang('input_search')?>">
                             <span class="input-group-btn">
-                                <button id="submitsearchdt" onclick="loadData('#datauser','1',selectedOption(),document.getElementById('searchdt').value);" class="btn btn-info" type="button"><?php echo Core::lang('search')?></button>
+                                <button id="submitsearchdt" onclick="loadData('#datauser','1',selectedOption(),document.getElementById('searchdt').value);" class="btn btn-themecolor" type="button"><?php echo Core::lang('search')?></button>
                             </span>
                         </div>
                     </div>
@@ -201,7 +201,7 @@ $datalogin = Core::checkSessions();?>
             var data = '<div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">\
                     <div class="btn-group mr-2" role="group" aria-label="First group"><p><?php echo Core::lang('dt_shows_page')?> '+pagenow+' <?php echo Core::lang('dt_of')?> '+pagetotal+'</p></div>\
                     <div class="btn-group mr-2" role="group" aria-label="Second group">';
-                data += '<select id="selectoptdt" onchange="changeOption(\''+idtable+'\');" class="form-control mr-3">\
+                data += '<select id="selectoptdt" onchange="changeOption(\''+idtable+'\');" class="form-control custom-select mr-3">\
                         <option value="10"'+((itemperpage == '10')?' selected':'')+'>10</option>\
                         <option value="50"'+((itemperpage == '50')?' selected':'')+'>50</option>\
                         <option value="100"'+((itemperpage == '100')?' selected':'')+'>100</option>\
@@ -215,7 +215,7 @@ $datalogin = Core::checkSessions();?>
                         data += '<button onclick="loadData(\''+idtable+'\',\'1\',\''+itemperpage+'\');" type="button" class="btn btn-secondary hidden-sm-down mr-2"><i class="mdi mdi-skip-backward"></i></button>';
                         data += '<button onclick="loadData(\''+idtable+'\',\''+(pagenow-1)+'\',\''+itemperpage+'\');" type="button" class="btn btn-secondary"><i class="mdi mdi-skip-previous"></i></button>';
                         for (p=(pagenow-2);p<=(pagenow+2);p++){
-                            data += '<button '+((p == pagenow)?'class="btn btn-info disabled"':'onclick="loadData(\''+idtable+'\',\''+p+'\',\''+itemperpage+'\');" class="btn btn-secondary"')+' type="button">'+p+'</button>';
+                            data += '<button '+((p == pagenow)?'class="btn btn-themecolor disabled"':'onclick="loadData(\''+idtable+'\',\''+p+'\',\''+itemperpage+'\');" class="btn btn-secondary"')+' type="button">'+p+'</button>';
                         }
                         data += '<button onclick="loadData(\''+idtable+'\',\''+(pagenow+1)+'\',\''+itemperpage+'\');" type="button" class="btn btn-secondary"><i class="mdi mdi-skip-next"></i></button>';
                         data += '<button onclick="loadData(\''+idtable+'\',\''+pagetotal+'\',\''+itemperpage+'\');" type="button" class="btn btn-secondary ml-2 hidden-sm-down"><i class="mdi mdi-skip-forward"></i></button>';
@@ -228,7 +228,7 @@ $datalogin = Core::checkSessions();?>
                         }
                         for (p=(pagetotal-4);p<=pagetotal;p++)
                         {
-                            data += '<button '+((p == pagenow)?'class="btn btn-info disabled"':'onclick="loadData(\''+idtable+'\',\''+p+'\',\''+itemperpage+'\');" class="btn btn-secondary"')+' type="button">'+p+'</button>';
+                            data += '<button '+((p == pagenow)?'class="btn btn-themecolor disabled"':'onclick="loadData(\''+idtable+'\',\''+p+'\',\''+itemperpage+'\');" class="btn btn-secondary"')+' type="button">'+p+'</button>';
                         }
                         if (pagenow<pagetotal){
                             data += '<button onclick="loadData(\''+idtable+'\',\''+(pagenow+1)+'\',\''+itemperpage+'\');" type="button" class="btn btn-secondary"><i class="mdi mdi-skip-next"></i></button>';
@@ -243,7 +243,7 @@ $datalogin = Core::checkSessions();?>
                         }
                         for (p=(pagetotal-(pagetotal-1));p<=pagetotal;p++)
                         {
-                            data += '<button '+((p == pagenow)?'class="btn btn-info disabled"':'onclick="loadData(\''+idtable+'\',\''+p+'\',\''+itemperpage+'\');" class="btn btn-secondary"')+' type="button">'+p+'</button>';
+                            data += '<button '+((p == pagenow)?'class="btn btn-themecolor disabled"':'onclick="loadData(\''+idtable+'\',\''+p+'\',\''+itemperpage+'\');" class="btn btn-secondary"')+' type="button">'+p+'</button>';
                         }
                         if (pagenow<pagetotal){
                             data += '<button onclick="loadData(\''+idtable+'\',\''+(pagenow+1)+'\',\''+itemperpage+'\');" type="button" class="btn btn-secondary"><i class="mdi mdi-skip-next"></i></button>';
@@ -258,7 +258,7 @@ $datalogin = Core::checkSessions();?>
                         }
                         for (p=1;p<=pagetotal;p++)
                         {
-                            data += '<button '+((p == pagenow)?'class="btn btn-info disabled"':'onclick="loadData(\''+idtable+'\',\''+p+'\',\''+itemperpage+'\');" class="btn btn-secondary"')+' type="button">'+p+'</button>';
+                            data += '<button '+((p == pagenow)?'class="btn btn-themecolor disabled"':'onclick="loadData(\''+idtable+'\',\''+p+'\',\''+itemperpage+'\');" class="btn btn-secondary"')+' type="button">'+p+'</button>';
                         }
                         data += '<button onclick="loadData(\''+idtable+'\',\''+(pagenow+1)+'\',\''+itemperpage+'\');" type="button" class="btn btn-secondary"><i class="mdi mdi-skip-next"></i></button>';
                         data += '<button onclick="loadData(\''+idtable+'\',\''+pagetotal+'\',\''+itemperpage+'\');" type="button" class="btn btn-secondary ml-2 hidden-sm-down"><i class="mdi mdi-skip-forward"></i></button>';
@@ -271,7 +271,7 @@ $datalogin = Core::checkSessions();?>
                         }
                         for (p=1;p<=5;p++)
                         {
-                            data += '<button '+((p == pagenow)?'class="btn btn-info disabled"':'onclick="loadData(\''+idtable+'\',\''+p+'\',\''+itemperpage+'\');" class="btn btn-secondary"')+' type="button">'+p+'</button>';
+                            data += '<button '+((p == pagenow)?'class="btn btn-themecolor disabled"':'onclick="loadData(\''+idtable+'\',\''+p+'\',\''+itemperpage+'\');" class="btn btn-secondary"')+' type="button">'+p+'</button>';
                         }
                         data += '<button onclick="loadData(\''+idtable+'\',\''+(pagenow+1)+'\',\''+itemperpage+'\');" type="button" class="btn btn-secondary"><i class="mdi mdi-skip-next"></i></button>';
                         data += '<button onclick="loadData(\''+idtable+'\',\''+pagetotal+'\',\''+itemperpage+'\');" type="button" class="btn btn-secondary ml-2 hidden-sm-down"><i class="mdi mdi-skip-forward"></i></button>';
@@ -354,30 +354,35 @@ $datalogin = Core::checkSessions();?>
                         {
                             extend: "copy",
                             text: "<i class=\"mdi mdi-content-copy\"></i> Copy",
+                            className: "bg-theme",
                             exportOptions: {
                                 columns: selectCol
                             }
                         }, {
                             extend: "csv",
                             text: "<i class=\"mdi mdi-file-document\"></i> CSV",
+                            className: "bg-theme",
                             exportOptions: {
                                 columns: selectCol
                             }
                         }, {
                             extend: "excel",
                             text: "<i class=\"mdi mdi-file-excel\"></i> Excel",
+                            className: "bg-theme",
                             exportOptions: {
                                 columns: selectCol
                             }
                         }, {
                             extend: "pdf",
                             text: "<i class=\"mdi mdi-file-pdf\"></i> PDF",
+                            className: "bg-theme",
                             exportOptions: {
                                 columns: selectCol
                             }
                         }, {
                             extend: "print",
                             text: "<i class=\"mdi mdi-printer\"></i> Print",
+                            className: "bg-theme",
                             exportOptions: {
                                 columns: selectCol
                             }
