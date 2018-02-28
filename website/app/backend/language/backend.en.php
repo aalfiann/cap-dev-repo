@@ -188,6 +188,8 @@ $lang = [
     'dt_info' => 'Showing page _PAGE_ of _PAGES_',
     'dt_info_empty' => 'No records available',
     'dt_filtered' => '(filtered from _MAX_ total records)',
+    'dt_shows_page' => 'Shows page',
+    'dt_of' => 'of',
     //general input form
     'input_username' => 'Your Username',
     'input_password' => 'Your Password',

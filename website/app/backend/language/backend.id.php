@@ -188,6 +188,9 @@ $lang = [
     'dt_info' => 'Menampilkan halaman _PAGE_ dari _PAGES_',
     'dt_info_empty' => 'Data tidak tersedia',
     'dt_filtered' => '(memfilter dari _MAX_ total data)',
+    //datatables custom
+    'dt_shows_page' => 'Halaman',
+    'dt_of' => 'dari',
     //general input form
     'input_username' => 'Nama Pengguna Anda',
     'input_password' => 'Kata Sandi Anda',

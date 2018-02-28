@@ -25,7 +25,7 @@
         var $apikey;
 
         // Set language
-        var $setlang = 'en';
+        var $setlang = 'id';
         var $datalang;
 
         // Set Run Cache Files
