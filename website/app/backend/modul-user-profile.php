@@ -44,6 +44,7 @@ $datalogin = Core::checkSessions();?>
             <!-- Container fluid  -->
             <!-- ============================================================== -->
             <div class="container-fluid">
+                <div id="report-changepass"></div>
                 <?php
                     if (isset($_POST['submitupdate'])){
                         $post_array = array(
@@ -99,6 +100,7 @@ $datalogin = Core::checkSessions();?>
                                         <ul class="nav nav-tabs profile-tab" role="tablist">
                                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#profile" role="tab">'.Core::lang('profile').'</a> </li>
                                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#settings" role="tab">'.Core::lang('edit').'</a> </li>
+                                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#changepassword" role="tab">'.Core::lang('change_password').'</a> </li>
                                         </ul>
                                         <!-- Tab panes -->
                                         <div class="tab-content">
@@ -128,7 +130,8 @@ $datalogin = Core::checkSessions();?>
                                                     <p class="m-t-30">'.$data->result[0]->Aboutme.'</p>
                                                 </div>
                                             </div>
-                                
+
+                                            <!--second tab-->
                                             <div class="tab-pane" id="settings" role="tabpanel">
                                                 <div class="card-body">
                                                     <form class="form-horizontal form-material" method="post" action="'.$_SERVER['PHP_SELF'].'">
@@ -182,6 +185,45 @@ $datalogin = Core::checkSessions();?>
                                                     </form>
                                                 </div>
                                             </div>
+
+                                            <!--third tab-->
+                                            <div class="tab-pane" id="changepassword" role="tabpanel">
+                                                <div class="card-body">
+                                                    <form class="form-horizontal form-material" id="changepass" action="#">
+                                                        <div class="form-group">
+                                                            <label class="col-md-12">'.Core::lang('tb_username').'</label>
+                                                             <div class="col-md-12">
+                                                                <input id="username" type="text" placeholder="'.Core::lang('input_username').'" class="form-control form-control-line" value="'.$data->result[0]->Username.'" readonly>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-12">'.Core::lang('password').'</label>
+                                                            <div class="col-md-12">
+                                                                <input id="password1" type="password" class="form-control form-control-line" required>
+                                                                <span class="help-block text-muted"><small>'.Core::lang('notice_change_password').'</small></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-12">'.Core::lang('new_password').'</label>
+                                                            <div class="col-md-12">
+                                                                <input id="password2" type="password" class="form-control form-control-line" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-12">'.Core::lang('confirm_new_password').'</label>
+                                                            <div class="col-md-12">
+                                                                <input id="password3" type="password" class="form-control form-control-line" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="col-sm-12">
+                                                                <button type="submit" class="btn btn-success">'.Core::lang('submit').'</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -223,6 +265,56 @@ $datalogin = Core::checkSessions();?>
     <!-- End Wrapper -->
     <!-- ============================================================== -->
     <?php include_once 'global-js.php';?>
+    <script>
+        /* Change password start */
+        $("#changepass").on("submit",sendnewpass);
+        function sendnewpass(e){
+            console.log("Process change password...");
+            e.preventDefault();
+            var that = $(this);
+            that.off("submit"); /* remove handler */
+            var div = document.getElementById("report-changepass");
+            if ($("#password2").val() === $("#password3").val()){
+                $.ajax({
+                    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/user/changepassword')?>"),
+                    data : {
+                        Username: $("#username").val(),
+                        Password: $("#password1").val(),
+                        NewPassword: $("#password3").val(),
+                        Token: "<?php echo $datalogin['token']?>"
+                    },
+                    dataType: "json",
+                    type: "POST",
+                    success: function(data) {
+                        div.innerHTML = "";
+                        if (data.status == "success"){
+                            div.innerHTML = messageHtml("success","<?php echo Core::lang('core_change_password_success')?>");
+                            /* clear from */
+                            $("#changepassword")
+                            .find("input,textarea,select")
+                            .val("")
+                            .end()
+                            .find("input[type=checkbox]")
+                            .prop("checked", "")
+                            .end()
+                            .find("button[type=submit]")
+                            .attr("disabled", "disabled")
+                            .end();
+                            console.log("Process change password success! You have to re-login now.");
+                        } else {
+                            div.innerHTML = messageHtml("danger","<?php echo Core::lang('core_change_password_failed')?>",data.message);
+                            that.on("submit", sendnewpass); /* add handler back after ajax */
+                        }
+                    },
+                    error: function(x, e) {}
+                });   
+            } else {
+                div.innerHTML = messageHtml("danger","<?php echo Core::lang('not_match_password')?>");
+                that.on("submit", sendnewpass); /* add handler back after ajax */
+            }
+        }
+        /* Change password end */
+    </script>
 </body>
 
 </html>

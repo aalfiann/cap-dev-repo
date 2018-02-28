@@ -118,6 +118,7 @@ $lang = [
     'password' => 'Kata Sandi (Password)',
     'confirm_password' => 'Konfirmasi Kata Sandi',
     'new_password' => 'Kata Sandi Baru',
+    'notice_change_password' => 'Demi alasan keamanan, Anda akan otomatis keluar jika salah input kata sandi lama.',
     'confirm_new_password' => 'Konfirmasi Kata Sandi Baru',
     'change_password' => 'Ubah Kata Sandi',
     'not_match_password' => 'Kata sandi Anda tidak cocok!',

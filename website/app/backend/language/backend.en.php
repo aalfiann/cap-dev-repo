@@ -118,6 +118,7 @@ $lang = [
     'password' => 'Password',
     'confirm_password' => 'Confirm Password',
     'new_password' => 'New Password',
+    'notice_change_password' => 'For security reason, you will automatically logout if you wrong to input your old password.',
     'confirm_new_password' => 'Confirm New Password',
     'change_password' => 'Change Password',
     'not_match_password' => 'Your password is not match!',
