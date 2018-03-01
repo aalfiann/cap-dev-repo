@@ -1,5 +1,8 @@
 <?php spl_autoload_register(function ($classname) {require ( $classname . ".php");});
-$datalogin = Core::checkSessions();?>
+$datalogin = Core::checkSessions();
+// Data Role
+$urlrole = Core::getInstance()->api.'/user/role/'.$datalogin['token'];
+$datarole = json_decode(Core::execGetRequest($urlrole));?>
 <!DOCTYPE html>
 <html lang="<?php echo Core::getInstance()->setlang?>">
 <head>
@@ -34,7 +37,7 @@ $datalogin = Core::checkSessions();?>
                     </ol>
                 </div>
                 <div>
-                    <button class="right-side-toggle waves-effect waves-light btn-inverse btn btn-circle btn-sm pull-right m-l-10"><i class="ti-settings text-white"></i></button>
+                    <button class="right-side-toggle waves-effect waves-light btn-themecolor btn btn-circle btn-sm pull-right m-l-10"><i class="ti-settings text-white"></i></button>
                 </div>
             </div>
             <!-- ============================================================== -->
@@ -62,12 +65,73 @@ $datalogin = Core::checkSessions();?>
                 <!-- ============================================================== -->
                 <div class="row">
                     <div class="col-12">
-                        <div id="reportrevoke"></div>
                         <div class="card">
                             <div class="card-body">
                                 
                                 <h4 class="card-title"><?php echo Core::lang('data')?> <?php echo Core::lang('user')?></h4><hr>
                                 <div class="table-responsive m-t-40">
+                                    <a href="#" data-toggle="modal" data-target=".addnew" class="btn btn-inverse"><i class="mdi mdi-account-plus"></i> <?php echo Core::lang('add').' '.Core::lang('user')?></a>
+                                    <!-- terms modal content -->
+                                    <div class="modal fade addnew" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title" id="myLargeModalLabel"><i class="mdi mdi-account-plus"></i> <?php echo Core::lang('add').' '.Core::lang('user')?></h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                </div>
+                                                <form class="form-horizontal form-material" id="addnewdata" action="#">
+                                                    <div class="modal-body">
+                                                        <div id="report-newdata"></div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-12"><?php echo Core::lang('tb_username')?></label>
+                                                             <div class="col-md-12">
+                                                                <input id="username" type="text" class="form-control form-control-line" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-12"><?php echo Core::lang('email_address')?></label>
+                                                            <div class="col-md-12">
+                                                                <input id="email" type="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" class="form-control form-control-line" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-12"><?php echo Core::lang('password')?></label>
+                                                            <div class="col-md-12">
+                                                                <input id="password1" type="password" class="form-control form-control-line" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-12"><?php echo Core::lang('confirm_password')?></label>
+                                                            <div class="col-md-12">
+                                                                <input id="password2" type="password" class="form-control form-control-line" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-12"><?php echo Core::lang('tb_role')?></label>
+                                                            <div class="col-md-12">
+                                                            <select id="role" style="max-height:200px; overflow-y:scroll; overflow-x:hidden;" class="form-control form-control-line" required>
+                                                                <?php if (!empty($datarole)) {
+                                                                        foreach ($datarole->result as $name => $value) {
+                                                                            echo '<option value="'.$value->{'RoleID'}.'" '.(($value->{'Role'} == $data->result[0]->{'Role'})?'selected':'').'>'.$value->{'Role'}.'</option>';
+                                                                        }
+                                                                    }
+                                                                ?>
+                                                            </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default waves-effect text-left" data-dismiss="modal"><?php echo Core::lang('cancel')?></button>
+                                                        <button type="submit" class="btn btn-success"><?php echo Core::lang('submit')?></button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <!-- /.modal-content -->
+                                        </div>
+                                        <!-- /.modal-dialog -->
+                                    </div>
+                                    <!-- /.modal -->
+
                                     <table id="datauser" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
@@ -394,7 +458,70 @@ $datalogin = Core::checkSessions();?>
         
         /* Load data from datatables onload */
         loadData('#datauser','1','10');
-        
+
+        /* Change password start */
+        function selectedRole(){
+            var selection = document.getElementById("role") !== null;
+            if (selection){
+                var selectBox = document.getElementById("role");
+                var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+                return selectedValue;
+            } else {
+                return "3";
+            }
+        }
+
+        $("#addnewdata").on("submit",sendnewdata);
+        function sendnewdata(e){
+            console.log("Process add new data...");
+            e.preventDefault();
+            var that = $(this);
+            that.off("submit"); /* remove handler */
+            var div = document.getElementById("report-newdata");
+            if ($("#password1").val() === $("#password2").val()){
+                $.ajax({
+                    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/user/register')?>"),
+                    data : {
+                        Username: $("#username").val(),
+                        Email: $("#email").val(),
+                        Password: $("#password2").val(),
+                        Fullname: $("#username").val(),
+                        Address: "",
+                        Phone: "",
+                        Aboutme: "",
+                        Avatar: "",
+                        Role: selectedRole()
+                    },
+                    dataType: "json",
+                    type: "POST",
+                    success: function(data) {
+                        div.innerHTML = "";
+                        if (data.status == "success"){
+                            div.innerHTML = messageHtml("success","<?php echo Core::lang('core_process_add').' '.Core::lang('user').' '.Core::lang('status_success')?>");
+                            /* clear from */
+                            $("#addnewdata")
+                            .find("input,textarea")
+                            .val("")
+                            .end()
+                            .find("input[type=checkbox]")
+                            .prop("checked", "")
+                            .end();
+                            console.log("<?php echo Core::lang('core_process_add').' '.Core::lang('user').' '.Core::lang('status_success')?>");
+                            $('#datauser').DataTable().ajax.reload(); /* reload data table */
+                            that.on("submit", sendnewdata); /* add handler back after ajax */
+                        } else {
+                            div.innerHTML = messageHtml("danger","<?php echo Core::lang('core_process_add').' '.Core::lang('user').' '.Core::lang('status_failed')?>",data.message);
+                            that.on("submit", sendnewdata); /* add handler back after ajax */
+                        }
+                    },
+                    error: function(x, e) {}
+                });   
+            } else {
+                div.innerHTML = messageHtml("danger","<?php echo Core::lang('not_match_password')?>");
+                that.on("submit", sendnewdata); /* add handler back after ajax */
+            }
+        }
+        /* Change password end */
     </script>
 </body>
 
