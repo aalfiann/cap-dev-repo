@@ -11,7 +11,7 @@
                                 <li><a href="javascript:void(0)" onclick="setTheme('default');" data-theme="default" class="default-theme">1</a></li>
                                 <li><a href="javascript:void(0)" onclick="setTheme('green');" data-theme="green" class="green-theme">2</a></li>
                                 <li><a href="javascript:void(0)" onclick="setTheme('red');" data-theme="red" class="red-theme">3</a></li>
-                                <li><a href="javascript:void(0)" onclick="setTheme('blue');" data-theme="blue" class="blue-theme working">4</a></li>
+                                <li><a href="javascript:void(0)" onclick="setTheme('blue');" data-theme="blue" class="blue-theme">4</a></li>
                                 <li><a href="javascript:void(0)" onclick="setTheme('purple');" data-theme="purple" class="purple-theme">5</a></li>
                                 <li><a href="javascript:void(0)" onclick="setTheme('megna');" data-theme="megna" class="megna-theme">6</a></li>
                                 <li class="d-block m-t-30"><b><?php echo Core::lang('theme_dark')?></b></li>

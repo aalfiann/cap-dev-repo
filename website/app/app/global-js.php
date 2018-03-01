@@ -43,7 +43,6 @@
         function checkActiveTheme(classTheme){
             var selection = document.getElementById("themecolors") !== null;
             if (selection){
-                document.getElementById("themecolors").querySelector("ul > li > a.working").remove("working");
                 document.getElementById("themecolors").querySelector("ul > li > a."+classTheme+"-theme").className = classTheme+"-theme working";
             }
         }
