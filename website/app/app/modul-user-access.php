@@ -60,7 +60,7 @@ $datalogin = Core::checkSessions();?>
                                         <thead>
                                             <tr>
                                                 <th><?php echo Core::lang('tb_no')?></th>
-                                                <th><?php echo Core::lang('username')?></th>
+                                                <th><?php echo Core::lang('tb_username')?></th>
                                                 <th><?php echo Core::lang('token')?></th>
                                                 <th><?php echo Core::lang('date_login')?></th>
                                                 <th><?php echo Core::lang('expired')?></th>
@@ -70,7 +70,7 @@ $datalogin = Core::checkSessions();?>
                                         <tfoot>
                                             <tr>
                                                 <th><?php echo Core::lang('tb_no')?></th>
-                                                <th><?php echo Core::lang('username')?></th>
+                                                <th><?php echo Core::lang('tb_username')?></th>
                                                 <th><?php echo Core::lang('token')?></th>
                                                 <th><?php echo Core::lang('date_login')?></th>
                                                 <th><?php echo Core::lang('expired')?></th>
