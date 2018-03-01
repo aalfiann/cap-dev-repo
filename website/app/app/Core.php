@@ -657,6 +657,7 @@
                 {
                     $out['username'] = null;
                     $out['token'] = null;
+                    unset($_SESSION['groupid']); //user group session menu
                     header("Location: ".self::getInstance()->basepath."/modul-login.php");
                 }
                 else
@@ -667,6 +668,7 @@
                     } else {
                         $out['username'] = null;
                         $out['token'] = null;
+                        unset($_SESSION['groupid']); //user group session menu
                         header("Location: ".self::getInstance()->basepath."/modul-login.php");
                     }                     
                 }
@@ -679,6 +681,7 @@
                 } else {
                     $out['username'] = null;
                     $out['token'] = null;
+                    unset($_SESSION['groupid']); //user group session menu
                     header("Location: ".self::getInstance()->basepath."/modul-login.php");
                 }
     	    }
