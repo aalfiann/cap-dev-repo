@@ -7,27 +7,18 @@ CAP Development
 
 Untuk melihat status proses development [klik disini](https://github.com/aalfiann/cap-dev-repo/commits/master).<br>
 
-CAP Skeleton System:
+CAP Progress Status Stage 1:
 ---------------
-Build with essentials of user management system in rest api way.
-
-1. User register, login and logout
-2. Auto generated token every login
-3. User can revoke all active token
-4. User can manage their API Keys
-5. Included with default role for superuser, admin and member
-6. Auto clear current token when logout,user deleted or password was changed
-7. Change, reset, forgot password concept is very secure
-8. Mailer for sending email or contact form
-9. File management system
-10. Pages management system
-11. Pagination json response
-12. Support Multi Language
-13. Server Side Caching
-14. Etc.
-
-Next Roadmap Development
----------------
-
-1. Web Company App
-2. Transaction Cargo
+1. Build Rest API Server >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
+2. Configure Mail Server >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
+3. Modular Template UI >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
+4. User Management System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
+5. API Management System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
+6. Maintenance Settings >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
+7. Error Log System >> ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) `on progress`
+8. Page Management System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
+9. File Management System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
+10. Company Profile >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
+11. Branches Management System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
+12. Transaction Data >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
+13. Reporting Data >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
