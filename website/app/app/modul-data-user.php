@@ -237,7 +237,6 @@ $datarole = json_decode(Core::execGetRequest($urlrole));?>
             if (selection){
                 var selectBox = document.getElementById("selectoptdt");
                 var selectedValue = selectBox.options[selectBox.selectedIndex].value;
-                console.log(selectedValue);
                 return selectedValue;
             } else {
                 return "10";
