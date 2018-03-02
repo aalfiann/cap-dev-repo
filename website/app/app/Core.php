@@ -12,17 +12,62 @@
         // Set title website
         var $title;
 
+        // Set keyword website
+        var $keyword;
+
+        // Set description website
+        var $description;
+
         // Set email address website
         var $email;
         
         // Set base path example project
         var $basepath;
 
+        // Set home path example project
+        var $homepath;
+
         // Set base api reslim
         var $api;
 
         // Set api keys
         var $apikey;
+
+        // Set disqus
+        var $disqus;
+
+        // Set facebook
+        var $facebook;
+
+        // Set twitter
+        var $twitter;
+
+        // Set google plus
+        var $gplus;
+
+        // Set google publisher page
+        var $gpub;
+
+        // Set sharethis keys
+        var $sharethis;
+
+        // Set google analytics
+        var $googleanalytics;
+
+        // Set google webmaster tools
+        var $googlewebmaster;
+
+        // Set bing webmaster tools
+        var $bingwebmaster;
+        
+        // Set yandex webmaster tools
+        var $yandexwebmaster;
+
+        // Set Keyword Dynamic Page
+        var $seopage;
+
+        // Set Keyword Competitor Site
+        var $seosite;
 
         // Set language
         var $setlang = 'id';
@@ -45,10 +90,25 @@
             }
             $this->datalang = $lang;                // set language
             $this->title = $config['title'];
+            $this->keyword = $config['keyword'];
+            $this->description = $config['description'];
             $this->email = $config['email'];
             $this->basepath = $config['basepath'];
+            $this->homepath = $config['homepath'];
             $this->api = $config['api'];
             $this->apikey = $config['apikey'];
+            $this->disqus = $config['disqus'];
+            $this->sharethis = $config['sharethis'];
+            $this->facebook = $config['facebook'];
+            $this->twitter = $config['twitter'];
+            $this->gplus = $config['gplus'];
+            $this->gpub = $config['gpub'];
+            $this->googleanalytics = $config['googleanalytics'];
+            $this->googlewebmaster = $config['googlewebmaster'];
+            $this->bingwebmaster = $config['bingwebmaster'];
+            $this->yandexwebmaster = $config['yandexwebmaster'];
+            $this->seopage = $config['seopage'];
+            $this->seosite = $config['seosite'];
 		}
 
         public static function getInstance()
@@ -748,10 +808,25 @@
             $newcontent = '<?php 
             //Configurations
             $config[\'title\'] = \''.$post_array['Title'].'\'; //Your title website
+            $config[\'keyword\'] = \''.$post_array['Keyword'].'\'; //Your keyword website
+            $config[\'description\'] = \''.$post_array['Description'].'\'; //Your description website
             $config[\'email\'] = \''.$post_array['Email'].'\'; //Your default email
             $config[\'basepath\'] = \''.$post_array['Basepath'].'\'; //Your folder website
+            $config[\'homepath\'] = \''.$post_array['Homepath'].'\'; //Your folder frontend website
             $config[\'api\'] = \''.$post_array['Api'].'\'; //Your folder rest api
-            $config[\'apikey\'] = \''.$post_array['ApiKey'].'\'; //Your api key, you can leave this blank and fill this later';
+            $config[\'apikey\'] = \''.$post_array['ApiKey'].'\'; //Your api key, you can leave this blank and fill this later
+            $config[\'disqus\'] = \''.$post_array['Disqus'].'\'; //Your disqus username, you can leave this blank and fill this later
+            $config[\'sharethis\'] = \''.$post_array['Sharethis'].'\'; //Your sharethis key, you can leave this blank and fill this later
+            $config[\'facebook\'] = \''.$post_array['Facebook'].'\'; //Your facebook page, you can leave this blank and fill this later
+            $config[\'twitter\'] = \''.$post_array['Twitter'].'\'; //Your twitter page, you can leave this blank and fill this later
+            $config[\'gplus\'] = \''.$post_array['Gplus'].'\'; //Your google plus page, you can leave this blank and fill this later
+            $config[\'gpub\'] = \''.$post_array['Gpub'].'\'; //Your google publisher page, you can leave this blank and fill this later
+            $config[\'googleanalytics\'] = \''.$post_array['Googleanalytics'].'\'; //Your google analytics, you can leave this blank and fill this later
+            $config[\'googlewebmaster\'] = \''.$post_array['Googlewebmaster'].'\'; //Your google webmaster, you can leave this blank and fill this later
+            $config[\'bingwebmaster\'] = \''.$post_array['Bingwebmaster'].'\'; //Your bing webmaster, you can leave this blank and fill this later
+            $config[\'yandexwebmaster\'] = \''.$post_array['Yandexwebmaster'].'\'; //Your yandex webmaster, you can leave this blank and fill this later
+            $config[\'seopage\'] = \''.$post_array['Seopage'].'\'; //Keyword for dynamic page, you can leave this blank and fill this later
+            $config[\'seosite\'] = \''.$post_array['Seosite'].'\'; //Keyword for competitor site, you can leave this blank and fill this later';
             $handle = fopen('config.php','w+'); 
 				fwrite($handle,$newcontent); 
 				fclose($handle); 
