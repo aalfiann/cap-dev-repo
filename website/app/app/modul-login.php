@@ -33,7 +33,7 @@
                         }
                     ?>
                     <form class="form-horizontal form-material" id="loginform" action="<?php $_SERVER['PHP_SELF']?>" method="post">
-                        <h3 class="box-title m-b-20"><?php echo Core::lang('login')?></h3>
+                        <h3 class="box-title m-b-20"><i class="mdi mdi-login"></i> <?php echo Core::lang('login')?></h3>
                         <div class="form-group ">
                             <div class="col-xs-12">
                                 <input name="username" class="form-control" type="text" required="" placeholder="<?php echo Core::lang('username')?>"> </div>

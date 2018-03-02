@@ -20,7 +20,7 @@ $aaa=rand(0,5);$bbb=rand(3,9);?>
                 <div id="report-register"></div>
                 <div class="card-body">
                     <form class="form-horizontal form-material" method="post" id="sendregister" action="#">
-                        <h3 class="box-title m-b-20"><?php echo Core::lang('register')?></h3>
+                        <h3 class="box-title m-b-20"><i class="mdi mdi-account-plus"></i> <?php echo Core::lang('register')?></h3>
                         <div class="form-group">
                             <div class="col-xs-12">
                                 <input id="username" class="form-control" type="text" required="" placeholder="<?php echo Core::lang('username')?>">
@@ -76,7 +76,7 @@ $aaa=rand(0,5);$bbb=rand(3,9);?>
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="myLargeModalLabel"><?php echo Core::lang('terms')?></h4>
+                        <h4 class="modal-title text-themecolor" id="myLargeModalLabel"><i class="mdi mdi-shield-outline"></i> <?php echo Core::lang('terms')?></h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     </div>
                     <div class="modal-body">
