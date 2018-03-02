@@ -76,7 +76,7 @@ $datarole = json_decode(Core::execGetRequest($urlrole));?>
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title" id="myLargeModalLabel"><i class="mdi mdi-account-plus"></i> <?php echo Core::lang('add').' '.Core::lang('user')?></h4>
+                                                    <h4 class="modal-title text-themecolor" id="myLargeModalLabel"><i class="mdi mdi-account-plus"></i> <?php echo Core::lang('add').' '.Core::lang('user')?></h4>
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                                 </div>
                                                 <form class="form-horizontal form-material" id="addnewdata" action="#">
@@ -112,7 +112,7 @@ $datarole = json_decode(Core::execGetRequest($urlrole));?>
                                                             <select id="role" style="max-height:200px; overflow-y:scroll; overflow-x:hidden;" class="form-control form-control-line" required>
                                                                 <?php if (!empty($datarole)) {
                                                                         foreach ($datarole->result as $name => $value) {
-                                                                            echo '<option value="'.$value->{'RoleID'}.'" '.(($value->{'Role'} == $data->result[0]->{'Role'})?'selected':'').'>'.$value->{'Role'}.'</option>';
+                                                                            echo '<option value="'.$value->{'RoleID'}.'">'.$value->{'Role'}.'</option>';
                                                                         }
                                                                     }
                                                                 ?>
