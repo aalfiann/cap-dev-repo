@@ -2,9 +2,8 @@ CAP Development
 =======
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aalfiann/cap-dev-repo/blob/master/license.md)<br>
 ![Skeleton](https://img.shields.io/badge/skeleton-100%25-green.svg)<br>
-![Backend](https://img.shields.io/badge/website-40%25-red.svg)<br>
+![App](https://img.shields.io/badge/app-40%25-red.svg)<br>
 ![Website](https://img.shields.io/badge/website-10%25-red.svg)<br>
-![Transaction](https://img.shields.io/badge/website-0%25-red.svg)<br>
 
 Untuk melihat status proses development [klik disini](https://github.com/aalfiann/cap-dev-repo/commits/master).<br>
 
