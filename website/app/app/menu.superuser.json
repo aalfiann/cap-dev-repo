@@ -36,7 +36,7 @@
                 {
                     "id":"3",
                     "title":"File Cloud",
-                    "icon_class":"mdi mdi-recycle",
+                    "icon_class":"mdi mdi-weather-cloudy",
                     "label_class":"",
                     "link":"modul-file-cloud.php"
                 },
