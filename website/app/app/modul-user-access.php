@@ -79,7 +79,7 @@ $datalogin = Core::checkSessions();?>
                                         </tfoot>
                                     </table>
                                 </div>
-                                <div class="text-center"><button onclick="revokeAllCall();" class="btn btn-danger btn-fill btn-wd"><?php echo Core::lang('revoke_access_all')?></button></div>
+                                <div class="text-center"><button onclick="revokeAllCall();" class="btn btn-danger btn-fill btn-wd"><i class="mdi mdi-key-remove"></i> <?php echo Core::lang('revoke_access_all')?></button></div>
                             </div>
                         </div>
                         
