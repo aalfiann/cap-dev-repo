@@ -16,8 +16,8 @@ CAP Progress Status Stage 1:
 5. API Management System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
 6. Maintenance Settings >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
 7. Error Log System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
-8. Page Management System >> ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) `on progress`
-9. File Management System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
+8. Page Management System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
+9. File Management System >> ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) `on progress`
 10. Company Profile >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
 11. Branches Management System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
 12. Transaction Data >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
