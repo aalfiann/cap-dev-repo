@@ -95,6 +95,11 @@ $lang = [
     'update_page' => 'Perbaharui Halaman',
     'save_page' => 'Publikasikan Halaman',
     'form_editor' => 'Form Editor',
+    //helper page
+    'helper_page_image' => 'Url gambar akan digunakan untuk tujuan SEO Opengraph.',
+    'helper_page_tags' => 'Tags berguna untuk memudahkan pembaca dalam membaca konten terkait.',
+    'helper_page_title' => 'Judul ini akan digunakan sebagai tag <b>&#x3C;H1&#x3E;</b>.',
+    'helper_page_description' => 'Deskripsi ini adalah ringkasan dari konten Anda.',
     //user access
     'my_access' => 'Aksesku',
     'user_access' => 'Akses Pengguna',

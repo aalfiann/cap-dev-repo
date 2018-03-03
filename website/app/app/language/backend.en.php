@@ -95,6 +95,11 @@ $lang = [
     'update_page' => 'Update Page',
     'save_page' => 'Publish Page',
     'form_editor' => 'Form Editor',
+    //helper page
+    'helper_page_image' => 'Image url will be used for SEO Opengraph.',
+    'helper_page_tags' => 'Tags is will make easy to reader to read related content.',
+    'helper_page_title' => 'This title will be used as a <b>&#x3C;H1&#x3E;</b> tag.',
+    'helper_page_description' => 'This is a summary from your content.',
     //user access
     'my_access' => 'My Access',
     'user_access' => 'User Access',
@@ -133,9 +138,9 @@ $lang = [
     'helper_settings_description' => 'This is default description for your website.',
     'helper_settings_seopage' => 'This is for creating auto mirror link for SEO purpose.',
     'helper_settings_seosite' => 'This is for creating auto mirror link using competitor name for SEO purpose',
-    'helper_settings_email' => 'This is will be use for mailing system to work.',
+    'helper_settings_email' => 'This is will be used for mailing system to work.',
     'helper_settings_homepath' => 'Path must be full using http: or https:',
-    'helper_settings_api' => 'This will be use for this website system to work with rest api server.',
+    'helper_settings_api' => 'This will be used for this website system to work with rest api server.',
     'helper_settings_basepath' => 'Path must be full using http: or https:',
     'helper_settings_disqus' => 'This is for using disqus comment system on your website.',
     'helper_settings_sharethis' => 'This is for using sharing system on your website.',
