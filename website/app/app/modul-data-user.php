@@ -465,7 +465,7 @@ $datarole = json_decode(Core::execGetRequest($urlrole));?>
         /* Load data from datatables onload */
         loadData('#datauser','1','10');
 
-        /* Change password start */
+        /* Add new data start */
         function selectedRole(){
             var selection = document.getElementById("role") !== null;
             if (selection){
@@ -527,7 +527,7 @@ $datarole = json_decode(Core::execGetRequest($urlrole));?>
                 that.on("submit", sendnewdata); /* add handler back after ajax */
             }
         }
-        /* Change password end */
+        /* Add new data end */
     </script>
 </body>
 
