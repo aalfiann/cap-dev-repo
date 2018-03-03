@@ -210,7 +210,14 @@ $datalogin = Core::checkSessions();?>
                     zeroRecords: "<?php echo Core::lang('dt_not_found')?>",
                     info: "<?php echo Core::lang('dt_info')?>",
                     infoEmpty: "<?php echo Core::lang('dt_info_empty')?>",
-                    infoFiltered: "<?php echo Core::lang('dt_filtered')?>"
+                    infoFiltered: "<?php echo Core::lang('dt_filtered')?>",
+                    decimal: "",
+                    emptyTable: "<?php echo Core::lang('dt_table_empty')?>",
+                    infoPostFix: "",
+                    thousands: "<?php echo Core::lang('dt_thousands')?>",
+                    loadingRecords: "<?php echo Core::lang('dt_loading')?>",
+                    processing: "<?php echo Core::lang('dt_process')?>",
+                    search: "<?php echo Core::lang('dt_search')?>"
                 },
                 dom: "Bfrtip",
                 buttons: [
