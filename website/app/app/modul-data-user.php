@@ -1,6 +1,6 @@
 <?php spl_autoload_register(function ($classname) {require ( $classname . ".php");});
 $datalogin = Core::checkSessions();
-if(Core::getUserGroup() != '1') {Core::goToPage('modul-user-profile.php');exit;}
+if(Core::getUserGroup() > '2') {Core::goToPage('modul-user-profile.php');exit;}
 // Data Role
 $urlrole = Core::getInstance()->api.'/user/role/'.$datalogin['token'];
 $datarole = json_decode(Core::execGetRequest($urlrole));?>
