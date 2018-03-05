@@ -83,6 +83,7 @@ $lang = [
     'upload_now' => 'Upload Now',
     'detail_file' => 'Detail File',
     'upload_here' => 'Upload files here...',
+    'file' => 'File',
     //data page
     'page' => 'Page',
     'page_id' => 'Page ID',
