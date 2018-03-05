@@ -168,13 +168,13 @@ $datalogin = Core::checkSessions();?>
                                                         <div class="form-group">
                                                             <label class="col-md-12">'.Core::lang('address').'</label>
                                                             <div class="col-md-12">
-                                                                <textarea name="address" rows="5" class="form-control form-control-line">'.$data->result[0]->Address.'</textarea>
+                                                                <textarea name="address" rows="5" style="resize: vertical;" class="form-control form-control-line">'.$data->result[0]->Address.'</textarea>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="col-md-12">'.Core::lang('about_me').'</label>
                                                             <div class="col-md-12">
-                                                                <textarea name="aboutme" rows="5" class="form-control form-control-line">'.$data->result[0]->Aboutme.'</textarea>
+                                                                <textarea name="aboutme" rows="5" style="resize: vertical;" class="form-control form-control-line">'.$data->result[0]->Aboutme.'</textarea>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">

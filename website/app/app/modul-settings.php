@@ -93,17 +93,17 @@ $datalogin = Core::checkSessions();?>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-control-label"><b><?php echo Core::lang('label_settings_description')?></b></label>
-                                        <textarea name="description" type="text" rows="5" placeholder="<?php echo Core::lang('input_settings_description')?>" class="form-control" maxlength="200" required><?php echo Core::getInstance()->description?></textarea>
+                                        <textarea name="description" type="text" style="resize: vertical;" rows="5" placeholder="<?php echo Core::lang('input_settings_description')?>" class="form-control" maxlength="200" required><?php echo Core::getInstance()->description?></textarea>
                                         <span class="help-block text-muted"><small><i class="ti-info-alt"></i> <?php echo Core::lang('helper_settings_description')?></small></span>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-control-label"><b><?php echo Core::lang('label_settings_seopage')?></b></label>
-                                        <textarea name="seopage" type="text" rows="5" placeholder="<?php echo Core::lang('input_settings_seopage')?>" class="form-control"><?php echo Core::getInstance()->seopage?></textarea>
+                                        <textarea name="seopage" type="text" rows="5" style="resize: vertical;" placeholder="<?php echo Core::lang('input_settings_seopage')?>" class="form-control"><?php echo Core::getInstance()->seopage?></textarea>
                                         <span class="help-block text-muted"><small><i class="ti-info-alt"></i> <?php echo Core::lang('helper_settings_seopage')?></small></span>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-control-label"><b><?php echo Core::lang('label_settings_seosite')?></b></label>
-                                        <textarea name="seosite" type="text" rows="5" placeholder="<?php echo Core::lang('input_settings_seosite')?>" class="form-control"><?php echo Core::getInstance()->seosite?></textarea>
+                                        <textarea name="seosite" type="text" rows="5" style="resize: vertical;" placeholder="<?php echo Core::lang('input_settings_seosite')?>" class="form-control"><?php echo Core::getInstance()->seosite?></textarea>
                                         <span class="help-block text-muted"><small><i class="ti-info-alt"></i> <?php echo Core::lang('helper_settings_seosite')?></small></span>
                                     </div>
                                     <div class="form-group">
