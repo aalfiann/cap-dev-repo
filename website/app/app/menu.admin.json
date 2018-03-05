@@ -1,7 +1,7 @@
 {
 	"menu": [
         {
-            "header": "admin",
+            "header": "app",
             "subheader":[
                 {
                     "id":"1",
@@ -46,21 +46,6 @@
                     "icon_class":"mdi mdi-bullseye",
                     "label_class":"",
                     "link":"modul-data-api.php"
-                },
-                {
-                    "id":"5",
-                    "title":"maintenance",
-                    "icon_class":"mdi mdi-settings",
-                    "label_class":"",
-                    "menus": [{
-                        "title": "settings",
-                        "link": "modul-settings.php"
-                    },
-                    {   
-                        "title": "error log",
-                        "link": "modul-error-log.php"
-                    }
-                ]
                 }
             ]
 		},
