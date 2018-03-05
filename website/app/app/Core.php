@@ -728,8 +728,7 @@
          *
          * @return data array, but if null will be redirect to login page
 		 */
-        public static function checkSessions()
-        {
+        public static function checkSessions(){
             // If cookie is not found then check session
             if (!isset($_COOKIE['username']) && !isset($_COOKIE['token'])) 
             {
@@ -768,6 +767,23 @@
                 }
     	    }
 	        return $out;
+        }
+
+        /**
+		 * Get User Group ID (Required session_start before running this function)
+         *
+         * @return string ID
+		 */
+        public static function getUserGroup($token=''){
+            if(!isset($_SESSION)) session_start();
+            // If group id found
+            if (isset($_SESSION['groupid']) && !empty($_SESSION['groupid'])){
+                return $_SESSION['groupid'];
+            } else {
+                $groupid = self::getRole($token);
+                $_SESSION['groupid'] = $groupid;
+                return $groupid;
+            }
         }
 
         /**
