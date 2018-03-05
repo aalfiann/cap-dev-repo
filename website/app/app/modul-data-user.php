@@ -401,7 +401,7 @@ $datarole = json_decode(Core::execGetRequest($urlrole));?>
                         { data: "Aboutme" },
                         { data: "Avatar" }
                     ],
-                    "bFilter": false,
+                    bFilter: false,
                     paging:   false,
                     info: false,
                     processing: true,

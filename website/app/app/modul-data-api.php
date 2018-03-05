@@ -418,7 +418,7 @@ $datastatus = json_decode(Core::execGetRequest($urlstatus));?>
                             } 
                         }
                     ],
-                    "bFilter": false,
+                    bFilter: false,
                     paging:   false,
                     info: false,
                     processing: true,

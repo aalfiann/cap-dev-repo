@@ -325,7 +325,7 @@ $datalogin = Core::checkSessions();?>
                             } 
                         }
                     ],
-                    "bFilter": false,
+                    bFilter: false,
                     paging:   false,
                     info: false,
                     processing: true,
