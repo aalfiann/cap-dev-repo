@@ -46,6 +46,7 @@ $lang = [
     'theme_panel' => 'Theme Panel',
     'theme_light' => 'Light Theme',
     'theme_dark' => 'Dark Theme',
+    'fullscreen' => 'Fullscreen',
     //login
     'login' => 'Login',
     'form_login' => 'Form Login',
@@ -256,10 +257,10 @@ $lang = [
     'dt_process' => 'Processing...',
     'dt_search' => 'Search:',
     'dt_thousands' => ',',
-    'dt_first' => 'First',
-    'dt_last' => 'Last',
-    'dt_next' => 'Next',
-    'dt_prev' => 'Previous',
+    'dt_first' => '<i class="mdi mdi-skip-backward"></i>',
+    'dt_last' => '<i class="mdi mdi-skip-forward"></i>',
+    'dt_next' => '<i class="mdi mdi-skip-next"></i>',
+    'dt_prev' => '<i class="mdi mdi-skip-previous"></i>',
     'dt_sort_asc' => ': activate to sort column ascending',
     'dt_sort_desc' => ': activate to sort column descending',
     //datatables custom

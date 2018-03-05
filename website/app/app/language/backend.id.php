@@ -46,6 +46,7 @@ $lang = [
     'theme_panel' => 'Panel Tema',
     'theme_light' => 'Tema Cerah',
     'theme_dark' => 'Tema Gelap',
+    'fullscreen' => 'Layar Penuh',
     //login
     'login' => 'Masuk',
     'form_login' => 'Form Masuk',
@@ -248,7 +249,7 @@ $lang = [
     //datatables default
     'dt_not_found' => 'Maaf, Data tidak ditemukan',
     'dt_display' => 'Tampilkan _MENU_ data per halaman',
-    'dt_info' => 'Menampilkan halaman _PAGE_ dari _PAGES_',
+    'dt_info' => 'Halaman _PAGE_ dari _PAGES_',
     'dt_info_empty' => 'Menampilkan 0 - 0 dari 0 data',
     'dt_filtered' => '(memfilter dari _MAX_ total data)',
     'dt_table_empty' => 'Data tidak ditemukan',
@@ -256,10 +257,10 @@ $lang = [
     'dt_process' => 'Mengolah data...',
     'dt_search' => 'Cari:',
     'dt_thousands' => '.',
-    'dt_first' => 'First',
-    'dt_last' => 'Last',
-    'dt_next' => 'Next',
-    'dt_prev' => 'Previous',
+    'dt_first' => '<i class="mdi mdi-skip-backward"></i>',
+    'dt_last' => '<i class="mdi mdi-skip-forward"></i>',
+    'dt_next' => '<i class="mdi mdi-skip-next"></i>',
+    'dt_prev' => '<i class="mdi mdi-skip-previous"></i>',
     'dt_sort_asc' => ': aktifkan kolom urut ascending',
     'dt_sort_desc' => ': aktifkan kolom urut descending',
     //datatables custom

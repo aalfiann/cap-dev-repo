@@ -201,9 +201,9 @@ $datalogin = Core::checkSessions();?>
                         } 
                     }
                 ],
-                "bFilter": false,
-                paging:   false,
-                info: false,
+                bFilter: true,
+                paging:   true,
+                info: true,
                 processing: true,
                 language: {
                     lengthMenu: "<?php echo Core::lang('dt_display')?>",
@@ -217,7 +217,13 @@ $datalogin = Core::checkSessions();?>
                     thousands: "<?php echo Core::lang('dt_thousands')?>",
                     loadingRecords: "<?php echo Core::lang('dt_loading')?>",
                     processing: "<?php echo Core::lang('dt_process')?>",
-                    search: "<?php echo Core::lang('dt_search')?>"
+                    search: "<?php echo Core::lang('dt_search')?>",
+                    paginate: {
+                        first:      '<?php echo Core::lang('dt_first')?>',
+                        last:       '<?php echo Core::lang('dt_last')?>',
+                        next:       '<?php echo Core::lang('dt_next')?>',
+                        previous:   '<?php echo Core::lang('dt_prev')?>'
+                    }
                 },
                 dom: "Bfrtip",
                 buttons: [
