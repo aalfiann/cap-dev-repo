@@ -67,7 +67,7 @@ $datastatus = json_decode(Core::execGetRequest($urlstatus));?>
                         <div id="report-updatedata"></div>
                         <div class="card">
                             <div class="card-body">
-                                
+                                <h3 class="text-themecolor m-b-0 m-t-0"><?php echo Core::lang('data').' '.Core::lang('api_keys')?></h3><hr>
                                 <div class="table-responsive m-t-40">
                                     <a href="#" data-toggle="modal" data-target=".addnew" class="btn btn-inverse"><i class="mdi mdi-key-plus"></i> <?php echo Core::lang('add').' '.Core::lang('api_keys')?></a>
                                     <!-- terms modal content -->

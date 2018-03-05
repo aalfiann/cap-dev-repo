@@ -68,7 +68,7 @@ $datarole = json_decode(Core::execGetRequest($urlrole));?>
                         <div class="card">
                             <div class="card-body">
                                 
-                                <h4 class="card-title"><?php echo Core::lang('data')?> <?php echo Core::lang('user')?></h4><hr>
+                            <h3 class="text-themecolor m-b-0 m-t-0"><?php echo Core::lang('data').' '.Core::lang('user')?></h3><hr>
                                 <div class="table-responsive m-t-40">
                                     <a href="#" data-toggle="modal" data-target=".addnew" class="btn btn-inverse"><i class="mdi mdi-account-plus"></i> <?php echo Core::lang('add').' '.Core::lang('user')?></a>
                                     <!-- terms modal content -->

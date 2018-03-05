@@ -71,7 +71,7 @@ $datalogin = Core::checkSessions();?>
                         ?>
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title"><?php echo Core::lang('error_log_title')?></h4><hr>
+                                <h3 class="text-themecolor m-b-0 m-t-0"><?php echo Core::lang('error_log_title')?></h3><hr>
                                 <h6 class="card-subtitle"><?php echo Core::lang('error_log_description')?></h6>
                                 <form method="post" action="<?php $_SERVER['PHP_SELF']?>">
                                     <div class="form-group">

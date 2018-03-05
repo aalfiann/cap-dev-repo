@@ -79,7 +79,7 @@ $datalogin = Core::checkSessions();?>
                         ?>
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title"><?php echo Core::lang('settings')?> - <?php echo Core::getInstance()->title?></h4><hr>
+                                <h3 class="text-themecolor m-b-0 m-t-0"><?php echo Core::lang('settings').' - '.Core::getInstance()->title?></h3><hr>
                                 <form class="form-control-line" action="<?php $_SERVER['PHP_SELF']?>" method="post">
                                     <div class="form-group">
                                         <label class="form-control-label"><b><?php echo Core::lang('title')?></b></label>

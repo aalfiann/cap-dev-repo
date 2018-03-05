@@ -63,7 +63,7 @@ $datalogin = Core::checkSessions();?>
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                            <h3 class="text-themecolor m-b-0 m-t-0"><?php echo Core::lang('data_page')?></h3>
+                            <h3 class="text-themecolor m-b-0 m-t-0"><?php echo Core::lang('data_page')?></h3><hr>
                             <div class="table-responsive m-t-40">
                                     <a href="modul-data-page-write.php" class="btn btn-inverse"><i class="mdi mdi-plus"></i> <?php echo Core::lang('add').' '.Core::lang('page')?></a>
                                     <table id="datapage" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
