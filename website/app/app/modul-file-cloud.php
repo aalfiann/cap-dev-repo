@@ -151,9 +151,12 @@ $datastatus = json_decode(Core::execGetRequest($urlstatus));?>
                                                 <th><?php echo Core::lang('title')?></th>
                                                 <th><?php echo Core::lang('tb_file_type')?></th>
                                                 <th><?php echo Core::lang('tb_file_size')?></th>
+                                                <th><?php echo Core::lang('status')?></th>
+                                                <th><?php echo Core::lang('manage')?></th>
                                                 <th><?php echo Core::lang('tb_date_upload')?></th>
                                                 <th><?php echo Core::lang('tb_upload_by')?></th>
-                                                <th><?php echo Core::lang('manage')?></th>
+                                                <th><?php echo Core::lang('tb_updated_at')?></th>
+                                                <th><?php echo Core::lang('tb_updated_by')?></th>
                                             </tr>
                                         </thead>
                                         <tfoot>
@@ -164,9 +167,12 @@ $datastatus = json_decode(Core::execGetRequest($urlstatus));?>
                                                 <th><?php echo Core::lang('title')?></th>
                                                 <th><?php echo Core::lang('tb_file_type')?></th>
                                                 <th><?php echo Core::lang('tb_file_size')?></th>
+                                                <th><?php echo Core::lang('status')?></th>
+                                                <th><?php echo Core::lang('manage')?></th>
                                                 <th><?php echo Core::lang('tb_date_upload')?></th>
                                                 <th><?php echo Core::lang('tb_upload_by')?></th>
-                                                <th><?php echo Core::lang('manage')?></th>
+                                                <th><?php echo Core::lang('tb_updated_at')?></th>
+                                                <th><?php echo Core::lang('tb_updated_by')?></th>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -362,7 +368,7 @@ $datastatus = json_decode(Core::execGetRequest($urlstatus));?>
                     $(idtable).DataTable().destroy();
                 }
                 /* Choose columns index for printing purpose */
-                var selectCol = [ 1, 2, 3, 4, 5, 6 ];
+                var selectCol = [ 1, 2, 3, 4, 5, 6, 8, 9, 10, 11 ];
                 /* Built table is here */
                 var table = $(idtable).DataTable({
                     ajax: {
@@ -396,8 +402,7 @@ $datastatus = json_decode(Core::execGetRequest($urlstatus));?>
                                 return humanFileSize(row.Filesize);
                             } 
                         },
-                        { data: "Date_Upload" },
-                        { data: "Upload_by" },
+                        { data: "Status" },
                         { "render": function(data,type,row,meta) { /* render event defines the markup of the cell text */ 
                                 var $select = $('<select id="status'+row.ItemID+'" type="text" style="max-height:200px; overflow-y:scroll; overflow-x:hidden;" class="form-control form-control-line"><?php if (!empty($datastatus)) {
                                         foreach ($datastatus->result as $name => $valuestatus) {
@@ -476,7 +481,11 @@ $datastatus = json_decode(Core::execGetRequest($urlstatus));?>
                                     <!-- /.modal -->';
                                 return a;
                             } 
-                        }
+                        },
+                        { data: "Date_Upload" },
+                        { data: "Upload_by" },
+                        { data: "Updated_at" },
+                        { data: "Updated_by" }
                     ],
                     bFilter: false,
                     paging:   false,
