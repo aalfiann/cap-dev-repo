@@ -5,6 +5,17 @@
             "subheader":[
                 {
                     "id":"1",
+                    "title":"dashboard",
+                    "icon_class":"mdi mdi-gauge",
+                    "label_class":"label label-rouded label-themecolor pull-right",
+                    "menus": [{
+                            "title": "system",
+    			        	"link": "modul-dashboard-mine.php"
+    				    }
+        		    ]
+                },
+                {
+                    "id":"2",
                     "title":"user",
                     "icon_class":"mdi mdi-account",
                     "label_class":"",
@@ -20,14 +31,14 @@
         		    ]
                 },
                 {
-                    "id":"2",
+                    "id":"3",
                     "title":"File Cloud",
                     "icon_class":"mdi mdi-weather-cloudy",
                     "label_class":"",
                     "link":"modul-file-cloud.php"
                 },
                 {
-                    "id":"3",
+                    "id":"4",
                     "title":"api",
                     "icon_class":"mdi mdi-bullseye",
                     "label_class":"",
