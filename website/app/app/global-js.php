@@ -67,6 +67,8 @@
 		var _0x97f1=["\x73\x6C\x69\x63\x65","\x30\x30","\x67\x65\x74\x4D\x6F\x6E\x74\x68","","\x67\x65\x74\x44\x61\x74\x65","\x67\x65\x74\x46\x75\x6C\x6C\x59\x65\x61\x72","\x2D","\x67\x65\x74\x48\x6F\x75\x72\x73","\x67\x65\x74\x4D\x69\x6E\x75\x74\x65\x73"];function randomText(_0x294cx2){var _0x294cx3= new Date();var _0x294cx4=(_0x97f1[1]+ (_0x294cx3[_0x97f1[2]]()+ 1))[_0x97f1[0]](-2) + _0x97f1[3] + (_0x97f1[1]+ _0x294cx3[_0x97f1[4]]())[_0x97f1[0]](-2) + _0x97f1[3] + _0x294cx3[_0x97f1[5]]() + _0x97f1[6] + (_0x97f1[1]+ _0x294cx3[_0x97f1[7]]())[_0x97f1[0]](-2) + _0x97f1[3];var _0x294cx5=_0x294cx3[_0x97f1[8]]();var _0x294cx6=60;var _0x294cx7=_0x294cx2;var _0x294cx8=0;var _0x294cx9;for(_0x294cx9= 0;_0x294cx9<= _0x294cx6;_0x294cx9+= _0x294cx7){if(_0x294cx9<= _0x294cx5){_0x294cx8++}};return _0x294cx4+ _0x294cx8}
         /* Format number add commas */
 		function addCommas(a){a+='',x=a.split('.'),x1=x[0],x2=1<x.length?'.'+x[1]:'';for(var b=/(\d+)(\d{3})/;b.test(x1);)x1=x1.replace(b,'$1,$2');return x1+x2}
+        /* Convert bytes size to human readable */
+        function humanFileSize(a,b='true'){var c=b?1e3:1024;if(Math.abs(a)<c)return a+' B';var d=b?['kB','MB','GB','TB','PB','EB','ZB','YB']:['KiB','MiB','GiB','TiB','PiB','EiB','ZiB','YiB'],e=-1;do a/=c,++e;while(Math.abs(a)>=c&&e<d.length-1);return a.toFixed(1)+' '+d[e]}
         /* Get url parameter value by name */
         function getURLParameter(name){return decodeURIComponent((new RegExp('[?|&]'+name+'=([^&;]+?)(&|#|;|$)').exec(location.search)||[null,''])[1].replace(/\+/g,'%20'))||null}
         /* Write message jQuery */
