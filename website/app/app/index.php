@@ -7,7 +7,7 @@ $datalogin = Core::checkSessions();
 if (Core::getRole($datalogin['token']) != '3') {
     Core::goToPage('modul-dashboard.php');
 } else {
-    Core::goToPage('modul-user-profile.php');
+    Core::goToPage('modul-dashboard-mine.php');
 }
 
 ?>
