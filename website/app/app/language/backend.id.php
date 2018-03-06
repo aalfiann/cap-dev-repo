@@ -175,6 +175,9 @@ $lang = [
     'error_log_title' => 'Error Log di API Server',
     'error_log_description' => 'Ini adalah data log yang terekam di API Server Anda',
     'clear_log' => 'Hapus Log',
+    //cache
+    'notice_cache_onehour' => 'Data akan di refresh secara otomatis per 1 jam.',
+    'notice_cache_clear' => 'Hapus cache browser Anda agar mendapatkan data terbaru.',
     //general
     'home' => 'Beranda',
     'username' => 'Nama Pengguna (Username)',
@@ -210,6 +213,9 @@ $lang = [
     'delete' => 'Hapus',
     'domain' => 'Domain',
     'data' => 'Data',
+    'total' => 'Total',
+    'percentage' => 'Persentase',
+    'chart' => 'Grafik',
     'shows_no' => 'Menampilkan no:',
     'from_total_data' => 'dari total data:',
     'export' => 'Ekspor',
@@ -245,6 +251,7 @@ $lang = [
     'tb_date_upload' => 'Tanggal Unggah',
     'tb_upload_by' => 'Diunggah oleh',
     'tb_file_type' => 'Tipe File',
+    'tb_file_size' => 'Ukuran File',
     'tb_direct_link' => 'Direct Link',
     //datatables default
     'dt_not_found' => 'Maaf, Data tidak ditemukan',

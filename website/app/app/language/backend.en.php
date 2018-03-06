@@ -175,6 +175,9 @@ $lang = [
     'error_log_title' => 'Error Log in API Server',
     'error_log_description' => 'Here is your data log which is recorded from API Server',
     'clear_log' => 'Clear Log',
+    //cache
+    'notice_cache_onehour' => 'Data will be refreshed automatically per 1 hour.',
+    'notice_cache_clear' => 'Clear your browser cache for the latest data.',
     //general
     'home' => 'Home',
     'username' => 'Username',
@@ -210,6 +213,9 @@ $lang = [
     'delete' => 'Delete',
     'domain' => 'Domain',
     'data' => 'Data',
+    'total' => 'Total',
+    'percentage' => 'Percentage',
+    'chart' => 'Chart',
     'shows_no' => 'Shows no:',
     'from_total_data' => 'from total data:',
     'export' => 'Export',
@@ -245,6 +251,7 @@ $lang = [
     'tb_date_upload' => 'Date Uploaded',
     'tb_upload_by' => 'Uploaded by',
     'tb_file_type' => 'File Type',
+    'tb_file_size' => 'File Size',
     'tb_direct_link' => 'Direct Link',
     //datatables default
     'dt_not_found' => 'Sorry, Data is not found',

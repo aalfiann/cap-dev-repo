@@ -1,7 +1,6 @@
 <?php 
 spl_autoload_register(function ($classname) {require ( $classname . ".php");});
-$datalogin = Core::checkSessions();
-if(Core::getUserGroup() > '2') {Core::goToPage('modul-user-profile.php');exit;}?>
+$datalogin = Core::checkSessions();?>
 <!DOCTYPE html>
 <html lang="<?php echo Core::getInstance()->setlang?>">
 <head>
@@ -51,28 +50,7 @@ if(Core::getUserGroup() > '2') {Core::goToPage('modul-user-profile.php');exit;}?
             <div class="container-fluid">
                 <div class="row">
                     <!-- Column -->
-                    <div class="col-lg-3 col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row p-t-10 p-b-10">
-                                    <!-- Column -->
-                                    <div class="col p-r-0">
-                                        <h1 id="totaluser" class="font-light text-info">0</h1>
-                                        <h6 class="text-muted"><i class="mdi mdi-account"></i> <?php echo Core::lang('total').' '.Core::lang('user')?></h6></div>
-                                    <!-- Column -->
-                                    <div class="col text-right align-self-center">
-                                        <h6 id="totaluserpercent" class="font-light">0%</h6>
-                                        <div class="progress">
-                                            <div id="percentuser" class="progress-bar bg-info" role="progressbar" style="width: 0%; height: 6px;"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Column -->
-                    <!-- Column -->
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-4 col-md-6">
                         <div class="card">
                             <div class="card-body">
                                 <div class="row p-t-10 p-b-10">
@@ -93,7 +71,7 @@ if(Core::getUserGroup() > '2') {Core::goToPage('modul-user-profile.php');exit;}?
                     </div>
                     <!-- Column -->
                     <!-- Column -->
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-4 col-md-6">
                         <div class="card">
                             <div class="card-body">
                                 <div class="row p-t-10 p-b-10">
@@ -114,7 +92,7 @@ if(Core::getUserGroup() > '2') {Core::goToPage('modul-user-profile.php');exit;}?
                     </div>
                     <!-- Column -->
                     <!-- Column -->
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-4 col-md-6">
                         <div class="card">
                             <div class="card-body">
                                 <div class="row p-t-10 p-b-10">
@@ -135,7 +113,7 @@ if(Core::getUserGroup() > '2') {Core::goToPage('modul-user-profile.php');exit;}?
                     </div>
                     <!-- Column -->
                     <!-- column -->
-                    <div class="col-lg-12">
+                    <div class="col-lg-6">
                         <div class="card">
                             <div class="card-body">
                                 <h3 class="card-title"><?php echo Core::lang('chart').' '.Core::lang('data').' '.Core::lang('file').' &amp; '.Core::lang('data').' '.Core::lang('page')?> - <?php echo date('Y')?></h3>
@@ -151,20 +129,9 @@ if(Core::getUserGroup() > '2') {Core::goToPage('modul-user-profile.php');exit;}?
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-body">
-                                <h3 class="card-title"><?php echo Core::lang('chart').' '.Core::lang('data').' '.Core::lang('user')?> - <?php echo date('Y')?></h3>
-                                <hr>
-                                <div id="secondchart" class="ct-sm-line-chart" style="height: 400px;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- column -->
-                    <!-- column -->
-                    <div class="col-lg-6">
-                        <div class="card">
-                            <div class="card-body">
                                 <h3 class="card-title"><?php echo Core::lang('chart').' '.Core::lang('data').' '.Core::lang('api_keys')?> - <?php echo date('Y')?></h3>
                                 <hr>
-                                <div id="thirdchart" class="ct-sm-line-chart" style="height: 400px;"></div>
+                                <div id="secondchart" class="ct-sm-line-chart" style="height: 400px;"></div>
                             </div>
                         </div>
                     </div>
@@ -193,29 +160,6 @@ if(Core::getUserGroup() > '2') {Core::goToPage('modul-user-profile.php');exit;}?
     <script src="../assets/plugins/chartist-plugin-legend-master/chartist-plugin-legend.js"></script>
     <script>
         $.when(
-			$.ajax({ /* Get user statistic start */
-			    type: "GET",
-				url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/user/stats/data/summary/'.$datalogin['username'].'/'.$datalogin['token'])?>")+"?_="+randomText(60),
-				dataType: "json",
-				success: function( data ) {
-				    document.getElementById("totaluser").innerHTML="0";
-                    document.getElementById("totaluserpercent").innerHTML="0%";
-					if(data.status=="success"){
-					    document.getElementById("totaluser").innerHTML=addCommas(data.result[0].Total);
-                        document.getElementById("totaluserpercent").innerHTML=data.result[0].Percent_Up+"%";
-                        $('#percentuser').css('width', data.result[0].Percent_Up+'%');
-					} else {
-					    document.getElementById("totaluser").innerHTML="0";
-                        document.getElementById("totaluserpercent").innerHTML="0%";
-					}
-				},
-				error: function( xhr, textStatus, error ) {
-				    console.log("XHR: " + xhr.statusText);
-					console.log("STATUS: "+textStatus);
-					console.log("ERROR: "+error);
-					console.log("TRACE: "+xhr.responseText);
-				}
-			}),
             $.ajax({ /* Get file statistic start */
 				type: "GET",
 				url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/user/stats/upload/summary/'.$datalogin['username'].'/'.$datalogin['token'])?>")+"?_="+randomText(60),
@@ -285,15 +229,10 @@ if(Core::getUserGroup() > '2') {Core::goToPage('modul-user-profile.php');exit;}?
 				    console.log("TRACE: "+xhr.responseText);
 				}
 			})
-		).then(function( user,file,api,page ) {});
+		).then(function( file,api,page ) {});
 
         //Simple line chart 
         $.when(
-			$.ajax({ /* Get user chart start */
-			    type: "GET",
-				url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/user/stats/data/chart/'.date('Y').'/'.$datalogin['username'].'/'.$datalogin['token'])?>")+"?_="+randomText(60),
-                dataType: "json"
-			}),
             $.ajax({ /* Get file chart start */
 				type: "GET",
 				url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/user/stats/upload/chart/'.date('Y').'/'.$datalogin['username'].'/'.$datalogin['token'])?>")+"?_="+randomText(60),
@@ -309,15 +248,11 @@ if(Core::getUserGroup() > '2') {Core::goToPage('modul-user-profile.php');exit;}?
 				url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/page/stats/data/chart/'.date('Y').'/'.$datalogin['username'].'/'.$datalogin['token'])?>")+"?_="+randomText(60),
                 dataType: "json"
 			})
-        ).then(function( userc,filec,apic,pagec ) {
+        ).then(function( filec,apic,pagec ) {
             var datalabels = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-            var userseries = [null,null,null,null,null,null,null,null,null,null,null,null];
             var uploadseries = [null,null,null,null,null,null,null,null,null,null,null,null];
             var apiseries = [null,null,null,null,null,null,null,null,null,null,null,null];
             var pageseries = [null,null,null,null,null,null,null,null,null,null,null,null];
-            if(userc[0].status=="success"){
-                userseries = userc[0].results.series[0];
-			}
 
             if(filec[0].status=="success"){
                 uploadseries = filec[0].results.series[0];
@@ -350,23 +285,6 @@ if(Core::getUserGroup() > '2') {Core::goToPage('modul-user-profile.php');exit;}?
             });
 
             new Chartist.Line('#secondchart', {
-                labels: datalabels,
-                series: [
-                    userseries
-                ]
-            },
-            {
-                fullWidth: true,
-                plugins: [
-                    Chartist.plugins.tooltip()
-                ],
-                showArea: true,
-                chartPadding: {
-                    right: 40
-                }
-            });
-
-            new Chartist.Line('#thirdchart', {
                 labels: datalabels,
                 series: [
                     apiseries
