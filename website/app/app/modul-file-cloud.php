@@ -149,8 +149,8 @@ $datastatus = json_decode(Core::execGetRequest($urlstatus));?>
                                                 <th><?php echo Core::lang('tb_no')?></th>
                                                 <th><?php echo Core::lang('tb_item_id')?></th>
                                                 <th><?php echo Core::lang('title')?></th>
-                                                <th><?php echo Core::lang('alternate')?></th>
                                                 <th><?php echo Core::lang('tb_file_type')?></th>
+                                                <th><?php echo Core::lang('tb_file_size')?></th>
                                                 <th><?php echo Core::lang('tb_date_upload')?></th>
                                                 <th><?php echo Core::lang('tb_upload_by')?></th>
                                                 <th><?php echo Core::lang('manage')?></th>
@@ -162,8 +162,8 @@ $datastatus = json_decode(Core::execGetRequest($urlstatus));?>
                                                 <th><?php echo Core::lang('tb_no')?></th>
                                                 <th><?php echo Core::lang('tb_item_id')?></th>
                                                 <th><?php echo Core::lang('title')?></th>
-                                                <th><?php echo Core::lang('alternate')?></th>
                                                 <th><?php echo Core::lang('tb_file_type')?></th>
+                                                <th><?php echo Core::lang('tb_file_size')?></th>
                                                 <th><?php echo Core::lang('tb_date_upload')?></th>
                                                 <th><?php echo Core::lang('tb_upload_by')?></th>
                                                 <th><?php echo Core::lang('manage')?></th>
@@ -391,8 +391,11 @@ $datastatus = json_decode(Core::execGetRequest($urlstatus));?>
                         },
                         { data: "ItemID" },
                         { data: "Title" },
-                        { data: "Alternate" },
                         { data: "Filetype" },
+                        { "render": function(data,type,row,meta){
+                                return humanFileSize(row.Filesize);
+                            } 
+                        },
                         { data: "Date_Upload" },
                         { data: "Upload_by" },
                         { "render": function(data,type,row,meta) { /* render event defines the markup of the cell text */ 
