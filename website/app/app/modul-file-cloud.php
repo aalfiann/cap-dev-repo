@@ -1,7 +1,7 @@
 <?php spl_autoload_register(function ($classname) {require ( $classname . ".php");});
 $datalogin = Core::checkSessions();
 // Data Status
-$urlstatus = Core::getInstance()->api.'/user/status/'.$datalogin['token'];
+$urlstatus = Core::getInstance()->api.'/user/upload/status/'.$datalogin['token'];
 $datastatus = json_decode(Core::execGetRequest($urlstatus));?>
 <!DOCTYPE html>
 <html lang="<?php echo Core::getInstance()->setlang?>">
