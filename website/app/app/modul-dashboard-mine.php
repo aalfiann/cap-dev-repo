@@ -157,7 +157,6 @@ $datalogin = Core::checkSessions();?>
     <!-- chartist chart -->
     <script src="../assets/plugins/chartist-js/dist/chartist.min.js"></script>
     <script src="../assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
-    <script src="../assets/plugins/chartist-plugin-legend-master/chartist-plugin-legend.js"></script>
     <script>
         $.when(
             $.ajax({ /* Get file statistic start */

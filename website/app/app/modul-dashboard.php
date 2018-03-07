@@ -190,7 +190,6 @@ if(Core::getUserGroup() > '2') {Core::goToPage('modul-user-profile.php');exit;}?
     <!-- chartist chart -->
     <script src="../assets/plugins/chartist-js/dist/chartist.min.js"></script>
     <script src="../assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
-    <script src="../assets/plugins/chartist-plugin-legend-master/chartist-plugin-legend.js"></script>
     <script>
         $.when(
 			$.ajax({ /* Get user statistic start */
