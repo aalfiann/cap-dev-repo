@@ -39,6 +39,6 @@
 			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-		ga('create', 'UA-104613705-1', 'auto');
+		ga('create', '<?php echo Core::getInstance()->googleanalytics?>', 'auto');
 		ga('send', 'pageview');
 	</script>

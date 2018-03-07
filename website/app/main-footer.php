@@ -9,11 +9,11 @@
 				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 footer-1">
 					<div class="logo with-border-bottom">
 						<div class="logo-text">
-							Maxindo <span class="color-primary">Cargo</span>
+							CAP <span class="color-primary">Express</span>
 						</div>
 					</div>
 					<div class="footer-1-text">
-						<p>MAXINDO CARGO adalah jasa kirim barang murah di PURWOKERTO yang handal dan terpercaya. Berdiri sejak tahun 2008, dapat diartikan bahwa kami mampu menjaga dan melindungi setiap pengiriman yang dipercayakan kepada kami dari suatu tempat ke tempat lain dengan AMAN, CEPAT, DAN TEPAT. </p>
+						<p>CAP Express (PT. Cipta Amanah Persada) adalah sebuah perusahaan yang bergerak di bidang Pengiriman Dokumen (Courier Service) maupun barang-barang (Goods Service) yang dapat mengirimkan ke seluruh wilayah nusantara (Domestic). </p>
 					</div>
 					<div class="footer-1-button">
 						<a href="tentang-kami.php"><div class="my-btn my-btn-primary">
@@ -45,23 +45,15 @@
 					<h4 class="with-square with-border-bottom">KONTAK</h4>
 					<div class="footer-3-phone footer-3-item">
 						<span class="footer-3-icon"><i class="fa fa-phone"></i></span>
-						Telephone:  +62 85101683600
+						Telepon:  +6221 8290569
 					</div>
 					<div class="footer-3-phone footer-3-item">
 						<span class="footer-3-icon"><i class="fa fa-fax"></i></span>
-						Handphone:  +62 8156975736
-					</div>
-					<div class="footer-3-wechat footer-3-item">
-						<span class="footer-3-icon"><i class="fa fa-wechat"></i></span>
-						Whatsapp:  +62 85101683600 / +62 82221839442
-					</div>
-					<div class="footer-3-wechat footer-3-item">
-						<span class="footer-3-icon"><i class="fa fa-wechat"></i></span>
-						Pin BB:  744E1B54
+						Fax:  +6221 83792483
 					</div>
 					<div class="footer-3-envelope footer-3-item">
 						<span class="footer-3-icon"><i class="fa fa-envelope"></i></span>
-						E-Mail:  <a href="mailto:maxindopwo@gmail.com">maxindopwo@gmail.com</a>
+						E-Mail:  <a href="mailto:<?php echo Core::getInstance()->email?>"><?php echo Core::getInstance()->email?></a>
 					</div>
 				</div>
 				
@@ -70,7 +62,7 @@
 					<h4 class="with-square with-border-bottom">ALAMAT</h4>
 					<div class="footer-3-adress footer-3-item">
 						<span class="footer-3-icon"><i class="fa fa-map-marker"></i></span>
-						Jl. Gerilya Barat No. 29 Tanjung Purwokerto
+						Jl. Manggarai Utara VIII F2B No.8 RT.08 RW.01 Tebet Jakarta Selatan 12850
 					</div>
 				</div>
 
@@ -90,26 +82,26 @@
 				
 				<!-- === BOTTOM LEFT === -->
 				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 bottom-1">
-					COPYRIGHT <?php echo Date('Y');?> | MAXINDO <span class="color-primary">CARGO</span>
+				&copy; <?php echo Date('Y');?> - CAP <span class="color-primary">Express</span> 
 				</div>
 				
 				<!-- === BOTTOM CENTER === -->
 				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 bottom-2">
-					<a href="#"><div class="my-btn my-btn-grey">
+					<a href="<?php echo Core::getInstance()->twitter?>"><div class="my-btn my-btn-grey">
 						<div class="my-btn-bg-top"></div>
 						<div class="my-btn-bg-bottom"></div>
 						<div class="my-btn-text">
 							<i class="fa fa-twitter"></i>
 						</div>
 					</div></a>
-					<a href="https://www.facebook.com/arief.pwkerto"><div class="my-btn my-btn-grey">
+					<a href="<?php echo Core::getInstance()->facebook?>"><div class="my-btn my-btn-grey">
 						<div class="my-btn-bg-top"></div>
 						<div class="my-btn-bg-bottom"></div>
 						<div class="my-btn-text">
 							<i class="fa fa-facebook"></i>
 						</div>
 					</div></a>
-					<a href="https://plus.google.com/113263897951489990849"><div class="my-btn my-btn-grey">
+					<a href="<?php echo Core::getInstance()->gplus?>"><div class="my-btn my-btn-grey">
 						<div class="my-btn-bg-top"></div>
 						<div class="my-btn-bg-bottom"></div>
 						<div class="my-btn-text">
@@ -121,7 +113,7 @@
 				<!-- === BOTTOM RIGHT === -->
 				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 bottom-3">
 					 
-					MADE BY <a href="#">MAXINDO <span class="color-primary">CARGO</span></a>
+				PT. Cipta Amanah Persada
 				</div>
 				
 			</div>

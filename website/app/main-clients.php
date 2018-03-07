@@ -15,7 +15,7 @@
 							<div class="subtitle with-square">Partner Kerjasama</div>
 						</div>
 						<p>
-						Berikut ini adalah beberapa klien yang telah melakukan kerjasama dengan Maxindo Cargo. 
+						Berikut ini adalah beberapa klien yang telah melakukan kerjasama dengan <?php echo Core::getInstance()->title?>. 
 						</p>
 						
 						<!-- === OWL CAROUSEL === -->

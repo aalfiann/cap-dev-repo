@@ -13,12 +13,12 @@
 						<!-- === TITLE GROUP === -->	
 						<div class="title-group">
 							<h2>TENTANG KAMI</h2>
-							<div class="subtitle with-square">MAXINDO CARGO</div>
+							<div class="subtitle with-square"><?php echo Core::getInstance()->title?></div>
 						</div>
 						
 						<!-- === ABOUT US TEXT === -->	
 						<p>
-							MAXINDO CARGO adalah jasa kirim barang murah di PURWOKERTO yang handal dan terpercaya. Berdiri sejak tahun 2008, dapat diartikan bahwa kami mampu menjaga dan melindungi setiap pengiriman yang dipercayakan kepada kami dari suatu tempat ke tempat lain dengan AMAN, CEPAT, DAN TEPAT.
+						<?php echo Core::getInstance()->title?> (PT. Cipta Amanah Persada) memberikan pelayanan pengiriman kurir dengan Sistem Pelayanan Kurir 24 jam sesuai keinginan Anda.
 						</p>
 						
 						<div class="home-about-video">

@@ -45,7 +45,7 @@
 					<div class="top-bar-mail-icon">
 						<i class="fa fa-envelope"></i>
 					</div>
-					cs@cap-express.co.id
+					<?php echo Core::getInstance()->email?>
 				</div>
 			
 		</div>
