@@ -199,7 +199,7 @@ $datalogin = Core::checkSessions();?>
     	    	});
             });
         }
-        /* Get status option end*/
+        /* Get status option end */
 
         /* Update data start */
         $("#updatedata").on("submit",sendnewdata);
