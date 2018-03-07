@@ -1,16 +1,17 @@
+<?php include 'app/Core.php';?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="MAXINDO CARGO adalah jasa kirim barang murah di PURWOKERTO yang handal dan terpercaya.">
-<meta name="keywords" content="Maxindo, Logistic, Blog, Transport, Corporate, Cargo, Truck">
+<meta name="description" content="<?php echo Core::getInstance()->description?>">
+<meta name="keywords" content="<?php echo Core::getInstance()->keyword?>">
 <meta name="author" content="M ABD AZIZ ALFIAN (about.me/azizalfian)">
 <?php include 'main-meta.php';?>
 
 <!-- SITE TITLE -->
-<title>Maxindo Cargo - Kirim Barang Purwokerto</title>
+<title><?php echo Core::getInstance()->title?> - Jasa Pengiriman Barang Murah</title>
 
 <!-- =========================
       FAV AND TOUCH ICONS  

@@ -1,4 +1,4 @@
 User-Agent: * 
 Allow: /
 
-Sitemap: https://kirimbarangpurwokerto.com/sitemap.xml
+Sitemap: https://cap-express.co.id/sitemap.xml

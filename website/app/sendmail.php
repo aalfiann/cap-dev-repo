@@ -1,14 +1,15 @@
 <?php
+include_once 'app/Core.php';
 //Identitas email
-$name = "Maxindo Cargo Purwokerto"; 
-$to="maxindopwo@gmail.com";
+$name = Core::getInstance()->title; 
+$to=Core::getInstance()->email;
 
 include('phpmailer/class.phpmailer.php');
 include('phpmailer/class.smtp.php');
 $mail = new PHPMailer();
 
 //Konfigurasi SMTP Server
-$mail->Host     = "server.javelinee.com"; 
+$mail->Host     = "server.cap-express.co.id"; 
 $mail->Mailer   = "smtp";
 $mail->Port 	= 587;
 $mail->SMTPAuth = true;
@@ -20,8 +21,8 @@ $mail->SMTPOptions = array(
 	'allow_self_signed' => true
 	)
 );
-$mail->Username = "postmaster@javelinee.com"; 
-$mail->Password = "post1234";
+$mail->Username = "noreply@cap-express.co.id"; 
+$mail->Password = "noreply1234";
 
 //Proses send mailer
 if($_POST['formname'] == 'get_quote'){
@@ -34,7 +35,7 @@ if($_POST['formname'] == 'get_quote'){
 		$mail->WordWrap = 70; 
 		$mail->IsHTML(true); 
 		
-		$subject = 'Pesan baru dari kirimbarangpurwokerto.com';
+		$subject = 'Pesan baru dari '.Core::getInstance()->title;
 		$message = '<b>Nama:</b> '.$_POST["gq-person"].'<br>
 		<b>Kontak:</b> '.$_POST["gq-contact"].'<br>
 		<b>Lokasi:</b> '.$_POST["gq-location"].'<br>
@@ -75,7 +76,7 @@ if($_POST['formname'] == 'get_quote'){
 		$mail->WordWrap = 70; 
 		$mail->IsHTML(true); 
 		
-		$subject = 'Pesan baru dari kirimbarangpurwokerto.com';
+		$subject = 'Pesan baru dari '.Core::getInstance()->title;
 		$message = '<b>Nama:</b> '.$_POST["contact-name"].'<br>
 		<b>E-mail:</b> '.$_POST["contact-email"].'<br>
 		<b>Telepon:</b> '.$_POST["contact-phone"].'<br>

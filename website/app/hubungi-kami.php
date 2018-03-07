@@ -1,3 +1,4 @@
+<?php include 'app/Core.php';?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -5,12 +6,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Anda dapat mengirim pesan kepada kami dengan mengisi form pesan ini. Kami dengan senang hati akan membantu Anda.">
-<meta name="keywords" content="Maxindo, Logistic, Blog, Transport, Corporate, Cargo, Truck">
+<meta name="keywords" content="<?php echo Core::getInstance()->keyword?>">
 <meta name="author" content="M ABD AZIZ ALFIAN (about.me/azizalfian)">
 <?php include 'main-meta.php';?>
 
 <!-- SITE TITLE -->
-<title>Maxindo Cargo - Hubungi Kami</title>
+<title><?php echo Core::getInstance()->title?> - Hubungi Kami</title>
 
 <!-- =========================
       FAV AND TOUCH ICONS  
@@ -56,8 +57,8 @@
 				<!-- === TOP LOGO === -->
 				 
 				<div class="logo" id="main-logo">
-					<div class="logo-image">
-						<img src="img/logo-white.jpg" height="50px" alt="maxindo cargo" />
+					<div class="logo-text">
+						CAP <span class="color-primary">Express</span>
 					</div>
 				</div>
 				 
@@ -242,7 +243,7 @@
 						<h3>ALAMAT</h3>
 					</div>
 					<div class="contact-detail-text">
-						Jl. Gerilya Barat No. 29<br>Tanjung Purwokerto
+						Jl. Manggarai Utara VIII F2B No.8 RT.08 RW.01 <br>Tebet Jakarta Selatan<br> 12850
 					</div>
 				</div>
 				
@@ -255,7 +256,7 @@
 						<h3>TELEPON | EMAIL</h3>
 					</div>
 					<div class="contact-detail-text">
-						+62 85101683600<br>maxindopwo@gmail.com
+						+6221 8290569<br>cs@cap-express.co.id
 					</div>
 				</div>
 				
@@ -268,7 +269,7 @@
 						<h3>JAM OPERASIONAL</h3>
 					</div>
 					<div class="contact-detail-text">
-						Senin - Jum'at : 08.00 - 17.00<br>Sabtu : 09.00 - 14.00
+						Senin - Jum'at : 08.00 - 21.00<br>Sabtu : 09.00 - 14.00
 					</div>
 				</div>
 			

@@ -1,16 +1,17 @@
+<?php include 'app/Core.php';?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="MAXINDO CARGO adalah jasa kirim barang murah di PURWOKERTO yang handal dan terpercaya.">
-<meta name="keywords" content="Maxindo, Logistic, Blog, Transport, Corporate, Cargo, Truck">
+<meta name="description" content="<?php echo Core::getInstance()->description?>">
+<meta name="keywords" content="<?php echo Core::getInstance()->keyword?>">
 <meta name="author" content="M ABD AZIZ ALFIAN (about.me/azizalfian)">
 <?php include 'main-meta.php';?>
 
 <!-- SITE TITLE -->
-<title>Maxindo Cargo - Tentang Kami</title>
+<title><?php echo Core::getInstance()->title?> - Tentang Kami</title>
 
 <!-- =========================
       FAV AND TOUCH ICONS  
@@ -56,8 +57,8 @@
 				<!-- === TOP LOGO === -->
 				 
 				<div class="logo" id="main-logo">
-					<div class="logo-image">
-						<img src="img/logo-white.jpg" height="50px" alt="maxindo cargo" />
+					<div class="logo-text">
+						CAP <span class="color-primary">Express</span>
 					</div>
 				</div>
 				 
@@ -174,40 +175,35 @@
 			</div>
 			<h2>Memberikan pelayanan yang terbaik dan terpercaya</h2>
 			
-				Selamat Datang di MAXINDO CARGO, JASA PENGIRIMAN MURAH PURWOKERTO.<br><br>
+<h4>LATAR BELAKANG</h4>				
+Bisnis ini dibangun untuk memenuhi kebutuhan masyarakat akan kebutuhan dibidang jasa pengiriman. Dibangun dengan filosofi yang sederhana, bahwa kepercayaan adalah hal utama yang datangnya dari semua pihak dan lingkungan.<br><br>
 
-MAXINDO CARGO adalah jasa kirim barang murah di PURWOKERTO yang handal dan terpercaya. Berdiri sejak tahun 2008, dapat diartikan bahwa kami mampu menjaga dan melindungi setiap pengiriman yang dipercayakan kepada kami dari suatu tempat ke tempat lain dengan AMAN, CEPAT, DAN TEPAT.<br><br>
-MAXINDO CARGO  merupakan sebuah jasa PENGIRIMAN BARANG MURAH terpercaya yang mampu menjaga dan melindungi setiap paket. Pengiriman dari para Customer untuk dikirim ke tempat tujuan dengan layanan Door to Door Service. VIA DARAT, LAUT DAN UDARA.<br><br>
+CAP Express (<b>PT. Cipta Amanah Persada</b>) adalah sebuah perusahaan yang bergerak di bidang Pengiriman Dokumen (Courier Service) maupun barang-barang (Goods Service) yang dapat mengirimkan ke seluruh wilayah nusantara (Domestic), dengan sistem terbaik kami siap melayani pengiriman dengan tanggung jawab yang tinggi dari masing-masing personil, dibantu dengan sistem percetakan dan pelaporan secara online, akan menjadikan setiap pengiriman CAP Express (<b>PT. Cipta Amanah Persada</b>) dimanapun akan berjalan baik.<br><br>
+
+Dalam rangka keinginan memenuhi harapan akan pentingnya suatu kualitas dan jaminan yang terbaik. Merupakan sebuah penghargaan bagi kami bila suatu kerjasama yang terjalin merupakan ikatan moral yang menjunjung tinggi akan nilai kualitas pelayanan, hal ini merupakan komitmen <b>PT. Cipta Amanah Persada</b>.<br><br>
+
+<b>PT. Cipta Amanah Persada</b> memberikan pelayanan pengiriman kurir dengan Sistem Pelayanan Kurir 24 jam sesuai keinginan Anda dan sistem pelayanan ini merupakan yang pertama di Indonesia, tanpa mengganggu pelayanan ke tempat tujuan dengan kenyamanan dan kesiapan kami untuk itu, sehingga penyampaian dokumen / barang Anda dapat lebih cepat dari perkiraan Anda.<br><br>
 
 <h4>VISI</h4>
-Menjadi perusahaan JASA PENGIRIMAN MURAH di PURWOKERTO. Yang terdepan, handal, profesional, selalu meningkatkan layanan yang berkualitas, agar dapat memberikan kepuasan kepada para pelanggan.
-<br><br>
-<h4>MISI</h4>
-<ul>
-<li>Memberikan pelayanan JASA PENGIRIMAN BARANG yang MURAH, HANDAL, dan TERPERCAYA.</li>
-<li>Komitmen dalam memberikan pelayanan yang terbaik dan terpercaya.</li>
-<li>Pelayanan tepat waktu dan keamanan selalu terjaga.</li>
-<li>Selalu menjaga kualitas dan standar pelayanan pengiriman.</li>
+Menjadikan jasa pengiriman sebagai salah satu sarana yang dapat diandalkan dan dipercaya.<br><br>
 
-</ul>
-<br><br>
-<h4>KAMI MELAYANI PENGIRIMAN :</h4>
+<h4>MISI</h4>
+Menjadikan <b>PT. Cipta Amanah Persada</b> sebagai perusahaan yang dapat bersaing dan terpercaya.<br><br>
+
+<h4>Kebijakan Mutu</h4>
 <ul>
-<li>Dokumen</li>
-<li>Paket</li>
-<li>Kargo</li>
-<li>Barang pecah belah</li>
-<li>Sepeda, motor</li>
-<li>Makanan</li>
-<li>Hewan</li>
-<li>Sayuran</li>
-<li>Barang cairan</li>
-<li>Furniture</li>
-<li>Elektronik</li>
-<li>Bibit tanaman</li>
-<li>Hasil pertanian / kebun</li>
-<li>Pindahan kantor / rumah</li>
-<li>Dll</li>
+<li>Menjadi perusahaan Jasa Kurir dan Kargo dengan tingkat pelayanan dan pengiriman yang terbaik dengan dukungan armada yang terbesar dan tersebar di seluruh wilayah nusantara.</li>
+<li>Komitmen untuk menjadi tuan rumah di negara sendiri dalam menghadapi era globalisasi.</li>
+<li>Menjadi perusahaan Jasa Titipan yang sukses.</li>
+</ul><br><br>
+
+<h4>Target :</h4>
+<ul>
+<li>Memberikan Tingkat Kepuasan dan Kepercayaan yang tinggi akan kecepatan, Ketepatan Waktu dan Keamanan Pengiriman kepada Pelanggan.</li>
+<li>Memberikan layanan 24 jam dan Sistem Informasi Pelaporan Pengiriman yang up-to-date.</li>
+<li>Menjaga Dokumen dan Kerahasiaan Data-data Pelanggan.</li>
+<li>Menyediakan Armada dan Messenger yang Handal dalam mencapai Distribusi yang Cepat, Terkendali, Aman dan Bertanggung Jawab.</li>
+<li>Memberikan Pelayanan Jasa <b>"ONE STOP SERVICE"</b> bermutu dan handal.</li>
 </ul>
 		</div>
 	</div>

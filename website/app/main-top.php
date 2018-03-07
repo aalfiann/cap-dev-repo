@@ -7,21 +7,21 @@
 				<!-- === TOP BAR SOCIAL ICONS === -->
 				
 				<div class="top-bar-social">
-					<a href="#"><div class="my-btn my-btn-primary">
+					<a href="<?php echo Core::getInstance()->twitter?>"><div class="my-btn my-btn-primary">
 						<div class="my-btn-bg-top"></div>
 						<div class="my-btn-bg-bottom"></div>
 						<div class="my-btn-text">
 							<i class="fa fa-twitter"></i>
 						</div>
 					</div></a>
-					<a href="https://www.facebook.com/arief.pwkerto"><div class="my-btn my-btn-primary">
+					<a href="<?php echo Core::getInstance()->facebook?>"><div class="my-btn my-btn-primary">
 						<div class="my-btn-bg-top"></div>
 						<div class="my-btn-bg-bottom"></div>
 						<div class="my-btn-text">
 							<i class="fa fa-facebook"></i>
 						</div>
 					</div></a>
-					<a href="https://plus.google.com/113263897951489990849"><div class="my-btn my-btn-primary">
+					<a href="<?php echo Core::getInstance()->gplus?>"><div class="my-btn my-btn-primary">
 						<div class="my-btn-bg-top"></div>
 						<div class="my-btn-bg-bottom"></div>
 						<div class="my-btn-text">
@@ -36,7 +36,7 @@
 					<div class="top-bar-phone-icon">
 						<i class="fa fa-phone"></i>
 					</div>
-					+62 85101683600
+					+6221 8290569
 				</div>
 				
 				<!-- === TOP BAR E-MAIL === -->
@@ -45,7 +45,7 @@
 					<div class="top-bar-mail-icon">
 						<i class="fa fa-envelope"></i>
 					</div>
-					maxindopwo@gmail.com
+					cs@cap-express.co.id
 				</div>
 			
 		</div>
@@ -57,15 +57,15 @@
 	<!-- =========================
 		TOP MAIN NAVBAR
 	============================== -->
-	<div class="main-navbar main-navbar-2">
+	<div class="main-navbar main-navbar-1">
 		<div class="container">
 			<div class="row">
                  
 				<!-- === TOP LOGO === -->
 				 
 				<div class="logo" id="main-logo">
-					<div class="logo-image">
-						<img src="img/logo-white.jpg" height="50px" alt="maxindo cargo" />
+					<div class="logo-text">
+						CAP <span class="color-primary">Express</span>
 					</div>
 				</div>
 				 
