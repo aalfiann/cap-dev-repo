@@ -1,9 +1,6 @@
 <?php spl_autoload_register(function ($classname) {require ( $classname . ".php");});
 $datalogin = Core::checkSessions();
-if(Core::getUserGroup() > '2') {Core::goToPage('modul-user-profile.php');exit;}
-// Data Role
-$urlrole = Core::getInstance()->api.'/user/role/'.$datalogin['token'];
-$datarole = json_decode(Core::execGetRequest($urlrole));?>
+if(Core::getUserGroup() > '2') {Core::goToPage('modul-user-profile.php');exit;}?>
 <!DOCTYPE html>
 <html lang="<?php echo Core::getInstance()->setlang?>">
 <head>
@@ -111,12 +108,6 @@ $datarole = json_decode(Core::execGetRequest($urlrole));?>
                                                             <label class="col-md-12"><?php echo Core::lang('tb_role')?></label>
                                                             <div class="col-md-12">
                                                             <select id="role" style="max-height:200px; overflow-y:scroll; overflow-x:hidden;" class="form-control form-control-line" required>
-                                                                <?php if (!empty($datarole)) {
-                                                                        foreach ($datarole->result as $name => $value) {
-                                                                            echo '<option value="'.$value->{'RoleID'}.'">'.$value->{'Role'}.'</option>';
-                                                                        }
-                                                                    }
-                                                                ?>
                                                             </select>
                                                             </div>
                                                         </div>
@@ -465,6 +456,30 @@ $datarole = json_decode(Core::execGetRequest($urlrole));?>
         
         /* Load data from datatables onload */
         loadData('#datauser','1','10');
+        loadRoleOption();
+
+        /* Get role option start */
+        function loadRoleOption(){
+            $(function(){
+                $.ajax({
+				    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/user/role/'.$datalogin['token'])?>")+"?_="+randomText(60),
+	    	    	dataType: 'json',
+	    	    	type: 'GET',
+		    		ifModified: true,
+    		        success: function(data,status) {
+    			    	if (status === "success") {
+					    	if (data.status == "success"){
+                                $.each(data.result, function(i, item) {
+                                    $("#role").append("<option value=\""+data.result[i].RoleID+"\">"+data.result[i].Role+"</option>");
+                                });
+    				    	}
+    	    			}
+	    		    },
+                	error: function(x, e) {}
+    	    	});
+            });
+        }
+        /* Get role option end */
 
         /* Add new data start */
         function selectedRole(){
