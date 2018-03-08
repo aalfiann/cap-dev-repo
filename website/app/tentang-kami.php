@@ -164,7 +164,7 @@
 	<!-- ===================================
 		END PAGE HEADER
 	======================================== -->
-	
+	<?php include 'main-tracking.php';?>
 	<!-- =========================
 		ABOUT TEXT
 	============================== -->
@@ -190,20 +190,27 @@ Menjadikan jasa pengiriman sebagai salah satu sarana yang dapat diandalkan dan d
 <h4>MISI</h4>
 Menjadikan <b>PT. Cipta Amanah Persada</b> sebagai perusahaan yang dapat bersaing dan terpercaya.<br><br>
 
-<h4>Kebijakan Mutu</h4>
+<h4>KEBIJAKAN MUTU</h4>
 <ul>
 <li>Menjadi perusahaan Jasa Kurir dan Kargo dengan tingkat pelayanan dan pengiriman yang terbaik dengan dukungan armada yang terbesar dan tersebar di seluruh wilayah nusantara.</li>
 <li>Komitmen untuk menjadi tuan rumah di negara sendiri dalam menghadapi era globalisasi.</li>
 <li>Menjadi perusahaan Jasa Titipan yang sukses.</li>
-</ul><br><br>
+</ul><br>
 
-<h4>Target :</h4>
+<h4>TARGET</h4>
 <ul>
 <li>Memberikan Tingkat Kepuasan dan Kepercayaan yang tinggi akan kecepatan, Ketepatan Waktu dan Keamanan Pengiriman kepada Pelanggan.</li>
 <li>Memberikan layanan 24 jam dan Sistem Informasi Pelaporan Pengiriman yang up-to-date.</li>
 <li>Menjaga Dokumen dan Kerahasiaan Data-data Pelanggan.</li>
 <li>Menyediakan Armada dan Messenger yang Handal dalam mencapai Distribusi yang Cepat, Terkendali, Aman dan Bertanggung Jawab.</li>
 <li>Memberikan Pelayanan Jasa <b>"ONE STOP SERVICE"</b> bermutu dan handal.</li>
+</ul><br>
+
+<h4>DOKUMEN LEGAL</h4>
+<ul>
+<li>SIUP: </li>
+<li>TDP: </li>
+<li>NPWP: </li>
 </ul>
 		</div>
 	</div>
@@ -217,7 +224,7 @@ Menjadikan <b>PT. Cipta Amanah Persada</b> sebagai perusahaan yang dapat bersain
 	
 	<?php include 'main-reviews.php';?> 
 	 
-	<?php include 'main-subscribe.php';?>
+	<?php include 'main-motto.php';?>
      
 	<?php include 'main-footer.php';?>
 
