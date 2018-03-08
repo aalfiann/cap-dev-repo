@@ -2,8 +2,10 @@ CAP Development
 =======
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aalfiann/cap-dev-repo/blob/master/license.md)<br>
 ![Skeleton](https://img.shields.io/badge/skeleton-100%25-green.svg)<br>
-![App](https://img.shields.io/badge/app-65%25-yellow.svg)<br>
-![Website](https://img.shields.io/badge/website-10%25-red.svg)<br>
+![Website](https://img.shields.io/badge/website-100%25-green.svg)<br>
+![Timeline1](https://img.shields.io/badge/timeline1-100%25-green.svg)<br>
+![Timeline2](https://img.shields.io/badge/timeline2-10%25-green.svg)<br>
+
 
 Untuk melihat status proses development [klik disini](https://github.com/aalfiann/cap-dev-repo/commits/master).<br>
 
@@ -13,7 +15,6 @@ CAP Progress Status:
 Timeline plan 1:
 ---------------
 Estimate progress around 1 Month
-
 1. Build Rest API Server >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
 2. Configure Mail Server >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
 3. Modular Template UI >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
@@ -30,7 +31,6 @@ Estimate progress around 1 Month
 Timeline plan 2:
 ---------------
 Estimate progress around 2 Month
-
 1. Build infrastructure internal system >> ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) `on progress`
 2. Tariff System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
 3. Branches Management System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
@@ -50,6 +50,7 @@ Estimate progress around 3 Month
 4. Customer App System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
 5. Customer Reporting System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
 6. SMS Reporting >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
+
 
 Timeline plan 4:
 ---------------
