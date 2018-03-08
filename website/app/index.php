@@ -11,7 +11,7 @@
 <?php include 'main-meta.php';?>
 
 <!-- SITE TITLE -->
-<title><?php echo Core::getInstance()->title?> - Jasa Pengiriman Barang Murah</title>
+<title><?php echo Core::getInstance()->title?> - Courier and Cargo - Jasa Pengiriman Barang Murah</title>
 
 <!-- =========================
       FAV AND TOUCH ICONS  
@@ -49,6 +49,8 @@
     <?php include 'main-top.php';?>
 	
 	<?php include 'main-slider.php';?>
+
+	<?php include 'main-tracking.php';?>
      
 	<?php include 'main-services.php';?>
 	
@@ -59,8 +61,8 @@
 	<?php include 'main-stats.php';?>
      
 	<?php include 'main-clients.php';?>
-	 
-	<?php include 'main-subscribe.php';?>
+
+	<?php include 'main-motto.php';?>
      
 	<?php include 'main-footer.php';?>
 
