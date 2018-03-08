@@ -13,7 +13,7 @@
 						<!-- === TITLE GROUP === -->	
 						<div class="title-group">
 							<h2>TENTANG KAMI</h2>
-							<div class="subtitle with-square"><?php echo Core::getInstance()->title?></div>
+							<div class="subtitle with-square"><?php echo Core::getInstance()->title?> - Courier and Cargo</div>
 						</div>
 						
 						<!-- === ABOUT US TEXT === -->	
