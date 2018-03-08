@@ -271,13 +271,13 @@ new WOW().init();
 
 function initMap() {
 
-	var myLatLng = {lat: -7.4422795, lng: 109.2280959};
-
+	var myLatLng = {lat: -6.2113803, lng: 106.8499079};
+	
 	// Create a map object and specify the DOM element for display.
 	var map = new google.maps.Map(document.getElementById('contact-map'), {
 		center: myLatLng,
 		scrollwheel: false,
-		zoom: 16
+		zoom: 14
 	});
 	
 	var image = 'media/images/marker.png';
@@ -287,7 +287,7 @@ function initMap() {
 		map: map,
 		icon: image,
 		position: myLatLng,
-		title: 'MAXINDO CARGO'
+		title: 'CAP EXPRESS'
 	});
 	
 }
