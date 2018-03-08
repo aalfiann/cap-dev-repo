@@ -207,10 +207,11 @@ Menjadikan <b>PT. Cipta Amanah Persada</b> sebagai perusahaan yang dapat bersain
 </ul><br>
 
 <h4>DOKUMEN LEGAL</h4>
+<p style="text-align:left">PT. CIPTA AMANAH PERSADA</p>
 <ul>
-<li>SIUP: </li>
-<li>TDP: </li>
-<li>NPWP: </li>
+<li>SIUP: 09/24.1PM/31.74/-1.824.27/e/2016</li>
+<li>TDP: 09.03.1.82.103466</li>
+<li>NPWP: 74.693.993.3-015.000</li>
 </ul>
 		</div>
 	</div>
