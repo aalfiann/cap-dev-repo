@@ -165,7 +165,7 @@
 	<!-- ===================================
 		END PAGE HEADER
 	======================================== -->
-	
+	<?php include 'main-tracking.php';?>
 	<!-- =========================
 		CONTACTS
 	============================== -->
@@ -290,7 +290,7 @@
 		END CONTACTS MAP
 	============================== -->
 	
-	<?php include 'main-subscribe.php';?>
+	<?php include 'main-motto.php';?>
 	
 	<?php include 'main-footer.php';?>
 
