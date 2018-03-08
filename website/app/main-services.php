@@ -4,32 +4,11 @@
     <section class="def-section home-services">
 		<div class="container">
 			<div class="row">
-                 
-				<!-- === SERVICE ITEM === -->	
-				
-				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-				
-					<div class="service">				
-						<div class="service-icon">
-							<i class="flaticon-transport222"></i>
-						</div>
-						<h3>city kurir</h3>
-						<div class="service-text">
-							<p>Kami juga melayani<br>PENGANTARAN HANDLING dan<br>CITY KURIR area Banyumas Raya<br>(Ajibarang, Banjarnegara, Bumiayu, Cilacap,<br>Gombong, Kebumen, Purwokerto,<br>Purbalingga, Tegal dan Wonosobo).</p>
-						</div>
-						
-					</div>
-					
-				</div>
                 
 				<!-- === SERVICE ITEM === -->
 				
-				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12" id="service-mark">
+				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
 				
-					<div class="service-mark-border-top"></div>
-					<div class="service-mark-border-right"></div>
-					<div class="service-mark-border-bottom"></div>
-					<div class="service-mark-border-left"></div>
 					<div class="service">
 						<div class="service-icon">
 							<i class="flaticon-transport358"></i>
@@ -53,7 +32,7 @@
 						</div>
 						<h3>via laut</h3>
 						<div class="service-text">
-							<p>Kiriman cepat adalah salah satu dari<br>beberapa layanan pengiriman<br>yang kami tawarkan,<br>dengan transportasi kapal cepat (Pelni- Roro)<br>serta dukungan armada yang siap<br>menjemput logistik anda (Door to door). </p>
+							<p>Kiriman via laut dengan <br>transportasi kapal cepat (Pelni- Roro)<br> serta dukungan armada yang siap <br>menjemput logistik anda (Door to door), <br>kami siap melayani permintaan <br>akan pengiriman cepat berbiaya murah. </p>
 						</div>
                         
                      </div>
@@ -62,8 +41,12 @@
                 
 				<!-- === SERVICE ITEM === -->
 				
-				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-				
+				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12" id="service-mark">
+
+					<div class="service-mark-border-top"></div>
+					<div class="service-mark-border-right"></div>
+					<div class="service-mark-border-bottom"></div>
+					<div class="service-mark-border-left"></div>
 					<div class="service">
 						<div class="service-icon">
 							<i class="flaticon-road40"></i>
@@ -77,16 +60,24 @@
 					 
                  </div>
 
-				 <!-- === READ MORE BUTTON === -->	
-							<a href="tentang-kami.php"><div class="home-about-button">
-								<div class="my-btn my-btn-primary">
-									<div class="my-btn-bg-top"></div>
-									<div class="my-btn-bg-bottom"></div>
-									<div class="my-btn-text">
-										SELENGKAPNYA
-									</div>
-								</div>
-							</div></a>
+				 <!-- === SERVICE ITEM === -->	
+				
+				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+				
+					<div class="service">				
+						<div class="service-icon">
+							<i class="flaticon-transport222"></i>
+						</div>
+						<h3>city courier</h3>
+						<div class="service-text">
+							<p>Layanan City Courier <br>adalah solusi terbaik <br>bagi para pelanggan yang <br>membutuhkan layanan <br>pengiriman paket, parcel <br>dan dokumen dalam kota.</p>
+						</div>
+					
+					</div>
+
+				</div>
+
+				
 				 
              </div>
          </div>
