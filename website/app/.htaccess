@@ -2,9 +2,21 @@ AddDefaultCharset UTF-8
 
 <IfModule mod_rewrite.c>
 	RewriteEngine On
+
+	# Force to use non www
 	RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
-	RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
-	ErrorDocument 404 "<script>window.location.href='404.php';</script>"
+	RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
+	# Force to 443 if use SSL
+	#RewriteCond %{SERVER_PORT} ^80$
+	#RewriteRule ^(.*)$ https://%{SERVER_NAME}%{REQUEST_URI} [L,R]
+
+	# Force to use SSL Flexible if using cloudflare
+	RewriteCond %{HTTP:CF-Visitor} '"scheme":"http"'
+	RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L]
+	
+	# Handle not found
+	ErrorDocument 404 "<script>window.location.href='/index.php';</script>"
 </IfModule>
 
 <IfModule mod_php5.c>
@@ -39,6 +51,21 @@ AddDefaultCharset UTF-8
 	Header append Vary User-Agent env=!dont-vary
 	Header unset ETag
 	FileETag none
+
+	# Unset Server Signature header
+	ServerSignature Off
+
+	# Unset Server Technology header
+	Header unset X-Powered-By
+
+	# Set XSS Protection header
+	Header set X-XSS-Protection "1; mode=block"
+
+	# Set page-framing and click-jacking protection
+	Header always append X-Frame-Options SAMEORIGIN
+
+	# Set content-sniffing protection
+	Header set X-Content-Type-Options nosniff
 	
 	# 480 weeks
 	<FilesMatch "\.(ico|flv|jpg|jpeg|png|gif|js|css|swf)$">
