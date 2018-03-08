@@ -82,7 +82,7 @@
 				
 				<!-- === BOTTOM LEFT === -->
 				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 bottom-1">
-				&copy; <?php echo Date('Y');?> - CAP <span class="color-primary">Express</span> 
+				&copy; <?php echo Date('Y');?> | CAP <span class="color-primary">Express</span> - Courier and Cargo 
 				</div>
 				
 				<!-- === BOTTOM CENTER === -->
