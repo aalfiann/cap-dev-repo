@@ -64,7 +64,7 @@
 							<div class="home-review-carousel-item">
 								<div class="home-review-carousel-text">
 									<div class="home-review-carousel-quote"><div><i class="fa fa-quote-left"></i></div></div>
-									<p>Paling suka dengan jasa pengiriman Maxindo karena saya dilayani dengan sangat ramah oleh tim operasionalnya. Bagi saya ini jasa pengiriman terbaik di kota purwokerto.</p>
+									<p>Paling suka dengan jasa pengiriman CAP Express karena saya dilayani dengan sangat ramah oleh tim operasionalnya. Bagi saya ini jasa pengiriman yang paling terbaik.</p>
 								</div>
 								
 								<!-- === OWL CAROUSEL ITEM AUTHOR=== -->
@@ -90,7 +90,7 @@
 						
 						<!-- === TITLE GROUP === -->
 						<div class="title-group">
-							<h2>PRODUK MAXINDO CARGO</h2>
+							<h2>PRODUK <?php echo Core::getInstance()->title?></h2>
 							<div class="subtitle with-square">PENGIRIMAN BARANG MURAH</div>
 						</div>
 						
@@ -101,28 +101,12 @@
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-											PENGIRIMAN MURAH VIA UDARA KE SELURUH INDONESIA
+										<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+											<b><i class="flaticon-road40"></i> CARGO DARAT</b> 
 										</a>
 									</h4>
 								</div>
-								<div id="collapseOne" class="panel-collapse collapse in">
-									<div class="panel-body">
-										<p>Bagi yang menginginkan paket barang anda terdistribusikan dengan cepat tiba di kota tujuan, layanan pengiriman barang melalui udara adalah solusi tepat untuk kelancaran bisnis anda. Kami memberikan pelayanan mulai dari penjemputan (Door to Door), Pemackingan barang (Karung, peti, kardus) hingga pengantaran ke tujuan untuk kemudahan anda, kami melayani dengan tulus sepenuh hati.</p>
-									</div>
-								</div>
-							</div>
-							
-							<!-- === ACCORDION ITEM === -->
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title">
-										<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-											PENGIRIMAN MURAH VIA DARAT 
-										</a>
-									</h4>
-								</div>
-								<div id="collapseTwo" class="panel-collapse collapse">
+								<div id="collapseTwo" class="panel-collapse collapse in">
 									<div class="panel-body">
 										<p>Melalui transportasi darat (truk) untuk rute kota-kota besar di Sumatra, Jawa, Bali, Madura, NTB, NTT, adalah layanan yang kami tawarkan kepada anda Door to door service murah, aman, dan cepat.</p>
 									</div>
@@ -134,13 +118,13 @@
 								<div class="panel-heading">
 									<h4 class="panel-title">
 										<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-											PENGIRIMAN MURAH VIA KERETA
+											<b><i class="flaticon-transport358"></i> CARGO UDARA</b>
 										</a>
 									</h4>
 								</div>
 								<div id="collapseThree" class="panel-collapse collapse">
 									<div class="panel-body">
-										<p>Kiriman barang jalur transportasi kereta api barang, untuk kota-kota tujuan pulau Jawa dan Bali, kiriman cepat (1 hari sampai) adalah salah satu layanan unggulan kami. Dapatkan kemudahan-kemudahan lain yang kami tawarkan untuk pengiriman barang logistik anda. Team kami siap membantu antar jemput kiriman anda.</p>
+										<p>Bagi yang menginginkan paket barang anda terdistribusikan dengan cepat tiba di kota tujuan, layanan pengiriman barang melalui udara adalah solusi tepat untuk kelancaran bisnis anda. Kami memberikan pelayanan mulai dari penjemputan (Door to Door), Pemackingan barang (Karung, peti, kardus) hingga pengantaran ke tujuan.</p>
 									</div>
 								</div>
 							</div>
@@ -150,13 +134,13 @@
 								<div class="panel-heading">
 									<h4 class="panel-title">
 										<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
-											PENGIRIMAN MURAH VIA KAPAL CEPAT
+											<b><i class="flaticon-transport548"></i> CARGO LAUT</b>
 										</a>
 									</h4>
 								</div>
 								<div id="collapseFour" class="panel-collapse collapse">
 									<div class="panel-body">
-										<p>Kiriman cepat adalah salah satu dari beberapa layanan pengiriman yang kami tawarkan, dengan transportasi kapal cepat (Pelni- Roro) serta dukungan armada yang siap menjemput logistik anda (Door to door), kami siap melayani permintaan akan pengiriman cepat berbiaya murah. Beberapa pilihan kota tujuan seperti (Aceh, Medan, Pekanbaru, Kalimantan, Sulawesi, Ambon, Kupang, Irian Jaya, Bangka-Belitung, serta Kota-Kota besar lainnya).</p>
+										<p>Kiriman via laut dengan transportasi kapal cepat (Pelni- Roro) serta dukungan armada yang siap menjemput logistik anda (Door to door), kami siap melayani permintaan akan pengiriman cepat berbiaya murah. Beberapa pilihan kota tujuan seperti (Aceh, Medan, Pekanbaru, Kalimantan, Sulawesi, Ambon, Kupang, Irian Jaya, Bangka-Belitung, serta Kota-Kota besar lainnya).</p>
 									</div>
 								</div>
 							</div>
@@ -166,13 +150,13 @@
 								<div class="panel-heading">
 									<h4 class="panel-title">
 										<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
-											CITY KURIR
+											<b><i class="flaticon-transport222"></i> CITY COURIER</b>
 										</a>
 									</h4>
 								</div>
 								<div id="collapseFive" class="panel-collapse collapse">
 									<div class="panel-body">
-										<p>Kami juga melayani PENGANTARAN HANDLING dan CITY KURIR area Banyumas Raya (Ajibarang, Banjarnegara, Bumiayu, Cilacap, Gombong, Kebumen, Purwokerto, Purbalingga, Tegal dan Wonosobo).</p>
+										<p>Layanan City Courier adalah solusi terbaik bagi para pelanggan yang membutuhkan layanan pengiriman paket, parcel dan dokumen dalam kota.</p>
 									</div>
 								</div>
 							</div>
