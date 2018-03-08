@@ -7,8 +7,13 @@ CAP Development
 
 Untuk melihat status proses development [klik disini](https://github.com/aalfiann/cap-dev-repo/commits/master).<br>
 
-CAP Progress Status Stage 1:
+CAP Progress Status:
 ---------------
+
+Timeline plan 1:
+---------------
+Estimate progress around 1 Month
+
 1. Build Rest API Server >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
 2. Configure Mail Server >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
 3. Modular Template UI >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
@@ -18,7 +23,37 @@ CAP Progress Status Stage 1:
 7. Error Log System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
 8. Page Management System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
 9. File Management System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
-10. Company Profile >> ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) `on progress`
-11. Branches Management System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
-12. Transaction Data >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
-13. Reporting Data >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
+10. Company Profile >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
+11. Lanching First System Online >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
+
+
+Timeline plan 2:
+---------------
+Estimate progress around 2 Month
+
+1. Build infrastructure internal system >> ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) `on progress`
+2. Tariff System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
+3. Branches Management System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
+4. Transaction Data >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
+5. Reporting Data >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
+6. Corporate System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
+7. Invoice System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
+8. Blog System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
+
+
+Timeline plan 3:
+---------------
+Estimate progress around 3 Month
+1. Operasional System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
+2. Inquiry Data >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
+3. Tracking System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
+4. Customer App System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
+5. Customer Reporting System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
+6. SMS Reporting >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
+
+Timeline plan 4:
+---------------
+Estimate progress around 6 Month
+1. Mobile App Android >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
+2. Mobile App iOS >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
+3. Universal Windows App >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
