@@ -8,13 +8,12 @@ use \classes\SimpleCache as SimpleCache;
         $data = [
 		    'status' => 'success',
 			'code' => '200',
-			'welcome' => 'Hello World, here is the default index reSlim',
-            'author' => [
-                'name' => 'M ABD AZIZ ALFIAN (aalfiann@gmail.com)',
-                'github' => 'https://github.com/aalfian/reSlim',
-                'license' => 'https://github.com/aalfiann/reSlim/blob/master/license.md'
+            'welcome' => 'Hello World, here is the CAP Express API for development use.',
+            'message' => 'To use our API make sure You already have a credential to login or an API Key.',
+            'info' => [
+                'webmaster' => 'M ABD AZIZ ALFIAN (aalfiann@gmail.com)',
+                'documentation' => 'The documentation about this API is on our blogs.'
             ],
-            'how_to_use' => 'reSlim is using authentication by token. So You have to register and login to get generated new token.',
             'generate_time' => date('Y-m-d h:i:s a', time())
 		];
         $body = $response->getBody();
