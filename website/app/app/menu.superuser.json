@@ -63,6 +63,49 @@
                 ]
                 }
             ]
+        },
+        {
+			"header": "cargo",
+            "subheader":[
+                {
+                    "id":"1",
+                    "title":"master",
+                    "icon_class":"mdi mdi-key-variant",
+                    "menus": [
+                        {
+                            "title": "data branch",
+                            "link": "modul-data-branch.php"
+                        },
+                        {
+                            "title": "data corporate",
+                            "link": "modul-data-corporate.php"
+                        },
+                        {
+                            "title": "data tariff",
+                            "link": "modul-data-tariff.php"
+                        },
+                        {
+                            "title": "data user",
+                            "link": "modul-data-user-branch.php"
+                        }
+                    ]
+                },
+                {
+                    "id":"2",
+                    "title":"data",
+                    "icon_class":"mdi mdi-database",
+                    "menus": [
+                        {
+                            "title": "transaction",
+                            "link": "modul-transaction.php"
+                        },
+                        {
+                            "title": "invoice",
+                            "link": "modul-invoice.php"
+                        }
+                    ]
+                }
+            ]
 		},
 		{
 			"header": "extension",
