@@ -17,16 +17,27 @@ Timeline plan 1:
 ---------------
 Estimate progress around 1 Month
 1. Build Rest API Server >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
+menggunakan teknologi rest api agar sistem mendukung skala besar
 2. Configure Mail Server >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
+Server email untuk memudahkan komunikasi secara elektronik
 3. Modular Template UI >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
+Template modular untuk memudahkan pengembangan sistem
 4. User Management System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
+Manajemen pengguna sistem dengan konsep role based group
 5. API Management System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
+Manajemen API agar dapat mengontrol siapa saja pengguna eksternal terhadap sistem
 6. Maintenance Settings >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
+Pengaturan fleksible terhadap perubahan proses bisnis
 7. Error Log System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
+Agar memudahkan mendeteksi kesalahan sistem untuk mempercepat proses perbaikan
 8. Page Management System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
+Manajemen halaman sistem untuk membuat halaman tanpa batas yang berguna untuk pembuatan artikel, berita, dokumentasi dan lain-lain
 9. File Management System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
-10. Company Profile >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
-11. Lanching First System Online >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
+Manajemen File untuk memudahkan berbagi dokumen ke sesama pengguna sistem
+10. Web Company Profile >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
+Web profile perusahaan terintegrasi dengan internal sistem
+11. Live Development Online >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
+Pengembangan sistem dilakukan secara langsung dan terus-menerus
 
 
 Timeline plan 2:
