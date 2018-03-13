@@ -15,13 +15,13 @@ CAP Progress Status:
 
 Timeline plan 1:
 ---------------
-Estimate progress around 1 Month
+Proses pengembangan sekitar 1 bulan.
 1. Build Rest API Server >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
 menggunakan teknologi rest api agar sistem mendukung skala besar<br>
 2. Configure Mail Server >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
 Server email untuk memudahkan komunikasi secara elektronik<br>
 3. Modular Template UI >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
-Template modular untuk memudahkan pengembangan sistem<br>
+Template modular untuk memudahkan perubahan desain UI sistem<br>
 4. User Management System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
 Manajemen pengguna sistem dengan konsep role based group<br>
 5. API Management System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
@@ -42,31 +42,48 @@ Pengembangan sistem dilakukan secara langsung dan terus-menerus<br>
 
 Timeline plan 2:
 ---------------
-Estimate progress around 2 Month
-1. Build infrastructure internal system >> ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) `on progress`
-2. Tariff System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
-3. Branches Management System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
-4. Transaction Data >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
-5. Reporting Data >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
-6. Corporate System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
-7. Invoice System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
-8. Blog System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
+Proses pengembangan sekitar 2 bulan
+1. Build infrastructure internal system >> ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) `on progress`<br>
+Sistem akan terintegrasi pada satu titik global atau terpusat dan online<br>
+2. Tariff System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+Fleksible dalam pembuatan tarif untuk mendukung perubahan setiap saat<br>
+3. Branches Management System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+Pendataan internal cabang agar memudahkan untuk pengembangan cabang<br>
+4. Transaction Data >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+Transaksi dapat dilakukan di semua device dan real time online<br>
+5. Reporting Data >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+Laporan data semua transaksi termasuk harian, mingguan, bulanan dan tahunan<br>
+6. Corporate System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+Pendataan Corporate atau perusahaan yang bekerja sama<br>
+7. Invoice System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+Manajemen tagihan atau invoice secara sistem agar memudahkan untuk di kontrol<br>
+8. Blog System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+Blog atau konten manajemen sistem berguna untuk pembuatan artikel, berita, promosi, dokumentasi dan lain-lain<br>
 
 
 Timeline plan 3:
 ---------------
-Estimate progress around 3 Month
-1. Operasional System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
-2. Inquiry Data >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
-3. Tracking System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
-4. Customer App System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
-5. Customer Reporting System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
-6. SMS Reporting >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
+Proses pengembangan sekitar 3 bulan
+1. Operasional System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+Sistem operasional CARGO<br>
+2. Inquiry Data >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+Untuk mendapatkan info detail data dalam sistem<br>
+3. Tracking System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+Untuk mendapatkan informasi riwayat perjalanan data customer<br>
+4. Customer App System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+Aplikasi untuk customer yang terdaftar dengan fitur login<br>
+5. Customer Reporting System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+Aplikasi laporan data untuk customer khususnya perusahaan atau corporate<br>
+6. SMS Reporting >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+Laporan terhadap customer dalam bentuk SMS<br>
 
 
 Timeline plan 4:
 ---------------
-Estimate progress around 6 Month
-1. Mobile App Android >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
-2. Mobile App iOS >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
-3. Universal Windows App >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`
+Proses pengembangan sekitar 6 bulan
+1. Mobile App Android >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+Aplikasi mobile untuk android<br>
+2. Mobile App iOS >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+Aplikasi mobile untuk iOS<br>
+3. Universal Windows App >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+Aplikasi untuk semua deivce windows
