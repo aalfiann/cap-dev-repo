@@ -16,28 +16,28 @@ CAP Progress Status:
 Timeline plan 1:
 ---------------
 Estimate progress around 1 Month
-1. Build Rest API Server >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
-menggunakan teknologi rest api agar sistem mendukung skala besar
-2. Configure Mail Server >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
-Server email untuk memudahkan komunikasi secara elektronik
-3. Modular Template UI >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
-Template modular untuk memudahkan pengembangan sistem
-4. User Management System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
-Manajemen pengguna sistem dengan konsep role based group
-5. API Management System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
-Manajemen API agar dapat mengontrol siapa saja pengguna eksternal terhadap sistem
-6. Maintenance Settings >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
-Pengaturan fleksible terhadap perubahan proses bisnis
-7. Error Log System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
-Agar memudahkan mendeteksi kesalahan sistem untuk mempercepat proses perbaikan
-8. Page Management System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
-Manajemen halaman sistem untuk membuat halaman tanpa batas yang berguna untuk pembuatan artikel, berita, dokumentasi dan lain-lain
-9. File Management System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
-Manajemen File untuk memudahkan berbagi dokumen ke sesama pengguna sistem
-10. Web Company Profile >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
-Web profile perusahaan terintegrasi dengan internal sistem
-11. Live Development Online >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`
-Pengembangan sistem dilakukan secara langsung dan terus-menerus
+1. Build Rest API Server >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
+menggunakan teknologi rest api agar sistem mendukung skala besar<br>
+2. Configure Mail Server >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
+Server email untuk memudahkan komunikasi secara elektronik<br>
+3. Modular Template UI >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
+Template modular untuk memudahkan pengembangan sistem<br>
+4. User Management System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
+Manajemen pengguna sistem dengan konsep role based group<br>
+5. API Management System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
+Manajemen API agar dapat mengontrol siapa saja pengguna eksternal terhadap sistem<br>
+6. Maintenance Settings >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
+Pengaturan fleksible terhadap perubahan proses bisnis<br>
+7. Error Log System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
+Agar memudahkan mendeteksi kesalahan sistem untuk mempercepat proses perbaikan<br>
+8. Page Management System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
+Manajemen halaman sistem untuk membuat halaman tanpa batas yang berguna untuk pembuatan artikel, berita, dokumentasi dan lain-lain<br>
+9. File Management System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
+Manajemen File untuk memudahkan berbagi dokumen ke sesama pengguna sistem<br>
+10. Web Company Profile >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
+Web profile perusahaan terintegrasi dengan internal sistem<br>
+11. Live Development Online >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
+Pengembangan sistem dilakukan secara langsung dan terus-menerus<br>
 
 
 Timeline plan 2:
