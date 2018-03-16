@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 05, 2018 at 11:03 AM
+-- Generation Time: Mar 16, 2018 at 09:19 AM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.21
 
@@ -111,6 +111,45 @@ CREATE TABLE `data_page` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `sys_company`
+--
+
+CREATE TABLE `sys_company` (
+  `BranchID` varchar(10) NOT NULL,
+  `Name` varchar(50) NOT NULL,
+  `Address` varchar(255) DEFAULT NULL,
+  `Phone` varchar(15) NOT NULL,
+  `Fax` varchar(15) DEFAULT NULL,
+  `Email` varchar(50) DEFAULT NULL,
+  `Owner` varchar(50) DEFAULT NULL,
+  `PIC` varchar(50) DEFAULT NULL,
+  `TIN` varchar(50) DEFAULT NULL,
+  `StatusID` int(11) NOT NULL,
+  `Created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Username` varchar(50) NOT NULL,
+  `Updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `Updated_by` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sys_user`
+--
+
+CREATE TABLE `sys_user` (
+  `Username` varchar(50) NOT NULL,
+  `BranchID` varchar(10) NOT NULL,
+  `StatusID` int(11) NOT NULL,
+  `Created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Created_by` varchar(50) NOT NULL,
+  `Updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `Updated_by` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user_api`
 --
 
@@ -199,7 +238,9 @@ INSERT INTO `user_role` (`RoleID`, `Role`) VALUES
 (2, 'admin'),
 (3, 'member'),
 (4, 'developer'),
-(5, 'applicant');
+(5, 'applicant'),
+(6, 'master'),
+(7, 'standart');
 
 -- --------------------------------------------------------
 
@@ -245,6 +286,23 @@ ALTER TABLE `data_page`
   ADD KEY `StatusID` (`StatusID`),
   ADD KEY `Username` (`Username`),
   ADD KEY `Created_at` (`Created_at`);
+
+--
+-- Indexes for table `sys_company`
+--
+ALTER TABLE `sys_company`
+  ADD PRIMARY KEY (`BranchID`),
+  ADD KEY `BranchID` (`BranchID`),
+  ADD KEY `StatusID` (`StatusID`),
+  ADD KEY `Name` (`Name`),
+  ADD KEY `Phone` (`Phone`),
+  ADD KEY `Username` (`Username`);
+
+--
+-- Indexes for table `sys_user`
+--
+ALTER TABLE `sys_user`
+  ADD PRIMARY KEY (`Username`);
 
 --
 -- Indexes for table `user_api`
@@ -325,7 +383,7 @@ ALTER TABLE `user_data`
 -- AUTO_INCREMENT for table `user_role`
 --
 ALTER TABLE `user_role`
-  MODIFY `RoleID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `RoleID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `user_upload`
 --
