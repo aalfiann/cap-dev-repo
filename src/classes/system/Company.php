@@ -267,7 +267,6 @@ use PDO;
 		 */
 		public function searchAllCompanyAsPagination() {
 			if (Auth::validToken($this->db,$this->token)){
-				$roles = Auth::getRoleID($this->db,$this->token);
 				$search = "%$this->search%";
 				//count total row
 				$sqlcountrow = "SELECT count(a.BranchID) as TotalRow 
@@ -292,34 +291,34 @@ use PDO;
 						$limits = (((($newpage-1)*$newitemsperpage) <= 0)?0:(($newpage-1)*$newitemsperpage));
 						$offsets = (($newitemsperpage <= 0)?0:$newitemsperpage);
 
-							// Query Data
-							$sql = "SELECT a.Created_at,a.BranchID,a.Name,a.Address,a.Phone,a.Fax,a.Email,a.TIN,a.Owner,a.PIC,a.StatusID,b.`Status`,a.Username,a.Updated_at,a.Updated_by 
-								from sys_company a
-								inner join core_status b on a.StatusID=b.StatusID
-								where a.BranchID like :search
-                                or a.Name like :search
-                                or a.BranchID like :search
-                                or a.Phone like :search
-								order by a.BranchID asc LIMIT :limpage , :offpage;";
-							$stmt2 = $this->db->prepare($sql);
-							$stmt2->bindParam(':search', $search, PDO::PARAM_STR);
-							$stmt2->bindValue(':limpage', (INT) $limits, PDO::PARAM_INT);
-							$stmt2->bindValue(':offpage', (INT) $offsets, PDO::PARAM_INT);
+						// Query Data
+						$sql = "SELECT a.Created_at,a.BranchID,a.Name,a.Address,a.Phone,a.Fax,a.Email,a.TIN,a.Owner,a.PIC,a.StatusID,b.`Status`,a.Username,a.Updated_at,a.Updated_by 
+							from sys_company a
+							inner join core_status b on a.StatusID=b.StatusID
+							where a.BranchID like :search
+                            or a.Name like :search
+                            or a.BranchID like :search
+                            or a.Phone like :search
+							order by a.BranchID asc LIMIT :limpage , :offpage;";
+						$stmt2 = $this->db->prepare($sql);
+						$stmt2->bindParam(':search', $search, PDO::PARAM_STR);
+						$stmt2->bindValue(':limpage', (INT) $limits, PDO::PARAM_INT);
+						$stmt2->bindValue(':offpage', (INT) $offsets, PDO::PARAM_INT);
 						
-							if ($stmt2->execute()){
-								$pagination = new \classes\Pagination();
-								$pagination->totalRow = $single['TotalRow'];
-								$pagination->page = $this->page;
-								$pagination->itemsPerPage = $this->itemsPerPage;
-								$pagination->fetchAllAssoc = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-								$data = $pagination->toDataArray();
-							} else {
-								$data = [
-        	    		    		'status' => 'error',
-		    	    		    	'code' => 'RS202',
-	        			    	    'message' => CustomHandlers::getreSlimMessage('RS202')
-								];	
-							}			
+						if ($stmt2->execute()){
+							$pagination = new \classes\Pagination();
+							$pagination->totalRow = $single['TotalRow'];
+							$pagination->page = $this->page;
+							$pagination->itemsPerPage = $this->itemsPerPage;
+							$pagination->fetchAllAssoc = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+							$data = $pagination->toDataArray();
+						} else {
+							$data = [
+        	    	    		'status' => 'error',
+		        		    	'code' => 'RS202',
+	    			    	    'message' => CustomHandlers::getreSlimMessage('RS202')
+							];	
+						}			
 				    } else {
     	    			$data = [
         	    			'status' => 'error',
@@ -346,6 +345,134 @@ use PDO;
 			return json_encode($data);
 	        $this->db= null;
 		}
+
+		/** 
+		 * Search all data company paginated public
+		 * @return result process in json encoded data
+		 */
+		public function searchAllCompanyAsPaginationPublic() {
+			$search = "%$this->search%";
+			//count total row
+			$sqlcountrow = "SELECT count(a.BranchID) as TotalRow 
+				from sys_company a
+				inner join core_status b on a.StatusID=b.StatusID
+				where a.StatusID='1' and a.BranchID like :search
+                or a.StatusID='1' and a.Name like :search
+                or a.StatusID='1' and a.BranchID like :search
+                or a.StatusID='1' and a.Phone like :search
+				order by a.Name asc;";
+			$stmt = $this->db->prepare($sqlcountrow);		
+			$stmt->bindParam(':search', $search, PDO::PARAM_STR);
+				
+			if ($stmt->execute()) {	
+    			if ($stmt->rowCount() > 0){
+					$single = $stmt->fetch();
+						
+					// Paginate won't work if page and items per page is negative.
+					// So make sure that page and items per page is always return minimum zero number.
+					$newpage = Validation::integerOnly($this->page);
+					$newitemsperpage = Validation::integerOnly($this->itemsPerPage);
+					$limits = (((($newpage-1)*$newitemsperpage) <= 0)?0:(($newpage-1)*$newitemsperpage));
+					$offsets = (($newitemsperpage <= 0)?0:$newitemsperpage);
+
+					// Query Data
+					$sql = "SELECT a.Created_at,a.BranchID,a.Name,a.Address,a.Phone,a.Fax,a.Email,a.TIN,a.Owner,a.PIC,a.StatusID,b.`Status`,a.Username,a.Updated_at,a.Updated_by 
+						from sys_company a
+						inner join core_status b on a.StatusID=b.StatusID
+						where a.StatusID='1' and a.BranchID like :search
+                        or a.StatusID='1' and a.Name like :search
+                        or a.StatusID='1' and a.BranchID like :search
+                        or a.StatusID='1' and a.Phone like :search
+						order by a.Name asc LIMIT :limpage , :offpage;";
+					$stmt2 = $this->db->prepare($sql);
+					$stmt2->bindParam(':search', $search, PDO::PARAM_STR);
+					$stmt2->bindValue(':limpage', (INT) $limits, PDO::PARAM_INT);
+					$stmt2->bindValue(':offpage', (INT) $offsets, PDO::PARAM_INT);
+						
+					if ($stmt2->execute()){
+						$pagination = new \classes\Pagination();
+						$pagination->totalRow = $single['TotalRow'];
+						$pagination->page = $this->page;
+						$pagination->itemsPerPage = $this->itemsPerPage;
+						$pagination->fetchAllAssoc = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+						$data = $pagination->toDataArray();
+					} else {
+						$data = [
+    	    	    		'status' => 'error',
+			    		    'code' => 'RS202',
+	    			        'message' => CustomHandlers::getreSlimMessage('RS202')
+						];	
+					}			
+				} else {
+    	    		$data = [
+            			'status' => 'error',
+	    	    		'code' => 'RS601',
+    			    	'message' => CustomHandlers::getreSlimMessage('RS601')
+					];
+		    	}          	   	
+			} else {
+				$data = [
+        			'status' => 'error',
+					'code' => 'RS202',
+	        		'message' => CustomHandlers::getreSlimMessage('RS202')
+				];
+			}		
+        
+			return json_encode($data);
+	        $this->db= null;
+		}
+
+		/** 
+		 * Get data statistic company
+		 * @return result process in json encoded data
+		 */
+		public function statCompanySummary() {
+			if (Auth::validToken($this->db,$this->token)){
+				$newusername = strtolower($this->username);
+				$sql = "SELECT 
+						(SELECT count(x.BranchID) FROM sys_company x WHERE x.StatusID='1') AS 'Active',
+						(SELECT count(x.BranchID) FROM sys_company x WHERE x.StatusID='2') AS 'Suspended',
+						(SELECT count(x.BranchID) FROM sys_company x) AS 'Total',
+						IFNULL(round((((SELECT Total) - (SELECT Suspended))/(SELECT Total))*100),0) AS 'Percent_Up',
+						IFNULL((100 - (SELECT Percent_Up)),0) AS 'Precent_Down';";
+				$stmt = $this->db->prepare($sql);
+				
+
+				if ($stmt->execute()) {	
+    	    		if ($stmt->rowCount() > 0){
+        			   	$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+						$data = [
+			   	            'result' => $results, 
+		    		        'status' => 'success', 
+				           	'code' => 'RS501',
+        			        'message' => CustomHandlers::getreSlimMessage('RS501')
+						];
+				    } else {
+    	    			$data = [
+        	    		   	'status' => 'error',
+		    	    	    'code' => 'RS601',
+        			        'message' => CustomHandlers::getreSlimMessage('RS601')
+						];
+		    	    }          	   	
+				} else {
+					$data = [
+    	    			'status' => 'error',
+						'code' => 'RS202',
+	        	    	'message' => CustomHandlers::getreSlimMessage('RS202')
+					];
+				}		
+			} else {
+				$data = [
+    	    		'status' => 'error',
+					'code' => 'RS401',
+	        	    'message' => CustomHandlers::getreSlimMessage('RS401')
+				];
+			}
+			
+        
+			return json_encode($data);
+	        $this->db= null;
+		}
         
         
         //OPTIONS=======================================
@@ -359,7 +486,7 @@ use PDO;
 			if (Auth::validToken($this->db,$this->token)){
 				$sql = "SELECT a.BranchID,a.Name
 					FROM sys_company a
-					WHERE a.StatusID = '1' OR a.StatusID = '42'
+					WHERE a.StatusID = '1'
 					ORDER BY a.BranchID ASC";
 				
 				$stmt = $this->db->prepare($sql);		
