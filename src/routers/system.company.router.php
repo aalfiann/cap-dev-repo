@@ -4,7 +4,7 @@ use \Psr\Http\Message\ResponseInterface as Response;
 use \classes\SimpleCache as SimpleCache;
 
     // POST api to create new company
-    $app->post('/company/data/new', function (Request $request, Response $response) {
+    $app->post('/system/company/data/new', function (Request $request, Response $response) {
         $company = new classes\system\Company($this->db);
         $datapost = $request->getParsedBody();
         $company->username = $datapost['Username'];
@@ -24,7 +24,7 @@ use \classes\SimpleCache as SimpleCache;
     });
 
     // POST api to update company
-    $app->post('/company/data/update', function (Request $request, Response $response) {
+    $app->post('/system/company/data/update', function (Request $request, Response $response) {
         $company = new classes\system\Company($this->db);
         $datapost = $request->getParsedBody();    
         $company->username = $datapost['Username'];
@@ -45,7 +45,7 @@ use \classes\SimpleCache as SimpleCache;
     });
 
     // POST api to delete company
-    $app->post('/company/data/delete', function (Request $request, Response $response) {
+    $app->post('/system/company/data/delete', function (Request $request, Response $response) {
         $company = new classes\system\Company($this->db);
         $datapost = $request->getParsedBody();    
         $company->branchid = $datapost['BranchID'];
@@ -57,7 +57,7 @@ use \classes\SimpleCache as SimpleCache;
     });
 
     // GET api to show all data company pagination registered user
-    $app->get('/company/data/search/{username}/{token}/{page}/{itemsperpage}/', function (Request $request, Response $response) {
+    $app->get('/system/company/data/search/{username}/{token}/{page}/{itemsperpage}/', function (Request $request, Response $response) {
         $company = new classes\system\Company($this->db);
         $company->search = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);
         $company->username = $request->getAttribute('username');
@@ -70,7 +70,7 @@ use \classes\SimpleCache as SimpleCache;
     });
 
     // GET api to show all data company
-    $app->get('/company/data/company/{token}', function (Request $request, Response $response) {
+    $app->get('/system/company/data/company/{token}', function (Request $request, Response $response) {
         $company = new classes\system\Company($this->db);
         $company->token = $request->getAttribute('token');
         $body = $response->getBody();
@@ -79,7 +79,7 @@ use \classes\SimpleCache as SimpleCache;
     });
 
     // GET api to show all data status company
-    $app->get('/company/data/status/{token}', function (Request $request, Response $response) {
+    $app->get('/system/company/data/status/{token}', function (Request $request, Response $response) {
         $company = new classes\system\Company($this->db);
         $company->token = $request->getAttribute('token');
         $body = $response->getBody();
@@ -88,7 +88,7 @@ use \classes\SimpleCache as SimpleCache;
     });
 
     // GET api to show all data company pagination public
-    $app->map(['GET','OPTIONS'],'/company/data/public/search/{page}/{itemsperpage}/', function (Request $request, Response $response) {
+    $app->map(['GET','OPTIONS'],'/system/company/data/public/search/{page}/{itemsperpage}/', function (Request $request, Response $response) {
         $company = new classes\system\Company($this->db);
         $company->search = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);
         $company->page = $request->getAttribute('page');
@@ -109,7 +109,7 @@ use \classes\SimpleCache as SimpleCache;
     })->add(new \classes\middleware\ApiKey());
 
     // GET api to get all data page for statistic purpose
-    $app->get('/company/stats/data/summary/{username}/{token}', function (Request $request, Response $response) {
+    $app->get('/system/company/stats/data/summary/{username}/{token}', function (Request $request, Response $response) {
         $company = new classes\system\Company($this->db);
         $company->token = $request->getAttribute('token');
         $company->username = $request->getAttribute('username');
