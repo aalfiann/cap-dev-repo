@@ -9,6 +9,7 @@
 namespace classes\system;
 use \classes\Auth as Auth;
 use \classes\Validation as Validation;
+use \classes\CustomHandlers as CustomHandlers;
 use PDO;
 	/**
      * A class for user management external system in reSlim
@@ -94,6 +95,27 @@ use PDO;
 			$this->db = null;
 		}
 
+		/**
+		 * Determine if user is already registered in main app or not
+		 * @return boolean true / false
+		 */
+		private function isMainUserExist(){
+			$newusername = strtolower($this->username);
+			$r = false;
+			$sql = "SELECT a.Username
+				FROM user_data a 
+				WHERE a.Username = :username;";
+			$stmt = $this->db->prepare($sql);
+			$stmt->bindParam(':username', $newusername, PDO::PARAM_STR);
+			if ($stmt->execute()) {	
+            	if ($stmt->rowCount() > 0){
+	                $r = true;
+    	        }          	   	
+			} 		
+			return $r;
+			$this->db = null;
+		}
+
 		/** 
 		 * Regiter new user
 		 * @return result process in json encoded data
@@ -107,7 +129,15 @@ use PDO;
 				];
 			} else {
 				if ($this->isRegistered() == false){
-					$data = $this->doRegister();
+					if ($this->isMainUserExist()){
+						$data = $this->doRegister();
+					} else {
+						$data = [
+							'status' => 'error',
+							'code' => 'RS901',
+							'message' => CustomHandlers::getreSlimMessage('RS901')
+						];
+					}
 				} else {
 					$data = [
 						'status' => 'error',
@@ -132,7 +162,7 @@ use PDO;
 					$newusername = strtolower($this->username);
 					$newadminname = strtolower($this->adminname);
                     $newbranchid = strtolower($this->branchid);
-                    $newstatusid = Validator::integerOnly($this->statusid);
+                    $newstatusid = Validation::integerOnly($this->statusid);
                     
 		    		try{
                         $this->db->beginTransaction();
@@ -188,22 +218,29 @@ use PDO;
 			if (Auth::validToken($this->db,$this->token,$this->adminname)){
                 $roles = Auth::getRoleID($this->db,$this->token);
                 if ($roles == '1'){
-                    $newsername = strtolower($this->username);
+                    $newusername = strtolower($this->username);
     				try{
                         $this->db->beginTransaction();
     
                         $sql = "DELETE FROM sys_user WHERE Username = :username;";
                         $stmt = $this->db->prepare($sql);
                         $stmt->bindParam(':username', $newusername, PDO::PARAM_STR);
-                        $stmt->execute();
-                    
-                        $this->db->commit();
-                        
-                        $data = [
-                            'status' => 'success',
-                            'code' => 'RS306',
-                            'message' => CustomHandlers::getreSlimMessage('RS306')
-                        ];
+						
+						if ($stmt->execute()) {
+    						$data = [
+	    						'status' => 'success',
+		    					'code' => 'RS104',
+			    				'message' => CustomHandlers::getreSlimMessage('RS104')
+				    		];	
+					    } else {
+    						$data = [
+	    						'status' => 'error',
+		    					'code' => 'RS204',
+			    				'message' => CustomHandlers::getreSlimMessage('RS204')
+				    		];
+						}
+						
+						$this->db->commit();
                     } catch (PDOException $e){
                         $data = [
                             'status' => 'error',
@@ -234,7 +271,7 @@ use PDO;
 		 * Search all data user paginated
 		 * @return result process in json encoded data
 		 */
-		public function searchAllUserAsPagination() {
+		public function searchUserAsPagination() {
 			if (Auth::validToken($this->db,$this->token)){
 				$roles = Auth::getRoleID($this->db,$this->token);
 				$search = "%$this->search%";
@@ -318,7 +355,58 @@ use PDO;
 	        $this->db= null;
 		}
 
+        /** 
+		 * Get data statistic user
+		 * @return result process in json encoded data
+		 */
+		public function statUserSummary() {
+			if (Auth::validToken($this->db,$this->token)){
+				$newusername = strtolower($this->username);
+				$sql = "SELECT 
+						(SELECT count(x.Username) FROM sys_user x WHERE x.StatusID='1') AS 'Active',
+						(SELECT count(x.Username) FROM sys_user x WHERE x.StatusID='42') AS 'Suspended',
+						(SELECT count(x.Username) FROM sys_user x) AS 'Total',
+						IFNULL(round((((SELECT Total) - (SELECT Suspended))/(SELECT Total))*100),0) AS 'Percent_Up',
+						IFNULL((100 - (SELECT Percent_Up)),0) AS 'Precent_Down';";
+				$stmt = $this->db->prepare($sql);
+				
+
+				if ($stmt->execute()) {	
+    	    		if ($stmt->rowCount() > 0){
+        			   	$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+						$data = [
+			   	            'result' => $results, 
+		    		        'status' => 'success', 
+				           	'code' => 'RS501',
+        			        'message' => CustomHandlers::getreSlimMessage('RS501')
+						];
+				    } else {
+    	    			$data = [
+        	    		   	'status' => 'error',
+		    	    	    'code' => 'RS601',
+        			        'message' => CustomHandlers::getreSlimMessage('RS601')
+						];
+		    	    }          	   	
+				} else {
+					$data = [
+    	    			'status' => 'error',
+						'code' => 'RS202',
+	        	    	'message' => CustomHandlers::getreSlimMessage('RS202')
+					];
+				}		
+			} else {
+				$data = [
+    	    		'status' => 'error',
+					'code' => 'RS401',
+	        	    'message' => CustomHandlers::getreSlimMessage('RS401')
+				];
+			}
+			
         
+			return json_encode($data);
+	        $this->db= null;
+		}
+
         
         //STATUS=======================================
 
