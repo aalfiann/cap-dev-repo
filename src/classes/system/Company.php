@@ -9,6 +9,7 @@
 namespace classes\system;
 use \classes\Auth as Auth;
 use \classes\Validation as Validation;
+use \classes\CustomHandlers as CustomHandlers;
 use PDO;
 	/**
      * A class for company management external system in reSlim
@@ -155,7 +156,7 @@ use PDO;
                 if ($roles < 3){
                     $newusername = strtolower($this->username);
                     $newbranchid = strtolower($this->branchid);
-                    $newstatusid = Validator::integerOnly($this->statusid);
+                    $newstatusid = Validation::integerOnly($this->statusid);
                     
 		    		try{
                         $this->db->beginTransaction();
@@ -191,14 +192,14 @@ use PDO;
                             'message' => $e->getMessage()
                         ];
                         $this->db->rollBack();
-                    }
+					}
                 } else {
                     $data = [
                         'status' => 'error',
                         'code' => 'RS404',
                         'message' => CustomHandlers::getreSlimMessage('RS404')
                     ];
-                }
+				}
 			} else {
 				$data = [
 	    			'status' => 'error',
@@ -206,6 +207,7 @@ use PDO;
 					'message' => CustomHandlers::getreSlimMessage('RS401')
     			];
 			}
+			
 		    return json_encode($data);
     		$this->db = null;
 		}
@@ -226,15 +228,21 @@ use PDO;
                         $sql = "DELETE FROM sys_company WHERE BranchID = :branchid;";
                         $stmt = $this->db->prepare($sql);
                         $stmt->bindParam(':branchid', $newbranchid, PDO::PARAM_STR);
-                        $stmt->execute();
-                    
-                        $this->db->commit();
                         
-                        $data = [
-                            'status' => 'success',
-                            'code' => 'RS306',
-                            'message' => CustomHandlers::getreSlimMessage('RS306')
-                        ];
+						if ($stmt->execute()) {
+    						$data = [
+	    						'status' => 'success',
+		    					'code' => 'RS104',
+			    				'message' => CustomHandlers::getreSlimMessage('RS104')
+				    		];	
+					    } else {
+    						$data = [
+	    						'status' => 'error',
+		    					'code' => 'RS204',
+			    				'message' => CustomHandlers::getreSlimMessage('RS204')
+				    		];
+						}
+						$this->db->commit();
                     } catch (PDOException $e){
                         $data = [
                             'status' => 'error',
@@ -265,7 +273,7 @@ use PDO;
 		 * Search all data company paginated
 		 * @return result process in json encoded data
 		 */
-		public function searchAllCompanyAsPagination() {
+		public function searchCompanyAsPagination() {
 			if (Auth::validToken($this->db,$this->token)){
 				$search = "%$this->search%";
 				//count total row
@@ -350,7 +358,7 @@ use PDO;
 		 * Search all data company paginated public
 		 * @return result process in json encoded data
 		 */
-		public function searchAllCompanyAsPaginationPublic() {
+		public function searchCompanyAsPaginationPublic() {
 			$search = "%$this->search%";
 			//count total row
 			$sqlcountrow = "SELECT count(a.BranchID) as TotalRow 
@@ -431,7 +439,7 @@ use PDO;
 				$newusername = strtolower($this->username);
 				$sql = "SELECT 
 						(SELECT count(x.BranchID) FROM sys_company x WHERE x.StatusID='1') AS 'Active',
-						(SELECT count(x.BranchID) FROM sys_company x WHERE x.StatusID='2') AS 'Suspended',
+						(SELECT count(x.BranchID) FROM sys_company x WHERE x.StatusID='42') AS 'Suspended',
 						(SELECT count(x.BranchID) FROM sys_company x) AS 'Total',
 						IFNULL(round((((SELECT Total) - (SELECT Suspended))/(SELECT Total))*100),0) AS 'Percent_Up',
 						IFNULL((100 - (SELECT Percent_Up)),0) AS 'Precent_Down';";
