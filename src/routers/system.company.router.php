@@ -70,8 +70,9 @@ use \classes\SimpleCache as SimpleCache;
     });
 
     // GET api to show all data company
-    $app->get('/system/company/data/company/{token}', function (Request $request, Response $response) {
+    $app->get('/system/company/data/company/{username}/{token}', function (Request $request, Response $response) {
         $company = new classes\system\Company($this->db);
+        $company->username = $request->getAttribute('username');
         $company->token = $request->getAttribute('token');
         $body = $response->getBody();
         $body->write($company->showOptionCompany());
