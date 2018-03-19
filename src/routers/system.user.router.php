@@ -55,12 +55,20 @@ use \classes\SimpleCache as SimpleCache;
         return classes\Cors::modify($response,$body,200);
     });
 
+    // GET api to get data branchid user
+    $app->get('/system/user/data/branch/{username}', function (Request $request, Response $response) {
+        $user = new classes\system\User($this->db);
+        $body = $response->getBody();
+        $body->write('{"Username":"'.$request->getAttribute('username').'","BranchID":"'.$user->getBranchID($request->getAttribute('username')).'"}');
+        return classes\Cors::modify($response,$body,200);
+    });
+
     // GET api to show all data status user
     $app->get('/system/user/data/status/{token}', function (Request $request, Response $response) {
-        $company = new classes\system\Company($this->db);
-        $company->token = $request->getAttribute('token');
+        $user = new classes\system\User($this->db);
+        $user->token = $request->getAttribute('token');
         $body = $response->getBody();
-        $body->write($company->showOptionStatus());
+        $body->write($user->showOptionStatus());
         return classes\Cors::modify($response,$body,200);
     });
 
