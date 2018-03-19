@@ -270,6 +270,7 @@ $lang = [
     'tb_role' => 'Sebagai',
     'tb_username' => 'Username',
     'tb_created_at' => 'Dibuat',
+    'tb_created_by' => 'Dibuat oleh',
     'tb_updated_at' => 'Diperbaharui saat',
     'tb_updated_by' => 'Diperbaharui oleh',
     'tb_date_upload' => 'Tanggal Unggah',

@@ -270,6 +270,7 @@ $lang = [
     'tb_role' => 'Role',
     'tb_username' => 'Username',
     'tb_created_at' => 'Created',
+    'tb_created_by' => 'Created by',
     'tb_updated_at' => 'Updated at',
     'tb_updated_by' => 'Updated by',
     'tb_date_upload' => 'Date Uploaded',
