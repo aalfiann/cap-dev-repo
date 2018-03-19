@@ -491,14 +491,26 @@ use PDO;
 		 * @return result process in json encoded data
 		 */
 		public function showOptionCompany() {
-			if (Auth::validToken($this->db,$this->token)){
-				$sql = "SELECT a.BranchID,a.Name
-					FROM sys_company a
-					WHERE a.StatusID = '1'
-					ORDER BY a.BranchID ASC";
+			if (Auth::validToken($this->db,$this->token,$this->username)){
+				$newusername = strtolower($this->username);
+				$roles = Auth::getRoleID($this->db,$this->token);
+                if ($roles < 3){
+					$sql = "SELECT a.BranchID
+						FROM sys_company a
+						WHERE a.StatusID = '1'
+						ORDER BY a.BranchID ASC";
 				
-				$stmt = $this->db->prepare($sql);		
-				$stmt->bindParam(':token', $this->token, PDO::PARAM_STR);
+					$stmt = $this->db->prepare($sql);
+				} else {
+					$sql = "SELECT a.BranchID
+						FROM sys_user a
+						WHERE a.Username = :username
+						LIMIT 1;";
+				
+					$stmt = $this->db->prepare($sql);
+					$stmt->bindParam(':username', $newusername, PDO::PARAM_STR);
+				}
+				
 
 				if ($stmt->execute()) {	
     	    	    if ($stmt->rowCount() > 0){
