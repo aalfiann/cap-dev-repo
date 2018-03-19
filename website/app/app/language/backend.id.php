@@ -36,6 +36,8 @@ $lang = [
     'core_process_delete' => 'Proses Hapus',
     //development
     'app' => 'Aplikasi',
+    'system' => 'Sistem',
+    'master' => 'Master',
     'maintenance' => 'Perawatan',
     'extension' => 'Extension',
     'develop_process_title' => 'Proses Pembangunan',
@@ -111,6 +113,9 @@ $lang = [
     'update_page' => 'Perbaharui Halaman',
     'save_page' => 'Publikasikan Halaman',
     'form_editor' => 'Form Editor',
+    //data branch
+    'branch' => 'Cabang',
+    'branchid' => 'Cabang ID',
     //helper page
     'helper_page_image' => 'Url gambar akan digunakan untuk tujuan SEO Opengraph.',
     'helper_page_tags' => 'Tags berguna untuk memudahkan pembaca dalam membaca konten terkait.',
@@ -205,6 +210,11 @@ $lang = [
     'fullname' => 'Nama Lengkap',
     'address' => 'Alamat',
     'phone' => 'Telepon',
+    'fax' => 'Fax',
+    'email' => 'Email',
+    'owner' => 'Owner',
+    'pic' => 'PIC',
+    'tin' => 'TIN',
     'about_me' => 'Tentang Saya',
     'avatar' => 'Avatar',
     'security_key' => 'Kode Keamanan:',
@@ -321,6 +331,7 @@ $lang = [
     'input_direct_link' => 'Url direct link dari file Anda...',
     'input_base_path' => 'Input url folder website Anda...',
     'input_url_api' => 'Input url folder Rest API Anda...',
+    'input_required' => 'Kolom ini wajib diisi!',
     //general modal
     'modal_terms' => '<p>Anda setuju, melalui penggunaan layanan ini, Anda tidak akan menggunakan 
     aplikasi ini untuk mengirim materi yang secara sengaja salah dan / atau memfitnah, 

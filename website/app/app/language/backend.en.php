@@ -36,6 +36,8 @@ $lang = [
     'core_process_delete' => 'Process Delete',
     //development
     'app' => 'App',
+    'system' => 'System',
+    'master' => 'Master',
     'maintenance' => 'Maintenance',
     'extension' => 'Extension',
     'develop_process_title' => 'Under Constructions',
@@ -111,6 +113,9 @@ $lang = [
     'update_page' => 'Update Page',
     'save_page' => 'Publish Page',
     'form_editor' => 'Form Editor',
+    //data branch
+    'branch' => 'Branch',
+    'branchid' => 'Branch ID',
     //helper page
     'helper_page_image' => 'Image url will be used for SEO Opengraph.',
     'helper_page_tags' => 'Tags is will make easy to reader to read related content.',
@@ -205,6 +210,11 @@ $lang = [
     'fullname' => 'Fullname',
     'address' => 'Address',
     'phone' => 'Phone',
+    'fax' => 'Fax',
+    'email' => 'Email',
+    'owner' => 'Owner',
+    'pic' => 'PIC',
+    'tin' => 'TIN',
     'about_me' => 'About Me',
     'avatar' => 'Avatar',
     'security_key' => 'Security Key:',
@@ -321,6 +331,7 @@ $lang = [
     'input_direct_link' => 'The url direct link of your file...',
     'input_base_path' => 'Please input url folder of Your website...',
     'input_url_api' => 'Please input url folder of Your Rest API...',
+    'input_required' => 'This field must be filled!',
     //general modal
     'modal_terms' => '<p>You agree, through your use of this service, that you will not use this
     application to post any material which is knowingly false and/or defamatory,
