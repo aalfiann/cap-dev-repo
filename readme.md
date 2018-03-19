@@ -43,12 +43,12 @@ Pengembangan sistem dilakukan secara langsung dan terus-menerus<br>
 Timeline plan 2:
 ---------------
 Proses pengembangan sekitar 2 bulan
-1. Build infrastructure internal system >> ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) `on progress`<br>
+1. Build infrastructure internal system >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
 Sistem akan terintegrasi pada satu titik global atau terpusat dan online<br>
-2. Tariff System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
-Fleksible dalam pembuatan tarif untuk mendukung perubahan setiap saat<br>
-3. Branches Management System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+2. Branches Management System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
 Pendataan internal cabang agar memudahkan untuk pengembangan cabang<br>
+3. Tariff System >> ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) `on progress`<br>
+Fleksible dalam pembuatan tarif untuk mendukung perubahan setiap saat<br>
 4. Transaction Data >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
 Transaksi dapat dilakukan di semua device dan real time online<br>
 5. Reporting Data >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
