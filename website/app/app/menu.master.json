@@ -55,10 +55,6 @@
                     "icon_class":"mdi mdi-key-variant",
                     "menus": [
                         {
-                            "title": "data branch",
-                            "link": "modul-data-branch.php"
-                        },
-                        {
                             "title": "data corporate",
                             "link": "modul-data-corporate.php"
                         },
