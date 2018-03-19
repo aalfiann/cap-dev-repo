@@ -1,5 +1,6 @@
 <?php spl_autoload_register(function ($classname) {require ( $classname . ".php");});
 $datalogin = Core::checkSessions();
+if(Core::getUserGroup() > '2') {Core::goToPage('modul-user-profile.php');exit;}
 // Data Status
 $urlstatus = Core::getInstance()->api.'/system/company/data/status/'.$datalogin['token'];
 $datastatus = json_decode(Core::execGetRequest($urlstatus));?>
