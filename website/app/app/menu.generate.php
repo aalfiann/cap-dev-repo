@@ -66,6 +66,10 @@ if (empty($datalogin)){
         $datamenu = file_get_contents('menu.developer.json');
     } else if($usergroup == '5'){
         $datamenu = file_get_contents('menu.applicant.json');
+    } else if($usergroup == '6'){
+        $datamenu = file_get_contents('menu.master.json');
+    } else if($usergroup == '7'){
+        $datamenu = file_get_contents('menu.standart.json');
     } else {
         $datamenu = "";
     }
