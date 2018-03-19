@@ -272,21 +272,41 @@ use PDO;
 		 * @return result process in json encoded data
 		 */
 		public function searchUserAsPagination() {
-			if (Auth::validToken($this->db,$this->token)){
-				$roles = Auth::getRoleID($this->db,$this->token);
+			if (Auth::validToken($this->db,$this->token,$this->username)){
+				$newusername = strtolower($this->username);
 				$search = "%$this->search%";
-				//count total row
-				$sqlcountrow = "SELECT count(a.Username) as TotalRow 
-					from sys_user a
-					inner join core_status b on a.StatusID=b.StatusID
-					inner join user_data c on a.Username = c.Username
-					where a.Username like :search
-                    or a.BranchID like :search
-                    or b.Status like :search
-					or c.Fullname like :search
-					order by a.Username asc;";
-				$stmt = $this->db->prepare($sqlcountrow);		
-				$stmt->bindParam(':search', $search, PDO::PARAM_STR);
+				$roles = Auth::getRoleID($this->db,$this->token);
+				if ($roles < 3){
+					//count total row
+					$sqlcountrow = "SELECT count(a.Username) as TotalRow 
+						from sys_user a
+						inner join core_status b on a.StatusID=b.StatusID
+						inner join user_data c on a.Username = c.Username
+						where a.Username like :search
+						or a.BranchID like :search
+						or b.Status like :search
+						or c.Fullname like :search
+						order by a.Username asc;";
+					$stmt = $this->db->prepare($sqlcountrow);		
+					$stmt->bindParam(':search', $search, PDO::PARAM_STR);
+				} else {
+					//count total row
+					$sqlcountrow = "SELECT count(x.Username) as TotalRow 
+						from (
+							select a.Username,a.BranchID,(SELECT a.BranchID FROM sys_user a WHERE a.Username = :username) as UserBranch
+							from sys_user a
+							inner join core_status b on a.StatusID=b.StatusID
+							inner join user_data c on a.Username = c.Username
+							where a.Username like :search
+							or a.BranchID like :search
+							or b.Status like :search
+							or c.Fullname like :search
+							having a.BranchID = UserBranch
+						) x;";
+					$stmt = $this->db->prepare($sqlcountrow);
+					$stmt->bindParam(':username', $newusername, PDO::PARAM_STR);
+					$stmt->bindParam(':search', $search, PDO::PARAM_STR);
+				}
 				
 				if ($stmt->execute()) {	
     	    		if ($stmt->rowCount() > 0){
@@ -298,9 +318,10 @@ use PDO;
 						$newitemsperpage = Validation::integerOnly($this->itemsPerPage);
 						$limits = (((($newpage-1)*$newitemsperpage) <= 0)?0:(($newpage-1)*$newitemsperpage));
 						$offsets = (($newitemsperpage <= 0)?0:$newitemsperpage);
-
+						
+						if ($roles < 3){
 							// Query Data
-							$sql = "SELECT a.Username,c.Fullname,c.Phone,c.Email,a.StatusID,b.`Status`,a.Created_at,a.Created_by,a.Updated_at,a.Updated_by 
+							$sql = "SELECT a.Username,c.Fullname,c.Phone,c.Email,a.BranchID,a.StatusID,b.`Status`,a.Created_at,a.Created_by,a.Updated_at,a.Updated_by
 								from sys_user a
 								inner join core_status b on a.StatusID=b.StatusID
 								inner join user_data c on a.Username = c.Username
@@ -313,6 +334,26 @@ use PDO;
 							$stmt2->bindParam(':search', $search, PDO::PARAM_STR);
 							$stmt2->bindValue(':limpage', (INT) $limits, PDO::PARAM_INT);
 							$stmt2->bindValue(':offpage', (INT) $offsets, PDO::PARAM_INT);
+						} else {
+							// Query Data
+							$sql = "SELECT a.Username,c.Fullname,c.Phone,c.Email,a.BranchID,a.StatusID,b.`Status`,a.Created_at,a.Created_by,a.Updated_at,a.Updated_by,
+									(SELECT a.BranchID FROM sys_user a WHERE a.Username = :username) as UserBranch 
+								from sys_user a
+								inner join core_status b on a.StatusID=b.StatusID
+								inner join user_data c on a.Username = c.Username
+								where a.Username like :search
+                    			or a.BranchID like :search
+			                    or b.Status like :search
+								or c.Fullname like :search
+								having a.BranchID = UserBranch
+								order by a.Username asc LIMIT :limpage , :offpage;";
+							$stmt2 = $this->db->prepare($sql);
+							$stmt2->bindParam(':username', $newusername, PDO::PARAM_STR);
+							$stmt2->bindParam(':search', $search, PDO::PARAM_STR);
+							$stmt2->bindValue(':limpage', (INT) $limits, PDO::PARAM_INT);
+							$stmt2->bindValue(':offpage', (INT) $offsets, PDO::PARAM_INT);
+						}
+							
 						
 							if ($stmt2->execute()){
 								$pagination = new \classes\Pagination();
@@ -406,6 +447,36 @@ use PDO;
 			return json_encode($data);
 	        $this->db= null;
 		}
+
+		/** 
+         * Get informasi branchid user by username
+         *
+         * @param $db : Dabatase connection (PDO)
+         * @param $username : input the username
+         * @return string BranchID
+         */
+        public function getBranchID($username){
+            $roles = "";
+            if (Auth::isKeyCached('token-'.$username.'-branchid',600)){
+                $data = json_decode(Auth::loadCache('token-'.$username.'-branchid'));
+                if (!empty($data)){
+                    $roles = $data->Role;
+                }
+            } else {
+                $sql = "SELECT a.BranchID FROM sys_user a WHERE a.Username =:username limit 1;";
+	    		$stmt = $this->db->prepare($sql);
+		    	$stmt->bindParam(':username', $username, PDO::PARAM_STR);
+			    if ($stmt->execute()){
+				    if ($stmt->rowCount() > 0){
+    					$single = $stmt->fetch();
+                        $roles = $single['BranchID'];
+                        Auth::writeCache('token-'.$username.'-branchid',$roles);
+		    		}
+			    }
+            }
+			return $roles;
+			$this->db = null;
+        }
 
         
         //STATUS=======================================
