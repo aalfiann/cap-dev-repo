@@ -79,17 +79,22 @@ use PDO;
 		 * @return boolean true / false
 		 */
 		private function isRegistered(){
-			$newusername = strtolower($this->username);
 			$r = false;
-			$sql = "SELECT a.Username
-				FROM sys_user a 
-				WHERE a.Username = :username;";
-			$stmt = $this->db->prepare($sql);
-			$stmt->bindParam(':username', $newusername, PDO::PARAM_STR);
-			if ($stmt->execute()) {	
-            	if ($stmt->rowCount() > 0){
-	                $r = true;
-    	        }          	   	
+			$newusername = strtolower($this->username);
+			if (Auth::isKeyCached('user-'.$newusername.'-registered',86400)){
+                $r = true;
+            } else {
+				$sql = "SELECT a.Username
+					FROM sys_user a 
+					WHERE a.Username = :username;";
+				$stmt = $this->db->prepare($sql);
+				$stmt->bindParam(':username', $newusername, PDO::PARAM_STR);
+				if ($stmt->execute()) {	
+            		if ($stmt->rowCount() > 0){
+						$r = true;
+						Auth::writeCache('user-'.$newusername.'-registered');
+	    	        }          	   	
+				}
 			} 		
 			return $r;
 			$this->db = null;
@@ -100,17 +105,22 @@ use PDO;
 		 * @return boolean true / false
 		 */
 		private function isMainUserExist(){
-			$newusername = strtolower($this->username);
 			$r = false;
-			$sql = "SELECT a.Username
-				FROM user_data a 
-				WHERE a.Username = :username;";
-			$stmt = $this->db->prepare($sql);
-			$stmt->bindParam(':username', $newusername, PDO::PARAM_STR);
-			if ($stmt->execute()) {	
-            	if ($stmt->rowCount() > 0){
-	                $r = true;
-    	        }          	   	
+			$newusername = strtolower($this->username);
+			if (Auth::isKeyCached('user-'.$newusername.'-exists',86400)){
+                $r = true;
+            } else {
+				$sql = "SELECT a.Username
+					FROM user_data a 
+					WHERE a.Username = :username;";
+				$stmt = $this->db->prepare($sql);
+				$stmt->bindParam(':username', $newusername, PDO::PARAM_STR);
+				if ($stmt->execute()) {	
+            		if ($stmt->rowCount() > 0){
+						$r = true;
+						Auth::writeCache('user-'.$newusername.'-exists');
+	    	        }          	   	
+				}
 			} 		
 			return $r;
 			$this->db = null;
@@ -451,26 +461,26 @@ use PDO;
 		/** 
          * Get informasi branchid user by username
          *
-         * @param $db : Dabatase connection (PDO)
          * @param $username : input the username
          * @return string BranchID
          */
         public function getBranchID($username){
-            $roles = "";
-            if (Auth::isKeyCached('token-'.$username.'-branchid',600)){
-                $data = json_decode(Auth::loadCache('token-'.$username.'-branchid'));
+			$roles = "";
+			$newusername = strtolower($username);
+            if (Auth::isKeyCached('token-'.$newusername.'-branchid',86400)){
+                $data = json_decode(Auth::loadCache('token-'.$newusername.'-branchid'));
                 if (!empty($data)){
                     $roles = $data->Role;
                 }
             } else {
                 $sql = "SELECT a.BranchID FROM sys_user a WHERE a.Username =:username limit 1;";
 	    		$stmt = $this->db->prepare($sql);
-		    	$stmt->bindParam(':username', $username, PDO::PARAM_STR);
+		    	$stmt->bindParam(':username', $newusername, PDO::PARAM_STR);
 			    if ($stmt->execute()){
 				    if ($stmt->rowCount() > 0){
     					$single = $stmt->fetch();
                         $roles = $single['BranchID'];
-                        Auth::writeCache('token-'.$username.'-branchid',$roles);
+                        Auth::writeCache('token-'.$newusername.'-branchid',$roles);
 		    		}
 			    }
             }
