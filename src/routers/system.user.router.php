@@ -55,11 +55,42 @@ use \classes\SimpleCache as SimpleCache;
         return classes\Cors::modify($response,$body,200);
     });
 
+    // GET api to get verify user is registered
+    $app->get('/system/user/data/verify/register/{username}', function (Request $request, Response $response) {
+        $username = $request->getAttribute('username');
+        $body = $response->getBody();
+        if (classes\system\Util::isUserRegistered($this->db,$username)){
+            $body->write('{"status":"success","code":"RS501","result": {"Username": "'.$username.'","registered":true},"message":"'.classes\CustomHandlers::getreSlimMessage('RS501').'"}');
+        } else {
+            $body->write('{"status":"error","code":"RS601","result": {"Username": "'.$username.'","registered":false},"message":"'.classes\CustomHandlers::getreSlimMessage('RS601').'"}');
+        }
+        return classes\Cors::modify($response,$body,200);
+    });
+
+    // GET api to get verify user is exists
+    $app->get('/system/user/data/verify/exists/{username}', function (Request $request, Response $response) {
+        $username = $request->getAttribute('username');
+        $body = $response->getBody();
+        if (classes\system\Util::isMainUserExist($this->db,$username)){
+            $body->write('{"status":"success","code":"RS501","result": {"Username": "'.$username.'","exists":true},"message":"'.classes\CustomHandlers::getreSlimMessage('RS501').'"}');
+        } else {
+            $body->write('{"status":"error","code":"RS601","result": {"Username": "'.$username.'","exists":false},"message":"'.classes\CustomHandlers::getreSlimMessage('RS601').'"}');
+        }
+        return classes\Cors::modify($response,$body,200);
+    });
+
     // GET api to get data branchid user
     $app->get('/system/user/data/branch/{username}', function (Request $request, Response $response) {
         $user = new classes\system\User($this->db);
+        $username = strtolower($request->getAttribute('username'));
+        $branch = $user->getBranchID($username);
         $body = $response->getBody();
-        $body->write('{"Username":"'.$request->getAttribute('username').'","BranchID":"'.$user->getBranchID($request->getAttribute('username')).'"}');
+        if (!empty($branch)){
+            $body->write('{"status":"success","code":"RS501","result": {"Username": "'.$username.'","BranchID": "'.$branch.'"},"message":"'.classes\CustomHandlers::getreSlimMessage('RS501').'"}');
+        } else {
+            $body->write('{"status":"error","code":"RS601","result": {"Username": "'.$username.'","BranchID": "'.$branch.'"},"message":"'.classes\CustomHandlers::getreSlimMessage('RS601').'"}');
+        }
+        
         return classes\Cors::modify($response,$body,200);
     });
 
