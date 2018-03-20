@@ -1,0 +1,721 @@
+{
+	"variables": [],
+	"info": {
+		"name": "reSlim System",
+		"_postman_id": "5015809d-f4b1-b819-f9ec-ecf5b47f774e",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Company Add New",
+			"request": {
+				"url": "http://localhost:1337/reSlim-b2b/src/api/system/company/data/new",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Username",
+							"value": "{username}",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Token",
+							"value": "{yourtoken}",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "BranchID",
+							"value": "{branchid}",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Name",
+							"value": "",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Address",
+							"value": "",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Phone",
+							"value": "",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Fax",
+							"value": "",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Email",
+							"value": "",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Owner",
+							"value": "",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "PIC",
+							"value": "",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "TIN",
+							"value": "",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Company Update",
+			"request": {
+				"url": "http://localhost:1337/reSlim-b2b/src/api/system/company/data/update",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Username",
+							"value": "{username}",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Token",
+							"value": "{yourtoken}",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "BranchID",
+							"value": "",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Name",
+							"value": "",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Address",
+							"value": "",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Phone",
+							"value": "",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Fax",
+							"value": "",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Email",
+							"value": "",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Owner",
+							"value": "",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "PIC",
+							"value": "",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "TIN",
+							"value": "",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "StatusID",
+							"value": "{1 or 42}",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Company Delete",
+			"request": {
+				"url": "http://localhost:1337/reSlim-b2b/src/api/system/company/data/delete",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Username",
+							"value": "{username}",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Token",
+							"value": "{yourtoken}",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "BranchID",
+							"value": "{branchid}",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Search Company As Pagination",
+			"request": {
+				"url": {
+					"raw": "http://localhost:1337/reSlim-b2b/src/api/system/company/data/search/{username}/{yourtoken}/{page}/{itemsperpage}/?query={query to search data}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"reSlim-b2b",
+						"src",
+						"api",
+						"system",
+						"company",
+						"data",
+						"search",
+						"{username}",
+						"{yourtoken}",
+						"{page}",
+						"{itemsperpage}",
+						""
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "{query to search data}",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Username",
+							"value": "reslim",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Token",
+							"value": "1oSPIt0BUgDy7owQMPOjXrlqBdKd8AU0Pqk6g",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "BranchID",
+							"value": "cgu",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Search Company As Pagination Public",
+			"request": {
+				"url": {
+					"raw": "http://localhost:1337/reSlim-b2b/src/api/system/company/data/public/search/{page}/{itemperpage}/?apikey={yourapikey}&query={query to search data}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"reSlim-b2b",
+						"src",
+						"api",
+						"system",
+						"company",
+						"data",
+						"public",
+						"search",
+						"{page}",
+						"{itemperpage}",
+						""
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "{yourapikey}",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "query",
+							"value": "{query to search data}",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Username",
+							"value": "reslim",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Token",
+							"value": "1oSPIt0BUgDy7owQMPOjXrlqBdKd8AU0Pqk6g",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "BranchID",
+							"value": "cgu",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Show Option Company",
+			"request": {
+				"url": "http://localhost:1337/reSlim-b2b/src/api/system/company/data/company/{username}/{yourtoken}",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Username",
+							"value": "reslim",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Token",
+							"value": "1oSPIt0BUgDy7owQMPOjXrlqBdKd8AU0Pqk6g",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "BranchID",
+							"value": "cgu",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Show Option Status",
+			"request": {
+				"url": "http://localhost:1337/reSlim-b2b/src/api/system/company/data/status/{yourtoken}",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Username",
+							"value": "reslim",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Token",
+							"value": "1oSPIt0BUgDy7owQMPOjXrlqBdKd8AU0Pqk6g",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "BranchID",
+							"value": "cgu",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Stat Company Summary",
+			"request": {
+				"url": "http://localhost:1337/reSlim-b2b/src/api/system/company/stats/data/summary/{username}/{yourtoken}",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Username",
+							"value": "reslim",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Token",
+							"value": "1oSPIt0BUgDy7owQMPOjXrlqBdKd8AU0Pqk6g",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "BranchID",
+							"value": "cgu",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "System User Add New",
+			"request": {
+				"url": "http://localhost:1337/reSlim-b2b/src/api/system/user/data/new",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Adminname",
+							"value": "{yourusername}",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Token",
+							"value": "{yourtoken}",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Username",
+							"value": "{username other user}",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "BranchID",
+							"value": "{branchid}",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "System User Update",
+			"request": {
+				"url": "http://localhost:1337/reSlim-b2b/src/api/system/user/data/update",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Adminname",
+							"value": "{yourusername}",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Token",
+							"value": "{yourtoken}",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Username",
+							"value": "{username other user}",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "BranchID",
+							"value": "{branchid}",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "StatusID",
+							"value": "{1 or 42}",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "System User Delete",
+			"request": {
+				"url": "http://localhost:1337/reSlim-b2b/src/api/system/user/data/delete",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Adminname",
+							"value": "{yourusername}",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Token",
+							"value": "{yourtoken}",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Username",
+							"value": "{username other user}",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Search System User As Pagination",
+			"request": {
+				"url": {
+					"raw": "http://localhost:1337/reSlim-b2b/src/api/system/user/data/search/{username}/{yourtoken}/{page}/{itemsperpage}/?query={query to search data}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"reSlim-b2b",
+						"src",
+						"api",
+						"system",
+						"user",
+						"data",
+						"search",
+						"{username}",
+						"{yourtoken}",
+						"{page}",
+						"{itemsperpage}",
+						""
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "{query to search data}",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Username",
+							"value": "reslim",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Token",
+							"value": "1oSPIt0BUgDy7owQMPOjXrlqBdKd8AU0Pqk6g",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "BranchID",
+							"value": "cgu",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Show Option User Status",
+			"request": {
+				"url": "http://localhost:1337/reSlim-b2b/src/api/system/user/data/status/{yourtoken}",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Username",
+							"value": "reslim",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Token",
+							"value": "1oSPIt0BUgDy7owQMPOjXrlqBdKd8AU0Pqk6g",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "BranchID",
+							"value": "cgu",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Stat System User Summary",
+			"request": {
+				"url": "http://localhost:1337/reSlim-b2b/src/api/system/user/stats/data/summary/{username}/{yourtoken}",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Username",
+							"value": "reslim",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Token",
+							"value": "1oSPIt0BUgDy7owQMPOjXrlqBdKd8AU0Pqk6g",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "BranchID",
+							"value": "cgu",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get User Data Branch",
+			"request": {
+				"url": "http://localhost:1337/reSlim-b2b/src/api/system/user/data/branch/{username}",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Verify User Exists",
+			"request": {
+				"url": "http://localhost:1337/reSlim-b2b/src/api/system/user/data/verify/exists/{username}",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Verify User Registered",
+			"request": {
+				"url": "http://localhost:1337/reSlim-b2b/src/api/system/user/data/verify/register/{username}",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
