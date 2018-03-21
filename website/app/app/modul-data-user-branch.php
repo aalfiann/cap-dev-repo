@@ -90,6 +90,7 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                                                             <label class="col-md-12"><?php echo Core::lang('tb_username')?></label>
                                                              <div class="col-md-12">
                                                                 <input id="username" type="text" class="form-control form-control-line" required>
+                                                                <div id="usercheck"></div>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
@@ -413,7 +414,6 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                                                                     <label class="col-md-12"><?php echo Core::lang('tb_username')?></label>\
                                                                     <div class="col-md-12">\
                                                                         <input id="username'+row.Username+'" type="text" class="form-control form-control-line" value="'+row.Username+'" readonly>\
-                                                                        <span class="help-block text-danger name"></span>\
                                                                     </div>\
                                                                 </div>\
                                                             </div>\
@@ -632,6 +632,61 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
             });
         }
         /* Delete data end */
+
+        /* Check user registered start */
+        $(function() {
+            var timer;
+            var x;
+            $('#username').on('keyup', function() {
+                if (!$.trim($('#username').val()).length){
+                    $("#usercheck").html('<span class="help-block text-danger"><i class="mdi mdi-close"></i> <?php echo Core::lang('input_required')?></span>');
+                } else {
+                    var usernameRegex = /^[a-zA-Z0-9]{3,20}$/;
+					var rgx = $('#username').val();
+					if (usernameRegex.test(rgx) == false) {
+                        $("#usercheck").html('<span class="help-block text-danger"><i class="mdi mdi-close"></i> <?php echo Core::lang('username_check_format')?></span>');
+                    } else {
+                        $("#usercheck").html('');
+                        if (x) { x.abort() } // If there is an existing XHR, abort it.
+                        clearTimeout(timer); // Clear the timer so we don't end up with dupes.
+                        timer = setTimeout(function() { // assign timer a new timeout
+                            x = $.ajax({
+                                url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/system/user/data/verify/register/')?>")+encodeURIComponent($('#username').val())+"?_="+randomText(1),
+                                dataType: "json",
+                                type: "GET",
+                                success: function(data) {
+                                    console.log("test");
+                                    if (data.status == "success"){
+                                        $("#usercheck").html('<span class="help-block text-danger name"><i class="mdi mdi-close"></i> <?php echo Core::lang('username_check_found')?></span>');
+                                    } else {
+                                        $.ajax({
+                                            url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/system/user/data/verify/exists/')?>")+encodeURIComponent($('#username').val())+"?_="+randomText(1),
+                                            dataType: "json",
+                                            type: "GET",
+                                            success: function(data) {
+                                                if (data.status == "success"){
+                                                    $("#usercheck").html('<span class="help-block text-success name"><i class="mdi mdi-check"></i> <?php echo Core::lang('username_check_ok')?></span>');
+                                                } else {
+                                                    $("#usercheck").html('<span class="help-block text-danger name"><i class="mdi mdi-close"></i> <?php echo Core::lang('username_check_not_found')?></span>');
+                                                }
+                                            },
+                                            error: function(x, e) {
+                                                $("#usercheck").html('');
+                                            }
+                                        });
+                                    }
+                                },
+                                error: function(x, e) {
+                                    $("#usercheck").html('');
+                                }
+                            }); // run ajax request and store in x variable (so we can cancel)
+                        }, 3000);
+                    }
+                }
+                
+            });
+        });
+        /* Check user registered end */
     </script>
 </body>
 
