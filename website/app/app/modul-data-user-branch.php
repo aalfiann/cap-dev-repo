@@ -521,6 +521,20 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
         /* Load data from datatables onload */
         loadData('#datamain','1','10');
 
+        /** 
+         * Get selected branch option (Pure JS)
+         */
+        function selectedBranch(idselector){
+            var selection = document.getElementById(idselector) !== null;
+            if (selection){
+                var selectBox = document.getElementById(idselector);
+                var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+                return selectedValue;
+            } else {
+                return "";
+            }
+        }
+
         /* Add new data start */
         $("#addnewdata").on("submit",sendnewdata);
         function sendnewdata(e){
@@ -535,7 +549,7 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                     data : {
                         Adminname: "<?php echo $datalogin['username']?>",
                         Token: "<?php echo $datalogin['token']?>",
-                        BranchID: selectedOption("branchlist"),
+                        BranchID: selectedBranch("branchlist"),
                         Username: $("#username").val()
                     },
                     dataType: "json",
@@ -552,7 +566,8 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                             .find("input[type=checkbox]")
                             .prop("checked", "")
                             .end();
-                            console.log("<?php echo Core::lang('core_process_add').' '.Core::lang('user').' '.Core::lang('status_success')?>");
+                            $("#usercheck").html('');
+                            console.log("<?php echo Core::lang('core_process_add').' '.Core::lang('user').' '.Core::lang('branch').' '.Core::lang('status_success')?>");
                             $('#datamain').DataTable().ajax.reload(); /* reload data table */
                             that.on("submit", sendnewdata); /* add handler back after ajax */
                         } else {
@@ -576,7 +591,7 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                     data : {
                         Adminname: "<?php echo $datalogin['username']?>",
                         Token: "<?php echo $datalogin['token']?>",
-                        BranchID: selectedOption("branch"+dataid),
+                        BranchID: selectedBranch("branch"+dataid),
                         Username: dataid,
                         StatusID: $("#status"+dataid).val()
                     },
