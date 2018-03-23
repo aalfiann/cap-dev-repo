@@ -656,11 +656,7 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                 if (!$.trim($('#username').val()).length){
                     $("#usercheck").html('<span class="help-block text-danger"><i class="mdi mdi-close"></i> <?php echo Core::lang('input_required')?></span>');
                 } else {
-                    var usernameRegex = /^[a-zA-Z0-9]{3,20}$/;
-					var rgx = $('#username').val();
-					if (usernameRegex.test(rgx) == false) {
-                        $("#usercheck").html('<span class="help-block text-danger"><i class="mdi mdi-close"></i> <?php echo Core::lang('username_check_format')?></span>');
-                    } else {
+                    if (validationRegex("username","username",true)){
                         $("#usercheck").html('');
                         if (x) { x.abort() } // If there is an existing XHR, abort it.
                         clearTimeout(timer); // Clear the timer so we don't end up with dupes.
@@ -670,7 +666,6 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                                 dataType: "json",
                                 type: "GET",
                                 success: function(data) {
-                                    console.log("test");
                                     if (data.status == "success"){
                                         $("#usercheck").html('<span class="help-block text-danger name"><i class="mdi mdi-close"></i> <?php echo Core::lang('username_check_found')?></span>');
                                     } else {
@@ -696,6 +691,10 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                                 }
                             }); // run ajax request and store in x variable (so we can cancel)
                         }, 3000);
+                    } else {
+                        if (x) { x.abort() } // If there is an existing XHR, abort it.
+                        clearTimeout(timer); // Clear the timer so we don't end up with dupes.
+                        $("#usercheck").html('<span class="help-block text-danger"><i class="mdi mdi-close"></i> <?php echo Core::lang('username_check_format')?></span>');
                     }
                 }
                 
