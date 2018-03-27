@@ -16,7 +16,7 @@ use PDO;
      * @package    System Utilities reSlim
      * @author     M ABD AZIZ ALFIAN <github.com/aalfiann>
      * @copyright  Copyright (c) 2018 M ABD AZIZ ALFIAN
-     * @license    https://github.com/aalfiann/reSlim/blob/master/license.md  MIT License
+     * @license    https://github.com/aalfiann/reSlim-b2b/blob/master/license.md  MIT License
      */
 	class Util {
 

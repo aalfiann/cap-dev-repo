@@ -17,11 +17,19 @@ use PDO;
      * @package    System User reSlim
      * @author     M ABD AZIZ ALFIAN <github.com/aalfiann>
      * @copyright  Copyright (c) 2018 M ABD AZIZ ALFIAN
-     * @license    https://github.com/aalfiann/reSlim/blob/master/license.md  MIT License
+     * @license    https://github.com/aalfiann/reSlim-b2b/blob/master/license.md  MIT License
      */
 	class User {
         // model data user
-        var $username,$branchid,$statusid,$adminname;
+		var $username,$branchid,$statusid,$adminname;
+		
+		// for pagination
+		var $page,$itemsPerPage;
+
+		// for search
+		var $search;
+
+		protected $db;
         
         function __construct($db=null) {
 			if (!empty($db)) 
