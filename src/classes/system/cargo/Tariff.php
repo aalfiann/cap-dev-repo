@@ -254,7 +254,7 @@ use PDO;
 						
 						if ($roles < 3){
 							// Query Data
-							$sql = "SELECT a.BranchID,a.Kabupaten,a.KGP,a.KGS,a.Min_Kg,ifnull(b.KGP,0) as 'H_KGP',ifnull(b.KGS,0) as 'H_KGS',ifnull(b.Min_Kg,0) as 'H_Min_Kg'
+							$sql = "SELECT a.BranchID,a.Kabupaten,a.Estimasi,a.KGP,a.KGS,a.Min_Kg,ifnull(b.KGP,0) as 'H_KGP',ifnull(b.KGS,0) as 'H_KGS',ifnull(b.Min_Kg,0) as 'H_Min_Kg'
 								from tariff_data a
 								left join tariff_handling b on a.Kabupaten=b.Kabupaten
 								where a.BranchID like :search
@@ -266,7 +266,7 @@ use PDO;
 							$stmt2->bindValue(':offpage', (INT) $offsets, PDO::PARAM_INT);
 						} else {
 							// Query Data
-							$sql = "SELECT a.BranchID,a.Kabupaten,a.KGP,a.KGS,a.Min_Kg,ifnull(b.KGP,0) as 'H_KGP',ifnull(b.KGS,0) as 'H_KGS',ifnull(b.Min_Kg,0) as 'H_Min_Kg',
+							$sql = "SELECT a.BranchID,a.Kabupaten,a.Estimasi,a.KGP,a.KGS,a.Min_Kg,ifnull(b.KGP,0) as 'H_KGP',ifnull(b.KGS,0) as 'H_KGS',ifnull(b.Min_Kg,0) as 'H_Min_Kg',
 									(SELECT a.BranchID FROM sys_user a WHERE a.Username = :username) as UserBranch 
 								from tariff_data a
 								left join tariff_handling b on a.Kabupaten=b.Kabupaten
