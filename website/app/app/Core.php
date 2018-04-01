@@ -78,7 +78,7 @@
         var $pathcache = 'cache-files';
         var $minifycache = true;
 
-        var $version = '1.7.0';
+        var $version = '2.7.0';
 
         private static $instance;
         
@@ -88,6 +88,7 @@
             foreach ($langs as $langname) {
                 require $langname;
             }
+            $lang += $cargolang;                    // append cargo language
             $this->datalang = $lang;                // set language
             $this->title = $config['title'];
             $this->keyword = $config['keyword'];
