@@ -440,7 +440,7 @@ use PDO;
         public function addHandling(){
             if (Auth::validToken($this->db,$this->token,$this->username)){
                 $roles = Auth::getRoleID($this->db,$this->token);
-                if ($roles < 3 || $roles == 6){			
+                if ($roles < 3){			
         			try {
 		        		$this->db->beginTransaction();
 				        $sql = "INSERT INTO tariff_handling (Kabupaten,KGP,KGS,Min_Kg) 
@@ -494,7 +494,7 @@ use PDO;
         public function updateHandling(){
             if (Auth::validToken($this->db,$this->token,$this->username)){
                 $roles = Auth::getRoleID($this->db,$this->token);
-                if ($roles < 3 || $roles == 6){
+                if ($roles < 3){
         			try {
 		        		$this->db->beginTransaction();
 				        $sql = "UPDATE tariff_handling SET KGP=:kgp,KGS=:kgs,Min_Kg=:minkg 
@@ -602,7 +602,7 @@ use PDO;
 				$newusername = strtolower($this->username);
 				$search = "%$this->search%";
 				$roles = Auth::getRoleID($this->db,$this->token);
-				if ($roles < 3 || $roles == 6){
+				if ($roles < 3){
 					//count total row
 					$sqlcountrow = "SELECT count(a.Kabupaten) as TotalRow 
 						from tariff_handling a
