@@ -103,25 +103,25 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                                                         <div class="form-group">
                                                             <label class="col-md-12"><?php echo Core::lang('kgp')?></label>
                                                              <div class="col-md-12">
-                                                                <input id="kgp" type="text" pattern="[0-9]" title="<?php echo Core::lang('val_numeric_html')?>" class="form-control form-control-line" required>
+                                                                <input id="kgp" type="text" pattern="^[+-]?[0-9]+(?:,[0-9]+)*(?:\.[0-9]+)?$" title="<?php echo Core::lang('val_numeric_html')?>" class="form-control form-control-line" required>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="col-md-12"><?php echo Core::lang('kgs')?></label>
                                                              <div class="col-md-12">
-                                                                <input id="kgs" type="text" pattern="[0-9]" title="<?php echo Core::lang('val_numeric_html')?>" class="form-control form-control-line" required>
+                                                                <input id="kgs" type="text" pattern="^[+-]?[0-9]+(?:,[0-9]+)*(?:\.[0-9]+)?$" title="<?php echo Core::lang('val_numeric_html')?>" class="form-control form-control-line" required>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="col-md-12"><?php echo Core::lang('minkg')?></label>
                                                              <div class="col-md-12">
-                                                                <input id="minkg" type="text" pattern="[0-9]" title="<?php echo Core::lang('val_numeric_html')?>" class="form-control form-control-line" required>
+                                                                <input id="minkg" type="text" pattern="^[+-]?[0-9]+(?:,[0-9]+)*(?:\.[0-9]+)?$" title="<?php echo Core::lang('val_numeric_html')?>" class="form-control form-control-line" required>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="col-md-12"><?php echo Core::lang('estimation')?></label>
                                                              <div class="col-md-12">
-                                                                <input id="estimation" type="text" pattern="[0-9]" title="<?php echo Core::lang('val_numeric_html')?>" class="form-control form-control-line" required>
+                                                                <input id="estimation" type="text" pattern="^[+-]?[0-9]+(?:,[0-9]+)*(?:\.[0-9]+)?$" title="<?php echo Core::lang('val_numeric_html')?>" class="form-control form-control-line" required>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -412,36 +412,42 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                                                             <label class="col-md-12"><?php echo Core::lang('branchid')?></label>\
                                                              <div class="col-md-12">\
                                                                 <input id="branchid'+row.BranchID+row.Kabupaten.replace(' ','-')+'" type="text" class="form-control form-control-line" value="'+row.BranchID.toUpperCase()+'" readonly>\
+                                                                <span class="help-block text-danger branchid'+row.BranchID+row.Kabupaten.replace(' ','-')+'"></span>\
                                                             </div>\
                                                         </div>\
                                                         <div class="form-group">\
                                                             <label class="col-md-12"><?php echo Core::lang('district')?></label>\
                                                              <div class="col-md-12">\
                                                                 <input id="district'+row.BranchID+row.Kabupaten.replace(' ','-')+'" type="text" class="form-control form-control-line" value="'+row.Kabupaten+'" readonly>\
+                                                                <span class="help-block text-danger district'+row.BranchID+row.Kabupaten.replace(' ','-')+'"></span>\
                                                             </div>\
                                                         </div>\
                                                         <div class="form-group">\
                                                             <label class="col-md-12"><?php echo Core::lang('kgp')?></label>\
                                                              <div class="col-md-12">\
                                                                 <input id="kgp'+row.BranchID+row.Kabupaten.replace(' ','-')+'" type="text" pattern="[0-9]" title="<?php echo Core::lang('val_numeric_html')?>" class="form-control form-control-line" value="'+row.KGP+'" required>\
+                                                                <span class="help-block text-danger kgp'+row.BranchID+row.Kabupaten.replace(' ','-')+'"></span>\
                                                             </div>\
                                                         </div>\
                                                         <div class="form-group">\
                                                             <label class="col-md-12"><?php echo Core::lang('kgs')?></label>\
                                                              <div class="col-md-12">\
                                                                 <input id="kgs'+row.BranchID+row.Kabupaten.replace(' ','-')+'" type="text" pattern="[0-9]" title="<?php echo Core::lang('val_numeric_html')?>" class="form-control form-control-line" value="'+row.KGS+'" required>\
+                                                                <span class="help-block text-danger kgs'+row.BranchID+row.Kabupaten.replace(' ','-')+'"></span>\
                                                             </div>\
                                                         </div>\
                                                         <div class="form-group">\
                                                             <label class="col-md-12"><?php echo Core::lang('minkg')?></label>\
                                                              <div class="col-md-12">\
                                                                 <input id="minkg'+row.BranchID+row.Kabupaten.replace(' ','-')+'" type="text" pattern="[0-9]" title="<?php echo Core::lang('val_numeric_html')?>" class="form-control form-control-line" value="'+row.Min_Kg+'" required>\
+                                                                <span class="help-block text-danger minkg'+row.BranchID+row.Kabupaten.replace(' ','-')+'"></span>\
                                                             </div>\
                                                         </div>\
                                                         <div class="form-group">\
                                                             <label class="col-md-12"><?php echo Core::lang('estimation')?></label>\
                                                              <div class="col-md-12">\
                                                                 <input id="estimation'+row.BranchID+row.Kabupaten.replace(' ','-')+'" type="text" pattern="[0-9]" title="<?php echo Core::lang('val_numeric_html')?>" class="form-control form-control-line" value="'+row.Estimasi+'" required>\
+                                                                <span class="help-block text-danger estimation'+row.BranchID+row.Kabupaten.replace(' ','-')+'"></span>\
                                                             </div>\
                                                         </div>\
                                                     </div>\
@@ -588,6 +594,27 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                 console.log("Process update data...");
                 var div = document.getElementById("report-updatedata");
 
+                /* Validation */
+                if ($("#branchid"+dataid).val() == ""){
+                    $(".help-block.text-danger.branchid"+dataid).html("<br><small><?php echo Core::lang('input_required')?></small>");
+                    return false;
+                } else if ($("#district"+dataid).val() == ""){
+                    $(".help-block.text-danger.district"+dataid).html("<br><small><?php echo Core::lang('input_required')?></small>");
+                    return false;
+                } else if (validationRegex($("#kgp"+dataid).val(),"double") == false){
+                    $(".help-block.text-danger.kgp"+dataid).html("<br><small><?php echo Core::lang('val_numeric_html')?></small>");
+                    return false;
+                } else if (validationRegex($("#kgs"+dataid).val(),"double") == false){
+                    $(".help-block.text-danger.kgs"+dataid).html("<br><small><?php echo Core::lang('val_numeric_html')?></small>");
+                    return false;
+                } else if (validationRegex($("#minkg"+dataid).val(),"double") == false){
+                    $(".help-block.text-danger.minkg"+dataid).html("<br><small><?php echo Core::lang('val_numeric_html')?></small>");
+                    return false;
+                } else if (validationRegex($("#estimation"+dataid).val(),"double") == false){
+                    $(".help-block.text-danger.estimation"+dataid).html("<br><small><?php echo Core::lang('val_numeric_html')?></small>");
+                    return false;
+                }
+
                 $.ajax({
                     url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargo/tariff/data/update')?>"),
                     data : {
@@ -625,6 +652,15 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
             $(function() {
                 console.log("Process delete data...");
                 var div = document.getElementById("report-updatedata");
+
+                /* Validation */
+                if ($("#branchid"+dataid).val() == ""){
+                    $(".help-block.text-danger.branchid"+dataid).html("<br><small><?php echo Core::lang('input_required')?></small>");
+                    return false;
+                } else if ($("#district"+dataid).val() == ""){
+                    $(".help-block.text-danger.district"+dataid).html("<br><small><?php echo Core::lang('input_required')?></small>");
+                    return false;
+                }
 
                 $.ajax({
                     url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargo/tariff/data/delete')?>"),
