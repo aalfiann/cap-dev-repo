@@ -45,7 +45,8 @@ use PDO;
                 $roles = Auth::getRoleID($this->db,$this->token);
                 if ($roles < 3 || $roles == 6){
 			        $newbranchid = strtolower($this->branchid);
-			
+					$newest = Validation::integerOnly($this->estimasi);
+
         			try {
 		        		$this->db->beginTransaction();
 				        $sql = "INSERT INTO tariff_data (BranchID,Kabupaten,KGP,KGS,Min_Kg,Estimasi) 
@@ -56,7 +57,7 @@ use PDO;
                         $stmt->bindParam(':kgp', $this->kgp, PDO::PARAM_STR);
                         $stmt->bindParam(':kgs', $this->kgs, PDO::PARAM_STR);
                         $stmt->bindParam(':minkg', $this->minkg, PDO::PARAM_STR);
-                        $stmt->bindParam(':estimasi', $this->estimasi, PDO::PARAM_STR);
+                        $stmt->bindParam(':estimasi', $newest, PDO::PARAM_STR);
     					if ($stmt->execute()) {
 	    					$data = [
 		    					'status' => 'success',
@@ -103,7 +104,7 @@ use PDO;
                 $roles = Auth::getRoleID($this->db,$this->token);
                 if ($roles < 3 || $roles == 6){
 			        $newbranchid = strtolower($this->branchid);
-			
+					$newest = Validation::integerOnly($this->estimasi);
         			try {
 		        		$this->db->beginTransaction();
 				        $sql = "UPDATE tariff_data SET KGP=:kgp,KGS=:kgs,Min_Kg=:minkg,Estimasi=:estimasi 
@@ -114,7 +115,7 @@ use PDO;
                         $stmt->bindParam(':kgp', $this->kgp, PDO::PARAM_STR);
                         $stmt->bindParam(':kgs', $this->kgs, PDO::PARAM_STR);
                         $stmt->bindParam(':minkg', $this->minkg, PDO::PARAM_STR);
-                        $stmt->bindParam(':estimasi', $this->estimasi, PDO::PARAM_STR);
+                        $stmt->bindParam(':estimasi', $newest, PDO::PARAM_STR);
     					if ($stmt->execute()) {
 	    					$data = [
 		    					'status' => 'success',
