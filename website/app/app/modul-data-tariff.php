@@ -103,25 +103,25 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                                                         <div class="form-group">
                                                             <label class="col-md-12"><?php echo Core::lang('kgp')?></label>
                                                              <div class="col-md-12">
-                                                                <input id="kgp" type="text" class="form-control form-control-line" required>
+                                                                <input id="kgp" type="text" pattern="[0-9]" title="<?php echo Core::lang('val_numeric_html')?>" class="form-control form-control-line" required>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="col-md-12"><?php echo Core::lang('kgs')?></label>
                                                              <div class="col-md-12">
-                                                                <input id="kgs" type="text" class="form-control form-control-line" required>
+                                                                <input id="kgs" type="text" pattern="[0-9]" title="<?php echo Core::lang('val_numeric_html')?>" class="form-control form-control-line" required>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="col-md-12"><?php echo Core::lang('minkg')?></label>
                                                              <div class="col-md-12">
-                                                                <input id="minkg" type="text" class="form-control form-control-line" required>
+                                                                <input id="minkg" type="text" pattern="[0-9]" title="<?php echo Core::lang('val_numeric_html')?>" class="form-control form-control-line" required>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="col-md-12"><?php echo Core::lang('estimation')?></label>
                                                              <div class="col-md-12">
-                                                                <input id="estimation" type="text" class="form-control form-control-line" required>
+                                                                <input id="estimation" type="text" pattern="[0-9]" title="<?php echo Core::lang('val_numeric_html')?>" class="form-control form-control-line" required>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -423,25 +423,25 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                                                         <div class="form-group">\
                                                             <label class="col-md-12"><?php echo Core::lang('kgp')?></label>\
                                                              <div class="col-md-12">\
-                                                                <input id="kgp'+row.BranchID+row.Kabupaten.replace(' ','-')+'" type="text" class="form-control form-control-line" value="'+row.KGP+'" required>\
+                                                                <input id="kgp'+row.BranchID+row.Kabupaten.replace(' ','-')+'" type="text" pattern="[0-9]" title="<?php echo Core::lang('val_numeric_html')?>" class="form-control form-control-line" value="'+row.KGP+'" required>\
                                                             </div>\
                                                         </div>\
                                                         <div class="form-group">\
                                                             <label class="col-md-12"><?php echo Core::lang('kgs')?></label>\
                                                              <div class="col-md-12">\
-                                                                <input id="kgs'+row.BranchID+row.Kabupaten.replace(' ','-')+'" type="text" class="form-control form-control-line" value="'+row.KGS+'" required>\
+                                                                <input id="kgs'+row.BranchID+row.Kabupaten.replace(' ','-')+'" type="text" pattern="[0-9]" title="<?php echo Core::lang('val_numeric_html')?>" class="form-control form-control-line" value="'+row.KGS+'" required>\
                                                             </div>\
                                                         </div>\
                                                         <div class="form-group">\
                                                             <label class="col-md-12"><?php echo Core::lang('minkg')?></label>\
                                                              <div class="col-md-12">\
-                                                                <input id="minkg'+row.BranchID+row.Kabupaten.replace(' ','-')+'" type="text" class="form-control form-control-line" value="'+row.Min_Kg+'" required>\
+                                                                <input id="minkg'+row.BranchID+row.Kabupaten.replace(' ','-')+'" type="text" pattern="[0-9]" title="<?php echo Core::lang('val_numeric_html')?>" class="form-control form-control-line" value="'+row.Min_Kg+'" required>\
                                                             </div>\
                                                         </div>\
                                                         <div class="form-group">\
                                                             <label class="col-md-12"><?php echo Core::lang('estimation')?></label>\
                                                              <div class="col-md-12">\
-                                                                <input id="estimation'+row.BranchID+row.Kabupaten.replace(' ','-')+'" type="text" class="form-control form-control-line" value="'+row.Estimasi+'" required>\
+                                                                <input id="estimation'+row.BranchID+row.Kabupaten.replace(' ','-')+'" type="text" pattern="[0-9]" title="<?php echo Core::lang('val_numeric_html')?>" class="form-control form-control-line" value="'+row.Estimasi+'" required>\
                                                             </div>\
                                                         </div>\
                                                     </div>\
