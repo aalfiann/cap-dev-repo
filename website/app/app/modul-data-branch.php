@@ -480,14 +480,14 @@ $datastatus = json_decode(Core::execGetRequest($urlstatus));?>
                                                             <label class="col-md-12"><?php echo Core::lang('name')?></label>\
                                                              <div class="col-md-12">\
                                                                 <input id="name'+row.BranchID+'" type="text" class="form-control form-control-line" value="'+row.Name+'">\
-                                                                <span class="help-block text-danger name"></span>\
+                                                                <span class="help-block text-danger name'+row.BranchID+'"></span>\
                                                             </div>\
                                                         </div>\
                                                         <div class="form-group">\
                                                             <label class="col-md-12"><?php echo Core::lang('address')?></label>\
                                                              <div class="col-md-12">\
                                                                 <textarea id="address'+row.BranchID+'" type="text" rows="3" style="resize: vertical;" class="form-control form-control-line">'+row.Address+'</textarea>\
-                                                                <span class="help-block text-danger address"></span>\
+                                                                <span class="help-block text-danger address'+row.BranchID+'"></span>\
                                                             </div>\
                                                         </div>\
                                                         <div class="row">\
@@ -496,7 +496,7 @@ $datastatus = json_decode(Core::execGetRequest($urlstatus));?>
                                                                     <label class="col-md-12"><?php echo Core::lang('phone')?></label>\
                                                                      <div class="col-md-12">\
                                                                         <input id="phone'+row.BranchID+'" type="text" class="form-control form-control-line" value="'+row.Phone+'" required>\
-                                                                        <span class="help-block text-danger phone"></span>\
+                                                                        <span class="help-block text-danger phone'+row.BranchID+'"></span>\
                                                                     </div>\
                                                                 </div>\
                                                             </div>\
@@ -691,13 +691,13 @@ $datastatus = json_decode(Core::execGetRequest($urlstatus));?>
                 var div = document.getElementById("report-updatedata");
 
                 if ($("#name"+dataid).val() == ""){
-                    $(".help-block.text-danger.name").html("<br><small><?php echo Core::lang('input_required')?></small>");
+                    $(".help-block.text-danger.name"+dataid).html("<br><small><?php echo Core::lang('input_required')?></small>");
                     return false;
                 } else if ($("#address"+dataid).val() == ""){
-                    $(".help-block.text-danger.address").html("<br><small><?php echo Core::lang('input_required')?></small>");
+                    $(".help-block.text-danger.address"+dataid).html("<br><small><?php echo Core::lang('input_required')?></small>");
                     return false;
                 } else if ($("#phone"+dataid).val() == ""){
-                    $(".help-block.text-danger.phone").html("<br><small><?php echo Core::lang('input_required')?></small>");
+                    $(".help-block.text-danger.phone"+dataid).html("<br><small><?php echo Core::lang('input_required')?></small>");
                     return false;
                 }
 
