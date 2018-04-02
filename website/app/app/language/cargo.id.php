@@ -11,5 +11,7 @@ $cargolang = [
     'hkgp' => 'H_KGP',
     'hkgs' => 'H_KGS',
     'hminkg' => 'H_Min_Kg',
-    'estimation' => 'Estimasi'
+    'estimation' => 'Estimasi',
+    //inquiry
+    'inquiry' => 'Inquiry'
 ];
