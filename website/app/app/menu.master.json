@@ -82,6 +82,17 @@
                             "link": "modul-invoice.php"
                         }
                     ]
+                },
+                {
+                    "id":"3",
+                    "title":"inquiry",
+                    "icon_class":"mdi mdi-magnify",
+                    "menus": [
+                        {
+                            "title": "info tariff",
+                            "link": "modul-inquiry-tariff.php"
+                        }
+                    ]
                 }
             ]
 		},
