@@ -47,17 +47,21 @@ Proses pengembangan sekitar 2 bulan
 Sistem akan terintegrasi pada satu titik global atau terpusat dan online<br>
 2. Branches Management System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
 Pendataan internal cabang agar memudahkan untuk pengembangan cabang<br>
-3. Tariff System >> ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) `on progress`<br>
+3. Tariff System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
 Fleksible dalam pembuatan tarif untuk mendukung perubahan setiap saat<br>
-4. Transaction Data >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+4. Tariff Handling System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
+Fleksible dalam pembuatan tarif handling untuk mendukung perubahan setiap saat<br>
+5. Inquiry Tariff >> ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) `on progress`<br>
+Pencarian tarif yang mudah dan fleksible.<br>
+6. Transaction Data >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
 Transaksi dapat dilakukan di semua device dan real time online<br>
-5. Reporting Data >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+7. Reporting Data >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
 Laporan data semua transaksi termasuk harian, mingguan, bulanan dan tahunan<br>
-6. Corporate System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+8. Corporate System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
 Pendataan Corporate atau perusahaan yang bekerja sama<br>
-7. Invoice System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+9. Invoice System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
 Manajemen tagihan atau invoice secara sistem agar memudahkan untuk di kontrol<br>
-8. Blog System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+10. Blog System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
 Blog atau konten manajemen sistem berguna untuk pembuatan artikel, berita, promosi, dokumentasi dan lain-lain<br>
 
 
