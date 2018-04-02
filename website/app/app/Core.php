@@ -88,7 +88,7 @@
             foreach ($langs as $langname) {
                 require $langname;
             }
-            $lang += $cargolang;                    // append cargo language
+            $lang += $customlang;                   // append custom language
             $this->datalang = $lang;                // set language
             $this->title = $config['title'];
             $this->keyword = $config['keyword'];
