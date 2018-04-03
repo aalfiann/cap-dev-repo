@@ -20,5 +20,8 @@ $customlang = [
     'destination' => 'Destination',
     'weight' => 'Weight',
     //inquiry
-    'inquiry' => 'Inquiry'
+    'inquiry' => 'Inquiry',
+    'check_tariff' => 'Check Tariff',
+    //placeholder
+    'city_district' => 'City / District'
 ];

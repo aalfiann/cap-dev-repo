@@ -18,7 +18,10 @@ $customlang = [
     'estimation' => 'Estimasi',
     'origin' => 'Kota Asal',
     'destination' => 'Destinasi',
-    'weight' => 'Berat',
+    'weight' => 'Berat',    
     //inquiry
-    'inquiry' => 'Inquiry'
+    'inquiry' => 'Inquiry',
+    'check_tariff' => 'Cek Tarif',
+    //placeholder
+    'city_district' => 'Kota / Kabupaten'
 ];

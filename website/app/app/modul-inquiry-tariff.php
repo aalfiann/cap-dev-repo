@@ -46,7 +46,7 @@ $datalogin = Core::checkSessions();?>
             <!-- ============================================================== -->
             <div class="container-fluid">
                 <!-- ============================================================== -->
-                <!-- Bread crumb and right sidebar toggle -->
+                <!-- Start Page Content -->
                 <!-- ============================================================== -->
                 <div class="container-fluid">
                     <div class="row">
@@ -54,18 +54,18 @@ $datalogin = Core::checkSessions();?>
                         <div class="col-md-6">
                             <div class="card">
                                 <div class="card-body">
-                                    <h3 class="card-title"><b><i class="mdi mdi-magnify"></i> Check Tariff</b></h3><hr>
+                                    <h3 class="card-title"><b><i class="mdi mdi-magnify"></i> <?php echo Core::lang('check_tariff')?></b></h3><hr>
                                     <form class="form-horizontal" id="searchtariff" action="#">
                                         <div class="form-group">
                                             <label class="col-md-12"><?php echo Core::lang('origin')?></label>
                                             <div id="origin-list" class="col-md-12">
-                                                <input id="origin" type="text" class="typeahead form-control" placeholder="Kota / Kabupaten" required>
+                                                <input id="origin" type="text" class="typeahead form-control" placeholder="<?php echo Core::lang('city_district')?>" required>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-12"><?php echo Core::lang('destination')?></label>
                                             <div id="destination-list" class="col-md-12">
-                                                <input id="destination" type="text" class="typeahead form-control" placeholder="Kota / Kabupaten" required>
+                                                <input id="destination" type="text" class="typeahead form-control" placeholder="<?php echo Core::lang('city_district')?>" required>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -74,7 +74,7 @@ $datalogin = Core::checkSessions();?>
                                                 <input id="weight" type="number" min="1" max="9999" class="form-control form-control-line" required>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-info waves-effect waves-light m-t-10">Search</button>
+                                        <button type="submit" class="btn btn-info waves-effect waves-light m-t-10"><?php echo Core::lang('search')?></button>
                                     </form>    
                                 </div>
                             </div>
@@ -100,14 +100,7 @@ $datalogin = Core::checkSessions();?>
                     </div>
                 </div>
                 <!-- ============================================================== -->
-                <!-- End Bread crumb and right sidebar toggle -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Start Page Content -->
-                <!-- ============================================================== -->
-                
-                <!-- ============================================================== -->
-                <!-- End PAge Content -->
+                <!-- End Page Content -->
                 <!-- ============================================================== -->
                 <?php include_once 'sidebar-right.php';?>
             </div>
