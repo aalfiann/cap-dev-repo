@@ -3,6 +3,15 @@ require_once realpath(__DIR__ . '/..').'/config.php';
 $customlang = [
     //your custom language variable
     'custom_test' => 'Test',
+    //direction
+    'next' => 'Next',
+    'previous' => 'Previous',
+    //wizard
+    'step_next' => 'Next <i class="mdi mdi-skip-next"></i>',
+    'step_previous' => '<i class="mdi mdi-skip-previous"></i> Previous',
+    'step_loading' => 'Loading...',
+    'step_pagination' => 'Pagination',
+    'step_current' => 'current step:',
     //nominal
     'currency_format' => '$',
     //cargo
@@ -19,6 +28,12 @@ $customlang = [
     'origin' => 'Origin',
     'destination' => 'Destination',
     'weight' => 'Weight',
+    //transaction
+    'transaction' => 'Transaction',
+    'shipper' => 'Shipper',
+    'consignee' => 'Consignee',
+    'goods_detail' => 'Goods Detail',
+    'payment' => 'Payment',
     //inquiry
     'inquiry' => 'Inquiry',
     'check_tariff' => 'Check Tariff',
