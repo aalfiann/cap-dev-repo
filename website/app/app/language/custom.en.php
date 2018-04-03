@@ -3,7 +3,9 @@ require_once realpath(__DIR__ . '/..').'/config.php';
 $customlang = [
     //your custom language variable
     'custom_test' => 'Test',
-    //menu
+    //nominal
+    'currency_format' => '$',
+    //cargo
     'tariff' => 'Tariff',
     'handling' => 'Handling',
     'district' => 'District',
@@ -14,6 +16,9 @@ $customlang = [
     'hkgs' => 'H_KGS',
     'hminkg' => 'H_Min_Kg',
     'estimation' => 'Estimation',
+    'origin' => 'Origin',
+    'destination' => 'Destination',
+    'weight' => 'Weight',
     //inquiry
     'inquiry' => 'Inquiry'
 ];
