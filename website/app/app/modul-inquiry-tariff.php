@@ -30,6 +30,7 @@ $datalogin = Core::checkSessions();?>
                 </div>
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)"><?php echo Core::lang('system')?></a></li>
                         <li class="breadcrumb-item"><a href="javascript:void(0)"><?php echo Core::lang('inquiry')?></a></li>
                         <li class="breadcrumb-item active"><?php echo Core::lang('info').' '.Core::lang('tariff')?></li>
                     </ol>
