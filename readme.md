@@ -51,9 +51,9 @@ Pendataan internal cabang agar memudahkan untuk pengembangan cabang<br>
 Fleksible dalam pembuatan tarif untuk mendukung perubahan setiap saat<br>
 4. Tariff Handling System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
 Fleksible dalam pembuatan tarif handling untuk mendukung perubahan setiap saat<br>
-5. Inquiry Tariff >> ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) `on progress`<br>
+5. Inquiry Tariff >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
 Pencarian tarif yang mudah dan fleksible.<br>
-6. Transaction Data >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+6. Transaction Data >> ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) `on progress`<br>
 Transaksi dapat dilakukan di semua device dan real time online<br>
 7. Reporting Data >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
 Laporan data semua transaksi termasuk harian, mingguan, bulanan dan tahunan<br>
