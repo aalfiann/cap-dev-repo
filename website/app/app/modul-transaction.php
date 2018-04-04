@@ -51,7 +51,7 @@ $datalogin = Core::checkSessions();?>
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
-                <div class="row" id="validation">
+                <div class="row" >
                     <div class="col-12">
                         <div class="card wizard-content">
                             <div class="card-body">
@@ -62,43 +62,52 @@ $datalogin = Core::checkSessions();?>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="wfirstName2"> First Name : <span class="danger">*</span> </label>
-                                                    <input type="text" class="form-control required" id="wfirstName2" name="firstName"> </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="wlastName2"> Last Name : <span class="danger">*</span> </label>
-                                                    <input type="text" class="form-control required" id="wlastName2" name="lastName"> </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="wemailAddress2"> Email Address : <span class="danger">*</span> </label>
-                                                    <input type="email" class="form-control required" id="wemailAddress2" name="emailAddress"> </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="wphoneNumber2">Phone Number :</label>
-                                                    <input type="tel" class="form-control" id="wphoneNumber2"> </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="wlocation2"> Select City : <span class="danger">*</span> </label>
-                                                    <select class="custom-select form-control required" id="wlocation2" name="location">
-                                                        <option value="">Select City</option>
-                                                        <option value="India">India</option>
-                                                        <option value="USA">USA</option>
-                                                        <option value="Dubai">Dubai</option>
-                                                    </select>
+                                                    <label for="custid"> Customer ID : </label>
+                                                    <div class="input-group">
+                                                        <input type="text" id="custid" name="custid" class="form-control" placeholder="Customer ID could be ID Corporate or ID Member...">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-info" type="button">Browse!</button>
+                                                        </span>
+                                                    </div>
+                                                    <small id="custidHelp" class="form-text text-muted">Click browse to search Customer ID.</small>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="wdate2">Date of Birth :</label>
-                                                    <input type="date" class="form-control" id="wdate2"> </div>
+                                                    <label for="shippername"> Shipper Name : <span class="text-danger">*</span> </label>
+                                                    <input type="text" class="form-control required" id="shippername" name="shippername"> </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="aliasname"> Alias Name : </label>
+                                                    <input type="text" class="form-control" id="aliasname" name="aliasname"> </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="address"> Address : <span class="text-danger">*</span> </label>
+                                                    <textarea name="address" id="address" rows="6" class="form-control required" style="resize: vertical;"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="email"> Email Address : </label>
+                                                    <input type="email" class="form-control" name="email" id="email"> </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="phone">Phone Number : <span class="text-danger">*</span> </label>
+                                                    <input type="text" class="form-control required" name="phone" id="phone"> </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="fax">Fax Number : </label>
+                                                    <input type="text" class="form-control" name="fax" id="fax"> </div>
                                             </div>
                                         </div>
                                     </section>
@@ -108,20 +117,39 @@ $datalogin = Core::checkSessions();?>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="jobTitle2">Company Name :</label>
-                                                    <input type="text" class="form-control required" id="jobTitle2">
+                                                    <label for="refid"> Referensi ID : </label>
+                                                    <div class="form-group">
+                                                        <input type="text" id="refid" name="refid" class="form-control" placeholder="Referensi ID must unique...">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                        <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="consigneename"> Consignee Name : <span class="text-danger">*</span> </label>
+                                                    <input type="text" class="form-control required" id="consigneename" name="consigneename"> </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="attentionname"> Attention Name : </label>
+                                                    <input type="text" class="form-control" id="attentionname" name="attentionname"> </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="consigneeaddress">Consignee Address : <span class="text-danger">*</span> </label>
+                                                    <textarea name="consigneeaddress" id="consigneeaddress" rows="6" class="form-control required" style="resize: vertical;"></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="webUrl3">Company URL :</label>
-                                                    <input type="url" class="form-control required" id="webUrl3" name="webUrl3"> </div>
+                                                    <label for="consigneephone">Phone Number : <span class="text-danger">*</span> </label>
+                                                    <input type="text" class="form-control required" name="consigneephone" id="consigneephone"> </div>
                                             </div>
-                                            <div class="col-md-12">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="shortDescription3">Short Description :</label>
-                                                    <textarea name="shortDescription" id="shortDescription3" rows="6" class="form-control"></textarea>
-                                                </div>
+                                                    <label for="consigneefax">Fax Number : </label>
+                                                    <input type="text" class="form-control" name="consigneefax" id="consigneefax"> </div>
                                             </div>
                                         </div>
                                     </section>
@@ -131,38 +159,111 @@ $datalogin = Core::checkSessions();?>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="wint1">Interview For :</label>
-                                                    <input type="text" class="form-control required" id="wint1"> </div>
-                                                <div class="form-group">
-                                                    <label for="wintType1">Interview Type :</label>
-                                                    <select class="custom-select form-control required" id="wintType1" data-placeholder="Type to search cities" name="wintType1">
-                                                        <option value="Banquet">Normal</option>
-                                                        <option value="Fund Raiser">Difficult</option>
-                                                        <option value="Dinner Party">Hard</option>
-                                                    </select>
+                                                    <label for="instructions">Instructions :</label>
+                                                    <textarea name="instructions" id="instructions" rows="6" class="form-control" style="resize: vertical;"></textarea>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="wLocation1">Location :</label>
-                                                    <select class="custom-select form-control required" id="wLocation1" name="wlocation">
-                                                        <option value="">Select City</option>
-                                                        <option value="India">India</option>
-                                                        <option value="USA">USA</option>
-                                                        <option value="Dubai">Dubai</option>
-                                                    </select>
+                                                    <label for="descriptions">Descriptions : <span class="text-danger">*</span> </label>
+                                                    <textarea name="descriptions" id="descriptions" rows="6" class="form-control required" style="resize: vertical;"></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="wjobTitle2">Interview Date :</label>
-                                                    <input type="date" class="form-control required" id="wjobTitle2">
+                                                    <label for="participants1">Type</label>
+                                                    <select class="custom-select form-control required" id="participants1" name="location">
+                                                        <option value="Document">Document</option>
+                                                        <option value="Package">Package</option>
+                                                    </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Requirements :</label>
-                                                    <div class="c-inputs-stacked">
-                                                        <label class="inline custom-control custom-checkbox block">
-                                                            <input type="checkbox" class="custom-control-input"> <span class="custom-control-indicator"></span> <span class="custom-control-description ml-0">Employee</span> </label>
-                                                        <label class="inline custom-control custom-checkbox block">
-                                                            <input type="checkbox" class="custom-control-input"> <span class="custom-control-indicator"></span> <span class="custom-control-description ml-0">Contract</span> </label>
+                                                    <label for="participants1">Volume Kg</label>
+                                                    <div class="table-responsive" style="height:300px;overflow: auto;">
+                                                    <table id="myTable" class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Panjang</th>
+                                                                <th>Lebar</th>
+                                                                <th>Tinggi</th>
+                                                                <th>Vol. Kg</th>
+                                                                <th>Act. Kg</th>
+                                                                <th>Surcharge</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>20</td>
+                                                                <td>30</td>
+                                                                <td>40</td>
+                                                                <td>22</td>
+                                                                <td>10</td>
+                                                                <td>0</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>20</td>
+                                                                <td>30</td>
+                                                                <td>40</td>
+                                                                <td>22</td>
+                                                                <td>10</td>
+                                                                <td>0</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>20</td>
+                                                                <td>30</td>
+                                                                <td>40</td>
+                                                                <td>22</td>
+                                                                <td>10</td>
+                                                                <td>0</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>20</td>
+                                                                <td>30</td>
+                                                                <td>40</td>
+                                                                <td>22</td>
+                                                                <td>10</td>
+                                                                <td>0</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>20</td>
+                                                                <td>30</td>
+                                                                <td>40</td>
+                                                                <td>22</td>
+                                                                <td>10</td>
+                                                                <td>0</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>20</td>
+                                                                <td>30</td>
+                                                                <td>40</td>
+                                                                <td>22</td>
+                                                                <td>10</td>
+                                                                <td>0</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>20</td>
+                                                                <td>30</td>
+                                                                <td>40</td>
+                                                                <td>22</td>
+                                                                <td>10</td>
+                                                                <td>0</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>20</td>
+                                                                <td>30</td>
+                                                                <td>40</td>
+                                                                <td>22</td>
+                                                                <td>10</td>
+                                                                <td>0</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>20</td>
+                                                                <td>30</td>
+                                                                <td>40</td>
+                                                                <td>22</td>
+                                                                <td>10</td>
+                                                                <td>0</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
                                                     </div>
                                                 </div>
                                             </div>
@@ -244,22 +345,6 @@ $datalogin = Core::checkSessions();?>
     <script src="../assets/plugins/sweetalert/sweetalert.min.js"></script>
     <script>
         $(function(){
-            $(".tab-wizard").steps({
-                headerTag: "h6",
-                bodyTag: "section",
-                transitionEffect: "fade",
-                titleTemplate: '<span class="step">#index#</span> #title#',
-                labels: {
-                    finish: "Submit"
-                }, 
-                onFinished: function (event, currentIndex) {
-                    var form = $(this);
-                    // Submit form input
-                    form.submit();        
-                }
-            });
-
-
             var form = $(".validation-wizard").show();
 
             $(".validation-wizard").steps({
@@ -285,7 +370,24 @@ $datalogin = Core::checkSessions();?>
                 onFinished: function (event, currentIndex) {
                     swal("Form Submitted!", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lorem erat eleifend ex semper, lobortis purus sed.");
                 }
-            }),
+            });
+            
+            $.validator.addMethod('double', function (value, element) {
+                return this.optional(element) || /^[+-]?[0-9]+(?:,[0-9]+)*(?:\.[0-9]+)?$/.test(value);
+            }, "<?php echo Core::lang('val_numeric_html')?>");
+
+            $.validator.addMethod('email', function (value, element) {
+                return this.optional(element) || /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value);
+            }, "<?php echo Core::lang('val_email_html')?>");
+
+            $.validator.addMethod('numeric', function (value, element) {
+                return this.optional(element) || /^[0-9]+$/.test(value);
+            }, "<?php echo Core::lang('val_numeric_html')?>");
+
+            $.validator.addMethod('alphanumeric', function (value, element) {
+                return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
+            }, "<?php echo Core::lang('val_alphanumeric_html')?>");
+            
             $(".validation-wizard").validate({
                 ignore: "input[type=hidden]",
                 errorClass: "text-danger",
@@ -300,9 +402,35 @@ $datalogin = Core::checkSessions();?>
                     error.insertAfter(element)
                 },
                 rules: {
-                    email: {
-                        email: !0
-                    }
+                    email: 'email',
+                    phone: 'numeric',
+                    fax: 'numeric',
+                    refid: 'alphanumeric',
+                    consigneephone: 'numeric'
+                }
+            });
+
+            $('#custid').on('keyup', function() {
+                if (!$.trim($('#custid').val()).length){
+                    $("#shippername").prop('readonly', false);
+                    $("#aliasname").prop('readonly', false);
+                    $("#address").prop('readonly', false);
+                    $("#email").prop('readonly', false);
+                    $("#phone").prop('readonly', false);
+                    $("#fax").prop('readonly', false);
+                    $("#shippername").val('');
+                    $("#aliasname").val('');
+                    $("#address").val('');
+                    $("#email").val('');
+                    $("#phone").val('');
+                    $("#fax").val('');
+                } else {
+                    $("#shippername").prop('readonly', true);
+                    $("#aliasname").prop('readonly', true);
+                    $("#address").prop('readonly', true);
+                    $("#email").prop('readonly', true);
+                    $("#phone").prop('readonly', true);
+                    $("#fax").prop('readonly', true);
                 }
             });
         });
