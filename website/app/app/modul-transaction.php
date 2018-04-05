@@ -77,12 +77,14 @@ $datalogin = Core::checkSessions();?>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="shippername"> Shipper Name : <span class="text-danger">*</span> </label>
-                                                    <input type="text" class="form-control required" id="shippername" name="shippername"> </div>
+                                                    <input type="text" class="form-control required" id="shippername" name="shippername">
+                                                </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="aliasname"> Alias Name : </label>
-                                                    <input type="text" class="form-control" id="aliasname" name="aliasname"> </div>
+                                                    <input type="text" class="form-control" id="aliasname" name="aliasname">
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -97,17 +99,20 @@ $datalogin = Core::checkSessions();?>
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="email"> Email Address : </label>
-                                                    <input type="email" class="form-control" name="email" id="email"> </div>
+                                                    <input type="email" class="form-control" name="email" id="email">
+                                                </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="phone">Phone Number : <span class="text-danger">*</span> </label>
-                                                    <input type="text" class="form-control required" name="phone" id="phone"> </div>
+                                                    <input type="text" class="form-control required" name="phone" id="phone">
+                                                </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="fax">Fax Number : </label>
-                                                    <input type="text" class="form-control" name="fax" id="fax"> </div>
+                                                    <input type="text" class="form-control" name="fax" id="fax">
+                                                </div>
                                             </div>
                                         </div>
                                     </section>
@@ -128,12 +133,14 @@ $datalogin = Core::checkSessions();?>
                                         <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="consigneename"> Consignee Name : <span class="text-danger">*</span> </label>
-                                                    <input type="text" class="form-control required" id="consigneename" name="consigneename"> </div>
+                                                    <input type="text" class="form-control required" id="consigneename" name="consigneename">
+                                                </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="attentionname"> Attention Name : </label>
-                                                    <input type="text" class="form-control" id="attentionname" name="attentionname"> </div>
+                                                    <input type="text" class="form-control" id="attentionname" name="attentionname">
+                                                </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
@@ -144,7 +151,8 @@ $datalogin = Core::checkSessions();?>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="consigneephone">Phone Number : <span class="text-danger">*</span> </label>
-                                                    <input type="text" class="form-control required" name="consigneephone" id="consigneephone"> </div>
+                                                    <input type="text" class="form-control required" name="consigneephone" id="consigneephone"> 
+                                                </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
@@ -159,6 +167,10 @@ $datalogin = Core::checkSessions();?>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
+                                                    <label for="mode">Mode</label>
+                                                    <select class="custom-select form-control required" id="mode" name="mode"></select>
+                                                </div>
+                                                <div class="form-group">
                                                     <label for="instructions">Instructions :</label>
                                                     <textarea name="instructions" id="instructions" rows="6" class="form-control" style="resize: vertical;"></textarea>
                                                 </div>
@@ -168,104 +180,75 @@ $datalogin = Core::checkSessions();?>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="participants1">Type</label>
-                                                    <select class="custom-select form-control required" id="participants1" name="location">
-                                                        <option value="Document">Document</option>
-                                                        <option value="Package">Package</option>
-                                                    </select>
+                                                <label for="mode">Weight of Goods</label>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <label for="mode" class="hidden-md-up">Lenght :</label>
+                                                        <input type="text" class="form-control" placeholder="Lenght" name="length" id="length">
+                                                    </div>
+                                                    <div class="col-md-12 hidden-md-up"><br></div>
+                                                    <div class="col-md-3">
+                                                        <label for="mode" class="hidden-md-up">Width :</label>
+                                                        <input type="text" class="form-control" placeholder="Width" name="width" id="width">
+                                                    </div>
+                                                    <div class="col-md-12 hidden-md-up"><br></div>
+                                                    <div class="col-md-3">
+                                                        <label for="mode" class="hidden-md-up">Height :</label>
+                                                        <input type="text" class="form-control" placeholder="Height" name="height" id="height">
+                                                    </div>
+                                                    <div class="col-md-12 hidden-md-up"><br></div>
+                                                    <div class="col-md-3">
+                                                        <label for="mode" class="hidden-md-up">Act. Kg :</label>
+                                                        <input type="text" class="form-control" placeholder="Act. Kg" name="actkg" id="actkg">
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <small id="errorvolume" class="form-text text-danger"></small>
+                                                    </div>
+                                                    <div class="col-md-12"><br></div>
+                                                    <div class="col-md-12">
+                                                        <button type="button" class="btn btn-themecolor w-100" onclick="addVolume()">Add Volume</button>
+                                                    </div>
                                                 </div>
+                                                <hr>
                                                 <div class="form-group">
-                                                    <label for="participants1">Volume Kg</label>
-                                                    <div class="table-responsive" style="height:300px;overflow: auto;">
-                                                    <table id="myTable" class="table">
+                                                    <div class="table-responsive" style="height:200px;overflow: auto;">
+                                                    <table id="tablevolume" class="table">
                                                         <thead>
                                                             <tr>
+                                                                <th>#</th>
                                                                 <th>Panjang</th>
                                                                 <th>Lebar</th>
                                                                 <th>Tinggi</th>
-                                                                <th>Vol. Kg</th>
-                                                                <th>Act. Kg</th>
-                                                                <th>Surcharge</th>
+                                                                <th>Actual</th>
+                                                                <th>Volume</th>
+                                                                <th>Total</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td>20</td>
-                                                                <td>30</td>
-                                                                <td>40</td>
-                                                                <td>22</td>
-                                                                <td>10</td>
-                                                                <td>0</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>20</td>
-                                                                <td>30</td>
-                                                                <td>40</td>
-                                                                <td>22</td>
-                                                                <td>10</td>
-                                                                <td>0</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>20</td>
-                                                                <td>30</td>
-                                                                <td>40</td>
-                                                                <td>22</td>
-                                                                <td>10</td>
-                                                                <td>0</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>20</td>
-                                                                <td>30</td>
-                                                                <td>40</td>
-                                                                <td>22</td>
-                                                                <td>10</td>
-                                                                <td>0</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>20</td>
-                                                                <td>30</td>
-                                                                <td>40</td>
-                                                                <td>22</td>
-                                                                <td>10</td>
-                                                                <td>0</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>20</td>
-                                                                <td>30</td>
-                                                                <td>40</td>
-                                                                <td>22</td>
-                                                                <td>10</td>
-                                                                <td>0</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>20</td>
-                                                                <td>30</td>
-                                                                <td>40</td>
-                                                                <td>22</td>
-                                                                <td>10</td>
-                                                                <td>0</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>20</td>
-                                                                <td>30</td>
-                                                                <td>40</td>
-                                                                <td>22</td>
-                                                                <td>10</td>
-                                                                <td>0</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>20</td>
-                                                                <td>30</td>
-                                                                <td>40</td>
-                                                                <td>22</td>
-                                                                <td>10</td>
-                                                                <td>0</td>
-                                                            </tr>
                                                         </tbody>
                                                     </table>
                                                     </div>
                                                 </div>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <button type="button" class="btn btn-default w-100" onclick="clearTable()">Clear Volume</button>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12"><br></div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label for="mode">Weight Kg :</label>
+                                                        <input type="text" class="form-control" placeholder="Weight" name="weight" id="weight" readonly>
+                                                    </div>
+                                                    <div class="col-md-12 hidden-md-up"><br></div>
+                                                    <div class="col-md-6">
+                                                        <label for="mode">Koli :</label>
+                                                        <input type="text" class="form-control" placeholder="Koli" name="koli" id="koli" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12"><br></div>     
                                             </div>
                                         </div>
                                     </section>
@@ -344,6 +327,161 @@ $datalogin = Core::checkSessions();?>
     <!-- Sweet-Alert  -->
     <script src="../assets/plugins/sweetalert/sweetalert.min.js"></script>
     <script>
+        var count = 1;
+        /* Get mode option start */
+        function loadModeOption(){
+            $(function(){
+                $.ajax({
+				    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargo/mode/data/list/'.$datalogin['username'].'/'.$datalogin['token'])?>")+"?_="+randomText(60),
+	    	    	dataType: 'json',
+	    	    	type: 'GET',
+		    		ifModified: true,
+    		        success: function(data,status) {
+    			    	if (status === "success") {
+					    	if (data.status == "success"){
+                                $.each(data.results, function(i, item) {
+                                    $("#mode").append("<option value=\""+data.results[i].ModeID+"\">"+data.results[i].Mode+"</option>");
+                                });
+    				    	}
+    	    			}
+	    		    },
+                	error: function(x, e) {}
+    	    	});
+            });
+        }
+        /* Get mode option end */
+
+        function calculateKgOld(){
+            $(function() {
+                var totalkg = 0;
+                $('#tablevolume tr').each(function(){
+                    //var valuekg = parseInt($('td', this).eq(4).text());
+                    var valuekg = $('td', this).eq(4).text();
+                    if (!isNaN(valuekg)){
+                        totalkg += Math.round(valuekg);
+                    }
+                });
+                var totalvol = 0;
+                $('#tablevolume tr').each(function(){
+                    //var valuevol = parseInt($('td', this).eq(5).text());
+                    var valuevol = $('td', this).eq(5).text();
+                    if (!isNaN(valuevol)){
+                        totalvol += Math.round(valuevol);
+                    }
+                });
+
+                if (totalkg >= totalvol){
+                    $('#weight').val(totalkg);
+                } else {
+                    $('#weight').val(totalvol);
+                }
+            });
+        }
+
+        function calculateKg(){
+            $(function() {
+                var totalkg = 0;
+                $('#tablevolume tr').each(function(){
+                    var valuekg = $('td', this).eq(6).text();
+                    if (!isNaN(valuekg)){
+                        totalkg += Math.round(valuekg);
+                    }
+                });
+                
+                $('#weight').val(totalkg);
+            });
+        }
+
+        function countRow(){
+            $(function() {
+                $('#koli').val($('#tablevolume >tbody >tr').length);
+            });
+        }
+
+        function clearTable(){
+            $(function(){
+                $("#tablevolume tr").not(function(){ return !!$(this).has('th').length; }).remove();
+                $('#length').val(0);
+                $('#width').val(0);
+                $('#height').val(0);
+                $('#actkg').val('');
+                $('#weight').val(0);
+                $('#koli').val(0);
+                count = 1;
+            });
+        }
+
+        function addVolume(){
+            $(function() {
+                if (!validationRegex("length","double",true)){
+                    $('#errorvolume').html('<?php echo Core::lang('val_numeric_html')?>');
+                    $('#length').select();
+                    return false;
+                } else if (!validationRegex("width","double",true)){
+                    $('#errorvolume').html('<?php echo Core::lang('val_numeric_html')?>');
+                    $('#width').select();
+                    return false;
+                } else if (!validationRegex("height","double",true)){
+                    $('#errorvolume').html('<?php echo Core::lang('val_numeric_html')?>');
+                    $('#height').select();
+                    return false;
+                } else if (!validationRegex("actkg","double",true)){
+                    $('#errorvolume').html('<?php echo Core::lang('val_numeric_html')?>');
+                    $('#actkg').select();
+                    return false;
+                } else if ($('#actkg').val() <= 0){
+                    $('#errorvolume').html('<?php echo Core::lang('input_required_not_zero')?>');
+                    $('#actkg').select();
+                    return false;
+                } else {
+                    $('#errorvolume').html('');
+                }
+                
+                var result = 0;
+                var totalkg = 0;
+                var ilength = $('#length').val();
+                var iwidth = $('#width').val();
+                var iheight = $('#height').val();
+                var ikg = $('#actkg').val();
+                var cargovol = 4000;
+                var temp    = (ilength * iwidth * iheight) / cargovol;
+                if (temp>0 && temp<1){
+                    result = 1;
+                } else if (temp<0){
+                    result = 0;
+                } else {
+                    result = temp.toFixed(2);
+                }
+
+                if (ikg >= result){
+                    totalkg = ikg
+                } else {
+                    totalkg = result
+                }
+
+                $("#tablevolume").find('tbody').append(
+                    $('<tr>').append(
+                        $('<td>').append((count++)),
+                        $('<td>').append($('#length').val()),
+                        $('<td>').append($('#width').val()),
+                        $('<td>').append($('#height').val()),
+                        $('<td>').append($('#actkg').val()),
+                        $('<td>').append(result),
+                        $('<td>').append(totalkg)
+                    )
+                );
+                
+                $('#length').val(0);
+                $('#width').val(0);
+                $('#height').val(0);
+                $('#actkg').val('');
+                calculateKg();
+                countRow();
+            });
+        }
+
+        loadModeOption();
+        
         $(function(){
             var form = $(".validation-wizard").show();
 
@@ -433,6 +571,12 @@ $datalogin = Core::checkSessions();?>
                     $("#fax").prop('readonly', true);
                 }
             });
+            /* Default value */
+            $('#length').val(0);
+            $('#width').val(0);
+            $('#height').val(0);
+            $('#weight').val(0);
+            $('#koli').val(0);
         });
     </script>
 </body>
