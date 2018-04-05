@@ -347,6 +347,7 @@ $lang = [
     'input_base_path' => 'Input url folder website Anda...',
     'input_url_api' => 'Input url folder Rest API Anda...',
     'input_required' => 'Kolom ini wajib diisi!',
+    'input_required_not_zero' => 'Tidak dapat diisi angka nol!',
     //general modal
     'modal_terms' => '<p>Anda setuju, melalui penggunaan layanan ini, Anda tidak akan menggunakan 
     aplikasi ini untuk mengirim materi yang secara sengaja salah dan / atau memfitnah, 
