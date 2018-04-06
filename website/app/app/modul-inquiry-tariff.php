@@ -72,10 +72,41 @@ $datalogin = Core::checkSessions();?>
                                         <div class="form-group">
                                             <label class="col-md-12"><?php echo Core::lang('weight')?> Kg</label>
                                             <div class="col-md-12">
-                                                <input id="weight" type="number" min="1" max="9999" class="form-control form-control-line" required>
+                                                <div class="input-group">
+                                                    <input id="weight" type="text" maxlength="7" class="form-control" required>
+                                                    <span class="input-group-addon" id="basic-addon2">Kg</span>
+                                                </div>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-info waves-effect waves-light m-t-10"><?php echo Core::lang('search')?></button>
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label for="mode" class="hidden-md-up"><?php echo Core::lang('length')?> :</label>
+                                                    <div class="input-group">
+                                                        <input type="text" maxlength="7" class="form-control" placeholder="<?php echo Core::lang('length')?>" name="length" id="length">
+                                                        <span class="input-group-addon" id="basic-addon2">cm</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 hidden-md-up"><br></div>
+                                                <div class="col-md-4">
+                                                    <label for="mode" class="hidden-md-up"><?php echo Core::lang('width')?> :</label>
+                                                    <div class="input-group">
+                                                        <input type="text" maxlength="7" class="form-control" placeholder="<?php echo Core::lang('width')?>" name="width" id="width">
+                                                        <span class="input-group-addon" id="basic-addon2">cm</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 hidden-md-up"><br></div>
+                                                <div class="col-md-4">
+                                                    <label for="mode" class="hidden-md-up"><?php echo Core::lang('height')?> :</label>
+                                                    <div class="input-group">
+                                                        <input type="text" maxlength="7" class="form-control" placeholder="<?php echo Core::lang('height')?>" name="height" id="height">
+                                                        <span class="input-group-addon" id="basic-addon2">cm</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12"><br></div>
+                                        <button type="submit" class="btn btn-themecolor w-100"><?php echo Core::lang('submit')?></button>
                                     </form>    
                                 </div>
                             </div>
@@ -85,7 +116,7 @@ $datalogin = Core::checkSessions();?>
                         <div class="col-md-6">
                             <div id="floatcard" class="card">
                                 <div class="card-header">
-                                    <b>Result</b>
+                                    <b><?php echo Core::lang('result')?></b>
                                     <div class="card-actions">
                                         <a class="" data-action="collapse"><i class="ti-minus"></i></a>
                                         <a class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
@@ -123,7 +154,10 @@ $datalogin = Core::checkSessions();?>
     <script>
         /* Get origin and destination option start */
         $(function(){
-            $('#weight').val('1');
+            $('#weight').val(1);
+            $('#length').val(0);
+            $('#width').val(0);
+            $('#height').val(0);
             $.ajax({
 			    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargo/tariff/data/list/origin/search/'.$datalogin['token'].'/?query=')?>")+"&_="+randomText(60),
 		    	dataType: 'json',
@@ -201,13 +235,14 @@ $datalogin = Core::checkSessions();?>
             var div = document.getElementById("resultcard");
             div.innerHTML = "";
             $.ajax({
-                url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargo/tariff/data/get/search/'.$datalogin['token'].'/?')?>")+"origin="+encodeURIComponent($("#origin").val())+"&destination="+encodeURIComponent($("#destination").val())+"&weight="+encodeURIComponent($("#weight").val())+"&_="+randomText(60),
+                url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargo/tariff/data/get/search/'.$datalogin['token'].'/?')?>")+"origin="+encodeURIComponent($("#origin").val())+"&destination="+encodeURIComponent($("#destination").val())+"&weight="+encodeURIComponent($("#weight").val())+"&length="+encodeURIComponent($("#length").val())+"&width="+encodeURIComponent($("#width").val())+"&height="+encodeURIComponent($("#height").val())+"&_="+randomText(60),
                 dataType: "json",
                 type: "GET",
                 success: function(data) {
                     if (data.status == "success"){
                         div.innerHTML = '<h3>'+data.results[0].Origin+' <i class="mdi mdi-chevron-right"></i> '+data.results[0].Destination+'</h3>\
-                                <h1 class="text-themecolor"><b><?php echo Core::lang('currency_format')?> '+addCommas(data.results[0].Total)+'</b></h1><p>Estimasi: '+data.results[0].Estimasi+' Hari</p>';
+                                <h4><b>'+data.results[0].Kg+' Kg</b></h4>\
+                                <h1 class="text-themecolor"><b><?php echo Core::lang('currency_format')?> '+addCommas(data.results[0].Total)+'</b></h1><p><?php echo Core::lang('estimation')?>: '+data.results[0].Estimasi+' <?php echo Core::lang('days')?></p>';
                         console.log(data.message);
                         that.on("submit", searchdata); /* add handler back after ajax */
                     } else {
