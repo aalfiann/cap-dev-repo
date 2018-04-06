@@ -3,6 +3,8 @@ require_once realpath(__DIR__ . '/..').'/config.php';
 $customlang = [
     //your custom language variable
     'custom_test' => 'Test',
+    //global
+    'result' => 'Hasil',
     //direction
     'next' => 'Berikutnya',
     'previous' => 'Sebelumnya',
@@ -28,6 +30,15 @@ $customlang = [
     'origin' => 'Kota Asal',
     'destination' => 'Destinasi',
     'weight' => 'Berat',
+    'actkg' => 'Act. Kg',
+    'volkg' => 'Vol. Kg',
+    'realkg' => 'Real Kg',
+    'days' => 'Hari',
+    //dimension
+    'length' => 'Panjang',
+    'width' => 'Lebar',
+    'height' => 'Tinggi',
+    'volume' => 'Volume',
     //transaction
     'transaction' => 'Transaksi',
     'shipper' => 'Pengirim',
