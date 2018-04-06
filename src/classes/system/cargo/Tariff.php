@@ -380,7 +380,7 @@ use PDO;
 				$origin = "$this->origin";
 				$destination = "$this->destination";
 
-				$iweight = ($this->is_decimal($this->weight)?$this->weight:0);
+				$iweight = ($this->is_decimal($this->weight)?$this->weight:1);
 				$volumekg = $this->calculateVolKg();
 				if ($iweight >= $volumekg){
 					$weight = $iweight;
