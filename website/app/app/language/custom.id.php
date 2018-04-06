@@ -45,6 +45,20 @@ $customlang = [
     'consignee' => 'Penerima',
     'goods_detail' => 'Detil Barang',
     'payment' => 'Pembayaran',
+    'customer_id' => 'Customer ID',
+    'browse' => 'Browse',
+    'shipper_name' => 'Nama Pengirim',
+    'shipper_alias_name' => 'Nama Alias',
+    'shipper_address' => 'Alamat Pengirim',
+    'shipper_phone' => 'Telp. Pengirim',
+    'shipper_fax' => 'Fax Pengirim',
+    'referensi_id' => 'Referensi ID',
+    'consignee_name' => 'Nama Penerima',
+    //help transaction
+    'help_browse_customer' => 'Klik browse untuk mencari Customer ID.',
+    //input transaction
+    'input_browse_customer' => 'Customer ID dapat berupa ID Corporate atau ID Member...',
+    'input_referensi_id' => 'Referensi ID harus unik...',
     //inquiry
     'inquiry' => 'Inquiry',
     'check_tariff' => 'Cek Tarif',
