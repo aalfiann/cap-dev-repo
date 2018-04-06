@@ -62,27 +62,27 @@ $datalogin = Core::checkSessions();?>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="custid"> Customer ID : </label>
+                                                    <label for="custid"> <?php echo Core::lang('customer_id')?> : </label>
                                                     <div class="input-group">
-                                                        <input type="text" id="custid" name="custid" class="form-control" placeholder="Customer ID could be ID Corporate or ID Member...">
+                                                        <input type="text" id="custid" name="custid" class="form-control" placeholder="<?php echo Core::lang('input_browse_customer')?>">
                                                         <span class="input-group-btn">
-                                                            <button class="btn btn-info" type="button">Browse!</button>
+                                                            <button class="btn btn-themecolor" type="button"><?php echo Core::lang('browse')?>!</button>
                                                         </span>
                                                     </div>
-                                                    <small id="custidHelp" class="form-text text-muted">Click browse to search Customer ID.</small>
+                                                    <small id="custidHelp" class="form-text text-muted"><?php echo Core::lang('help_browse_customer')?></small>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="shippername"> Shipper Name : <span class="text-danger">*</span> </label>
+                                                    <label for="shippername"> <?php echo Core::lang('shipper_name')?> : <span class="text-danger">*</span> </label>
                                                     <input type="text" class="form-control required" id="shippername" name="shippername">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="aliasname"> Alias Name : </label>
+                                                    <label for="aliasname"> <?php echo Core::lang('shipper_alias_name')?> : </label>
                                                     <input type="text" class="form-control" id="aliasname" name="aliasname">
                                                 </div>
                                             </div>
@@ -90,7 +90,7 @@ $datalogin = Core::checkSessions();?>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="address"> Address : <span class="text-danger">*</span> </label>
+                                                    <label for="address"> <?php echo Core::lang('shipper_address')?> : <span class="text-danger">*</span> </label>
                                                     <textarea name="address" id="address" rows="6" class="form-control required" style="resize: vertical;"></textarea>
                                                 </div>
                                             </div>
@@ -98,19 +98,19 @@ $datalogin = Core::checkSessions();?>
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label for="email"> Email Address : </label>
+                                                    <label for="email"> <?php echo Core::lang('email_address')?> : </label>
                                                     <input type="email" class="form-control" name="email" id="email">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label for="phone">Phone Number : <span class="text-danger">*</span> </label>
+                                                    <label for="phone"><?php echo Core::lang('shipper_phone')?> : <span class="text-danger">*</span> </label>
                                                     <input type="text" class="form-control required" name="phone" id="phone">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label for="fax">Fax Number : </label>
+                                                    <label for="fax"><?php echo Core::lang('shipper_fax')?> : </label>
                                                     <input type="text" class="form-control" name="fax" id="fax">
                                                 </div>
                                             </div>
@@ -122,9 +122,9 @@ $datalogin = Core::checkSessions();?>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="refid"> Referensi ID : </label>
+                                                    <label for="refid"> <?php echo Core::lang('referensi_id')?> : </label>
                                                     <div class="form-group">
-                                                        <input type="text" id="refid" name="refid" class="form-control" placeholder="Referensi ID must unique...">
+                                                        <input type="text" id="refid" name="refid" class="form-control" placeholder="<?php echo Core::lang('input_referensi_id')?>">
                                                     </div>
                                                 </div>
                                             </div>
@@ -132,7 +132,7 @@ $datalogin = Core::checkSessions();?>
                                         <div class="row">
                                         <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="consigneename"> Consignee Name : <span class="text-danger">*</span> </label>
+                                                    <label for="consigneename"> <?php echo Core::lang('consignee_name')?> : <span class="text-danger">*</span> </label>
                                                     <input type="text" class="form-control required" id="consigneename" name="consigneename">
                                                 </div>
                                             </div>
@@ -185,22 +185,34 @@ $datalogin = Core::checkSessions();?>
                                                 <div class="row">
                                                     <div class="col-md-3">
                                                         <label for="mode" class="hidden-md-up">Lenght :</label>
-                                                        <input type="text" class="form-control" placeholder="Lenght" name="length" id="length">
+                                                        <div class="input-group">
+                                                            <input type="text" maxlength="7" class="form-control" placeholder="Lenght" name="length" id="length">
+                                                            <span class="input-group-addon hidden-md-down" id="basic-addon2">cm</span>
+                                                        </div>
                                                     </div>
                                                     <div class="col-md-12 hidden-md-up"><br></div>
                                                     <div class="col-md-3">
                                                         <label for="mode" class="hidden-md-up">Width :</label>
-                                                        <input type="text" class="form-control" placeholder="Width" name="width" id="width">
+                                                        <div class="input-group">
+                                                            <input type="text" maxlength="7" class="form-control" placeholder="Width" name="width" id="width">
+                                                            <span class="input-group-addon hidden-md-down" id="basic-addon2">cm</span>
+                                                        </div>
                                                     </div>
                                                     <div class="col-md-12 hidden-md-up"><br></div>
                                                     <div class="col-md-3">
                                                         <label for="mode" class="hidden-md-up">Height :</label>
-                                                        <input type="text" class="form-control" placeholder="Height" name="height" id="height">
+                                                        <div class="input-group">
+                                                            <input type="text" maxlength="7" class="form-control" placeholder="Height" name="height" id="height">
+                                                            <span class="input-group-addon hidden-md-down" id="basic-addon2">cm</span>
+                                                        </div>
                                                     </div>
                                                     <div class="col-md-12 hidden-md-up"><br></div>
                                                     <div class="col-md-3">
                                                         <label for="mode" class="hidden-md-up">Act. Kg :</label>
-                                                        <input type="text" class="form-control" placeholder="Act. Kg" name="actkg" id="actkg">
+                                                        <div class="input-group">
+                                                            <input type="text" maxlength="7" class="form-control" placeholder="Act. Kg" name="actkg" id="actkg">
+                                                            <span class="input-group-addon hidden-md-down" id="basic-addon2">Kg</span>
+                                                        </div>
                                                     </div>
                                                     <div class="col-md-12">
                                                         <small id="errorvolume" class="form-text text-danger"></small>
@@ -238,14 +250,19 @@ $datalogin = Core::checkSessions();?>
                                                 </div>
                                                 <div class="col-md-12"><br></div>
                                                 <div class="row">
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-4">
+                                                        <label for="mode">Real Kg :</label>
+                                                        <input type="text" class="form-control" placeholder="Real" name="realkg" id="realkg" readonly>
+                                                    </div>
+                                                    <div class="col-md-12 hidden-md-up"><br></div>
+                                                    <div class="col-md-4">
                                                         <label for="mode">Weight Kg :</label>
                                                         <input type="text" class="form-control" placeholder="Weight" name="weight" id="weight" readonly>
                                                     </div>
                                                     <div class="col-md-12 hidden-md-up"><br></div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-4">
                                                         <label for="mode">Koli :</label>
-                                                        <input type="text" class="form-control" placeholder="Koli" name="koli" id="koli" readonly>
+                                                        <input type="text" class="form-control" placeholder="Koli" name="koli" id="koli">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12"><br></div>     
@@ -355,25 +372,23 @@ $datalogin = Core::checkSessions();?>
             $(function() {
                 var totalkg = 0;
                 $('#tablevolume tr').each(function(){
-                    //var valuekg = parseInt($('td', this).eq(4).text());
-                    var valuekg = $('td', this).eq(4).text();
+                    var valuekg = parseFloat($('td', this).eq(4).text());
                     if (!isNaN(valuekg)){
-                        totalkg += Math.round(valuekg);
+                        totalkg += valuekg;
                     }
                 });
                 var totalvol = 0;
                 $('#tablevolume tr').each(function(){
-                    //var valuevol = parseInt($('td', this).eq(5).text());
-                    var valuevol = $('td', this).eq(5).text();
+                    var valuevol = parseFloat($('td', this).eq(5).text());
                     if (!isNaN(valuevol)){
-                        totalvol += Math.round(valuevol);
+                        totalvol += valuevol;
                     }
                 });
 
-                if (totalkg >= totalvol){
-                    $('#weight').val(totalkg);
+                if (limitRound(totalkg,0.3) >= limitRound(totalvol,0.3)){
+                    $('#weight').val(limitRound(totalkg,0.3));
                 } else {
-                    $('#weight').val(totalvol);
+                    $('#weight').val(limitRound(totalvol,0.3));
                 }
             });
         }
@@ -381,14 +396,19 @@ $datalogin = Core::checkSessions();?>
         function calculateKg(){
             $(function() {
                 var totalkg = 0;
+                var realkg = 0;
                 $('#tablevolume tr').each(function(){
-                    var valuekg = $('td', this).eq(6).text();
+                    var valuekg = parseFloat($('td', this).eq(6).text());
                     if (!isNaN(valuekg)){
-                        totalkg += Math.round(valuekg);
+                        totalkg += valuekg;
+                    }
+                    var valuerealkg = parseFloat($('td', this).eq(6).text());
+                    if (!isNaN(valuerealkg)){
+                        realkg += valuerealkg;
                     }
                 });
-                
-                $('#weight').val(totalkg);
+                $('#realkg').val(realkg.toFixed(2));
+                $('#weight').val(limitRound(totalkg,0.3));
             });
         }
 
@@ -405,6 +425,7 @@ $datalogin = Core::checkSessions();?>
                 $('#width').val(0);
                 $('#height').val(0);
                 $('#actkg').val('');
+                $('#realkg').val(0);
                 $('#weight').val(0);
                 $('#koli').val(0);
                 count = 1;
@@ -439,10 +460,10 @@ $datalogin = Core::checkSessions();?>
                 
                 var result = 0;
                 var totalkg = 0;
-                var ilength = $('#length').val();
-                var iwidth = $('#width').val();
-                var iheight = $('#height').val();
-                var ikg = $('#actkg').val();
+                var ilength = parseFloat($('#length').val());
+                var iwidth = parseFloat($('#width').val());
+                var iheight = parseFloat($('#height').val());
+                var ikg = parseFloat($('#actkg').val());
                 var cargovol = 4000;
                 var temp    = (ilength * iwidth * iheight) / cargovol;
                 if (temp>0 && temp<1){
@@ -517,6 +538,10 @@ $datalogin = Core::checkSessions();?>
             $.validator.addMethod('email', function (value, element) {
                 return this.optional(element) || /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value);
             }, "<?php echo Core::lang('val_email_html')?>");
+            
+            $.validator.addMethod('notzero', function (value, element) {
+                return this.optional(element) || /^[^0]+$/.test(value);
+            }, "<?php echo Core::lang('input_required')?>");
 
             $.validator.addMethod('numeric', function (value, element) {
                 return this.optional(element) || /^[0-9]+$/.test(value);
@@ -544,7 +569,8 @@ $datalogin = Core::checkSessions();?>
                     phone: 'numeric',
                     fax: 'numeric',
                     refid: 'alphanumeric',
-                    consigneephone: 'numeric'
+                    consigneephone: 'numeric',
+                    koli: 'notzero'
                 }
             });
 
@@ -575,8 +601,18 @@ $datalogin = Core::checkSessions();?>
             $('#length').val(0);
             $('#width').val(0);
             $('#height').val(0);
+            $('#realkg').val(0);
             $('#weight').val(0);
             $('#koli').val(0);
+            $('a[href$="#next"]').addClass('bg-theme');
+            /* default event */
+            $(document).on("focusin", "#koli", function() {
+                $(this).prop('readonly', true);  
+            });
+
+            $(document).on("focusout", "#koli", function() {
+                $(this).prop('readonly', false); 
+            });
         });
     </script>
 </body>
