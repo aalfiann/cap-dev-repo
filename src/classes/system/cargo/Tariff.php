@@ -21,7 +21,7 @@ use PDO;
      */
 	class Tariff {
         // model data tariff
-        var $username,$branchid,$kabupaten,$kgp,$kgs,$minkg,$estimasi,$origin,$destination;
+        var $username,$branchid,$kabupaten,$kgp,$kgs,$minkg,$estimasi,$origin,$destination,$length,$width,$height,$weight;
 
         // for pagination
 		var $page,$itemsPerPage;
@@ -38,7 +38,59 @@ use PDO;
         	}
         }
         
-        //TARIFF=================================
+		//TARIFF=================================
+		
+		/**
+		 * Round decimal value with custom nearest point number
+		 *
+		 * @param numToRound is the value number to round
+		 * @param pointDecimal is the nearest point
+		 * @return decimal
+		 */
+		private function limitRound($numToRound,$pointDecimal=0.5){
+			$value = 0;
+			if(($numToRound - floor($numToRound)) >= $pointDecimal){
+				$value = 1;
+			} else {
+				$value = 0;
+			}
+			return floor($numToRound + $value);
+		}
+
+		/**
+		 * Determine value is number or decimal
+		 * 
+		 * @param val is the string
+		 * @return bool
+		 */
+		private function is_decimal($val){
+			if ($val == 0) return true;
+			if (is_numeric($val)) return true;
+			return is_numeric( $val ) && floor( $val ) != $val;
+		}
+
+		/**
+		 * Calculate Volume Kg for Cargo
+		 * @return number
+		 */
+		private function calculateVolKg(){
+			$result =0;
+			
+			$ilength = ($this->is_decimal($this->length)?$this->length:0);
+			$iwidth = ($this->is_decimal($this->width)?$this->width:0);
+			$iheight = ($this->is_decimal($this->height)?$this->height:0);
+			
+			$cargovol = 4000;
+			$temp    = ($ilength * $iwidth * $iheight) / $cargovol;
+			if ($temp>0 && $temp<1){
+				$result = 1;
+			} else if ($temp<0){
+				$result = 0;
+			} else {
+				$result = $temp;
+			}
+			return $result;
+		}
 
         public function addTariff(){
             if (Auth::validToken($this->db,$this->token,$this->username)){
@@ -327,9 +379,20 @@ use PDO;
 			if (Auth::validToken($this->db,$this->token)){
 				$origin = "$this->origin";
 				$destination = "$this->destination";
-				$weight = Validation::integerOnly($this->weight);
-				if (!empty($weight)){
+
+				$iweight = ($this->is_decimal($this->weight)?$this->weight:0);
+				$volumekg = $this->calculateVolKg();
+				if ($iweight >= $volumekg){
+					$weight = $iweight;
+				} else {
+					$weight = $volumekg;
+				}
+
+				if (!empty($weight) || $weight==0){
+					$realkg = $weight;
+					$weight = $this->limitRound($weight,0.3);
 					$sql = "SELECT b.`Name` as 'Origin', a.Kabupaten as 'Destination', a.KGP, a.KGS,a.Min_Kg,ifnull(c.KGP,0) as 'H_KGP',ifnull(c.KGS,0) as 'H_KGS',ifnull(c.Min_Kg,0) as 'H_Min_Kg',a.Estimasi,
+							($weight) as Kg,($volumekg) as VolKg,($realkg) as RealKg,
 							if($weight <= a.Min_Kg,a.KGP, (($weight - a.Min_Kg) * a.KGS) + a.KGP) as 'Tariff',
 							ifnull(if($weight <= c.Min_Kg,c.KGP, (($weight - c.Min_Kg) * c.KGS) + c.KGP),0) as 'Handling',
 							((Select Tariff)+(Select Handling)) as 'Total'
@@ -343,11 +406,11 @@ use PDO;
 	
 					if ($stmt->execute()) {	
 						if ($stmt->rowCount() > 0){
-								  $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+							$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 							$data = [
-								   'results' => $results, 
+								'results' => $results, 
 								'status' => 'success', 
-								   'code' => 'RS501',
+								'code' => 'RS501',
 								'message' => CustomHandlers::getreSlimMessage('RS501')
 							];
 						} else {
@@ -386,9 +449,20 @@ use PDO;
 		public function searchTariffPublic(){
 			$origin = "$this->origin";
 			$destination = "$this->destination";
-			$weight = Validation::integerOnly($this->weight);
-			if (!empty($weight)){
+		
+			$iweight = ($this->is_decimal($this->weight)?$this->weight:0);
+			$volumekg = $this->calculateVolKg();
+			if ($iweight >= $volumekg){
+				$weight = $iweight;
+			} else {
+				$weight = $volumekg;
+			}
+
+			if (!empty($weight) || $weight==0){
+				$realkg = $weight;
+				$weight = $this->limitRound($weight,0.3);
 				$sql = "SELECT b.`Name` as 'Origin', a.Kabupaten as 'Destination', a.KGP, a.KGS,a.Min_Kg,ifnull(c.KGP,0) as 'H_KGP',ifnull(c.KGS,0) as 'H_KGS',ifnull(c.Min_Kg,0) as 'H_Min_Kg',a.Estimasi,
+						($weight) as Kg,($volumekg) as VolKg,($realkg) as RealKg,
 						if($weight <= a.Min_Kg,a.KGP, (($weight - a.Min_Kg) * a.KGS) + a.KGP) as 'Tariff',
 						ifnull(if($weight <= c.Min_Kg,c.KGP, (($weight - c.Min_Kg) * c.KGS) + c.KGP),0) as 'Handling',
 						((Select Tariff)+(Select Handling)) as 'Total'
