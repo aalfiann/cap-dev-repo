@@ -753,14 +753,72 @@ use PDO;
 	        $this->db= null;
         }
 
-        //LIST=================================
+		//LIST=================================
+		
+		public function listOriginAuto() {
+			if (Auth::validToken($this->db,$this->token,$this->username)){
+				$newusername = strtolower($this->username);
+				$roles = Auth::getRoleID($this->db,$this->token);
+                if ($roles < 3){
+					$sql = "SELECT a.Name
+						FROM sys_company a
+						WHERE a.StatusID = '1'
+						ORDER BY a.Name ASC;";
+				
+					$stmt = $this->db->prepare($sql);
+				} else {
+					$sql = "SELECT b.Name
+						FROM sys_user a
+						INNER JOIN sys_company b ON a.BranchID = b.BranchID
+						WHERE b.StatusID = '1' AND a.Username = :username
+						LIMIT 1;";
+				
+					$stmt = $this->db->prepare($sql);
+					$stmt->bindParam(':username', $newusername, PDO::PARAM_STR);
+				}
+				
+
+				if ($stmt->execute()) {	
+    	    	    if ($stmt->rowCount() > 0){
+        	   		   	$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+						$data = [
+			   	            'results' => $results, 
+    	    		        'status' => 'success', 
+			           	    'code' => 'RS501',
+        		        	'message' => CustomHandlers::getreSlimMessage('RS501')
+						];
+			        } else {
+        			    $data = [
+            		    	'status' => 'error',
+		        		    'code' => 'RS601',
+        		    	    'message' => CustomHandlers::getreSlimMessage('RS601')
+						];
+	    	        }          	   	
+				} else {
+					$data = [
+    	    			'status' => 'error',
+						'code' => 'RS202',
+	        		    'message' => CustomHandlers::getreSlimMessage('RS202')
+					];
+				}
+			} else {
+				$data = [
+	    			'status' => 'error',
+					'code' => 'RS401',
+        	    	'message' => CustomHandlers::getreSlimMessage('RS401')
+				];
+			}		
+        
+			return json_encode($data);
+	        $this->db= null;
+        }
 
         public function listOrigin(){
 			if (Auth::validToken($this->db,$this->token)){
 				$search = "$this->search%";
 				$sql = "SELECT a.`Name`
 					FROM sys_company a
-					WHERE a.`Name` like :search
+					WHERE a.StatusID = '1' AND a.`Name` like :search
 					ORDER BY a.`Name` ASC;";
 				$stmt = $this->db->prepare($sql);
 				$stmt->bindParam(':search', $search, PDO::PARAM_STR);
@@ -849,7 +907,7 @@ use PDO;
 			$search = "$this->search%";
 			$sql = "SELECT a.`Name`
 				FROM sys_company a
-				WHERE a.`Name` like :search
+				WHERE a.StatusID = '1' AND a.`Name` like :search
 				ORDER BY a.`Name` ASC;";
 			$stmt = $this->db->prepare($sql);
 			$stmt->bindParam(':search', $search, PDO::PARAM_STR);
