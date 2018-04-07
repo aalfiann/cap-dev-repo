@@ -63,6 +63,17 @@ use \classes\SimpleCache as SimpleCache;
         return classes\Cors::modify($response,$body,200);
     });
 
+    // GET api to show all auto list origin tariff
+    $app->get('/cargo/tariff/data/list/origin/auto/search/{username}/{token}/', function (Request $request, Response $response) {
+        $cargo = new classes\system\cargo\Tariff($this->db);
+        $cargo->search = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);
+        $cargo->username = $request->getAttribute('username');
+        $cargo->token = $request->getAttribute('token');
+        $body = $response->getBody();
+        $body->write($cargo->listOriginAuto());
+        return classes\Cors::modify($response,$body,200);
+    });
+
     // GET api to show all list origin tariff
     $app->get('/cargo/tariff/data/list/origin/search/{token}/', function (Request $request, Response $response) {
         $cargo = new classes\system\cargo\Tariff($this->db);
