@@ -138,25 +138,25 @@ $datalogin = Core::checkSessions();?>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="attentionname"> Attention Name : </label>
+                                                    <label for="attentionname"> <?php echo Core::lang('attention_name')?> : </label>
                                                     <input type="text" class="form-control" id="attentionname" name="attentionname">
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="consigneeaddress">Consignee Address : <span class="text-danger">*</span> </label>
+                                                    <label for="consigneeaddress"><?php echo Core::lang('consignee_address')?> : <span class="text-danger">*</span> </label>
                                                     <textarea name="consigneeaddress" id="consigneeaddress" rows="6" class="form-control required" style="resize: vertical;"></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="consigneephone">Phone Number : <span class="text-danger">*</span> </label>
+                                                    <label for="consigneephone"><?php echo Core::lang('consignee_phone')?> : <span class="text-danger">*</span> </label>
                                                     <input type="text" class="form-control required" name="consigneephone" id="consigneephone"> 
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="consigneefax">Fax Number : </label>
+                                                    <label for="consigneefax"><?php echo Core::lang('consignee_fax')?> : </label>
                                                     <input type="text" class="form-control" name="consigneefax" id="consigneefax"> </div>
                                             </div>
                                         </div>
@@ -167,50 +167,50 @@ $datalogin = Core::checkSessions();?>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="mode">Mode</label>
+                                                    <label for="mode"><?php echo Core::lang('mode')?></label>
                                                     <select class="custom-select form-control required" id="mode" name="mode"></select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="instructions">Instructions :</label>
+                                                    <label for="instructions"><?php echo Core::lang('goods_instruction')?> :</label>
                                                     <textarea name="instructions" id="instructions" rows="6" class="form-control" style="resize: vertical;"></textarea>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="descriptions">Descriptions : <span class="text-danger">*</span> </label>
+                                                    <label for="descriptions"><?php echo Core::lang('goods_description')?> : <span class="text-danger">*</span> </label>
                                                     <textarea name="descriptions" id="descriptions" rows="6" class="form-control required" style="resize: vertical;"></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="mode">Weight of Goods</label>
+                                                <label for="mode"><?php echo Core::lang('goods_weight')?></label>
                                                 
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        <label for="mode" class="hidden-md-up">Lenght :</label>
+                                                        <label for="mode" class="hidden-md-up"><?php echo Core::lang('length')?> :</label>
                                                         <div class="input-group">
-                                                            <input type="text" maxlength="7" class="form-control" placeholder="Lenght" name="length" id="length">
+                                                            <input type="text" maxlength="7" class="form-control" placeholder="<?php echo Core::lang('length')?>" name="length" id="length">
                                                             <span class="input-group-addon hidden-md-down" id="basic-addon2">cm</span>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12 hidden-md-up"><br></div>
                                                     <div class="col-md-3">
-                                                        <label for="mode" class="hidden-md-up">Width :</label>
+                                                        <label for="mode" class="hidden-md-up"><?php echo Core::lang('width')?> :</label>
                                                         <div class="input-group">
-                                                            <input type="text" maxlength="7" class="form-control" placeholder="Width" name="width" id="width">
+                                                            <input type="text" maxlength="7" class="form-control" placeholder="<?php echo Core::lang('width')?>" name="width" id="width">
                                                             <span class="input-group-addon hidden-md-down" id="basic-addon2">cm</span>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12 hidden-md-up"><br></div>
                                                     <div class="col-md-3">
-                                                        <label for="mode" class="hidden-md-up">Height :</label>
+                                                        <label for="mode" class="hidden-md-up"><?php echo Core::lang('height')?> :</label>
                                                         <div class="input-group">
-                                                            <input type="text" maxlength="7" class="form-control" placeholder="Height" name="height" id="height">
+                                                            <input type="text" maxlength="7" class="form-control" placeholder="<?php echo Core::lang('height')?>" name="height" id="height">
                                                             <span class="input-group-addon hidden-md-down" id="basic-addon2">cm</span>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12 hidden-md-up"><br></div>
                                                     <div class="col-md-3">
-                                                        <label for="mode" class="hidden-md-up">Act. Kg :</label>
+                                                        <label for="mode" class="hidden-md-up"><?php echo Core::lang('actkg')?> :</label>
                                                         <div class="input-group">
-                                                            <input type="text" maxlength="7" class="form-control" placeholder="Act. Kg" name="actkg" id="actkg">
+                                                            <input type="text" maxlength="7" class="form-control" placeholder="<?php echo Core::lang('actkg')?>" name="actkg" id="actkg">
                                                             <span class="input-group-addon hidden-md-down" id="basic-addon2">Kg</span>
                                                         </div>
                                                     </div>
@@ -219,7 +219,7 @@ $datalogin = Core::checkSessions();?>
                                                     </div>
                                                     <div class="col-md-12"><br></div>
                                                     <div class="col-md-12">
-                                                        <button type="button" class="btn btn-themecolor w-100" onclick="addVolume()">Add Volume</button>
+                                                        <button type="button" class="btn btn-themecolor w-100" onclick="addVolume()"><?php echo Core::lang('add')?> <?php echo Core::lang('volume')?></button>
                                                     </div>
                                                 </div>
                                                 <hr>
@@ -229,12 +229,12 @@ $datalogin = Core::checkSessions();?>
                                                         <thead>
                                                             <tr>
                                                                 <th>#</th>
-                                                                <th>Panjang</th>
-                                                                <th>Lebar</th>
-                                                                <th>Tinggi</th>
-                                                                <th>Actual</th>
-                                                                <th>Volume</th>
-                                                                <th>Total</th>
+                                                                <th><?php echo Core::lang('length')?></th>
+                                                                <th><?php echo Core::lang('width')?></th>
+                                                                <th><?php echo Core::lang('height')?></th>
+                                                                <th><?php echo Core::lang('actual')?></th>
+                                                                <th><?php echo Core::lang('volume')?></th>
+                                                                <th><?php echo Core::lang('total')?></th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -245,23 +245,23 @@ $datalogin = Core::checkSessions();?>
                                                 <hr>
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <button type="button" class="btn btn-default w-100" onclick="clearTable()">Clear Volume</button>
+                                                        <button type="button" class="btn btn-default w-100" onclick="clearTable()"><?php echo Core::lang('clear')?> <?php echo Core::lang('volume')?></button>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12"><br></div>
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        <label for="mode">Real Kg :</label>
-                                                        <input type="text" class="form-control" placeholder="Real" name="realkg" id="realkg" readonly>
+                                                        <label for="mode"><?php echo Core::lang('realkg')?> :</label>
+                                                        <input type="text" class="form-control" placeholder="<?php echo Core::lang('realkg')?>" name="realkg" id="realkg" readonly>
                                                     </div>
                                                     <div class="col-md-12 hidden-md-up"><br></div>
                                                     <div class="col-md-4">
-                                                        <label for="mode">Weight Kg :</label>
-                                                        <input type="text" class="form-control" placeholder="Weight" name="weight" id="weight" readonly>
+                                                        <label for="mode"><?php echo Core::lang('weight')?> Kg :</label>
+                                                        <input type="text" class="form-control" placeholder="<?php echo Core::lang('weight')?>" name="weight" id="weight" readonly>
                                                     </div>
                                                     <div class="col-md-12 hidden-md-up"><br></div>
                                                     <div class="col-md-4">
-                                                        <label for="mode">Koli :</label>
+                                                        <label for="mode"><?php echo Core::lang('bag')?> :</label>
                                                         <input type="text" class="form-control" placeholder="Koli" name="koli" id="koli">
                                                     </div>
                                                 </div>
