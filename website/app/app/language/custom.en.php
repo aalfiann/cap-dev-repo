@@ -5,6 +5,7 @@ $customlang = [
     'custom_test' => 'Test',
     //global
     'result' => 'Result',
+    'clear' => 'Clear',
     //direction
     'next' => 'Next',
     'previous' => 'Previous',
@@ -34,6 +35,9 @@ $customlang = [
     'volkg' => 'Vol. Kg',
     'realkg' => 'Real Kg',
     'days' => 'Day(s)',
+    'mode' => 'Mode',
+    'actual' => 'Actual',
+    'bag' => 'Bag',
     //dimension
     'length' => 'Length',
     'width' => 'Width',
@@ -43,7 +47,6 @@ $customlang = [
     'transaction' => 'Transaction',
     'shipper' => 'Shipper',
     'consignee' => 'Consignee',
-    'goods_detail' => 'Goods Detail',
     'payment' => 'Payment',
     'customer_id' => 'Customer ID',
     'browse' => 'Browse',
@@ -53,7 +56,16 @@ $customlang = [
     'shipper_phone' => 'Shipper Phone',
     'shipper_fax' => 'Shipper Fax',
     'referensi_id' => 'Referensi ID',
+    'attention_name' => 'Attention Name',
     'consignee_name' => 'Consignee Name',
+    'consignee_address' => 'Consignee Address',
+    'consignee_phone' => 'Consignee Phone',
+    'consignee_fax' => 'Consignee Fax',
+    //goods
+    'goods_weight' => 'Weight of Goods',
+    'goods_detail' => 'Goods Detail',
+    'goods_instruction' => 'Instruction',
+    'goods_description' => 'Description',
     //help transaction
     'help_browse_customer' => 'Click browse to search Customer ID.',
     //input transaction

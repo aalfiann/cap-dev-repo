@@ -5,6 +5,7 @@ $customlang = [
     'custom_test' => 'Test',
     //global
     'result' => 'Hasil',
+    'clear' => 'Hapus',
     //direction
     'next' => 'Berikutnya',
     'previous' => 'Sebelumnya',
@@ -34,6 +35,9 @@ $customlang = [
     'volkg' => 'Vol. Kg',
     'realkg' => 'Real Kg',
     'days' => 'Hari',
+    'mode' => 'Moda',
+    'actual' => 'Actual',
+    'bag' => 'Koli',
     //dimension
     'length' => 'Panjang',
     'width' => 'Lebar',
@@ -43,7 +47,6 @@ $customlang = [
     'transaction' => 'Transaksi',
     'shipper' => 'Pengirim',
     'consignee' => 'Penerima',
-    'goods_detail' => 'Detil Barang',
     'payment' => 'Pembayaran',
     'customer_id' => 'Customer ID',
     'browse' => 'Browse',
@@ -53,7 +56,16 @@ $customlang = [
     'shipper_phone' => 'Telp. Pengirim',
     'shipper_fax' => 'Fax Pengirim',
     'referensi_id' => 'Referensi ID',
+    'attention_name' => 'U.P.',
     'consignee_name' => 'Nama Penerima',
+    'consignee_address' => 'Alamat Penerima',
+    'consignee_phone' => 'Telp. Penerima',
+    'consignee_fax' => 'Fax Penerima',
+    //goods
+    'goods_weight' => 'Berat Barang',
+    'goods_detail' => 'Detil Barang',
+    'goods_instruction' => 'Instruksi',
+    'goods_description' => 'Deskripsi',
     //help transaction
     'help_browse_customer' => 'Klik browse untuk mencari Customer ID.',
     //input transaction
