@@ -103,6 +103,8 @@ use \classes\SimpleCache as SimpleCache;
         $cargo->width = (empty($_GET['width'])?0:$_GET['width']);
         $cargo->height = (empty($_GET['height'])?0:$_GET['height']);
         $cargo->weight = ((empty($_GET['weight']) || $_GET['weight'] == 0)?1:$_GET['weight']);
+        $cargo->mode = filter_var((empty($_GET['mode'])?'road':$_GET['mode']),FILTER_SANITIZE_STRING);
+        $cargo->cubic = filter_var((empty($_GET['cubic'])?'false':$_GET['cubic']),FILTER_SANITIZE_STRING);
         $cargo->token = $request->getAttribute('token');
         $body = $response->getBody();
         $body->write($cargo->searchTariff());
@@ -118,12 +120,14 @@ use \classes\SimpleCache as SimpleCache;
         $cargo->width = (empty($_GET['width'])?0:$_GET['width']);
         $cargo->height = (empty($_GET['height'])?0:$_GET['height']);
         $cargo->weight = ((empty($_GET['weight']) || $_GET['weight'] == 0)?1:$_GET['weight']);
+        $cargo->mode = filter_var((empty($_GET['mode'])?'road':$_GET['mode']),FILTER_SANITIZE_STRING);
+        $cargo->cubic = filter_var((empty($_GET['cubic'])?'false':$_GET['cubic']),FILTER_SANITIZE_STRING);
         $body = $response->getBody();
         $response = $this->cache->withEtag($response, $this->etag.'-'.trim($_SERVER['REQUEST_URI'],'/'));
-        if (SimpleCache::isCached(600,["apikey","origin","destination","weight","length","width","height"])){
-            $datajson = SimpleCache::load(["apikey","origin","destination","weight","length","width","height"]);
+        if (SimpleCache::isCached(600,["apikey","origin","destination","mode","cubic","weight","length","width","height"])){
+            $datajson = SimpleCache::load(["apikey","origin","destination","mode","cubic","weight","length","width","height"]);
         } else {
-            $datajson = SimpleCache::save($cargo->searchTariffPublic(),["apikey","origin","destination","weight","length","width","height"]);
+            $datajson = SimpleCache::save($cargo->searchTariffPublic(),["apikey","origin","destination","mode","cubic","weight","length","width","height"]);
         }
         $body->write($datajson);
         return classes\Cors::modify($response,$body,200,$request);
