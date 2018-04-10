@@ -43,6 +43,7 @@ $customlang = [
     'width' => 'Width',
     'height' => 'Height',
     'volume' => 'Volume',
+    'cubication' => 'Cubication',
     //transaction
     'transaction' => 'Transaction',
     'shipper' => 'Shipper',

@@ -43,6 +43,7 @@ $customlang = [
     'width' => 'Lebar',
     'height' => 'Tinggi',
     'volume' => 'Volume',
+    'cubication' => 'Kubikasi',
     //transaction
     'transaction' => 'Transaksi',
     'shipper' => 'Pengirim',
