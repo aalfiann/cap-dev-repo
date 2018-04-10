@@ -61,16 +61,12 @@ use \classes\SimpleCache as SimpleCache;
         $cargo->itemsPerPage = $request->getAttribute('itemsperpage');
         $body = $response->getBody();
         $response = $this->cache->withEtag($response, $this->etag2hour.'-'.trim($_SERVER['REQUEST_URI'],'/'));
-        if (empty($cargo->search)){
-            if (SimpleCache::isCached(3600,["apikey","query"])){
-                $datajson = SimpleCache::load(["apikey","query"]);
-            } else {
-                $datajson = SimpleCache::save($cargo->searchModeAsPaginationPublic(),["apikey","query"]);
-            }
-            $body->write($datajson);
+        if (SimpleCache::isCached(3600,["apikey","query"])){
+            $datajson = SimpleCache::load(["apikey","query"]);
         } else {
-            $body->write($cargo->searchModeAsPaginationPublic());
+            $datajson = SimpleCache::save($cargo->searchModeAsPaginationPublic(),["apikey","query"]);
         }
+        $body->write($datajson);
         return classes\Cors::modify($response,$body,200,$request);
     })->add(new \classes\middleware\ApiKey());
 
