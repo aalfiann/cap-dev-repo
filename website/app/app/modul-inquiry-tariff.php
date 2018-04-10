@@ -69,14 +69,23 @@ $datalogin = Core::checkSessions();?>
                                                 <input id="destination" type="text" class="typeahead form-control" placeholder="<?php echo Core::lang('city_district')?>" required>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="col-md-12"><?php echo Core::lang('weight')?> Kg</label>
-                                            <div class="col-md-12">
+                                        <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label for="mode"><?php echo Core::lang('mode')?></label>
+                                                <select class="custom-select form-control required" id="mode" name="mode"></select>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label><?php echo Core::lang('weight')?> Kg</label>
+                                                <label id="ekubik" class="inline custom-control custom-checkbox block pull-right">
+                                                    <input id="kubik" type="checkbox" class="custom-control-input"> <span class="custom-control-indicator"></span> <span class="custom-control-description ml-0"><?php echo Core::lang('cubication')?></span>
+                                                </label>
                                                 <div class="input-group">
                                                     <input id="weight" type="text" maxlength="7" class="form-control" required>
                                                     <span class="input-group-addon" id="basic-addon2">Kg</span>
                                                 </div>
                                             </div>
+                                        </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="row">
@@ -234,15 +243,31 @@ $datalogin = Core::checkSessions();?>
             that.off("submit"); /* remove handler */
             var div = document.getElementById("resultcard");
             div.innerHTML = "";
+            var mode = "";
+
+            switch(selectedOption()) {
+                case '1':
+                    mode = 'air';
+                    break;
+                case '2':
+                    mode = 'road';
+                    break;
+                case '3':
+                    mode = 'sea';
+                    break;
+                default:
+                mode = 'road';
+            }
+
             $.ajax({
-                url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargo/tariff/data/get/search/'.$datalogin['token'].'/?')?>")+"origin="+encodeURIComponent($("#origin").val())+"&destination="+encodeURIComponent($("#destination").val())+"&weight="+encodeURIComponent($("#weight").val())+"&length="+encodeURIComponent($("#length").val())+"&width="+encodeURIComponent($("#width").val())+"&height="+encodeURIComponent($("#height").val())+"&_="+randomText(60),
+                url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargo/tariff/data/get/search/'.$datalogin['token'].'/?')?>")+"origin="+encodeURIComponent($("#origin").val())+"&destination="+encodeURIComponent($("#destination").val())+"&mode="+encodeURIComponent(mode)+"&cubic="+encodeURIComponent($("#kubik").is(':checked'))+"&weight="+encodeURIComponent($("#weight").val())+"&length="+encodeURIComponent($("#length").val())+"&width="+encodeURIComponent($("#width").val())+"&height="+encodeURIComponent($("#height").val())+"&_="+randomText(60),
                 dataType: "json",
                 type: "GET",
                 success: function(data) {
                     if (data.status == "success"){
                         div.innerHTML = '<h3>'+data.results[0].Origin+' <i class="mdi mdi-chevron-right"></i> '+data.results[0].Destination+'</h3>\
                                 <h4><b>'+data.results[0].Kg+' Kg</b></h4>\
-                                <h1 class="text-themecolor"><b><?php echo Core::lang('currency_format')?> '+addCommas(data.results[0].Total)+'</b></h1><p><?php echo Core::lang('estimation')?>: '+data.results[0].Estimasi+' <?php echo Core::lang('days')?></p>';
+                                <h1 class="text-themecolor"><b><?php echo Core::lang('currency_format')?> '+addCommas(data.results[0].Tariff)+'</b></h1><p><?php echo Core::lang('estimation')?>: '+data.results[0].Estimasi+' <?php echo Core::lang('days')?></p>';
                         console.log(data.message);
                         that.on("submit", searchdata); /* add handler back after ajax */
                     } else {
@@ -256,6 +281,59 @@ $datalogin = Core::checkSessions();?>
         }
         /* Search tariff end */
 
+        /* Get mode option start */
+        function loadModeOption(){
+            $(function(){
+                $.ajax({
+				    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargo/mode/data/list/'.$datalogin['username'].'/'.$datalogin['token'])?>")+"?_="+randomText(60),
+	    	    	dataType: 'json',
+	    	    	type: 'GET',
+		    		ifModified: true,
+    		        success: function(data,status) {
+    			    	if (status === "success") {
+					    	if (data.status == "success"){
+                                $.each(data.results, function(i, item) {
+                                    $("#mode").append("<option value=\""+data.results[i].ModeID+"\">"+data.results[i].Mode+"</option>");
+                                });
+    				    	}
+    	    			}
+	    		    },
+                	error: function(x, e) {}
+    	    	});
+            });
+        }
+        /* Get mode option end */
+
+        /* Load Default */
+        function loadDefault(){
+            $(function(){
+                $('#mode').change(function(){
+                    if (selectedOption() == '3'){
+                        $('#ekubik').show();
+                    } else {
+                        $('#kubik').prop('checked', false);
+                        $('#ekubik').hide();
+                    }
+                });
+                $('#ekubik').hide();
+            });
+        }
+
+        /** 
+         * Get selected option value for search (Pure JS)
+         * Usage: don't do anything, this is depends on paginateDatatables function
+         */
+        function selectedOption(){
+            var selection = document.getElementById("mode") !== null;
+            if (selection){
+                var selectBox = document.getElementById("mode");
+                var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+                return selectedValue;
+            } else {
+                return "0";
+            }
+        }
+
         function closeCard(selectorid,todo=true){
             if (todo){
                 var div = document.getElementById(selectorid);
@@ -265,7 +343,10 @@ $datalogin = Core::checkSessions();?>
                 div.style.display = "block";
             }
         }
+
         closeCard('floatcard');
+        loadModeOption();
+        loadDefault();
     </script>
 </body>
 
