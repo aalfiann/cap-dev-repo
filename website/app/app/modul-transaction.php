@@ -178,10 +178,16 @@ $datalogin = Core::checkSessions();?>
                                                     <label for="descriptions"><?php echo Core::lang('goods_description')?> : <span class="text-danger">*</span> </label>
                                                     <textarea name="descriptions" id="descriptions" rows="6" class="form-control required" style="resize: vertical;"></textarea>
                                                 </div>
+                                                <div class="form-group">
+                                                    <label for="tablejson">JSON Table : </label>
+                                                    <textarea name="tablejson" id="tablejson" rows="6" class="form-control" style="resize: vertical;"></textarea>
+                                                </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="mode"><?php echo Core::lang('goods_weight')?></label>
-                                                
+                                                <label id="ekubik" class="inline custom-control custom-checkbox block pull-right">
+                                                    <input id="kubik" type="checkbox" class="custom-control-input"> <span class="custom-control-indicator"></span> <span class="custom-control-description ml-0"><?php echo Core::lang('cubication')?></span>
+                                                </label>
                                                 <div class="row">
                                                     <div class="col-md-3">
                                                         <label for="mode" class="hidden-md-up"><?php echo Core::lang('length')?> :</label>
@@ -343,6 +349,8 @@ $datalogin = Core::checkSessions();?>
     <script src="../assets/plugins/wizard/jquery.validate.min.js"></script>
     <!-- Sweet-Alert  -->
     <script src="../assets/plugins/sweetalert/sweetalert.min.js"></script>
+    <!-- Table To Json  -->
+    <script src="../assets/plugins/table-to-json/lib/jquery.tabletojson.min.js"></script>
     <script>
         var count = 1;
         /* Get mode option start */
@@ -367,6 +375,21 @@ $datalogin = Core::checkSessions();?>
             });
         }
         /* Get mode option end */
+
+        /** 
+         * Get selected option value for search (Pure JS)
+         * Usage: don't do anything, this is depends on paginateDatatables function
+         */
+        function selectedOption(){
+            var selection = document.getElementById("mode") !== null;
+            if (selection){
+                var selectBox = document.getElementById("mode");
+                var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+                return selectedValue;
+            } else {
+                return "0";
+            }
+        }
 
         function calculateKgOld(){
             $(function() {
@@ -460,11 +483,30 @@ $datalogin = Core::checkSessions();?>
                 
                 var result = 0;
                 var totalkg = 0;
+                var cargovol = 0;
                 var ilength = parseFloat($('#length').val());
                 var iwidth = parseFloat($('#width').val());
                 var iheight = parseFloat($('#height').val());
                 var ikg = parseFloat($('#actkg').val());
-                var cargovol = 4000;
+                
+                
+                switch(selectedOption()) {
+                    case '1':
+                        cargovol = 6000;
+                        break;
+                    case '2':
+                        cargovol = 4000;
+                        break;
+                    case '3':
+                        cargovol = 4000;
+                        if ($('#kubik:checked').length != 0){
+                            cargovol = 1000000;
+                        }
+                        break;
+                    default:
+                    mode = 'road';
+                }
+
                 var temp    = (ilength * iwidth * iheight) / cargovol;
                 if (temp>0 && temp<1){
                     result = 1;
@@ -498,6 +540,9 @@ $datalogin = Core::checkSessions();?>
                 $('#actkg').val('');
                 calculateKg();
                 countRow();
+                var jsons = JSON.stringify($('#tablevolume').tableToJSON());
+                $('#tablejson').val(jsons);
+               
             });
         }
 
@@ -604,6 +649,8 @@ $datalogin = Core::checkSessions();?>
             $('#realkg').val(0);
             $('#weight').val(0);
             $('#koli').val(0);
+            // default set */
+            $('#ekubik').hide();
             $('a[href$="#next"]').addClass('bg-theme');
             /* default event */
             $(document).on("focusin", "#koli", function() {
@@ -613,6 +660,18 @@ $datalogin = Core::checkSessions();?>
             $(document).on("focusout", "#koli", function() {
                 $(this).prop('readonly', false); 
             });
+
+            $('#mode').change(function(){
+                if (selectedOption() == '3'){
+                    $('#ekubik').show();
+                } else {
+                    $('#kubik').prop('checked', false);
+                    $('#ekubik').hide();
+                }
+                clearTable();
+                $('#tablejson').val('');
+            });
+            
         });
     </script>
 </body>
