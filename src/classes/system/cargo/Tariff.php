@@ -21,7 +21,7 @@ use PDO;
      */
 	class Tariff {
         // model data tariff
-        var $username,$branchid,$kabupaten,$kgp,$kgs,$minkg,$estimasi,$origin,$destination,$length,$width,$height,$weight;
+        var $username,$branchid,$kabupaten,$kgp,$kgs,$minkg,$estimasi,$origin,$destination,$length,$width,$height,$weight,$cubic,$mode;
 
         // for pagination
 		var $page,$itemsPerPage;
@@ -75,12 +75,28 @@ use PDO;
 		 */
 		private function calculateVolKg(){
 			$result =0;
-			
+			$cargovol = 0;
+
 			$ilength = ($this->is_decimal($this->length)?$this->length:0);
 			$iwidth = ($this->is_decimal($this->width)?$this->width:0);
 			$iheight = ($this->is_decimal($this->height)?$this->height:0);
+			$icubic = $this->cubic;
 			
-			$cargovol = 4000;
+			switch ($this->mode) {
+				case "air":
+					$cargovol = 6000;
+					break;
+				case "sea":
+					if ($icubic=='true') {
+						$cargovol = 1000000;
+					} else {
+						$cargovol = 4000;
+					}
+					break;
+				default:
+					$cargovol = 4000;
+			}
+			
 			$temp    = ($ilength * $iwidth * $iheight) / $cargovol;
 			if ($temp>0 && $temp<1){
 				$result = 1;
@@ -377,6 +393,20 @@ use PDO;
 		
 		public function searchTariff(){
 			if (Auth::validToken($this->db,$this->token)){
+				switch ($this->mode) {
+					case "air":
+						$mode = ucwords('air');
+						break;
+					case "road":
+						$mode = ucwords('road');
+						break;
+					case "sea":
+						$mode = ucwords('sea');
+						break;
+					default:
+						$mode = ucwords('road');
+				}
+
 				$origin = "$this->origin";
 				$destination = "$this->destination";
 
@@ -395,7 +425,7 @@ use PDO;
 							($weight) as Kg,($volumekg) as VolKg,($realkg) as RealKg,
 							if($weight <= a.Min_Kg,a.KGP, (($weight - a.Min_Kg) * a.KGS) + a.KGP) as 'Tariff',
 							ifnull(if($weight <= c.Min_Kg,c.KGP, (($weight - c.Min_Kg) * c.KGS) + c.KGP),0) as 'Handling',
-							((Select Tariff)+(Select Handling)) as 'Total'
+							('$mode') as Mode
 						FROM tariff_data a
 						INNER JOIN sys_company b ON a.BranchID = b.BranchID
 						LEFT JOIN tariff_handling c ON a.Kabupaten = c.Kabupaten
@@ -447,6 +477,20 @@ use PDO;
 		}
 
 		public function searchTariffPublic(){
+			switch ($this->mode) {
+				case "air":
+					$mode = ucwords('air');
+					break;
+				case "road":
+					$mode = ucwords('road');
+					break;
+				case "sea":
+					$mode = ucwords('sea');
+					break;
+				default:
+					$mode = ucwords('road');
+			}
+
 			$origin = "$this->origin";
 			$destination = "$this->destination";
 		
@@ -461,11 +505,10 @@ use PDO;
 			if (!empty($weight) || $weight==0){
 				$realkg = $weight;
 				$weight = $this->limitRound($weight,0.3);
-				$sql = "SELECT b.`Name` as 'Origin', a.Kabupaten as 'Destination', a.KGP, a.KGS,a.Min_Kg,ifnull(c.KGP,0) as 'H_KGP',ifnull(c.KGS,0) as 'H_KGS',ifnull(c.Min_Kg,0) as 'H_Min_Kg',a.Estimasi,
+				$sql = "SELECT b.`Name` as 'Origin', a.Kabupaten as 'Destination', a.KGP, a.KGS,a.Min_Kg,a.Estimasi,
 						($weight) as Kg,($volumekg) as VolKg,($realkg) as RealKg,
 						if($weight <= a.Min_Kg,a.KGP, (($weight - a.Min_Kg) * a.KGS) + a.KGP) as 'Tariff',
-						ifnull(if($weight <= c.Min_Kg,c.KGP, (($weight - c.Min_Kg) * c.KGS) + c.KGP),0) as 'Handling',
-						((Select Tariff)+(Select Handling)) as 'Total'
+						('$mode') as Mode				
 					FROM tariff_data a
 					INNER JOIN sys_company b ON a.BranchID = b.BranchID
 					LEFT JOIN tariff_handling c ON a.Kabupaten = c.Kabupaten
