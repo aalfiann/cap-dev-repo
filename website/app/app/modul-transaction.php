@@ -178,7 +178,7 @@ $datalogin = Core::checkSessions();?>
                                                     <label for="descriptions"><?php echo Core::lang('goods_description')?> : <span class="text-danger">*</span> </label>
                                                     <textarea name="descriptions" id="descriptions" rows="6" class="form-control required" style="resize: vertical;"></textarea>
                                                 </div>
-                                                <div class="form-group">
+                                                <div class="form-group" hidden>
                                                     <label for="tablejson">JSON Table : </label>
                                                     <textarea name="tablejson" id="tablejson" rows="6" class="form-control" style="resize: vertical;"></textarea>
                                                 </div>
@@ -451,7 +451,22 @@ $datalogin = Core::checkSessions();?>
                 $('#realkg').val(0);
                 $('#weight').val(0);
                 $('#koli').val(0);
+                $('#tablejson').val('');
                 count = 1;
+            });
+        }
+
+        function convertJSON(){
+            $(function(){
+                var jsons = JSON.stringify($('#tablevolume').tableToJSON());
+                jsons = jsons.replace(/#/g,'no')
+                    .replace(/<?php echo Core::lang('length')?>/g,'length')
+                    .replace(/<?php echo Core::lang('width')?>/g,'width')
+                    .replace(/<?php echo Core::lang('height')?>/g,'height')
+                    .replace(/<?php echo Core::lang('actual')?>/g,'actual')
+                    .replace(/<?php echo Core::lang('volume')?>/g,'volume')
+                    .replace(/<?php echo Core::lang('total')?>/g,'total');
+                $('#tablejson').val(jsons);
             });
         }
 
@@ -540,9 +555,7 @@ $datalogin = Core::checkSessions();?>
                 $('#actkg').val('');
                 calculateKg();
                 countRow();
-                var jsons = JSON.stringify($('#tablevolume').tableToJSON());
-                $('#tablejson').val(jsons);
-               
+                convertJSON();
             });
         }
 
@@ -572,7 +585,7 @@ $datalogin = Core::checkSessions();?>
                     return form.validate().settings.ignore = ":disabled", form.valid()
                 },
                 onFinished: function (event, currentIndex) {
-                    swal("Form Submitted!", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lorem erat eleifend ex semper, lobortis purus sed.");
+                    swal("Form Submitted!",  $('#tablejson').val());
                 }
             });
             
@@ -669,7 +682,6 @@ $datalogin = Core::checkSessions();?>
                     $('#ekubik').hide();
                 }
                 clearTable();
-                $('#tablejson').val('');
             });
             
         });
