@@ -9,6 +9,8 @@ $datalogin = Core::checkSessions();?>
     <link href="../assets/plugins/wizard/steps.css" rel="stylesheet">
     <!--alerts CSS -->
     <link href="../assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
+    <!-- Typehead CSS -->
+    <link href="../assets/plugins/typeahead.js-master/dist/typehead-min.css" rel="stylesheet">
 </head>
 
 <body class="fix-sidebar fix-header card-no-border">
@@ -98,20 +100,20 @@ $datalogin = Core::checkSessions();?>
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label for="email"> <?php echo Core::lang('email_address')?> : </label>
-                                                    <input type="email" class="form-control" name="email" id="email">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
                                                     <label for="phone"><?php echo Core::lang('shipper_phone')?> : <span class="text-danger">*</span> </label>
-                                                    <input type="text" class="form-control required" name="phone" id="phone">
+                                                    <input type="text" class="form-control required" name="phone" id="phone" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="fax"><?php echo Core::lang('shipper_fax')?> : </label>
-                                                    <input type="text" class="form-control" name="fax" id="fax">
+                                                    <input type="text" class="form-control" name="fax" id="fax" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="email"> <?php echo Core::lang('email_address')?> : </label>
+                                                    <input type="email" class="form-control" name="email" id="email">
                                                 </div>
                                             </div>
                                         </div>
@@ -151,13 +153,13 @@ $datalogin = Core::checkSessions();?>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="consigneephone"><?php echo Core::lang('consignee_phone')?> : <span class="text-danger">*</span> </label>
-                                                    <input type="text" class="form-control required" name="consigneephone" id="consigneephone"> 
+                                                    <input type="text" class="form-control required" name="consigneephone" id="consigneephone" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"> 
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="consigneefax"><?php echo Core::lang('consignee_fax')?> : </label>
-                                                    <input type="text" class="form-control" name="consigneefax" id="consigneefax"> </div>
+                                                    <input type="text" class="form-control" name="consigneefax" id="consigneefax" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"> </div>
                                             </div>
                                         </div>
                                     </section>
@@ -192,7 +194,7 @@ $datalogin = Core::checkSessions();?>
                                                     <div class="col-md-3">
                                                         <label for="mode" class="hidden-md-up"><?php echo Core::lang('length')?> :</label>
                                                         <div class="input-group">
-                                                            <input type="text" maxlength="7" class="form-control" placeholder="<?php echo Core::lang('length')?>" name="length" id="length">
+                                                            <input type="text" maxlength="7" class="form-control" placeholder="<?php echo Core::lang('length')?>" name="length" id="length" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')">
                                                             <span class="input-group-addon hidden-md-down" id="basic-addon2">cm</span>
                                                         </div>
                                                     </div>
@@ -280,44 +282,60 @@ $datalogin = Core::checkSessions();?>
                                     <section>
                                         <div class="row">
                                             <div class="col-md-6">
+                                                <h3><?php echo Core::lang('tariff')?></h3><hr>
                                                 <div class="form-group">
-                                                    <label for="behName1">Behaviour :</label>
-                                                    <input type="text" class="form-control required" id="behName1">
+                                                    <label for="origin"><?php echo Core::lang('origin')?> :</label>
+                                                    <select class="custom-select form-control required" id="origin" name="origin" readonly></select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="participants1">Confidance</label>
-                                                    <input type="text" class="form-control required" id="participants1">
+                                                    <label for="destination"><?php echo Core::lang('destination')?> :</label>
+                                                    <div id="destination-list">
+                                                        <input class="typeahead form-control required" id="destination" name="destination" placeholder="<?php echo Core::lang('city_district')?>"></input>
+                                                    </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="participants1">Result</label>
-                                                    <select class="custom-select form-control required" id="participants1" name="location">
-                                                        <option value="">Select Result</option>
-                                                        <option value="Selected">Selected</option>
-                                                        <option value="Rejected">Rejected</option>
-                                                        <option value="Call Second-time">Call Second-time</option>
-                                                    </select>
+                                                    <button type="submit" class="btn btn-themecolor w-100"><?php echo Core::lang('submit').' '.Core::lang('tariff')?></button>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="decisions1">Comments</label>
-                                                    <textarea name="decisions" id="decisions1" rows="4" class="form-control"></textarea>
+                                                <h3><?php echo Core::lang('payment')?></h3><hr>
+                                                <div class="form-group row">
+                                                    <label for="goods_value" class="col-sm-3"><?php echo Core::lang('goods_value')?> :</label>
+                                                    <input name="goods_value" id="goods_value" class="form-control is-valid col-sm-9" style="text-align: right;" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"></input>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label>Rate Interviwer :</label>
-                                                    <div class="c-inputs-stacked">
-                                                        <label class="inline custom-control custom-checkbox block">
-                                                            <input type="checkbox" class="custom-control-input"> <span class="custom-control-indicator"></span> <span class="custom-control-description ml-0">1 star</span> </label>
-                                                        <label class="inline custom-control custom-checkbox block">
-                                                            <input type="checkbox" class="custom-control-input"> <span class="custom-control-indicator"></span> <span class="custom-control-description ml-0">2 star</span> </label>
-                                                        <label class="inline custom-control custom-checkbox block">
-                                                            <input type="checkbox" class="custom-control-input"> <span class="custom-control-indicator"></span> <span class="custom-control-description ml-0">3 star</span> </label>
-                                                        <label class="inline custom-control custom-checkbox block">
-                                                            <input type="checkbox" class="custom-control-input"> <span class="custom-control-indicator"></span> <span class="custom-control-description ml-0">4 star</span> </label>
-                                                        <label class="inline custom-control custom-checkbox block">
-                                                            <input type="checkbox" class="custom-control-input"> <span class="custom-control-indicator"></span> <span class="custom-control-description ml-0">5 star</span> </label>
-                                                    </div>
+                                                <div class="form-group row">
+                                                    <label for="shipping_cost" class="col-sm-3"><?php echo Core::lang('shipping_cost')?> :</label>
+                                                    <input name="shipping_cost" id="shipping_cost" class="form-control col-sm-9" style="text-align: right;color: limegreen;" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"></input>
                                                 </div>
+                                                <div class="form-group row">
+                                                    <label for="shipping_cost_insurance" class="col-sm-3"><?php echo Core::lang('shipping_cost_insurance')?> :</label>
+                                                    <input name="shipping_cost_insurance" id="shipping_cost_insurance" class="form-control col-sm-9" style="text-align: right;" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"></input>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="shipping_cost_packing" class="col-sm-3"><?php echo Core::lang('shipping_cost_packing')?> :</label>
+                                                    <input name="shipping_cost_packing" id="shipping_cost_packing" class="form-control col-sm-9" style="text-align: right;" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"></input>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="shipping_cost_forward" class="col-sm-3"><?php echo Core::lang('shipping_cost_forward')?> :</label>
+                                                    <input name="shipping_cost_forward" id="shipping_cost_forward" class="form-control col-sm-9" style="text-align: right;" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"></input>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="shipping_cost_surcharge" class="col-sm-3"><?php echo Core::lang('shipping_cost_surcharge')?> :</label>
+                                                    <input name="shipping_cost_surcharge" id="shipping_cost_surcharge" class="form-control col-sm-9" style="text-align: right;" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"></input>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="shipping_cost_admin" class="col-sm-3"><?php echo Core::lang('shipping_cost_admin')?> :</label>
+                                                    <input name="shipping_cost_admin" id="shipping_cost_admin" class="form-control col-sm-9" style="text-align: right;" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"></input>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="shipping_cost_discount" class="col-sm-3"><?php echo Core::lang('shipping_cost_discount')?> :</label>
+                                                    <input name="shipping_cost_discount" id="shipping_cost_discount" class="form-control col-sm-9" style="text-align: right;color: red;" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"></input>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="shipping_cost_total" class="col-sm-3"><?php echo Core::lang('shipping_cost_total')?> :</label>
+                                                    <input name="shipping_cost_total" id="shipping_cost_total" class="form-control form-control-lg col-sm-9" style="text-align: right;color: limegreen;" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"></input>
+                                                </div>
+                                                
                                             </div>
                                         </div>
                                     </section>
@@ -351,6 +369,8 @@ $datalogin = Core::checkSessions();?>
     <script src="../assets/plugins/sweetalert/sweetalert.min.js"></script>
     <!-- Table To Json  -->
     <script src="../assets/plugins/table-to-json/lib/jquery.tabletojson.min.js"></script>
+    <!-- Typehead Plugin JavaScript -->
+    <script src="../assets/plugins/typeahead.js-master/dist/typeahead.bundle.min.js"></script>
     <script>
         var count = 1;
         /* Get mode option start */
@@ -375,6 +395,60 @@ $datalogin = Core::checkSessions();?>
             });
         }
         /* Get mode option end */
+
+        /* Get origin option start */
+        function loadOriginOption(){
+            $(function(){
+                $.ajax({
+				    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargo/tariff/data/list/origin/auto/search/'.$datalogin['username'].'/'.$datalogin['token'].'/?query=')?>")+"&_="+randomText(60),
+	    	    	dataType: 'json',
+	    	    	type: 'GET',
+		    		ifModified: true,
+    		        success: function(data,status) {
+    			    	if (status === "success") {
+					    	if (data.status == "success"){
+                                $.each(data.results, function(i, item) {
+                                    $("#origin").append("<option value=\""+data.results[i].Name+"\">"+data.results[i].Name+"</option>");
+                                });
+    				    	}
+    	    			}
+	    		    },
+                	error: function(x, e) {}
+    	    	}),
+                $.ajax({
+			        url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargo/tariff/data/list/destination/search/'.$datalogin['token'].'/?query=')?>")+"&_="+randomText(60),
+    		    	dataType: 'json',
+        	    	type: 'GET',
+		        	ifModified: true,
+    		        success: function(data,status) {
+    		        	if (status === "success") {
+				        	if (data.status == "success"){
+                                var destination = [];
+                                $.each(data.results, function(key, value) {
+                                    destination.push(value.Kabupaten);
+                                });
+                                /* constructs the suggestion engine */
+                                var destination = new Bloodhound({
+                                    datumTokenizer: Bloodhound.tokenizers.whitespace,
+                                    queryTokenizer: Bloodhound.tokenizers.whitespace,
+                                    /* `states` is an array of state names defined in "The Basics" */
+                                    local: destination
+                                });
+     
+                                /* -------- Scrollable -------- */
+                                $('#destination-list .typeahead').typeahead(null, {
+                                    name: 'destination',
+                                    limit: 10,
+                                    source: destination
+                                });
+    				        }
+        	    		}
+	        		},
+                	error: function(x, e) {}
+    		    });
+            });
+        }
+        /* Get origin option end */
 
         /** 
          * Get selected option value for search (Pure JS)
@@ -472,20 +546,20 @@ $datalogin = Core::checkSessions();?>
 
         function addVolume(){
             $(function() {
-                if (!validationRegex("length","double",true)){
-                    $('#errorvolume').html('<?php echo Core::lang('val_numeric_html')?>');
+                if (!validationRegex("length","decimal",true)){
+                    $('#errorvolume').html('<?php echo Core::lang('val_decimal_html')?>');
                     $('#length').select();
                     return false;
-                } else if (!validationRegex("width","double",true)){
-                    $('#errorvolume').html('<?php echo Core::lang('val_numeric_html')?>');
+                } else if (!validationRegex("width","decimal",true)){
+                    $('#errorvolume').html('<?php echo Core::lang('val_decimal_html')?>');
                     $('#width').select();
                     return false;
-                } else if (!validationRegex("height","double",true)){
-                    $('#errorvolume').html('<?php echo Core::lang('val_numeric_html')?>');
+                } else if (!validationRegex("height","decimal",true)){
+                    $('#errorvolume').html('<?php echo Core::lang('val_decimal_html')?>');
                     $('#height').select();
                     return false;
-                } else if (!validationRegex("actkg","double",true)){
-                    $('#errorvolume').html('<?php echo Core::lang('val_numeric_html')?>');
+                } else if (!validationRegex("actkg","decimal",true)){
+                    $('#errorvolume').html('<?php echo Core::lang('val_decimal_html')?>');
                     $('#actkg').select();
                     return false;
                 } else if ($('#actkg').val() <= 0){
@@ -560,6 +634,7 @@ $datalogin = Core::checkSessions();?>
         }
 
         loadModeOption();
+        loadOriginOption();
         
         $(function(){
             var form = $(".validation-wizard").show();
@@ -589,9 +664,13 @@ $datalogin = Core::checkSessions();?>
                 }
             });
             
+            $.validator.addMethod('decimal', function (value, element) {
+                return this.optional(element) || /^[+-]?[0-9]+(?:\.[0-9]+)?$/.test(value);
+            }, "<?php echo Core::lang('val_decimal_html')?>");
+
             $.validator.addMethod('double', function (value, element) {
                 return this.optional(element) || /^[+-]?[0-9]+(?:,[0-9]+)*(?:\.[0-9]+)?$/.test(value);
-            }, "<?php echo Core::lang('val_numeric_html')?>");
+            }, "<?php echo Core::lang('val_double_html')?>");
 
             $.validator.addMethod('email', function (value, element) {
                 return this.optional(element) || /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value);
@@ -683,7 +762,7 @@ $datalogin = Core::checkSessions();?>
                 }
                 clearTable();
             });
-            
+
         });
     </script>
 </body>
