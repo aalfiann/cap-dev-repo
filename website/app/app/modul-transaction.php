@@ -194,7 +194,7 @@ $datalogin = Core::checkSessions();?>
                                                     <div class="col-md-3">
                                                         <label for="mode" class="hidden-md-up"><?php echo Core::lang('length')?> :</label>
                                                         <div class="input-group">
-                                                            <input type="text" maxlength="7" class="form-control" placeholder="<?php echo Core::lang('length')?>" name="length" id="length" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')">
+                                                            <input type="text" maxlength="7" class="form-control" placeholder="<?php echo Core::lang('length')?>" name="length" id="length">
                                                             <span class="input-group-addon hidden-md-down" id="basic-addon2">cm</span>
                                                         </div>
                                                     </div>
