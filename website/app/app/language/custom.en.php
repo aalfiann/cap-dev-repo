@@ -62,7 +62,18 @@ $customlang = [
     'consignee_address' => 'Consignee Address',
     'consignee_phone' => 'Consignee Phone',
     'consignee_fax' => 'Consignee Fax',
+    //shipping
+    'shipping_cost' => 'Shipping Cost',
+    'shipping_cost_admin' => 'Admin Fee',
+    'shipping_cost_discount' => 'Discount',
+    'shipping_cost_forward' => 'Forwarding Cost',
+    'shipping_cost_handling' => 'Handling Cost',
+    'shipping_cost_insurance' => 'Insurance Fee',
+    'shipping_cost_packing' => 'Packing Cost',
+    'shipping_cost_surcharge' => 'Surcharge',
+    'shipping_cost_total' => 'Total Cost',
     //goods
+    'goods_value' => 'Nilai Barang',
     'goods_weight' => 'Weight of Goods',
     'goods_detail' => 'Goods Detail',
     'goods_instruction' => 'Instruction',

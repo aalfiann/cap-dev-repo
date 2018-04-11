@@ -62,7 +62,18 @@ $customlang = [
     'consignee_address' => 'Alamat Penerima',
     'consignee_phone' => 'Telp. Penerima',
     'consignee_fax' => 'Fax Penerima',
+    //shipping
+    'shipping_cost' => 'Biaya Kirim',
+    'shipping_cost_admin' => 'Biaya Admin',
+    'shipping_cost_discount' => 'Diskon',
+    'shipping_cost_forward' => 'Biaya Penerus',
+    'shipping_cost_handling' => 'Biaya Handling',
+    'shipping_cost_insurance' => 'Biaya Asuransi',
+    'shipping_cost_packing' => 'Biaya Packing',
+    'shipping_cost_surcharge' => 'Biaya Tambahan',
+    'shipping_cost_total' => 'Total Biaya',
     //goods
+    'goods_value' => 'Nilai Barang',
     'goods_weight' => 'Berat Barang',
     'goods_detail' => 'Detil Barang',
     'goods_instruction' => 'Instruksi',
