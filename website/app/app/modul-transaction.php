@@ -101,13 +101,13 @@ $datalogin = Core::checkSessions();?>
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="phone"><?php echo Core::lang('shipper_phone')?> : <span class="text-danger">*</span> </label>
-                                                    <input type="text" class="form-control required" name="phone" id="phone" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')">
+                                                    <input type="text" class="form-control required" name="phone" id="phone" oninput="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="fax"><?php echo Core::lang('shipper_fax')?> : </label>
-                                                    <input type="text" class="form-control" name="fax" id="fax" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')">
+                                                    <input type="text" class="form-control" name="fax" id="fax" oninput="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
@@ -153,13 +153,13 @@ $datalogin = Core::checkSessions();?>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="consigneephone"><?php echo Core::lang('consignee_phone')?> : <span class="text-danger">*</span> </label>
-                                                    <input type="text" class="form-control required" name="consigneephone" id="consigneephone" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"> 
+                                                    <input type="text" class="form-control required" name="consigneephone" id="consigneephone" oninput="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"> 
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="consigneefax"><?php echo Core::lang('consignee_fax')?> : </label>
-                                                    <input type="text" class="form-control" name="consigneefax" id="consigneefax" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"> </div>
+                                                    <input type="text" class="form-control" name="consigneefax" id="consigneefax" oninput="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"> </div>
                                             </div>
                                         </div>
                                     </section>
@@ -282,7 +282,7 @@ $datalogin = Core::checkSessions();?>
                                     <section>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <h3><?php echo Core::lang('tariff')?></h3><hr>
+                                                <h3><?php echo Core::lang('calculate_tariff')?></h3><hr>
                                                 <div class="form-group">
                                                     <label for="origin"><?php echo Core::lang('origin')?> :</label>
                                                     <select class="custom-select form-control required" id="origin" name="origin" readonly></select>
@@ -290,50 +290,95 @@ $datalogin = Core::checkSessions();?>
                                                 <div class="form-group">
                                                     <label for="destination"><?php echo Core::lang('destination')?> :</label>
                                                     <div id="destination-list">
-                                                        <input class="typeahead form-control required" id="destination" name="destination" placeholder="<?php echo Core::lang('city_district')?>"></input>
+                                                        <input class="typeahead form-control" id="destination" name="destination" placeholder="<?php echo Core::lang('city_district')?>"></input>
+                                                        <small id="errordestination" class="form-text text-danger"></small>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <button type="submit" class="btn btn-themecolor w-100"><?php echo Core::lang('submit').' '.Core::lang('tariff')?></button>
+                                                    <button type="button" class="btn btn-themecolor w-100" onclick="getTariff();"><?php echo Core::lang('submit').' '.Core::lang('tariff')?></button>
                                                 </div>
+                                                <div class="col-md-12"><br></div>
+                                                <h3><?php echo Core::lang('insurance_calculate')?></h3><hr>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="insurance_rate"><?php echo Core::lang('insurance_rate')?> :</label>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" id="insurance_rate" name="insurance_rate" placeholder="0.000"></input>
+                                                                <span class="input-group-addon hidden-md-down" id="basic-addon2">%</span>
+                                                            </div>
+                                                            <small id="errorinsurance_rate" class="form-text text-danger"></small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="goods_value"><?php echo Core::lang('goods_value')?> :</label>
+                                                            <input name="goods_value" id="goods_value" class="form-control is-valid" style="text-align: right;" oninput="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"></input>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label for="kgp"><?php echo Core::lang('kgp')?> :</label>
+                                                            <input type="text" class="form-control" id="kgp" name="kgp"></input>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label for="goods_value"><?php echo Core::lang('kgs')?> :</label>
+                                                            <input name="kgs" id="kgs" class="form-control" style="text-align: right;"></input>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label for="estimation"><?php echo Core::lang('estimation')?> :</label>
+                                                            <input name="estimation" id="estimation" class="form-control" style="text-align: right;"></input>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label for="handling"><?php echo Core::lang('shipping_cost_handling')?> :</label>
+                                                            <input name="handling" id="handling" class="form-control" style="text-align: right;"></input>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12"><br></div>
                                             </div>
                                             <div class="col-md-6">
-                                                <h3><?php echo Core::lang('payment')?></h3><hr>
-                                                <div class="form-group row">
-                                                    <label for="goods_value" class="col-sm-3"><?php echo Core::lang('goods_value')?> :</label>
-                                                    <input name="goods_value" id="goods_value" class="form-control is-valid col-sm-9" style="text-align: right;" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"></input>
-                                                </div>
+                                                <h3><?php echo Core::lang('payment')?><b><div id="displaytotal" class="pull-right d-md-none d-lg-block" style="color: #00897b;"></div></b></h3>
+                                                <hr>
                                                 <div class="form-group row">
                                                     <label for="shipping_cost" class="col-sm-3"><?php echo Core::lang('shipping_cost')?> :</label>
-                                                    <input name="shipping_cost" id="shipping_cost" class="form-control col-sm-9" style="text-align: right;color: limegreen;" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"></input>
+                                                    <input name="shipping_cost" id="shipping_cost" class="form-control form-control-lg col-sm-9" style="text-align: right;color: #00897b;" oninput="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"></input>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label for="shipping_cost_insurance" class="col-sm-3"><?php echo Core::lang('shipping_cost_insurance')?> :</label>
-                                                    <input name="shipping_cost_insurance" id="shipping_cost_insurance" class="form-control col-sm-9" style="text-align: right;" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"></input>
+                                                    <input name="shipping_cost_insurance" id="shipping_cost_insurance" class="form-control col-sm-9" style="text-align: right;" oninput="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"></input>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label for="shipping_cost_packing" class="col-sm-3"><?php echo Core::lang('shipping_cost_packing')?> :</label>
-                                                    <input name="shipping_cost_packing" id="shipping_cost_packing" class="form-control col-sm-9" style="text-align: right;" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"></input>
+                                                    <input name="shipping_cost_packing" id="shipping_cost_packing" class="form-control col-sm-9" style="text-align: right;" oninput="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"></input>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label for="shipping_cost_forward" class="col-sm-3"><?php echo Core::lang('shipping_cost_forward')?> :</label>
-                                                    <input name="shipping_cost_forward" id="shipping_cost_forward" class="form-control col-sm-9" style="text-align: right;" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"></input>
+                                                    <input name="shipping_cost_forward" id="shipping_cost_forward" class="form-control col-sm-9" style="text-align: right;" oninput="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"></input>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label for="shipping_cost_surcharge" class="col-sm-3"><?php echo Core::lang('shipping_cost_surcharge')?> :</label>
-                                                    <input name="shipping_cost_surcharge" id="shipping_cost_surcharge" class="form-control col-sm-9" style="text-align: right;" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"></input>
+                                                    <input name="shipping_cost_surcharge" id="shipping_cost_surcharge" class="form-control col-sm-9" style="text-align: right;" oninput="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"></input>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label for="shipping_cost_admin" class="col-sm-3"><?php echo Core::lang('shipping_cost_admin')?> :</label>
-                                                    <input name="shipping_cost_admin" id="shipping_cost_admin" class="form-control col-sm-9" style="text-align: right;" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"></input>
+                                                    <input name="shipping_cost_admin" id="shipping_cost_admin" class="form-control col-sm-9" style="text-align: right;" oninput="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"></input>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label for="shipping_cost_discount" class="col-sm-3"><?php echo Core::lang('shipping_cost_discount')?> :</label>
-                                                    <input name="shipping_cost_discount" id="shipping_cost_discount" class="form-control col-sm-9" style="text-align: right;color: red;" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"></input>
+                                                    <input name="shipping_cost_discount" id="shipping_cost_discount" class="form-control col-sm-9" style="text-align: right;color: red;" oninput="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"></input>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label for="shipping_cost_total" class="col-sm-3"><?php echo Core::lang('shipping_cost_total')?> :</label>
-                                                    <input name="shipping_cost_total" id="shipping_cost_total" class="form-control form-control-lg col-sm-9" style="text-align: right;color: limegreen;" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"></input>
+                                                    <input name="shipping_cost_total" id="shipping_cost_total" class="form-control form-control-lg col-sm-9" style="text-align: right;color: #00897b;" oninput="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"></input>
                                                 </div>
                                                 
                                             </div>
@@ -396,7 +441,7 @@ $datalogin = Core::checkSessions();?>
         }
         /* Get mode option end */
 
-        /* Get origin option start */
+        /* Get origin and destination option start */
         function loadOriginOption(){
             $(function(){
                 $.ajax({
@@ -448,7 +493,117 @@ $datalogin = Core::checkSessions();?>
     		    });
             });
         }
-        /* Get origin option end */
+        /* Get origin and destination option end */
+
+        function scrollToBottom() {
+            $(function() {
+                var scrollBottom = Math.max($('#tablevolume >tbody').height() + 20, 0);
+                $('.table-responsive').scrollTop(scrollBottom);
+            });
+        }
+
+        function getTariff(){
+            $(function() {
+                if($.trim($('#destination').val()) == ''){
+                    costReset();
+                    inputCost(false);
+                    $('#errordestination').html('<?php echo Core::lang('input_required')?>');
+                    $('#destination').select();
+                } else {
+                    inputCost();
+                    $('#errordestination').html('');
+                }
+                return false;
+            });
+        }
+
+        function inputCost(allow=true){
+            $(function() {
+                var disable = false;
+                if (allow == false) disable = true;
+                $('#insurance_rate').prop('readonly', disable);
+                $('#goods_value').prop('readonly', disable);
+                $('#shipping_cost').prop('readonly', true);
+                $('#shipping_cost_insurance').prop('readonly', disable);
+                $('#shipping_cost_packing').prop('readonly', disable);
+                $('#shipping_cost_forward').prop('readonly', disable);
+                $('#shipping_cost_surcharge').prop('readonly', disable);
+                $('#shipping_cost_admin').prop('readonly', disable);
+                $('#shipping_cost_discount').prop('readonly', disable);
+                $('#shipping_cost_total').prop('readonly', disable);
+            });
+        }
+
+        function costReset(){
+            $(function(){
+                $('#kgp').val(0);
+                $('#kgs').val(0);
+                $('#estimation').val(0);
+                $('#handling').val(0);
+                $('#insurance_rate').val(0);
+                $('#goods_value').val(0);
+                $('#shipping_cost').val(0);
+                $('#shipping_cost_insurance').val(0);
+                $('#shipping_cost_packing').val(0);
+                $('#shipping_cost_forward').val(0);
+                $('#shipping_cost_surcharge').val(0);
+                $('#shipping_cost_admin').val(0);
+                $('#shipping_cost_discount').val(0);
+                $('#shipping_cost_total').val(0);
+            });
+        }
+
+        function calculateCost(){
+            $(function(){
+                if ($.trim($('#shipping_cost').val()) == '') $('#shipping_cost').val(0).select();
+                if ($.trim($('#shipping_cost_insurance').val()) == '') $('#shipping_cost_insurance').val(0).select();
+                if ($.trim($('#shipping_cost_packing').val()) == '') $('#shipping_cost_packing').val(0).select();
+                if ($.trim($('#shipping_cost_forward').val()) == '') $('#shipping_cost_forward').val(0).select();
+                if ($.trim($('#shipping_cost_surcharge').val()) == '') $('#shipping_cost_surcharge').val(0).select();
+                if ($.trim($('#shipping_cost_admin').val()) == '') $('#shipping_cost_admin').val(0).select();
+                if ($.trim($('#shipping_cost_discount').val()) == '') $('#shipping_cost_discount').val(0).select();
+                if ($.trim($('#shipping_cost_total').val()) == '') $('#shipping_cost_total').val(0).select();
+
+                var a = parseInt($('#shipping_cost').val());
+                var b = parseInt($('#shipping_cost_insurance').val());
+                var c = parseInt($('#shipping_cost_packing').val());
+                var d = parseInt($('#shipping_cost_forward').val());
+                var e = parseInt($('#shipping_cost_surcharge').val());
+                var f = parseInt($('#shipping_cost_admin').val());
+                var g = parseInt($('#shipping_cost_discount').val());
+                var result = (a+b+c+d+e+f)-g;
+                if (isNaN(result)) result = 0;
+                $('#shipping_cost_total').val(result);
+                $('#displaytotal').html('<?php echo Core::lang('currency_format')?> '+addCommas(result)); 
+            });
+        }
+
+        function calculateInsurance(){
+            $(function(){
+                if (!validationRegex("insurance_rate","decimal",true)){
+                    $('#errorinsurance_rate').html('<?php echo Core::lang('val_decimal_html')?>');
+                    return false;
+                } else {
+                    $('#errorinsurance_rate').html('');
+                }
+                var a = parseFloat($('#insurance_rate').val());
+                var b = parseInt($('#goods_value').val());
+                var result = (a*b)/100;
+                if (!isNaN(result)){
+                    if (result == 0){
+                        result = 0;
+                    } else if (result < 1000){
+                        result = 1000;
+                    }
+                } else {
+                    result = 0;
+                }
+                if (a==0) $('#goods_value').val(0);
+                if ($.trim($('#goods_value').val()) == '') $('#goods_value').val(0).select();
+                $('#shipping_cost_insurance').val(Math.round(result));
+                calculateCost();     
+            });
+        }
 
         /** 
          * Get selected option value for search (Pure JS)
@@ -622,7 +777,6 @@ $datalogin = Core::checkSessions();?>
                         $('<td>').append(totalkg)
                     )
                 );
-                
                 $('#length').val(0);
                 $('#width').val(0);
                 $('#height').val(0);
@@ -630,6 +784,8 @@ $datalogin = Core::checkSessions();?>
                 calculateKg();
                 countRow();
                 convertJSON();
+                $('#length').select();
+                scrollToBottom();
             });
         }
 
@@ -668,6 +824,18 @@ $datalogin = Core::checkSessions();?>
                 return this.optional(element) || /^[+-]?[0-9]+(?:\.[0-9]+)?$/.test(value);
             }, "<?php echo Core::lang('val_decimal_html')?>");
 
+            $.validator.addMethod('rate', function (value, element) {
+                return this.optional(element) || /^[+-]?[0-9]+(?:\.[0-9]+)?$/.test(value);
+            }, "");
+
+            $.validator.addMethod('goods_value', function (value, element) {
+                if ($('#insurance_rate').val() != 0 && ($('#goods_value').val() > 0)){
+                    return true;
+                } else if ($('#insurance_rate').val() == 0 && ($('#goods_value').val() == 0)){
+                    return true;
+                }
+            }, "<?php echo Core::lang('input_required')?>");
+
             $.validator.addMethod('double', function (value, element) {
                 return this.optional(element) || /^[+-]?[0-9]+(?:,[0-9]+)*(?:\.[0-9]+)?$/.test(value);
             }, "<?php echo Core::lang('val_double_html')?>");
@@ -677,7 +845,7 @@ $datalogin = Core::checkSessions();?>
             }, "<?php echo Core::lang('val_email_html')?>");
             
             $.validator.addMethod('notzero', function (value, element) {
-                return this.optional(element) || /^[^0]+$/.test(value);
+                return this.optional(element) || /^[1-9][0-9]*$/.test(value);
             }, "<?php echo Core::lang('input_required')?>");
 
             $.validator.addMethod('numeric', function (value, element) {
@@ -707,7 +875,10 @@ $datalogin = Core::checkSessions();?>
                     fax: 'numeric',
                     refid: 'alphanumeric',
                     consigneephone: 'numeric',
-                    koli: 'notzero'
+                    koli: 'notzero',
+                    insurance_rate: 'rate',
+                    goods_value: 'goods_value',
+                    shipping_cost_total: 'notzero'
                 }
             });
 
@@ -734,6 +905,35 @@ $datalogin = Core::checkSessions();?>
                     $("#fax").prop('readonly', true);
                 }
             });
+
+            $('#insurance_rate').on('keyup', function() {
+                calculateInsurance();
+            });
+            $('#goods_value').on('keyup', function() {
+                calculateInsurance();
+            });
+
+            $('#shipping_cost').on('keyup', function() {
+                calculateCost();
+            });
+            $('#shipping_cost_insurance').on('keyup', function() {
+                calculateCost();
+            });
+            $('#shipping_cost_packing').on('keyup', function() {
+                calculateCost();
+            });
+            $('#shipping_cost_forward').on('keyup', function() {
+                calculateCost();
+            });
+            $('#shipping_cost_surcharge').on('keyup', function() {
+                calculateCost();
+            });
+            $('#shipping_cost_admin').on('keyup', function() {
+                calculateCost();
+            });
+            $('#shipping_cost_discount').on('keyup', function() {
+                calculateCost();
+            });
             /* Default value */
             $('#length').val(0);
             $('#width').val(0);
@@ -741,7 +941,10 @@ $datalogin = Core::checkSessions();?>
             $('#realkg').val(0);
             $('#weight').val(0);
             $('#koli').val(0);
-            // default set */
+            /* default value payment */
+            costReset();
+            inputCost(false);
+            /* default set */
             $('#ekubik').hide();
             $('a[href$="#next"]').addClass('bg-theme');
             /* default event */
@@ -751,6 +954,26 @@ $datalogin = Core::checkSessions();?>
 
             $(document).on("focusout", "#koli", function() {
                 $(this).prop('readonly', false); 
+            });
+
+            $('#destination').on('keydown', function(e) {
+                /* detect tab also ctrl and a or c or v*/
+                if (e.ctrlKey){
+                    if ((e.keyCode != 65 || e.keyCode != 67) && e.ctrKey){
+                        costReset();
+                        inputCost(false);
+                    }
+                } else {
+                    if (e.keyCode != 9){
+                        costReset();
+                        inputCost(false);
+                    } else {
+                        if (!$.trim($('#destination').val()).length){
+                            costReset();
+                            inputCost(false);
+                        }
+                    }
+                }    
             });
 
             $('#mode').change(function(){
