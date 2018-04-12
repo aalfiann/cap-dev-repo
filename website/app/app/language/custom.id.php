@@ -72,6 +72,10 @@ $customlang = [
     'shipping_cost_packing' => 'Biaya Packing',
     'shipping_cost_surcharge' => 'Biaya Tambahan',
     'shipping_cost_total' => 'Total Biaya',
+    //insurance
+    'insurance' => 'Asuransi',
+    'insurance_calculate' => 'Hitung Asuransi',
+    'insurance_rate' => 'Rate Premi',
     //goods
     'goods_value' => 'Nilai Barang',
     'goods_weight' => 'Berat Barang',
@@ -86,6 +90,7 @@ $customlang = [
     //inquiry
     'inquiry' => 'Inquiry',
     'check_tariff' => 'Cek Tarif',
+    'calculate_tariff' => 'Hitung Tarif',
     //placeholder
     'city_district' => 'Kota / Kabupaten'
 ];

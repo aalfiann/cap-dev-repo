@@ -72,6 +72,10 @@ $customlang = [
     'shipping_cost_packing' => 'Packing Cost',
     'shipping_cost_surcharge' => 'Surcharge',
     'shipping_cost_total' => 'Total Cost',
+    //insurance
+    'insurance' => 'Insurance',
+    'insurance_calculate' => 'Calculate Insurance',
+    'insurance_rate' => 'Rate Premium',
     //goods
     'goods_value' => 'Nilai Barang',
     'goods_weight' => 'Weight of Goods',
@@ -86,6 +90,7 @@ $customlang = [
     //inquiry
     'inquiry' => 'Inquiry',
     'check_tariff' => 'Check Tariff',
+    'calculate_tariff' => 'Calculate Tariff',
     //placeholder
     'city_district' => 'City / District'
 ];
