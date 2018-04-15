@@ -319,24 +319,24 @@ $datalogin = Core::checkSessions();?>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        <div class="form-group">
+                                                        <div class="form-group" hidden>
                                                             <label for="kgp"><?php echo Core::lang('kgp')?> :</label>
                                                             <input type="text" class="form-control" id="kgp" name="kgp"></input>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <div class="form-group">
+                                                        <div class="form-group" hidden>
                                                             <label for="goods_value"><?php echo Core::lang('kgs')?> :</label>
                                                             <input name="kgs" id="kgs" class="form-control" style="text-align: right;"></input>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <div class="form-group">
+                                                        <div class="form-group" hidden>
                                                             <label for="estimation"><?php echo Core::lang('estimation')?> :</label>
                                                             <input name="estimation" id="estimation" class="form-control" style="text-align: right;"></input>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-3" hidden>
                                                         <div class="form-group">
                                                             <label for="handling"><?php echo Core::lang('shipping_cost_handling')?> :</label>
                                                             <input name="handling" id="handling" class="form-control" style="text-align: right;"></input>
@@ -507,11 +507,62 @@ $datalogin = Core::checkSessions();?>
                 if($.trim($('#destination').val()) == ''){
                     costReset();
                     inputCost(false);
+                    calculateCost();
                     $('#errordestination').html('<?php echo Core::lang('input_required')?>');
                     $('#destination').select();
                 } else {
                     inputCost();
                     $('#errordestination').html('');
+
+                    var mode = "";
+
+                    switch(selectedOption()) {
+                        case '1':
+                            mode = 'air';
+                            break;
+                        case '2':
+                            mode = 'road';
+                            break;
+                        case '3':
+                            mode = 'sea';
+                            break;
+                        default:
+                        mode = 'road';
+                    }
+
+                    $.ajax({
+                        url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargo/tariff/data/get/search/'.$datalogin['token'].'/?')?>")+"origin="+encodeURIComponent($("#origin").val())+"&destination="+encodeURIComponent($("#destination").val())+"&mode="+encodeURIComponent(mode)+"&cubic="+encodeURIComponent($("#kubik").is(':checked'))+"&weight="+encodeURIComponent($("#weight").val())+"&length="+encodeURIComponent($("#length").val())+"&width="+encodeURIComponent($("#width").val())+"&height="+encodeURIComponent($("#height").val()),
+                        dataType: "json",
+                        type: "GET",
+                        cache: false,
+                        success: function(data) {
+                            if (data.status == "success"){
+                                $('#shipping_cost').val(data.results[0].Tariff);
+                                $('#kgp').val(data.results[0].KGP);
+                                $('#kgs').val(data.results[0].KGS);
+                                $('#estimation').val(data.results[0].Estimasi);
+                                $('#handling').val(data.results[0].Handling);
+                                calculateCost();
+                                console.log(data.message);
+                            } else {
+                                $('#shipping_cost').val(0);
+                                $('#kgp').val(0);
+                                $('#kgs').val(0);
+                                $('#estimation').val(0);
+                                $('#handling').val(0);
+                                calculateCost();
+                                console.log(data.message);
+                            }
+                        },
+                        error: function(x, e) {
+                            $('#shipping_cost').val(0);
+                            $('#kgp').val(0);
+                            $('#kgs').val(0);
+                            $('#estimation').val(0);
+                            $('#handling').val(0);
+                            calculateCost();
+                        }
+                    });
                 }
                 return false;
             });
@@ -606,8 +657,7 @@ $datalogin = Core::checkSessions();?>
         }
 
         /** 
-         * Get selected option value for search (Pure JS)
-         * Usage: don't do anything, this is depends on paginateDatatables function
+         * Get selected option value for moda (Pure JS)
          */
         function selectedOption(){
             var selection = document.getElementById("mode") !== null;
@@ -682,6 +732,9 @@ $datalogin = Core::checkSessions();?>
                 $('#koli').val(0);
                 $('#tablejson').val('');
                 count = 1;
+                costReset();
+                inputCost(false);
+                calculateCost();
             });
         }
 
@@ -786,6 +839,9 @@ $datalogin = Core::checkSessions();?>
                 convertJSON();
                 $('#length').select();
                 scrollToBottom();
+                costReset();
+                inputCost(false);
+                calculateCost();
             });
         }
 
@@ -878,6 +934,7 @@ $datalogin = Core::checkSessions();?>
                     koli: 'notzero',
                     insurance_rate: 'rate',
                     goods_value: 'goods_value',
+                    shipping_cost: 'notzero',
                     shipping_cost_total: 'notzero'
                 }
             });
@@ -962,15 +1019,18 @@ $datalogin = Core::checkSessions();?>
                     if ((e.keyCode != 65 || e.keyCode != 67) && e.ctrKey){
                         costReset();
                         inputCost(false);
+                        calculateCost();
                     }
                 } else {
                     if (e.keyCode != 9){
                         costReset();
                         inputCost(false);
+                        calculateCost();
                     } else {
                         if (!$.trim($('#destination').val()).length){
                             costReset();
                             inputCost(false);
+                            calculateCost();
                         }
                     }
                 }    
