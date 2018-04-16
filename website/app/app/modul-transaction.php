@@ -85,7 +85,7 @@ $datalogin = Core::checkSessions();?>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <div class="form-group">
+                                                <div id="dobrowse" class="form-group">
                                                     <label for="custid"> <?php echo Core::lang('customer_id')?> : </label>
                                                     <div class="input-group">
                                                         <input type="text" id="custid" name="custid" class="form-control" placeholder="<?php echo Core::lang('input_browse_customer')?>">
@@ -1064,6 +1064,7 @@ $datalogin = Core::checkSessions();?>
                     consigneeReset();
                     inputConsignee();
                     $("#payment_method").val('1');
+                    $("#dobrowse").hide();
                 }
             });
 
@@ -1072,6 +1073,7 @@ $datalogin = Core::checkSessions();?>
                     consigneeReset();
                     inputConsignee(); 
                     $("#payment_method").val('1');
+                    $("#dobrowse").show();
                 }
             });
 
@@ -1080,6 +1082,7 @@ $datalogin = Core::checkSessions();?>
                     consigneeReset();
                     inputConsignee(); 
                     $("#payment_method").val('4');
+                    $("#dobrowse").show();
                 }
             });
 
@@ -1124,6 +1127,7 @@ $datalogin = Core::checkSessions();?>
             /* default set */
             $('#ekubik').hide();
             $('a[href$="#next"]').addClass('bg-theme');
+            $("#dobrowse").hide();
             /* default event */
             $(document).on("focusin", "#koli", function() {
                 $(this).prop('readonly', true);  
