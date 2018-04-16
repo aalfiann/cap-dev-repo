@@ -64,6 +64,28 @@ $datalogin = Core::checkSessions();?>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
+                                                    <label><?php echo Core::lang('customer_type')?> :</label>
+                                                    <div class="radio-list">
+                                                        <label class="custom-control custom-radio">
+                                                            <input id="radio1" name="radio" type="radio" checked="" class="custom-control-input">
+                                                            <span class="custom-control-indicator"></span>
+                                                            <span class="custom-control-description">Non Member</span>
+                                                        </label>
+                                                        <label class="custom-control custom-radio">
+                                                            <input id="radio2" name="radio" type="radio" class="custom-control-input">
+                                                            <span class="custom-control-indicator"></span>
+                                                            <span class="custom-control-description">Member</span>
+                                                        </label>
+                                                        <label class="custom-control custom-radio">
+                                                            <input id="radio3" name="radio" type="radio" class="custom-control-input">
+                                                            <span class="custom-control-indicator"></span>
+                                                            <span class="custom-control-description">Corporate</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
                                                     <label for="custid"> <?php echo Core::lang('customer_id')?> : </label>
                                                     <div class="input-group">
                                                         <input type="text" id="custid" name="custid" class="form-control" placeholder="<?php echo Core::lang('input_browse_customer')?>">
@@ -392,7 +414,10 @@ $datalogin = Core::checkSessions();?>
                                                     <label for="shipping_cost_total" class="col-sm-3"><?php echo Core::lang('shipping_cost_total')?> :</label>
                                                     <input name="shipping_cost_total" id="shipping_cost_total" class="form-control form-control-lg col-sm-9" style="text-align: right;color: #00897b;" oninput="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"></input>
                                                 </div>
-                                                
+                                                <div class="form-group row" hidden>
+                                                    <label for="payment_method" class="col-sm-3"><?php echo Core::lang('payment_method')?></label>
+                                                    <select class="custom-select form-control col-sm-9 required" id="payment_method" name="payment_method"></select>
+                                                </div>
                                             </div>
                                         </div>
                                     </section>
@@ -452,6 +477,29 @@ $datalogin = Core::checkSessions();?>
             });
         }
         /* Get mode option end */
+
+        /* Get payment method option start */
+        function loadPaymentOption(){
+            $(function(){
+                $.ajax({
+				    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargo/payment/data/list/'.$datalogin['username'].'/'.$datalogin['token'])?>")+"?_="+randomText(60),
+	    	    	dataType: 'json',
+	    	    	type: 'GET',
+		    		ifModified: true,
+    		        success: function(data,status) {
+    			    	if (status === "success") {
+					    	if (data.status == "success"){
+                                $.each(data.results, function(i, item) {
+                                    $("#payment_method").append("<option value=\""+data.results[i].PaymentID+"\">"+data.results[i].Payment+"</option>");
+                                });
+    				    	}
+    	    			}
+	    		    },
+                	error: function(x, e) {}
+    	    	});
+            });
+        }
+        /* Get payment method option end */
 
         /* Get origin and destination option start */
         function loadOriginOption(){
@@ -603,6 +651,31 @@ $datalogin = Core::checkSessions();?>
             });
         }
 
+        function inputConsignee(allow=true){
+            $(function(){
+                var disable = false;
+                if (allow == false) disable = true;
+                $("#shippername").prop('readonly', disable);
+                $("#aliasname").prop('readonly', disable);
+                $("#address").prop('readonly', disable);
+                $("#email").prop('readonly', disable);
+                $("#phone").prop('readonly', disable);
+                $("#fax").prop('readonly', disable);
+            });
+        }
+
+        function consigneeReset(){
+            $(function(){
+                $("#custid").val('');
+                $("#shippername").val('');
+                $("#aliasname").val('');
+                $("#address").val('');
+                $("#email").val('');
+                $("#phone").val('');
+                $("#fax").val('');
+            });
+        }
+
         function costReset(){
             $(function(){
                 $('#kgp').val(0);
@@ -683,6 +756,20 @@ $datalogin = Core::checkSessions();?>
             var selection = document.getElementById("mode") !== null;
             if (selection){
                 var selectBox = document.getElementById("mode");
+                var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+                return selectedValue;
+            } else {
+                return "0";
+            }
+        }
+
+        /** 
+         * Get selected option value for payment (Pure JS)
+         */
+        function selectedOptionPayment(){
+            var selection = document.getElementById("payment_method") !== null;
+            if (selection){
+                var selectBox = document.getElementById("payment_method");
                 var selectedValue = selectBox.options[selectBox.selectedIndex].value;
                 return selectedValue;
             } else {
@@ -866,6 +953,7 @@ $datalogin = Core::checkSessions();?>
         }
 
         loadModeOption();
+        loadPaymentOption();
         loadOriginOption();
         
         $(function(){
@@ -892,7 +980,11 @@ $datalogin = Core::checkSessions();?>
                     return form.validate().settings.ignore = ":disabled", form.valid()
                 },
                 onFinished: function (event, currentIndex) {
-                    swal("Form Submitted!",  $('#tablejson').val());
+                    if (($('#radio2').is(':checked') || $('#radio3').is(':checked')) && !$.trim($('#custid').val()).length){
+                        swal("<?php echo Core::lang('transaction_failed')?>", "<?php echo Core::lang('transaction_failed_customer')?>","error");
+                    } else {
+                        swal("<?php echo Core::lang('transaction_success')?>",  $('#tablejson').val()+'<br>cara bayar: '+selectedOptionPayment(),"success");
+                    }
                 }
             });
             
@@ -959,27 +1051,35 @@ $datalogin = Core::checkSessions();?>
                 }
             });
 
-            $('#custid').on('keyup', function() {
-                if (!$.trim($('#custid').val()).length){
-                    $("#shippername").prop('readonly', false);
-                    $("#aliasname").prop('readonly', false);
-                    $("#address").prop('readonly', false);
-                    $("#email").prop('readonly', false);
-                    $("#phone").prop('readonly', false);
-                    $("#fax").prop('readonly', false);
-                    $("#shippername").val('');
-                    $("#aliasname").val('');
-                    $("#address").val('');
-                    $("#email").val('');
-                    $("#phone").val('');
-                    $("#fax").val('');
-                } else {
-                    $("#shippername").prop('readonly', true);
-                    $("#aliasname").prop('readonly', true);
-                    $("#address").prop('readonly', true);
-                    $("#email").prop('readonly', true);
-                    $("#phone").prop('readonly', true);
-                    $("#fax").prop('readonly', true);
+            $(document).on("focusin", "#custid", function() {
+                $(this).prop('readonly', true);  
+            });
+
+            $(document).on("focusout", "#custid", function() {
+                $(this).prop('readonly', false); 
+            });
+
+            $('#radio1').click(function() {
+                if($('#radio1').is(':checked')) {
+                    consigneeReset();
+                    inputConsignee();
+                    $("#payment_method").val('1');
+                }
+            });
+
+            $('#radio2').click(function() {
+                if($('#radio2').is(':checked')) {
+                    consigneeReset();
+                    inputConsignee(); 
+                    $("#payment_method").val('1');
+                }
+            });
+
+            $('#radio3').click(function() {
+                if($('#radio3').is(':checked')) {
+                    consigneeReset();
+                    inputConsignee(); 
+                    $("#payment_method").val('4');
                 }
             });
 
