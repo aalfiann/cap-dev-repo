@@ -318,26 +318,38 @@ $datalogin = Core::checkSessions();?>
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-4">
                                                         <div class="form-group" hidden>
                                                             <label for="kgp"><?php echo Core::lang('kgp')?> :</label>
                                                             <input type="text" class="form-control" id="kgp" name="kgp"></input>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-4">
                                                         <div class="form-group" hidden>
-                                                            <label for="goods_value"><?php echo Core::lang('kgs')?> :</label>
+                                                            <label for="h=kgs"><?php echo Core::lang('kgs')?> :</label>
                                                             <input name="kgs" id="kgs" class="form-control" style="text-align: right;"></input>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-4">
                                                         <div class="form-group" hidden>
                                                             <label for="estimation"><?php echo Core::lang('estimation')?> :</label>
                                                             <input name="estimation" id="estimation" class="form-control" style="text-align: right;"></input>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-3" hidden>
-                                                        <div class="form-group">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group" hidden>
+                                                            <label for="hkgp"><?php echo Core::lang('hkgp')?> :</label>
+                                                            <input type="text" class="form-control" id="hkgp" name="hkgp"></input>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group" hidden>
+                                                            <label for="hkgs"><?php echo Core::lang('hkgs')?> :</label>
+                                                            <input name="hkgs" id="hkgs" class="form-control" style="text-align: right;"></input>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group" hidden>
                                                             <label for="handling"><?php echo Core::lang('shipping_cost_handling')?> :</label>
                                                             <input name="handling" id="handling" class="form-control" style="text-align: right;"></input>
                                                         </div>
@@ -541,6 +553,8 @@ $datalogin = Core::checkSessions();?>
                                 $('#kgp').val(data.results[0].KGP);
                                 $('#kgs').val(data.results[0].KGS);
                                 $('#estimation').val(data.results[0].Estimasi);
+                                $('#hkgp').val(data.results[0].H_KGP);
+                                $('#hkgs').val(data.results[0].H_KGS);
                                 $('#handling').val(data.results[0].Handling);
                                 calculateCost();
                                 console.log(data.message);
@@ -549,6 +563,8 @@ $datalogin = Core::checkSessions();?>
                                 $('#kgp').val(0);
                                 $('#kgs').val(0);
                                 $('#estimation').val(0);
+                                $('#hkgp').val(0);
+                                $('#hkgs').val(0);
                                 $('#handling').val(0);
                                 calculateCost();
                                 console.log(data.message);
@@ -559,6 +575,8 @@ $datalogin = Core::checkSessions();?>
                             $('#kgp').val(0);
                             $('#kgs').val(0);
                             $('#estimation').val(0);
+                            $('#hkgp').val(0);
+                            $('#hkgs').val(0);
                             $('#handling').val(0);
                             calculateCost();
                         }
@@ -590,6 +608,8 @@ $datalogin = Core::checkSessions();?>
                 $('#kgp').val(0);
                 $('#kgs').val(0);
                 $('#estimation').val(0);
+                $('#hkgp').val(0);
+                $('#hkgs').val(0);
                 $('#handling').val(0);
                 $('#insurance_rate').val(0);
                 $('#goods_value').val(0);
