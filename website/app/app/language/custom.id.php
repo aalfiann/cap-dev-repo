@@ -6,6 +6,8 @@ $customlang = [
     //global
     'result' => 'Hasil',
     'clear' => 'Hapus',
+    'submit_success' => 'Submit Sukses!',
+    'submit_failed' => 'Submit Gagal!',
     //direction
     'next' => 'Berikutnya',
     'previous' => 'Sebelumnya',
@@ -36,6 +38,8 @@ $customlang = [
     'realkg' => 'Real Kg',
     'days' => 'Hari',
     'mode' => 'Moda',
+    'type' => 'Tipe',
+    'customer' => 'Customer',
     'actual' => 'Actual',
     'bag' => 'Koli',
     //dimension
@@ -46,10 +50,12 @@ $customlang = [
     'cubication' => 'Kubikasi',
     //transaction
     'transaction' => 'Transaksi',
+    'payment_method' => 'Metode Pembayaran',
     'shipper' => 'Pengirim',
     'consignee' => 'Penerima',
     'payment' => 'Pembayaran',
     'customer_id' => 'Customer ID',
+    'customer_type' => 'Tipe Customer',
     'browse' => 'Browse',
     'shipper_name' => 'Nama Pengirim',
     'shipper_alias_name' => 'Nama Alias',
@@ -62,6 +68,10 @@ $customlang = [
     'consignee_address' => 'Alamat Penerima',
     'consignee_phone' => 'Telp. Penerima',
     'consignee_fax' => 'Fax Penerima',
+    //transaction helper
+    'transaction_success' => 'Transaksi Sukses!',
+    'transaction_failed' => 'Transaksi Gagal!',
+    'transaction_failed_customer' => 'Selain Non Member, Customer ID harus diisi!',
     //shipping
     'shipping_cost' => 'Biaya Kirim',
     'shipping_cost_admin' => 'Biaya Admin',

@@ -6,6 +6,8 @@ $customlang = [
     //global
     'result' => 'Result',
     'clear' => 'Clear',
+    'submit_success' => 'Submit Success!',
+    'submit_failed' => 'Submit Failed!',
     //direction
     'next' => 'Next',
     'previous' => 'Previous',
@@ -36,6 +38,8 @@ $customlang = [
     'realkg' => 'Real Kg',
     'days' => 'Day(s)',
     'mode' => 'Mode',
+    'type' => 'Type',
+    'customer' => 'Customer',
     'actual' => 'Actual',
     'bag' => 'Bag',
     //dimension
@@ -46,10 +50,12 @@ $customlang = [
     'cubication' => 'Cubication',
     //transaction
     'transaction' => 'Transaction',
+    'payment_method' => 'Payment Method',
     'shipper' => 'Shipper',
     'consignee' => 'Consignee',
     'payment' => 'Payment',
     'customer_id' => 'Customer ID',
+    'customer_type' => 'Customer Type',
     'browse' => 'Browse',
     'shipper_name' => 'Shipper Name',
     'shipper_alias_name' => 'Alias Name',
@@ -62,6 +68,10 @@ $customlang = [
     'consignee_address' => 'Consignee Address',
     'consignee_phone' => 'Consignee Phone',
     'consignee_fax' => 'Consignee Fax',
+    //transaction helper
+    'transaction_success' => 'Transaction Success!',
+    'transaction_failed' => 'Transaction Failed!',
+    'transaction_failed_customer' => 'Except Non Member, Customer ID is required to filled!',
     //shipping
     'shipping_cost' => 'Shipping Cost',
     'shipping_cost_admin' => 'Admin Fee',
