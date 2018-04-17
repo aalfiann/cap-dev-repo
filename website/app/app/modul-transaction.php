@@ -146,9 +146,10 @@ $datalogin = Core::checkSessions();?>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="refid"> <?php echo Core::lang('referensi_id')?> : </label>
+                                                    <label for="refid"> <?php echo Core::lang('reference_id')?> : </label>
                                                     <div class="form-group">
-                                                        <input type="text" id="refid" name="refid" class="form-control" placeholder="<?php echo Core::lang('input_referensi_id')?>">
+                                                        <input type="text" id="refid" name="refid" class="form-control" placeholder="<?php echo Core::lang('input_reference_id')?>">
+                                                        <small class="form-text text-muted"><?php echo Core::lang('help_reference_id')?></small>
                                                     </div>
                                                 </div>
                                             </div>
@@ -291,7 +292,7 @@ $datalogin = Core::checkSessions();?>
                                                     </div>
                                                     <div class="col-md-12 hidden-md-up"><br></div>
                                                     <div class="col-md-4">
-                                                        <label for="mode"><?php echo Core::lang('bag')?> :</label>
+                                                        <label for="mode"><?php echo Core::lang('bag')?> : <span class="text-danger">*</span> </label>
                                                         <input type="text" class="form-control" placeholder="Koli" name="koli" id="koli">
                                                     </div>
                                                 </div>
@@ -306,11 +307,11 @@ $datalogin = Core::checkSessions();?>
                                             <div class="col-md-6">
                                                 <h3><?php echo Core::lang('calculate_tariff')?></h3><hr>
                                                 <div class="form-group">
-                                                    <label for="origin"><?php echo Core::lang('origin')?> :</label>
+                                                    <label for="origin"><?php echo Core::lang('origin')?> : <span class="text-danger">*</span> </label>
                                                     <select class="custom-select form-control required" id="origin" name="origin" readonly></select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="destination"><?php echo Core::lang('destination')?> :</label>
+                                                    <label for="destination"><?php echo Core::lang('destination')?> : <span class="text-danger">*</span> </label>
                                                     <div id="destination-list">
                                                         <input class="typeahead form-control" id="destination" name="destination" placeholder="<?php echo Core::lang('city_district')?>"></input>
                                                         <small id="errordestination" class="form-text text-danger"></small>
@@ -383,7 +384,7 @@ $datalogin = Core::checkSessions();?>
                                                 <h3><?php echo Core::lang('payment')?><b><div id="displaytotal" class="pull-right d-md-none d-lg-block" style="color: #00897b;"></div></b></h3>
                                                 <hr>
                                                 <div class="form-group row">
-                                                    <label for="shipping_cost" class="col-sm-3"><?php echo Core::lang('shipping_cost')?> :</label>
+                                                    <label for="shipping_cost" class="col-sm-3"><?php echo Core::lang('shipping_cost')?> : <span class="text-danger">*</span></label>
                                                     <input name="shipping_cost" id="shipping_cost" class="form-control form-control-lg col-sm-9" style="text-align: right;color: #00897b;" oninput="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"></input>
                                                 </div>
                                                 <div class="form-group row">
@@ -411,7 +412,7 @@ $datalogin = Core::checkSessions();?>
                                                     <input name="shipping_cost_discount" id="shipping_cost_discount" class="form-control col-sm-9" style="text-align: right;color: red;" oninput="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"></input>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="shipping_cost_total" class="col-sm-3"><?php echo Core::lang('shipping_cost_total')?> :</label>
+                                                    <label for="shipping_cost_total" class="col-sm-3"><?php echo Core::lang('shipping_cost_total')?> : <span class="text-danger">*</span> </label>
                                                     <input name="shipping_cost_total" id="shipping_cost_total" class="form-control form-control-lg col-sm-9" style="text-align: right;color: #00897b;" oninput="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"></input>
                                                 </div>
                                                 <div class="form-group row" hidden>
@@ -421,6 +422,7 @@ $datalogin = Core::checkSessions();?>
                                             </div>
                                         </div>
                                     </section>
+                                    <div class="col-md-12 m-l-5"><p><i class="mdi mdi-information text-themecolor"></i> <?php echo Core::lang('transaction_input_notice')?></p></div>
                                 </form>
                             </div>
                         </div>
@@ -827,9 +829,8 @@ $datalogin = Core::checkSessions();?>
             });
         }
 
-        function clearTable(){
+        function volumeReset(){
             $(function(){
-                $("#tablevolume tr").not(function(){ return !!$(this).has('th').length; }).remove();
                 $('#length').val(0);
                 $('#width').val(0);
                 $('#height').val(0);
@@ -837,6 +838,13 @@ $datalogin = Core::checkSessions();?>
                 $('#realkg').val(0);
                 $('#weight').val(0);
                 $('#koli').val(0);
+            });
+        }
+
+        function clearTable(){
+            $(function(){
+                $("#tablevolume tr").not(function(){ return !!$(this).has('th').length; }).remove();
+                volumeReset();
                 $('#tablejson').val('');
                 count = 1;
                 costReset();
@@ -1016,6 +1024,10 @@ $datalogin = Core::checkSessions();?>
                 return this.optional(element) || /^[1-9][0-9]*$/.test(value);
             }, "<?php echo Core::lang('input_required')?>");
 
+            $.validator.addMethod('refid', function (value, element) {
+                return this.optional(element) || /^[a-zA-Z0-9_@./#&+-]{8,20}$/.test(value);
+            }, "<?php echo Core::lang('input_reference_id_val')?>");
+
             $.validator.addMethod('numeric', function (value, element) {
                 return this.optional(element) || /^[0-9]+$/.test(value);
             }, "<?php echo Core::lang('val_numeric_html')?>");
@@ -1041,7 +1053,7 @@ $datalogin = Core::checkSessions();?>
                     email: 'email',
                     phone: 'numeric',
                     fax: 'numeric',
-                    refid: 'alphanumeric',
+                    refid: 'refid',
                     consigneephone: 'numeric',
                     koli: 'notzero',
                     insurance_rate: 'rate',
@@ -1115,12 +1127,7 @@ $datalogin = Core::checkSessions();?>
                 calculateCost();
             });
             /* Default value */
-            $('#length').val(0);
-            $('#width').val(0);
-            $('#height').val(0);
-            $('#realkg').val(0);
-            $('#weight').val(0);
-            $('#koli').val(0);
+            volumeReset();
             /* default value payment */
             costReset();
             inputCost(false);
