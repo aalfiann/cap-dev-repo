@@ -10,7 +10,7 @@ Target Server Type    : MariaDB
 Target Server Version : 100131
 File Encoding         : 65001
 
-Date: 2018-04-16 15:31:15
+Date: 2018-04-17 13:41:09
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -45,6 +45,7 @@ CREATE TABLE `transaction_waybill` (
   `Weight_real` decimal(7,2) NOT NULL,
   `Origin` varchar(50) NOT NULL,
   `Destination` varchar(50) NOT NULL,
+  `Estimation` varchar(7) NOT NULL,
   `Insurance_rate` decimal(7,2) NOT NULL,
   `Shipping_cost` decimal(10,0) NOT NULL,
   `Shipping_insurance` decimal(10,0) NOT NULL,
@@ -55,7 +56,6 @@ CREATE TABLE `transaction_waybill` (
   `Shipping_admin` decimal(10,0) NOT NULL,
   `Shipping_discount` decimal(10,0) NOT NULL,
   `Shipping_cost_total` decimal(10,0) NOT NULL,
-  `Shipping_estimation` varchar(7) NOT NULL,
   `Tariff_kgp` decimal(10,0) NOT NULL,
   `Tariff_kgs` decimal(10,0) NOT NULL,
   `Tariff_hkgp` decimal(10,0) NOT NULL,
