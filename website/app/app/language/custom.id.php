@@ -62,7 +62,7 @@ $customlang = [
     'shipper_address' => 'Alamat Pengirim',
     'shipper_phone' => 'Telp. Pengirim',
     'shipper_fax' => 'Fax Pengirim',
-    'referensi_id' => 'Referensi ID',
+    'reference_id' => 'Referensi ID',
     'attention_name' => 'U.P.',
     'consignee_name' => 'Nama Penerima',
     'consignee_address' => 'Alamat Penerima',
@@ -72,6 +72,7 @@ $customlang = [
     'transaction_success' => 'Transaksi Sukses!',
     'transaction_failed' => 'Transaksi Gagal!',
     'transaction_failed_customer' => 'Selain Non Member, Customer ID harus diisi!',
+    'transaction_input_notice' => 'Kolom yang diberi tanda bintang wajib diisi.',
     //shipping
     'shipping_cost' => 'Biaya Kirim',
     'shipping_cost_admin' => 'Biaya Admin',
@@ -94,9 +95,11 @@ $customlang = [
     'goods_description' => 'Deskripsi',
     //help transaction
     'help_browse_customer' => 'Klik browse untuk mencari Customer ID.',
+    'help_reference_id' => 'Referensi ID adalah no resi mitra, agar sistem dapat tracking menggunakan no resi mitra.',
     //input transaction
     'input_browse_customer' => 'Customer ID dapat berupa ID Corporate atau ID Member...',
-    'input_referensi_id' => 'Referensi ID harus unik...',
+    'input_reference_id' => 'Referensi ID harus unik...',
+    'input_reference_id_val' => 'Input 8-20 karakter. Contoh: '.uniqid(rand(10,99).'/'.rand(1,9).'-'.rand(1,9).'.'),
     //inquiry
     'inquiry' => 'Inquiry',
     'check_tariff' => 'Cek Tarif',

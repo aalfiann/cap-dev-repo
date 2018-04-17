@@ -62,7 +62,7 @@ $customlang = [
     'shipper_address' => 'Shipper Address',
     'shipper_phone' => 'Shipper Phone',
     'shipper_fax' => 'Shipper Fax',
-    'referensi_id' => 'Referensi ID',
+    'reference_id' => 'Referensi ID',
     'attention_name' => 'Attention Name',
     'consignee_name' => 'Consignee Name',
     'consignee_address' => 'Consignee Address',
@@ -72,6 +72,7 @@ $customlang = [
     'transaction_success' => 'Transaction Success!',
     'transaction_failed' => 'Transaction Failed!',
     'transaction_failed_customer' => 'Except Non Member, Customer ID is required to filled!',
+    'transaction_input_notice' => 'Fields marked with an asterisk are required.',
     //shipping
     'shipping_cost' => 'Shipping Cost',
     'shipping_cost_admin' => 'Admin Fee',
@@ -94,9 +95,11 @@ $customlang = [
     'goods_description' => 'Description',
     //help transaction
     'help_browse_customer' => 'Click browse to search Customer ID.',
+    'help_reference_id' => 'Reference ID is no partner\'s receipt, so the system can tracking using no partner\'s receipt.',
     //input transaction
     'input_browse_customer' => 'Customer ID could be ID Corporate or ID Member...',
-    'input_referensi_id' => 'Referensi ID must unique...',
+    'input_reference_id' => 'Referensi ID must unique...',
+    'input_reference_id_val' => 'Input 8-20 chars. Example: '.uniqid(rand(10,99).'/'.rand(1,9).'-'.rand(1,9).'.'),
     //inquiry
     'inquiry' => 'Inquiry',
     'check_tariff' => 'Check Tariff',
