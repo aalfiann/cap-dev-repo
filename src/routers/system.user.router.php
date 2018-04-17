@@ -81,9 +81,8 @@ use \classes\SimpleCache as SimpleCache;
 
     // GET api to get data branchid user
     $app->get('/system/user/data/branch/{username}', function (Request $request, Response $response) {
-        $user = new classes\system\User($this->db);
         $username = strtolower($request->getAttribute('username'));
-        $branch = $user->getBranchID($username);
+        $branch = classes\system\Util::getUserBranchID($this->db,$username);
         $body = $response->getBody();
         if (!empty($branch)){
             $body->write('{"status":"success","code":"RS501","result": {"Username": "'.$username.'","BranchID": "'.$branch.'"},"message":"'.classes\CustomHandlers::getreSlimMessage('RS501').'"}');
