@@ -17,7 +17,7 @@ use PDO;
      * @package    Insurance Cargo
      * @author     M ABD AZIZ ALFIAN <github.com/aalfiann>
      * @copyright  Copyright (c) 2018 M ABD AZIZ ALFIAN
-     * @license    https://github.com/aalfiann/reSlim-b2b/blob/master/license.md  MIT License
+     * @license    https://github.com/aalfiann/cap-dev-repo/blob/master/license.md  MIT License
      */
 	class Insurance {
         // model data mode

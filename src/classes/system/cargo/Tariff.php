@@ -17,7 +17,7 @@ use PDO;
      * @package    Tariff Cargo
      * @author     M ABD AZIZ ALFIAN <github.com/aalfiann>
      * @copyright  Copyright (c) 2018 M ABD AZIZ ALFIAN
-     * @license    https://github.com/aalfiann/reSlim/blob/master/license.md  MIT License
+     * @license    https://github.com/aalfiann/cap-dev-repo/blob/master/license.md  MIT License
      */
 	class Tariff {
         // model data tariff
