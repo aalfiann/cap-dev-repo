@@ -109,6 +109,33 @@ use PDO;
 		}
 
 		/**
+		 * Determine if user is active or not
+         * 
+		 * @return boolean true / false
+		 */
+		private static function isUserActive(){
+            $r = false;
+            $newusername = strtolower($this->username);
+            if (Auth::isKeyCached('user-'.$newusername.'-active',86400)){
+                $r = true;
+            } else {
+                $sql = "SELECT a.Username
+			    	FROM sys_user a 
+				    WHERE a.Username = :username AND a.StatusID='1';";
+    			$stmt = $this->db->prepare($sql);
+	    		$stmt->bindParam(':username', $newusername, PDO::PARAM_STR);
+		    	if ($stmt->execute()) {	
+                	if ($stmt->rowCount() > 0){
+                        $r = true;
+                        Auth::writeCache('user-'.$newusername.'-active');
+        	        }          	   	
+	    		}
+            } 		
+			return $r;
+			$db = null;
+		}
+
+		/**
 		 * Determine if user is already registered in main app or not
 		 * @return boolean true / false
 		 */
@@ -133,6 +160,35 @@ use PDO;
 			return $r;
 			$this->db = null;
 		}
+
+		/** 
+         * Get information user branchid by username
+         *
+         * @return string BranchID
+         */
+        private function getBranchID(){
+			$roles = "";
+			$newusername = strtolower($this->username);
+            if (Auth::isKeyCached('user-'.$newusername.'-branchid',86400)){
+                $data = json_decode(Auth::loadCache('user-'.$newusername.'-branchid'));
+                if (!empty($data)){
+                    $roles = $data->Role;
+                }
+            } else {
+                $sql = "SELECT a.BranchID FROM sys_user a WHERE a.Username =:username limit 1;";
+	    		$stmt = $this->db->prepare($sql);
+		    	$stmt->bindParam(':username', $newusername, PDO::PARAM_STR);
+			    if ($stmt->execute()){
+				    if ($stmt->rowCount() > 0){
+    					$single = $stmt->fetch();
+                        $roles = $single['BranchID'];
+                        Auth::writeCache('user-'.$newusername.'-branchid',$roles);
+		    		}
+			    }
+            }
+			return $roles;
+			$this->db = null;
+        }
 
 		/** 
 		 * Regiter new user
@@ -200,7 +256,9 @@ use PDO;
                             'status' => 'success',
                             'code' => 'RS103',
                             'message' => CustomHandlers::getreSlimMessage('RS103')
-                        ];
+						];
+						Auth::deleteCache('user-'.$newusername.'-active');
+						Auth::deleteCache('user-'.$newusername.'-branchid');
                     } catch (PDOException $e){
                         $data = [
                             'status' => 'error',
@@ -249,7 +307,10 @@ use PDO;
 	    						'status' => 'success',
 		    					'code' => 'RS104',
 			    				'message' => CustomHandlers::getreSlimMessage('RS104')
-				    		];	
+							];
+							Auth::deleteCache('user-'.$newusername.'-active');
+							Auth::deleteCache('user-'.$newusername.'-registered');
+							Auth::deleteCache('user-'.$newusername.'-branchid');
 					    } else {
     						$data = [
 	    						'status' => 'error',
@@ -465,36 +526,6 @@ use PDO;
 			return json_encode($data);
 	        $this->db= null;
 		}
-
-		/** 
-         * Get informasi branchid user by username
-         *
-         * @param $username : input the username
-         * @return string BranchID
-         */
-        public function getBranchID($username){
-			$roles = "";
-			$newusername = strtolower($username);
-            if (Auth::isKeyCached('token-'.$newusername.'-branchid',86400)){
-                $data = json_decode(Auth::loadCache('token-'.$newusername.'-branchid'));
-                if (!empty($data)){
-                    $roles = $data->Role;
-                }
-            } else {
-                $sql = "SELECT a.BranchID FROM sys_user a WHERE a.Username =:username limit 1;";
-	    		$stmt = $this->db->prepare($sql);
-		    	$stmt->bindParam(':username', $newusername, PDO::PARAM_STR);
-			    if ($stmt->execute()){
-				    if ($stmt->rowCount() > 0){
-    					$single = $stmt->fetch();
-                        $roles = $single['BranchID'];
-                        Auth::writeCache('token-'.$newusername.'-branchid',$roles);
-		    		}
-			    }
-            }
-			return $roles;
-			$this->db = null;
-        }
 
         
         //STATUS=======================================
