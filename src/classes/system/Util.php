@@ -47,6 +47,35 @@ use PDO;
             } 		
 			return $r;
 			$db = null;
+        }
+        
+        /**
+		 * Determine if user is active or not
+         * 
+         * @param $db : Dabatase connection (PDO)
+         * @param $username : input the username
+		 * @return boolean true / false
+		 */
+		public static function isUserActive($db,$username){
+            $r = false;
+            $newusername = strtolower($username);
+            if (Auth::isKeyCached('user-'.$newusername.'-active',86400)){
+                $r = true;
+            } else {
+                $sql = "SELECT a.Username
+			    	FROM sys_user a 
+				    WHERE a.Username = :username AND a.StatusID='1';";
+    			$stmt = $db->prepare($sql);
+	    		$stmt->bindParam(':username', $newusername, PDO::PARAM_STR);
+		    	if ($stmt->execute()) {	
+                	if ($stmt->rowCount() > 0){
+                        $r = true;
+                        Auth::writeCache('user-'.$newusername.'-active');
+        	        }          	   	
+	    		}
+            } 		
+			return $r;
+			$db = null;
 		}
 
 		/**
@@ -79,17 +108,17 @@ use PDO;
 		}
 
         /** 
-         * Get informasi branchid user by username
+         * Get information branchid user by username
          *
          * @param $db : Dabatase connection (PDO)
          * @param $username : input the username
          * @return string BranchID
          */
-        public static function getBranchID($db,$username){
+        public static function getUserBranchID($db,$username){
             $roles = "";
             $newusername = strtolower($username);
-            if (Auth::isKeyCached('token-'.$newusername.'-branchid',86400)){
-                $data = json_decode(Auth::loadCache('token-'.$newusername.'-branchid'));
+            if (Auth::isKeyCached('user-'.$newusername.'-branchid',86400)){
+                $data = json_decode(Auth::loadCache('user-'.$newusername.'-branchid'));
                 if (!empty($data)){
                     $roles = $data->Role;
                 }
@@ -101,7 +130,7 @@ use PDO;
 				    if ($stmt->rowCount() > 0){
     					$single = $stmt->fetch();
                         $roles = $single['BranchID'];
-                        Auth::writeCache('token-'.$newusername.'-branchid',$roles);
+                        Auth::writeCache('user-'.$newusername.'-branchid',$roles);
 		    		}
 			    }
             }
