@@ -97,7 +97,7 @@ use PDO;
                 $data = [
                     'status' => 'error',
                     'code' => 'RS401',
-                    'message' => CustomHandlers::getreSlimMessage('RS407')
+                    'message' => CustomHandlers::getreSlimMessage('RS401')
                 ];
             }
 			
