@@ -21,7 +21,9 @@ use PDO;
      */
 	class TraceLog {
         // model data trace log
-		var $username,$codeid,$description,$statusid,$itemid,$created_at;
+		var $username,$codeid,$description,$statusid,$itemid,$created_at,
+		// data pod
+		$branchid,$waybill,$recipient,$relation,$deliveryid;
 		
 		// for pagination
 		var $page,$itemsPerPage;
@@ -56,9 +58,39 @@ use PDO;
 				$stmt->bindParam(':statusid', $newstatusid, PDO::PARAM_STR);
 				$stmt->bindParam(':username', $newusername, PDO::PARAM_STR);
 		    	if ($stmt->execute()) {
-					$result = true;
-    			} else {
-	    			$result = false;
+					if ($stmt->rowCount() > 0){
+						$result = true;
+					}
+				}
+				
+			} catch (PDOException $e) {
+    			$result = false;
+			}
+			return $result;
+			$this->db = null;
+		}
+		
+		/**
+		 * Insert new void trace log
+		 * @return bool
+		 */
+		public function insertVoid(){
+			$result = false;
+    		$newusername = strtolower($this->username);	
+			$newstatusid = Validation::integerOnly($this->statusid);			
+		    try {
+				
+				$sql = "INSERT INTO log_data_void (CodeID,Description,StatusID,Created_at,Username) 
+		    		VALUES (:codeid,:description,:statusid,current_timestamp,:username);";
+				$stmt = $this->db->prepare($sql);
+				$stmt->bindParam(':codeid', $this->codeid, PDO::PARAM_STR);
+				$stmt->bindParam(':description', $this->description, PDO::PARAM_STR);
+				$stmt->bindParam(':statusid', $newstatusid, PDO::PARAM_STR);
+				$stmt->bindParam(':username', $newusername, PDO::PARAM_STR);
+		    	if ($stmt->execute()) {
+					if ($stmt->rowCount() > 0){
+						$result = true;
+					}
 				}
 	    		
 			} catch (PDOException $e) {
@@ -66,7 +98,41 @@ use PDO;
 			}
 			return $result;
 			$this->db = null;
-        }
+		}
+
+		/**
+		 * Insert new pod trace log
+		 * @return bool
+		 */
+		public function insertPod(){
+			$result = false;
+    		$newusername = strtolower($this->username);	
+			$newstatusid = Validation::integerOnly($this->statusid);			
+		    try {
+				
+				$sql = "INSERT INTO log_data_pod (BranchID,WayBill,Description,Recipient,Relation,DeliveryID,StatusID,Created_at,Username) 
+		    		VALUES (:branchid,:waybill,:description,:recipient,:relation,:deliveryid,:statusid,current_timestamp,:username);";
+				$stmt = $this->db->prepare($sql);
+				$stmt->bindParam(':branchid', $this->branchid, PDO::PARAM_STR);
+				$stmt->bindParam(':waybill', $this->waybill, PDO::PARAM_STR);
+				$stmt->bindParam(':description', $this->description, PDO::PARAM_STR);
+				$stmt->bindParam(':recipient', $this->recipient, PDO::PARAM_STR);
+				$stmt->bindParam(':relation', $this->relation, PDO::PARAM_STR);
+				$stmt->bindParam(':deliveryid', $this->deliveryid, PDO::PARAM_STR);
+				$stmt->bindParam(':statusid', $newstatusid, PDO::PARAM_STR);
+				$stmt->bindParam(':username', $newusername, PDO::PARAM_STR);
+		    	if ($stmt->execute()) {
+					if ($stmt->rowCount() > 0){
+						$result = true;
+					}
+				}
+	    		
+			} catch (PDOException $e) {
+    			$result = false;
+			}
+			return $result;
+			$this->db = null;
+		}
 		
 		/**
 		 * Add new trace log
