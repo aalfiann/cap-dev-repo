@@ -34,10 +34,14 @@ namespace classes\system\cargo;
             'waybill_onhold_destination' => 'Barang sementara ditahan di destinasi',
             //Transaction failed
             'waybill_void' => 'Transaksi pengiriman telah dibatalkan',
-            'waybill_dex' => 'Pengantaran barang gagal karena',
+            'waybill_failed' => 'Pengantaran barang gagal karena',
             'waybill_return' => 'Sedang dalam proses retur ke origin',
             'waybill_return_consignor' => 'Barang di retur sesuai permintaan pengirim',
-            'waybill_return_consignee' => 'Barang di retur sesuai permintaan penerima'
+            'waybill_return_consignee' => 'Barang di retur sesuai permintaan penerima',
+            'waybill_not_found' => 'Waybill tidak ditemukan! Harap periksa kembali no Waybill Anda',
+            'waybill_not_found_1' => 'Waybill tidak ditemukan, harap periksa atau trace kembali Waybill Anda!',
+            //System
+            'execute_failed' => 'Gagal eksekusi perintah ke dalam database!'
         ];
 
         /**
@@ -58,10 +62,14 @@ namespace classes\system\cargo;
             'waybill_onhold_destination' => 'Goods temporarily held in destination',
             //Transaction failed
             'waybill_void' => 'The shipping transaction has been void',
-            'waybill_dex' => 'Delivery of goods failed because',
+            'waybill_failed' => 'Delivery of goods failed because',
             'waybill_return' => 'In the process of returning to origin',
             'waybill_return_consignor' => 'Goods are returned at the sender\'s request',
-            'waybill_return_consignee' => 'Goods are returned at the recipient\'s request'
+            'waybill_return_consignee' => 'Goods are returned at the recipient\'s request',
+            'waybill_not_found' => 'Waybill not found, Please check your Waybill number!',
+            'waybill_not_found_1' => 'Waybill not found, Please check or trace back your Waybill!',
+            //System
+            'execute_failed' => 'Failed to execute commands into the database!'
         ];
 
         /**
