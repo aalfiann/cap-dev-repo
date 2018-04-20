@@ -10,7 +10,7 @@ Target Server Type    : MariaDB
 Target Server Version : 100131
 File Encoding         : 65001
 
-Date: 2018-04-19 17:01:51
+Date: 2018-04-20 14:26:24
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -22,6 +22,7 @@ DROP TABLE IF EXISTS `transaction_waybill`;
 CREATE TABLE `transaction_waybill` (
   `Waybill` varchar(20) NOT NULL,
   `BranchID` varchar(10) NOT NULL,
+  `DestID` varchar(10) NOT NULL,
   `CustomerID` varchar(20) DEFAULT NULL,
   `Consignor_name` varchar(50) NOT NULL,
   `Consignor_alias` varchar(50) DEFAULT NULL,
@@ -76,12 +77,12 @@ CREATE TABLE `transaction_waybill` (
   KEY `Consignee_name` (`Consignee_name`),
   KEY `Consignee_phone` (`Consignee_phone`),
   KEY `ModeID` (`ModeID`),
-  KEY `Origin` (`Origin`),
   KEY `Destination` (`Destination`),
   KEY `PaymentID` (`PaymentID`),
   KEY `StatusID` (`StatusID`),
   KEY `Created_at` (`Created_at`),
   KEY `Created_by` (`Created_by`),
-  KEY `BranchID` (`BranchID`)
+  KEY `BranchID` (`BranchID`),
+  KEY `DestID` (`DestID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 SET FOREIGN_KEY_CHECKS=1;
