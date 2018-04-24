@@ -36,7 +36,7 @@ use PDO;
         //insurance
         $insurance_rate,$goods_value,
         //tariff
-        $kgp,$kgs,$hkgp,$hkgs,
+        $kgp,$kgs,$minkgp,$hkgp,$hkgs,$minhkgp,
         //payment
         $paymentid,$shipping_cost,$shipping_insurance,$shipping_packing,$shipping_forward,$shipping_handling,$shipping_surcharge,$shipping_admin,$shipping_cost_total,
         //status
@@ -58,8 +58,9 @@ use PDO;
         }
 
         // 19 = failed
-        // 27 = on process
+        // 27 = ok
         // 28 = on hold
+        // 29 = on process
         // 41 = success
         // 47 = void
         // 53 = return
@@ -125,6 +126,8 @@ use PDO;
                     $newkgs = Validation::integerOnly($this->kgs);
                     $newhkgp = Validation::integerOnly($this->hkgp);
                     $newhkgs = Validation::integerOnly($this->hkgs);
+                    $newminkgp = Validation::integerOnly($this->minkgp);
+                    $newminhkgp = Validation::integerOnly($this->minhkgp);
                     
                     $newpaymentid = Validation::integerOnly($this->paymentid);
                     $newshippingcost = Validation::integerOnly($this->shipping_cost);
@@ -146,7 +149,7 @@ use PDO;
                                 ModeID,Origin,Destination,Estimation,
                                 Instruction,Description,Goods_data,Goods_koli,Weight,Weight_real,
                                 Insurance_rate,Goods_value,
-                                Tariff_kgp,Tariff_kgs,Tariff_hkgp,Tariff_hkgs,
+                                Tariff_kgp,Tariff_kgs,Tariff_kgp_min,Tariff_hkgp,Tariff_hkgs,Tariff_hkgp_min,
                                 PaymentID,Shipping_cost,Shipping_insurance,Shipping_packing,Shipping_forward,Shipping_handling,Shipping_surcharge,Shipping_admin,Shipping_discount,Shipping_cost_total,
                                 StatusID,Created_at,Created_by) 
         					VALUES 
@@ -156,9 +159,9 @@ use PDO;
                                 :modeid,:origin,:destination,:estimation,
                                 :instruction,:description,:goods_data,:goods_koli,:weight,:weight_real,
                                 :insurance_rate,:goods_value,
-                                :kgp,:kgs,:hkgp,:hkgs,
+                                :kgp,:kgs,:minkgp,:hkgp,:hkgs,:minhkgp,
                                 :paymentid,:shipping_cost,:shipping_insurance,:shipping_packing,:shipping_forward,:shipping_handling,:shipping_surcharge,:shipping_admin,:shipping_discount,:shipping_cost_total,
-                                '27',current_timestamp,:username);";
+                                '29',current_timestamp,:username);";
                         $stmt = $this->db->prepare($sql);
                         $stmt->bindParam(':username', $newusername, PDO::PARAM_STR);
                         $stmt->bindParam(':waybill', $newwaybill, PDO::PARAM_STR);
@@ -199,6 +202,8 @@ use PDO;
                         $stmt->bindParam(':kgs', $newkgs, PDO::PARAM_STR);
                         $stmt->bindParam(':hkgp', $newhkgp, PDO::PARAM_STR);
                         $stmt->bindParam(':hkgs', $newhkgs, PDO::PARAM_STR);
+                        $stmt->bindParam(':minkgp', $newminkgp, PDO::PARAM_STR);
+                        $stmt->bindParam(':minhkgp', $newminhkgp, PDO::PARAM_STR);
 
                         $stmt->bindParam(':paymentid', $newpaymentid, PDO::PARAM_STR);
                         $stmt->bindParam(':shipping_cost', $newshippingcost, PDO::PARAM_STR);
@@ -220,7 +225,7 @@ use PDO;
                                     'code' => 'RS101',
                                     'message' => CustomHandlers::getreSlimMessage('RS101')
                                 ];
-                                $this->logging($newwaybill,Dictionary::write('waybill_created'),'27',$newusername);
+                                $this->logging($newwaybill,Dictionary::write('waybill_created'),'29',$newusername);
                             } else {
                                 $data = [
                                     'status' => 'error',
@@ -289,6 +294,8 @@ use PDO;
                     $newkgs = Validation::integerOnly($this->kgs);
                     $newhkgp = Validation::integerOnly($this->hkgp);
                     $newhkgs = Validation::integerOnly($this->hkgs);
+                    $newminkgp = Validation::integerOnly($this->minkgp);
+                    $newminhkgp = Validation::integerOnly($this->minhkgp);
                     
                     $newpaymentid = Validation::integerOnly($this->paymentid);
                     $newshippingcost = Validation::integerOnly($this->shipping_cost);
@@ -311,12 +318,12 @@ use PDO;
                                 a.ModeID=:modeid,a.Origin=:origin,a.Destination=:destination,a.Estimation=:estimation,
                                 a.Instruction=:instruction,a.Description=:description,a.Goods_data=:goods_data,a.Goods_koli=:goods_koli,a.Weight=:weight,a.Weight_real=:weight_real,
                                 a.Insurance_rate=:insurance_rate,a.Goods_value=:goods_value,
-                                a.Tariff_kgp=:kgp,a.Tariff_kgs=:kgs,a.Tariff_hkgp=:hkgp,a.Tariff_hkgs=:hkgs,
+                                a.Tariff_kgp=:kgp,a.Tariff_kgs=:kgs,a.Tariff_kgp_min=:minkgp,a.Tariff_hkgp=:hkgp,a.Tariff_hkgs=:hkgs,a.Tariff_hkgp_min=:minhkgp,
                                 a.PaymentID=:paymentid,a.Shipping_cost=:shipping_cost,a.Shipping_insurance=:shipping_insurance,a.Shipping_packing=:shipping_packing,
                                     a.Shipping_forward=:shipping_forward,a.Shipping_handling=:shipping_handling,a.Shipping_surcharge=:shipping_surcharge,a.Shipping_admin=:shipping_admin,
                                     a.Shipping_discount=:shipping_discount,a.Shipping_cost_total=:shipping_cost_total,
                                 a.Updated_at=current_timestamp,a.Updated_by=:username 
-        					WHERE a.WayBill=:waybill AND a.StatusID='27' ".(($roles<3)?"":"AND a.BranchID = :branchid").";";
+        					WHERE a.WayBill=:waybill AND a.StatusID='29' ".(($roles<3)?"":"AND a.BranchID = :branchid").";";
 		    			$stmt = $this->db->prepare($sql);
     					$stmt->bindParam(':username', $newusername, PDO::PARAM_STR);
                         $stmt->bindParam(':waybill', $this->waybill, PDO::PARAM_STR);
@@ -357,6 +364,8 @@ use PDO;
                         $stmt->bindParam(':kgs', $newkgs, PDO::PARAM_STR);
                         $stmt->bindParam(':hkgp', $newhkgp, PDO::PARAM_STR);
                         $stmt->bindParam(':hkgs', $newhkgs, PDO::PARAM_STR);
+                        $stmt->bindParam(':minkgp', $newminkgp, PDO::PARAM_STR);
+                        $stmt->bindParam(':minhkgp', $newminhkgp, PDO::PARAM_STR);
 
                         $stmt->bindParam(':paymentid', $newpaymentid, PDO::PARAM_STR);
                         $stmt->bindParam(':shipping_cost', $newshippingcost, PDO::PARAM_STR);
@@ -473,7 +482,7 @@ use PDO;
                         if ($roles < 3){
                             $sql = "UPDATE transaction_waybill a 
                                 SET a.StatusID = '47',a.Updated_at=current_timestamp,a.Updated_by=:username 
-                                WHERE a.WayBill = :waybill AND a.StatusID='27';";
+                                WHERE a.WayBill = :waybill AND a.StatusID='29';";
                             $stmt = $this->db->prepare($sql);
                             $stmt->bindParam(':username', $newusername, PDO::PARAM_STR);
                             $stmt->bindParam(':waybill', $this->waybill, PDO::PARAM_STR);
@@ -481,7 +490,7 @@ use PDO;
                             $newbranchid = strtolower(Util::getUserBranchID($this->db,$newusername));
                             $sql = "UPDATE transaction_waybill a 
                                 SET a.StatusID = '47',a.Updated_at=current_timestamp,a.Updated_by=:username 
-                                WHERE a.WayBill = :waybill  AND a.StatusID='27' AND a.BranchID = :branchid;";
+                                WHERE a.WayBill = :waybill  AND a.StatusID='29' AND a.BranchID = :branchid;";
                             $stmt = $this->db->prepare($sql);
                             $stmt->bindParam(':username', $newusername, PDO::PARAM_STR);
                             $stmt->bindParam(':waybill', $this->waybill, PDO::PARAM_STR);
@@ -789,5 +798,480 @@ use PDO;
             
             return JSON::safeEncode($data,true);
         }
+
+        /** 
+		 * Show data waybill only single detail for registered user
+		 * @return result process in json encoded data
+		 */
+		public function showWaybillDetail(){
+			if (Auth::validToken($this->db,$this->token,$this->username)){
+				$sql = "SELECT a.Waybill,a.BranchID,a.DestID,
+                    a.CustomerID,a.Consignor_name,a.Consignor_alias,a.Consignor_address,a.Consignor_phone,a.Consignor_fax,a.Consignor_email,
+                    a.ReferenceID,a.Consignee_name,a.Consignee_attention,a.Consignee_address,a.Consignee_phone,a.Consignee_fax,
+                    a.Instruction,a.Description,a.Goods_data,a.Goods_koli,a.Weight,a.Weight_real,
+                    a.ModeID,d.Mode,a.Origin,a.Destination,a.Estimation,
+                    a.Insurance_rate,a.Goods_value,
+                    a.Tariff_kgp,a.Tariff_kgs,a.Tariff_kgp_min,a.Tariff_hkgp,a.Tariff_hkgs,a.Tariff_hkgp_min,
+                    a.PaymentID,c.Payment,a.Shipping_cost,a.Shipping_insurance,a.Shipping_packing,a.Shipping_forward,a.Shipping_handling,a.Shipping_surcharge,a.Shipping_admin,a.Shipping_discount,a.Shipping_cost_total,
+                    a.StatusID,b.`Status`,a.Created_at,a.Created_by,a.Updated_at,a.Updated_by,a.Updated_sys
+                FROM transaction_waybill a
+                INNER JOIN core_status b ON a.StatusID=b.StatusID
+                INNER JOIN mas_payment c ON a.PaymentID = c.PaymentID
+                INNER JOIN mas_mode d ON a.ModeID = d.ModeID
+                WHERE a.Waybill = :waybill LIMIT 1;";
+				
+				$stmt = $this->db->prepare($sql);		
+				$stmt->bindParam(':waybill', $this->waybill, PDO::PARAM_STR);
+
+				if ($stmt->execute()) {	
+    	    	    if ($stmt->rowCount() > 0){
+        	   		   	$datares = "[";
+								while($redata = $stmt->fetch()) 
+								{
+									$datares .= '{
+                                        "Data":{
+                                            "Waybill":'.json_encode($redata['Waybill']).',
+                                            "BranchID":'.json_encode($redata['BranchID']).',
+                                            "DestId":'.json_encode($redata['DestID']).',
+                                            "Created_at":'.json_encode($redata['Created_at']).',
+                                            "Created_by":'.json_encode($redata['Created_by']).'
+                                        },
+                                        "Consignor":{
+                                            "CustomerID":'.json_encode($redata['CustomerID']).',
+                                            "Name":'.json_encode($redata['Consignor_name']).',
+                                            "Alias":'.json_encode($redata['Consignor_alias']).',
+                                            "Address":'.json_encode($redata['Consignor_address']).',
+                                            "Phone":'.json_encode($redata['Consignor_phone']).',
+                                            "Fax":'.json_encode($redata['Consignor_fax']).',
+                                            "Email":'.json_encode($redata['Consignor_email']).'
+                                        },
+                                        "Consignee":{
+                                            "ReferenceID":'.json_encode($redata['ReferenceID']).',
+                                            "Name":'.json_encode($redata['Consignee_name']).',
+                                            "Attention":'.json_encode($redata['Consignee_attention']).',
+                                            "Address":'.json_encode($redata['Consignee_address']).',
+                                            "Phone":'.json_encode($redata['Consignee_phone']).',
+                                            "Fax":'.json_encode($redata['Consignee_fax']).'
+                                        },
+                                        "Goods":{
+                                            "Instruction":'.json_encode($redata['Instruction']).',
+                                            "Description":'.json_encode($redata['Description']).',
+                                            "Weight_real":'.json_encode($redata['Weight_real']).',
+                                            "Weight":'.json_encode($redata['Weight']).',
+                                            "Koli":'.json_encode($redata['Goods_koli']).',
+                                            "Detail":'.$redata['Goods_data'].'
+                                        },
+                                        "Router":{
+                                            "ModeID":'.json_encode($redata['ModeID']).',
+                                            "Mode":'.json_encode($redata['Mode']).',
+                                            "Origin":'.json_encode($redata['Origin']).',
+                                            "Destination":'.json_encode($redata['Destination']).',
+                                            "Estimation":'.json_encode($redata['Estimation']).'
+                                        },
+                                        "Insurance":{
+                                            "Rate":'.json_encode($redata['Insurance_rate']).',
+                                            "Value":'.json_encode($redata['Goods_value']).'
+                                        },
+                                        "Tariff":{
+                                            "KGP":'.json_encode($redata['Tariff_kgp']).',
+                                            "KGS":'.json_encode($redata['Tariff_kgs']).',
+                                            "MinKG":'.json_encode($redata['Tariff_kgp_min']).'
+                                        },
+                                        "Tariff_handling":{
+                                            "KGP":'.json_encode($redata['Tariff_hkgp']).',
+                                            "KGS":'.json_encode($redata['Tariff_hkgs']).',
+                                            "MinKG":'.json_encode($redata['Tariff_hkgp_min']).'
+                                        },
+                                        "Payment":{
+                                            "PaymentID":'.json_encode($redata['PaymentID']).',
+                                            "Name":'.json_encode($redata['Payment']).'
+                                        },
+                                        "Transaction":{
+                                            "Shipping_cost":'.json_encode($redata['Shipping_cost']).',
+                                            "Shipping_insurance":'.json_encode($redata['Shipping_insurance']).',
+                                            "Shipping_packing":'.json_encode($redata['Shipping_packing']).',
+                                            "Shipping_forward":'.json_encode($redata['Shipping_forward']).',
+                                            "Shipping_handling":'.json_encode($redata['Shipping_handling']).',
+                                            "Shipping_surcharge":'.json_encode($redata['Shipping_surcharge']).',
+                                            "Shipping_admin":'.json_encode($redata['Shipping_admin']).',
+                                            "Shipping_discount":'.json_encode($redata['Shipping_discount']).',
+                                            "Shipping_cost_total":'.json_encode($redata['Shipping_cost_total']).'
+                                        },
+                                        "Log":{
+                                            "StatusID":'.json_encode($redata['StatusID']).',
+                                            "Status":'.json_encode($redata['Status']).',
+                                            "Updated_at":'.json_encode($redata['Updated_at']).',
+                                            "Updated_by":'.json_encode($redata['Updated_by']).',
+                                            "Updated_sys":'.json_encode($redata['Updated_sys']).'
+                                        }
+                                    },';
+								}
+								$datares = substr($datares, 0, -1);
+								$datares .= "]";
+						$data = [
+			   	            'result' => json_decode($datares), 
+    	    		        'status' => 'success', 
+			           	    'code' => 'RS501',
+        		        	'message' => CustomHandlers::getreSlimMessage('RS501')
+						];
+			        } else {
+        			    $data = [
+            		    	'status' => 'error',
+		        		    'code' => 'RS601',
+        		    	    'message' => CustomHandlers::getreSlimMessage('RS601')
+						];
+	    	        }          	   	
+				} else {
+					$data = [
+    	    			'status' => 'error',
+						'code' => 'RS202',
+	        		    'message' => CustomHandlers::getreSlimMessage('RS202')
+					];
+				}	
+			} else {
+                $data = [
+	    			'status' => 'error',
+					'code' => 'RS401',
+        	    	'message' => CustomHandlers::getreSlimMessage('RS401')
+				];
+			}
+			
+			return json_encode($data);
+	        $this->db= null;
+        }
+        
+        /** 
+		 * Trace data waybill only single detail for registered user
+		 * @return result process in json encoded data
+		 */
+		public function traceWaybillDetail(){
+			if (Auth::validToken($this->db,$this->token,$this->username)){
+				$sql = "SELECT a.Waybill,a.BranchID,a.DestID,
+                    a.CustomerID,a.Consignor_name,a.Consignor_alias,a.Consignor_address,a.Consignor_phone,a.Consignor_fax,a.Consignor_email,
+                    a.ReferenceID,a.Consignee_name,a.Consignee_attention,a.Consignee_address,a.Consignee_phone,a.Consignee_fax,
+                    a.Instruction,a.Description,a.Goods_data,a.Goods_koli,a.Weight,a.Weight_real,
+                    a.ModeID,d.Mode,a.Origin,a.Destination,a.Estimation,
+                    a.Insurance_rate,a.Goods_value,
+                    a.Tariff_kgp,a.Tariff_kgs,a.Tariff_kgp_min,a.Tariff_hkgp,a.Tariff_hkgs,a.Tariff_hkgp_min,
+                    a.PaymentID,c.Payment,a.Shipping_cost,a.Shipping_insurance,a.Shipping_packing,a.Shipping_forward,a.Shipping_handling,a.Shipping_surcharge,a.Shipping_admin,a.Shipping_discount,a.Shipping_cost_total,
+                    a.StatusID,b.`Status`,a.Created_at,a.Created_by,a.Updated_at,a.Updated_by,a.Updated_sys
+                FROM transaction_waybill a
+                INNER JOIN core_status b ON a.StatusID=b.StatusID
+                INNER JOIN mas_payment c ON a.PaymentID = c.PaymentID
+                INNER JOIN mas_mode d ON a.ModeID = d.ModeID
+                WHERE a.Waybill = :waybill LIMIT 1;";
+				
+				$stmt = $this->db->prepare($sql);		
+				$stmt->bindParam(':waybill', $this->waybill, PDO::PARAM_STR);
+
+				if ($stmt->execute()) {	
+    	    	    if ($stmt->rowCount() > 0){
+
+                        $sql2 = "SELECT a.Created_at,a.CodeID,a.Description,a.StatusID,b.Status,a.Username
+            				FROM log_data a
+			            	INNER JOIN core_status b ON a.StatusID = b.StatusID
+            				WHERE a.CodeID = :waybill
+			            	ORDER BY a.ItemID ASC";
+            			$stmt2 = $this->db->prepare($sql2);
+            			$stmt2->bindParam(':waybill', $this->waybill, PDO::PARAM_STR);
+
+                        if ($stmt2->execute()) {	
+                            if ($stmt2->rowCount() > 0){
+                                $datatrace = "[";
+                                while($retrace = $stmt2->fetch()){
+                                    $datatrace .= '{
+                                        "Created_at":'.json_encode($retrace['Created_at']).',
+                                        "Description":'.json_encode($retrace['Description']).',
+                                        "StatusID":'.json_encode($retrace['StatusID']).',
+                                        "Status":'.json_encode($retrace['Status']).',
+                                        "Created_by":'.json_encode($retrace['Username']).'
+                                    },';
+                                }
+                                $datatrace = substr($datatrace, 0, -1);
+                                $datatrace .= "]";
+                            }
+                        }
+
+        	   		   	$datares = "[";
+								while($redata = $stmt->fetch()) 
+								{
+									$datares .= '{
+                                        "Data":{
+                                            "Waybill":'.json_encode($redata['Waybill']).',
+                                            "BranchID":'.json_encode($redata['BranchID']).',
+                                            "DestId":'.json_encode($redata['DestID']).',
+                                            "Created_at":'.json_encode($redata['Created_at']).',
+                                            "Created_by":'.json_encode($redata['Created_by']).'
+                                        },
+                                        "Consignor":{
+                                            "CustomerID":'.json_encode($redata['CustomerID']).',
+                                            "Name":'.json_encode($redata['Consignor_name']).',
+                                            "Alias":'.json_encode($redata['Consignor_alias']).',
+                                            "Address":'.json_encode($redata['Consignor_address']).',
+                                            "Phone":'.json_encode($redata['Consignor_phone']).',
+                                            "Fax":'.json_encode($redata['Consignor_fax']).',
+                                            "Email":'.json_encode($redata['Consignor_email']).'
+                                        },
+                                        "Consignee":{
+                                            "ReferenceID":'.json_encode($redata['ReferenceID']).',
+                                            "Name":'.json_encode($redata['Consignee_name']).',
+                                            "Attention":'.json_encode($redata['Consignee_attention']).',
+                                            "Address":'.json_encode($redata['Consignee_address']).',
+                                            "Phone":'.json_encode($redata['Consignee_phone']).',
+                                            "Fax":'.json_encode($redata['Consignee_fax']).'
+                                        },
+                                        "Goods":{
+                                            "Instruction":'.json_encode($redata['Instruction']).',
+                                            "Description":'.json_encode($redata['Description']).',
+                                            "Weight_real":'.json_encode($redata['Weight_real']).',
+                                            "Weight":'.json_encode($redata['Weight']).',
+                                            "Koli":'.json_encode($redata['Goods_koli']).',
+                                            "Detail":'.$redata['Goods_data'].'
+                                        },
+                                        "Router":{
+                                            "ModeID":'.json_encode($redata['ModeID']).',
+                                            "Mode":'.json_encode($redata['Mode']).',
+                                            "Origin":'.json_encode($redata['Origin']).',
+                                            "Destination":'.json_encode($redata['Destination']).',
+                                            "Estimation":'.json_encode($redata['Estimation']).'
+                                        },
+                                        "Insurance":{
+                                            "Rate":'.json_encode($redata['Insurance_rate']).',
+                                            "Value":'.json_encode($redata['Goods_value']).'
+                                        },
+                                        "Tariff":{
+                                            "KGP":'.json_encode($redata['Tariff_kgp']).',
+                                            "KGS":'.json_encode($redata['Tariff_kgs']).',
+                                            "MinKG":'.json_encode($redata['Tariff_kgp_min']).'
+                                        },
+                                        "Tariff_handling":{
+                                            "KGP":'.json_encode($redata['Tariff_hkgp']).',
+                                            "KGS":'.json_encode($redata['Tariff_hkgs']).',
+                                            "MinKG":'.json_encode($redata['Tariff_hkgp_min']).'
+                                        },
+                                        "Payment":{
+                                            "PaymentID":'.json_encode($redata['PaymentID']).',
+                                            "Name":'.json_encode($redata['Payment']).'
+                                        },
+                                        "Transaction":{
+                                            "Shipping_cost":'.json_encode($redata['Shipping_cost']).',
+                                            "Shipping_insurance":'.json_encode($redata['Shipping_insurance']).',
+                                            "Shipping_packing":'.json_encode($redata['Shipping_packing']).',
+                                            "Shipping_forward":'.json_encode($redata['Shipping_forward']).',
+                                            "Shipping_handling":'.json_encode($redata['Shipping_handling']).',
+                                            "Shipping_surcharge":'.json_encode($redata['Shipping_surcharge']).',
+                                            "Shipping_admin":'.json_encode($redata['Shipping_admin']).',
+                                            "Shipping_discount":'.json_encode($redata['Shipping_discount']).',
+                                            "Shipping_cost_total":'.json_encode($redata['Shipping_cost_total']).'
+                                        },
+                                        "Log":{
+                                            "StatusID":'.json_encode($redata['StatusID']).',
+                                            "Status":'.json_encode($redata['Status']).',
+                                            "Updated_at":'.json_encode($redata['Updated_at']).',
+                                            "Updated_by":'.json_encode($redata['Updated_by']).',
+                                            "Updated_sys":'.json_encode($redata['Updated_sys']).'
+                                        }'.(!empty($datatrace)?',"Trace":'.$datatrace:'').'
+                                    },';
+								}
+								$datares = substr($datares, 0, -1);
+								$datares .= "]";
+						$data = [
+			   	            'result' => json_decode($datares), 
+    	    		        'status' => 'success', 
+			           	    'code' => 'RS501',
+        		        	'message' => CustomHandlers::getreSlimMessage('RS501')
+						];
+			        } else {
+        			    $data = [
+            		    	'status' => 'error',
+		        		    'code' => 'RS601',
+        		    	    'message' => CustomHandlers::getreSlimMessage('RS601')
+						];
+	    	        }          	   	
+				} else {
+					$data = [
+    	    			'status' => 'error',
+						'code' => 'RS202',
+	        		    'message' => CustomHandlers::getreSlimMessage('RS202')
+					];
+				}	
+			} else {
+                $data = [
+	    			'status' => 'error',
+					'code' => 'RS401',
+        	    	'message' => CustomHandlers::getreSlimMessage('RS401')
+				];
+			}
+			
+			return json_encode($data);
+	        $this->db= null;
+        }
+        
+        /** 
+		 * Trace data waybill only single detail for public
+		 * @return result process in json encoded data
+		 */
+		public function traceWaybillDetailPublic(){
+			if (Auth::validToken($this->db,$this->token,$this->username)){
+				$sql = "SELECT a.Waybill,a.BranchID,a.DestID,
+                    a.CustomerID,a.Consignor_name,a.Consignor_alias,a.Consignor_address,a.Consignor_phone,a.Consignor_fax,a.Consignor_email,
+                    a.ReferenceID,a.Consignee_name,a.Consignee_attention,a.Consignee_address,a.Consignee_phone,a.Consignee_fax,
+                    a.Instruction,a.Description,a.Goods_data,a.Goods_koli,a.Weight,a.Weight_real,
+                    a.ModeID,d.Mode,a.Origin,a.Destination,a.Estimation,
+                    a.Insurance_rate,a.Goods_value,
+                    a.Tariff_kgp,a.Tariff_kgs,a.Tariff_kgp_min,a.Tariff_hkgp,a.Tariff_hkgs,a.Tariff_hkgp_min,
+                    a.PaymentID,c.Payment,a.Shipping_cost,a.Shipping_insurance,a.Shipping_packing,a.Shipping_forward,a.Shipping_handling,a.Shipping_surcharge,a.Shipping_admin,a.Shipping_discount,a.Shipping_cost_total,
+                    a.StatusID,b.`Status`,a.Created_at,a.Created_by,a.Updated_at,a.Updated_by,a.Updated_sys
+                FROM transaction_waybill a
+                INNER JOIN core_status b ON a.StatusID=b.StatusID
+                INNER JOIN mas_payment c ON a.PaymentID = c.PaymentID
+                INNER JOIN mas_mode d ON a.ModeID = d.ModeID
+                WHERE a.Waybill = :waybill LIMIT 1;";
+				
+				$stmt = $this->db->prepare($sql);		
+				$stmt->bindParam(':waybill', $this->waybill, PDO::PARAM_STR);
+
+				if ($stmt->execute()) {	
+    	    	    if ($stmt->rowCount() > 0){
+
+                        $sql2 = "SELECT a.Created_at,a.CodeID,a.Description,a.StatusID,b.Status,a.Username
+            				FROM log_data a
+			            	INNER JOIN core_status b ON a.StatusID = b.StatusID
+            				WHERE a.CodeID = :waybill
+			            	ORDER BY a.ItemID ASC";
+            			$stmt2 = $this->db->prepare($sql2);
+            			$stmt2->bindParam(':waybill', $this->waybill, PDO::PARAM_STR);
+
+                        if ($stmt2->execute()) {	
+                            if ($stmt2->rowCount() > 0){
+                                $datatrace = "[";
+                                while($retrace = $stmt2->fetch()){
+                                    $datatrace .= '{
+                                        "Created_at":'.json_encode($retrace['Created_at']).',
+                                        "Description":'.json_encode($retrace['Description']).',
+                                        "StatusID":'.json_encode($retrace['StatusID']).',
+                                        "Status":'.json_encode($retrace['Status']).',
+                                        "Created_by":'.json_encode($retrace['Username']).'
+                                    },';
+                                }
+                                $datatrace = substr($datatrace, 0, -1);
+                                $datatrace .= "]";
+                            }
+                        }
+
+        	   		   	$datares = "[";
+								while($redata = $stmt->fetch()) 
+								{
+									$datares .= '{
+                                        "Data":{
+                                            "Waybill":'.json_encode($redata['Waybill']).',
+                                            "BranchID":'.json_encode($redata['BranchID']).',
+                                            "DestId":'.json_encode($redata['DestID']).',
+                                            "Created_at":'.json_encode($redata['Created_at']).',
+                                            "Created_by":'.json_encode($redata['Created_by']).'
+                                        },
+                                        "Consignor":{
+                                            "CustomerID":'.json_encode($redata['CustomerID']).',
+                                            "Name":'.json_encode($redata['Consignor_name']).',
+                                            "Alias":'.json_encode($redata['Consignor_alias']).',
+                                            "Address":'.json_encode($redata['Consignor_address']).',
+                                            "Phone":'.json_encode($redata['Consignor_phone']).',
+                                            "Fax":'.json_encode($redata['Consignor_fax']).',
+                                            "Email":'.json_encode($redata['Consignor_email']).'
+                                        },
+                                        "Consignee":{
+                                            "ReferenceID":'.json_encode($redata['ReferenceID']).',
+                                            "Name":'.json_encode($redata['Consignee_name']).',
+                                            "Attention":'.json_encode($redata['Consignee_attention']).',
+                                            "Address":'.json_encode($redata['Consignee_address']).',
+                                            "Phone":'.json_encode($redata['Consignee_phone']).',
+                                            "Fax":'.json_encode($redata['Consignee_fax']).'
+                                        },
+                                        "Goods":{
+                                            "Instruction":'.json_encode($redata['Instruction']).',
+                                            "Description":'.json_encode($redata['Description']).',
+                                            "Weight_real":'.json_encode($redata['Weight_real']).',
+                                            "Weight":'.json_encode($redata['Weight']).',
+                                            "Koli":'.json_encode($redata['Goods_koli']).',
+                                            "Detail":'.$redata['Goods_data'].'
+                                        },
+                                        "Router":{
+                                            "ModeID":'.json_encode($redata['ModeID']).',
+                                            "Mode":'.json_encode($redata['Mode']).',
+                                            "Origin":'.json_encode($redata['Origin']).',
+                                            "Destination":'.json_encode($redata['Destination']).',
+                                            "Estimation":'.json_encode($redata['Estimation']).'
+                                        },
+                                        "Insurance":{
+                                            "Rate":'.json_encode($redata['Insurance_rate']).',
+                                            "Value":'.json_encode($redata['Goods_value']).'
+                                        },
+                                        "Tariff":{
+                                            "KGP":'.json_encode($redata['Tariff_kgp']).',
+                                            "KGS":'.json_encode($redata['Tariff_kgs']).',
+                                            "MinKG":'.json_encode($redata['Tariff_kgp_min']).'
+                                        },
+                                        "Tariff_handling":{
+                                            "KGP":'.json_encode($redata['Tariff_hkgp']).',
+                                            "KGS":'.json_encode($redata['Tariff_hkgs']).',
+                                            "MinKG":'.json_encode($redata['Tariff_hkgp_min']).'
+                                        },
+                                        "Payment":{
+                                            "PaymentID":'.json_encode($redata['PaymentID']).',
+                                            "Name":'.json_encode($redata['Payment']).'
+                                        },
+                                        "Transaction":{
+                                            "Shipping_cost":'.json_encode($redata['Shipping_cost']).',
+                                            "Shipping_insurance":'.json_encode($redata['Shipping_insurance']).',
+                                            "Shipping_packing":'.json_encode($redata['Shipping_packing']).',
+                                            "Shipping_forward":'.json_encode($redata['Shipping_forward']).',
+                                            "Shipping_handling":'.json_encode($redata['Shipping_handling']).',
+                                            "Shipping_surcharge":'.json_encode($redata['Shipping_surcharge']).',
+                                            "Shipping_admin":'.json_encode($redata['Shipping_admin']).',
+                                            "Shipping_discount":'.json_encode($redata['Shipping_discount']).',
+                                            "Shipping_cost_total":'.json_encode($redata['Shipping_cost_total']).'
+                                        },
+                                        "Log":{
+                                            "StatusID":'.json_encode($redata['StatusID']).',
+                                            "Status":'.json_encode($redata['Status']).',
+                                            "Updated_at":'.json_encode($redata['Updated_at']).',
+                                            "Updated_by":'.json_encode($redata['Updated_by']).',
+                                            "Updated_sys":'.json_encode($redata['Updated_sys']).'
+                                        }'.(!empty($datatrace)?',"Trace":'.$datatrace:'').'
+                                    },';
+								}
+								$datares = substr($datares, 0, -1);
+								$datares .= "]";
+						$data = [
+			   	            'result' => json_decode($datares), 
+    	    		        'status' => 'success', 
+			           	    'code' => 'RS501',
+        		        	'message' => CustomHandlers::getreSlimMessage('RS501')
+						];
+			        } else {
+        			    $data = [
+            		    	'status' => 'error',
+		        		    'code' => 'RS601',
+        		    	    'message' => CustomHandlers::getreSlimMessage('RS601')
+						];
+	    	        }          	   	
+				} else {
+					$data = [
+    	    			'status' => 'error',
+						'code' => 'RS202',
+	        		    'message' => CustomHandlers::getreSlimMessage('RS202')
+					];
+				}	
+			} else {
+                $data = [
+	    			'status' => 'error',
+					'code' => 'RS401',
+        	    	'message' => CustomHandlers::getreSlimMessage('RS401')
+				];
+			}
+			
+			return json_encode($data);
+	        $this->db= null;
+		}
 
     }
