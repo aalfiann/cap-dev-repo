@@ -35,6 +35,15 @@ use \classes\JSON as JSON;
             $this->between = $between;
         }
 
+        /**
+         * Validation middleware invokable class
+         * 
+         * @param \Psr\Http\Message\ServerRequestInterface  $request    PSR7 request
+         * @param \Psr\Http\Message\ResponseInterface       $response   PSR7 response
+         * @param callable                                  $next       Next middleware
+         * 
+         * @return \Psr\Http\Message\ResponseInterface
+         */
         public function __invoke($request, $response, $next){
             if($this->validate($request,$this->parameter,$this->between,$this->regex)){
                 $response = $next($request, $response);    
@@ -227,10 +236,12 @@ use \classes\JSON as JSON;
             $data = $request->getBody();
             if (empty($data)) {
                 $this->error = 'The body of request json is empty! Maybe you got the wrong way to send your json request into our server.';
+                return false;
             } else {
                 $parsedBody = json_decode($data,true);
                 if (empty($parsedBody)) {
                     $this->error = ['info'=>'Corrupted, malformed or empty request json!','debug' => json_decode(JSON::debug_decode($data,true)),'encoded_request'=>$data];
+                    return false;
                 } else {
                     if ($this->valueTest($parameter,$parsedBody,$between,$regex) > 0) return true;
                 }
