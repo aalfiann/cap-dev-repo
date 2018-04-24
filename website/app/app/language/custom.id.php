@@ -32,6 +32,8 @@ $customlang = [
     'estimation' => 'Estimasi',
     'origin' => 'Kota Asal',
     'destination' => 'Destinasi',
+    'branchid_origin' => 'ID Cabang Origin',
+    'branchid_destination' => 'ID Cabang Destinasi',
     'weight' => 'Berat',
     'actkg' => 'Act. Kg',
     'volkg' => 'Vol. Kg',
@@ -96,6 +98,9 @@ $customlang = [
     //help transaction
     'help_browse_customer' => 'Klik browse untuk mencari Customer ID.',
     'help_reference_id' => 'Referensi ID adalah no resi mitra, agar sistem dapat tracking menggunakan no resi mitra.',
+    'help_dest_id' => 'Anda harus memilih cabang destinasi mana yang akan menghandle barang Anda.<br>Jika City Courier maka pilih cabang Anda sendiri.',
+    //validation
+    'select_destination_required' => 'Anda belum memilih cabang destinasi!',
     //input transaction
     'input_browse_customer' => 'Customer ID dapat berupa ID Corporate atau ID Member...',
     'input_reference_id' => 'Referensi ID harus unik...',

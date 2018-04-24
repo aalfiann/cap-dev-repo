@@ -32,6 +32,8 @@ $customlang = [
     'estimation' => 'Estimation',
     'origin' => 'Origin',
     'destination' => 'Destination',
+    'branchid_origin' => 'Branch ID Origin',
+    'branchid_destination' => 'Branch ID Destination',
     'weight' => 'Weight',
     'actkg' => 'Act. Kg',
     'volkg' => 'Vol. Kg',
@@ -96,6 +98,9 @@ $customlang = [
     //help transaction
     'help_browse_customer' => 'Click browse to search Customer ID.',
     'help_reference_id' => 'Reference ID is no partner\'s receipt, so the system can tracking using no partner\'s receipt.',
+    'help_dest_id' => 'You have to choose which branch of destination will handle your goods.<br>If City Courier then select your own branch.',
+    //validation
+    'select_destination_required' => 'You have not selected destination branches yet!',
     //input transaction
     'input_browse_customer' => 'Customer ID could be ID Corporate or ID Member...',
     'input_reference_id' => 'Referensi ID must unique...',
