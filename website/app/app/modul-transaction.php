@@ -1039,7 +1039,7 @@ $datalogin = Core::checkSessions();?>
                     if (($('#radio2').is(':checked') || $('#radio3').is(':checked')) && !$.trim($('#custid').val()).length){
                         swal("<?php echo Core::lang('transaction_failed')?>", "<?php echo Core::lang('transaction_failed_customer')?>","error");
                     } else {
-                        swal("<?php echo Core::lang('transaction_success')?>",  $('#tablejson').val()+'<br>cara bayar: '+selectedOptionPayment(),"success");
+                        sendnewdata();
                     }
                 }
             });
@@ -1237,6 +1237,76 @@ $datalogin = Core::checkSessions();?>
                 $("select#mode").prop('selectedIndex', 1);
             },3000);
         });
+
+        /* Submit transaction start */
+        function sendnewdata(){
+            $(function(){
+                console.log("Process add new data...");
+                $.ajax({
+                    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargo/transaction/data/new')?>"),
+                    data : {
+                        Username: "<?php echo $datalogin['username']?>",
+                        Token: "<?php echo $datalogin['token']?>",
+                        DestID: $("#destid").val(),
+                        CustomerID: $("#custid").val(),
+                        Consignor_name: $("#shippername").val(),
+                        Consignor_alias: $("#aliasname").val(),
+                        Consignor_address: $("#address").val(),
+                        Consignor_phone: $("#phone").val(),
+                        Consignor_fax: $("#fax").val(),
+                        Consignor_email: $("#email").val(),
+                        ReferenceID: $("#refid").val(),
+                        Consignee_name: $("#consigneename").val(),
+                        Consignee_attention: $("#attentionname").val(),
+                        Consignee_address: $("#consigneeaddress").val(),
+                        Consignee_phone: $("#consigneephone").val(),
+                        Consignee_fax: $("#consigneefax").val(),
+                        ModeID: selectedOption(),
+                        Origin: $("#origin").val(),
+                        Destination: $("#destination").val(),
+                        Estimation: $("#estimation").val(),
+                        Instruction: $("#instructions").val(),
+                        Description: $("#descriptions").val(),
+                        Goods_data: $("#tablejson").val(),
+                        Goods_koli: $("#koli").val(),
+                        Weight: $("#weight").val(),
+                        Weight_real: $("#realkg").val(),
+                        Insurance_rate: $("#insurance_rate").val(),
+                        Goods_value: $("#goods_value").val(),
+                        KGP: $("#kgp").val(),
+                        KGS: $("#kgs").val(),
+                        MINKGP: $("#minkgp").val(),
+                        HKGP: $("#hkgp").val(),
+                        HKGS: $("#hkgs").val(),
+                        MINHKGP: $("#minhkgp").val(),
+                        PaymentID: selectedOptionPayment(),
+                        Shipping_cost: $("#shipping_cost").val(),
+                        Shipping_insurance: $("#shipping_cost_insurance").val(),
+                        Shipping_packing: $("#shipping_cost_packing").val(),
+                        Shipping_forward: $("#shipping_cost_forward").val(),
+                        Shipping_handling: $("#handling").val(),
+                        Shipping_surcharge: $("#shipping_cost_surcharge").val(),
+                        Shipping_admin: $("#shipping_cost_admin").val(),
+                        Shipping_discount: $("#shipping_cost_discount").val(),
+                        Shipping_cost_total: $("#shipping_cost_total").val()
+                    },
+                    dataType: "json",
+                    type: "POST",
+                    success: function(data) {
+                        if (data.status == "success"){
+                            console.log("<?php echo Core::lang('core_process_add').' '.Core::lang('transaction').' '.Core::lang('status_success')?>");
+                            swal("<?php echo Core::lang('transaction_success')?>",  "No Waybill: "+data.waybill,"success");
+                        } else {
+                            console.log("<?php echo Core::lang('core_process_add').' '.Core::lang('transaction').' '.Core::lang('status_failed')?>");
+                            console.log("Message: "+data.message);
+                            swal("<?php echo Core::lang('transaction_failed')?>",  data.message,"error");
+                        }
+                    },
+                    error: function(x, e) {}
+                }); 
+            });
+        }
+        /* Submit transaction end */
     </script>
 </body>
 
