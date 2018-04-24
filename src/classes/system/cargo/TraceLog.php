@@ -460,7 +460,7 @@ use PDO;
 					FROM log_data a
 					INNER JOIN core_status b ON a.StatusID = b.StatusID
 					WHERE a.CodeID = :codeid
-					ORDER BY a.Created_at ASC";
+					ORDER BY a.ItemID ASC";
 				$stmt = $this->db->prepare($sql);
 				$stmt->bindParam(':codeid', $this->codeid, PDO::PARAM_STR);
 				if ($stmt->execute()) {	
@@ -507,7 +507,7 @@ use PDO;
 				FROM log_data a
 				INNER JOIN core_status b ON a.StatusID = b.StatusID
 				WHERE a.CodeID = :codeid
-				ORDER BY a.Created_at ASC";
+				ORDER BY a.ItemID ASC";
 			$stmt = $this->db->prepare($sql);
 			$stmt->bindParam(':codeid', $this->codeid, PDO::PARAM_STR);
 			if ($stmt->execute()) {	
