@@ -44,6 +44,7 @@ $customlang = [
     'customer' => 'Customer',
     'actual' => 'Actual',
     'bag' => 'Koli',
+    'waybill' => 'Waybill',
     //dimension
     'length' => 'Panjang',
     'width' => 'Lebar',
