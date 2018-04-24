@@ -45,6 +45,8 @@ use \classes\SimpleCache as SimpleCache;
         $cargo->kgs = $datapost['KGS'];
         $cargo->hkgp = $datapost['HKGP'];
         $cargo->hkgs = $datapost['HKGS'];
+        $cargo->minkgp = $datapost['MINKGP'];
+        $cargo->minhkgp = $datapost['MINHKGP'];
 
         $cargo->paymentid = $datapost['PaymentID'];
         $cargo->shipping_cost = $datapost['Shipping_cost'];
@@ -105,6 +107,8 @@ use \classes\SimpleCache as SimpleCache;
         $cargo->kgs = $datapost['KGS'];
         $cargo->hkgp = $datapost['HKGP'];
         $cargo->hkgs = $datapost['HKGS'];
+        $cargo->minkgp = $datapost['MINKGP'];
+        $cargo->minhkgp = $datapost['MINHKGP'];
 
         $cargo->paymentid = $datapost['PaymentID'];
         $cargo->shipping_cost = $datapost['Shipping_cost'];
@@ -218,6 +222,28 @@ use \classes\SimpleCache as SimpleCache;
         $cargo->deliveryid = $datapost['DeliveryID'];
         $body = $response->getBody();
         $body->write($cargo->returned('3'));
+        return classes\Cors::modify($response,$body,200);
+    });
+
+    // GET api to show data waybill registered user
+    $app->get('/cargo/transaction/data/waybill/{username}/{token}/{waybill}', function (Request $request, Response $response) {
+        $cargo = new classes\system\cargo\Transaction($this->db);
+        $cargo->username = $request->getAttribute('username');
+        $cargo->token = $request->getAttribute('token');
+        $cargo->waybill = $request->getAttribute('waybill');
+        $body = $response->getBody();
+        $body->write($cargo->showWaybillDetail());
+        return classes\Cors::modify($response,$body,200);
+    });
+
+    // GET api to show data trace waybill registered user
+    $app->get('/cargo/transaction/data/trace/waybill/{username}/{token}/{waybill}', function (Request $request, Response $response) {
+        $cargo = new classes\system\cargo\Transaction($this->db);
+        $cargo->username = $request->getAttribute('username');
+        $cargo->token = $request->getAttribute('token');
+        $cargo->waybill = $request->getAttribute('waybill');
+        $body = $response->getBody();
+        $body->write($cargo->traceWaybillDetail());
         return classes\Cors::modify($response,$body,200);
     });
 
