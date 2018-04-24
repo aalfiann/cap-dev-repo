@@ -803,14 +803,14 @@ use PDO;
 				$newusername = strtolower($this->username);
 				$roles = Auth::getRoleID($this->db,$this->token);
                 if ($roles < 3){
-					$sql = "SELECT a.Name
+					$sql = "SELECT a.BranchID,a.Name
 						FROM sys_company a
 						WHERE a.StatusID = '1'
 						ORDER BY a.Name ASC;";
 				
 					$stmt = $this->db->prepare($sql);
 				} else {
-					$sql = "SELECT b.Name
+					$sql = "SELECT b.BranchID,b.Name
 						FROM sys_user a
 						INNER JOIN sys_company b ON a.BranchID = b.BranchID
 						WHERE b.StatusID = '1' AND a.Username = :username
@@ -859,7 +859,7 @@ use PDO;
         public function listOrigin(){
 			if (Auth::validToken($this->db,$this->token)){
 				$search = "$this->search%";
-				$sql = "SELECT a.`Name`
+				$sql = "SELECT a.BranchID,a.`Name`
 					FROM sys_company a
 					WHERE a.StatusID = '1' AND a.`Name` like :search
 					ORDER BY a.`Name` ASC;";
@@ -948,7 +948,7 @@ use PDO;
 		
 		public function listOriginPublic(){
 			$search = "$this->search%";
-			$sql = "SELECT a.`Name`
+			$sql = "SELECT a.BranchID,a.`Name`
 				FROM sys_company a
 				WHERE a.StatusID = '1' AND a.`Name` like :search
 				ORDER BY a.`Name` ASC;";
