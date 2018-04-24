@@ -305,6 +305,13 @@ $datalogin = Core::checkSessions();?>
                                     <section>
                                         <div class="row">
                                             <div class="col-md-6">
+                                                <h3><?php echo Core::lang('branch').' '.Core::lang('handling')?></h3><hr>
+                                                <div class="form-group row">
+                                                    <label for="destid" class="col-sm-3"><?php echo Core::lang('branch').' '.Core::lang('destination')?></label>
+                                                    <select class="custom-select form-control col-sm-9 required" id="destid" name="destid"></select>
+                                                    <small id="infodestid" class="form-text col-sm-12"><?php echo Core::lang('help_dest_id')?></small>
+                                                </div><hr>
+                                                <div class="col-md-12"><br></div>
                                                 <h3><?php echo Core::lang('calculate_tariff')?></h3><hr>
                                                 <div class="form-group">
                                                     <label for="origin"><?php echo Core::lang('origin')?> : <span class="text-danger">*</span> </label>
@@ -341,37 +348,49 @@ $datalogin = Core::checkSessions();?>
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-3">
                                                         <div class="form-group" hidden>
                                                             <label for="kgp"><?php echo Core::lang('kgp')?> :</label>
                                                             <input type="text" class="form-control" id="kgp" name="kgp"></input>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-3">
                                                         <div class="form-group" hidden>
-                                                            <label for="h=kgs"><?php echo Core::lang('kgs')?> :</label>
+                                                            <label for="kgs"><?php echo Core::lang('kgs')?> :</label>
                                                             <input name="kgs" id="kgs" class="form-control" style="text-align: right;"></input>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-3">
+                                                        <div class="form-group" hidden>
+                                                            <label for="minkgp"><?php echo Core::lang('kgs')?> :</label>
+                                                            <input name="minkgp" id="minkgp" class="form-control" style="text-align: right;"></input>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
                                                         <div class="form-group" hidden>
                                                             <label for="estimation"><?php echo Core::lang('estimation')?> :</label>
                                                             <input name="estimation" id="estimation" class="form-control" style="text-align: right;"></input>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-3">
                                                         <div class="form-group" hidden>
                                                             <label for="hkgp"><?php echo Core::lang('hkgp')?> :</label>
                                                             <input type="text" class="form-control" id="hkgp" name="hkgp"></input>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-3">
                                                         <div class="form-group" hidden>
                                                             <label for="hkgs"><?php echo Core::lang('hkgs')?> :</label>
                                                             <input name="hkgs" id="hkgs" class="form-control" style="text-align: right;"></input>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-3">
+                                                        <div class="form-group" hidden>
+                                                            <label for="minhkgp"><?php echo Core::lang('kgs')?> :</label>
+                                                            <input name="minhkgp" id="minhkgp" class="form-control" style="text-align: right;"></input>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
                                                         <div class="form-group" hidden>
                                                             <label for="handling"><?php echo Core::lang('shipping_cost_handling')?> :</label>
                                                             <input name="handling" id="handling" class="form-control" style="text-align: right;"></input>
@@ -479,6 +498,30 @@ $datalogin = Core::checkSessions();?>
             });
         }
         /* Get mode option end */
+
+        /* Get branch option start */
+        function loadBranchOption(){
+            $(function(){
+                $('#destid').empty().append('<option value=""></option>');
+                $.ajax({
+				    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargo/tariff/data/list/origin/search/'.$datalogin['token'].'/')?>")+"?query=&_="+randomText(60),
+	    	    	dataType: 'json',
+	    	    	type: 'GET',
+		    		ifModified: true,
+    		        success: function(data,status) {
+    			    	if (status === "success") {
+					    	if (data.status == "success"){
+                                $.each(data.results, function(i, item) {
+                                    $("#destid").append("<option value=\""+data.results[i].BranchID+"\">"+data.results[i].Name+"</option>");
+                                });
+    				    	}
+    	    			}
+	    		    },
+                	error: function(x, e) {}
+    	    	});
+            });
+        }
+        /* Get branch option end */
 
         /* Get payment method option start */
         function loadPaymentOption(){
@@ -602,9 +645,11 @@ $datalogin = Core::checkSessions();?>
                                 $('#shipping_cost').val(data.results[0].Tariff);
                                 $('#kgp').val(data.results[0].KGP);
                                 $('#kgs').val(data.results[0].KGS);
+                                $('#minkgp').val(data.results[0].Min_Kg);
                                 $('#estimation').val(data.results[0].Estimasi);
                                 $('#hkgp').val(data.results[0].H_KGP);
                                 $('#hkgs').val(data.results[0].H_KGS);
+                                $('#minhkgp').val(data.results[0].H_Min_Kg);
                                 $('#handling').val(data.results[0].Handling);
                                 calculateCost();
                                 console.log(data.message);
@@ -682,9 +727,11 @@ $datalogin = Core::checkSessions();?>
             $(function(){
                 $('#kgp').val(0);
                 $('#kgs').val(0);
+                $('#minkgp').val(0);
                 $('#estimation').val(0);
                 $('#hkgp').val(0);
                 $('#hkgs').val(0);
+                $('#minhkgp').val(0);
                 $('#handling').val(0);
                 $('#insurance_rate').val(0);
                 $('#goods_value').val(0);
@@ -961,6 +1008,7 @@ $datalogin = Core::checkSessions();?>
         }
 
         loadModeOption();
+        loadBranchOption();
         loadPaymentOption();
         loadOriginOption();
         
@@ -1036,6 +1084,10 @@ $datalogin = Core::checkSessions();?>
                 return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
             }, "<?php echo Core::lang('val_alphanumeric_html')?>");
             
+            $.validator.addMethod("valueNotEquals", function(value, element, arg){
+                return arg !== value;
+            }, "<?php echo Core::lang('input_required')?>");
+            
             $(".validation-wizard").validate({
                 ignore: "input[type=hidden]",
                 errorClass: "text-danger",
@@ -1059,8 +1111,12 @@ $datalogin = Core::checkSessions();?>
                     insurance_rate: 'rate',
                     goods_value: 'goods_value',
                     shipping_cost: 'notzero',
-                    shipping_cost_total: 'notzero'
-                }
+                    shipping_cost_total: 'notzero',
+                    destid: 'valueNotEquals'
+                },
+                messages: {
+                    destid: "<?php echo Core::lang('select_destination_required')?>"
+                } 
             });
 
             $(document).on("focusin", "#custid", function() {
@@ -1176,7 +1232,10 @@ $datalogin = Core::checkSessions();?>
                 }
                 clearTable();
             });
-
+            /* Default Mode */
+            setTimeout(function(){
+                $("select#mode").prop('selectedIndex', 1);
+            },3000);
         });
     </script>
 </body>
