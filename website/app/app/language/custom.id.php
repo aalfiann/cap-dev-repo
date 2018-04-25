@@ -11,6 +11,7 @@ $customlang = [
     //direction
     'next' => 'Berikutnya',
     'previous' => 'Sebelumnya',
+    'go_back' => 'Kembali',
     //wizard
     'step_next' => 'Berikutnya <i class="mdi mdi-skip-next"></i>',
     'step_previous' => '<i class="mdi mdi-skip-previous"></i> Sebelumnya',
@@ -111,5 +112,8 @@ $customlang = [
     'check_tariff' => 'Cek Tarif',
     'calculate_tariff' => 'Hitung Tarif',
     //placeholder
-    'city_district' => 'Kota / Kabupaten'
+    'city_district' => 'Kota / Kabupaten',
+    //print
+    'print' => 'Print',
+    'print_preview' => 'Pratinjau Print'
 ];

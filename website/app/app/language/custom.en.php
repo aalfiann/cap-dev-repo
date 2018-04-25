@@ -11,6 +11,7 @@ $customlang = [
     //direction
     'next' => 'Next',
     'previous' => 'Previous',
+    'go_back' => 'Go Back',
     //wizard
     'step_next' => 'Next <i class="mdi mdi-skip-next"></i>',
     'step_previous' => '<i class="mdi mdi-skip-previous"></i> Previous',
@@ -111,5 +112,8 @@ $customlang = [
     'check_tariff' => 'Check Tariff',
     'calculate_tariff' => 'Calculate Tariff',
     //placeholder
-    'city_district' => 'City / District'
+    'city_district' => 'City / District',
+    //print
+    'print' => 'Print',
+    'print_preview' => 'Preview Print'
 ];
