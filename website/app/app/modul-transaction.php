@@ -1118,7 +1118,7 @@ $datalogin = Core::checkSessions();?>
                     destid: "<?php echo Core::lang('select_destination_required')?>"
                 } 
             });
-
+            
             $(document).on("focusin", "#custid", function() {
                 $(this).prop('readonly', true);  
             });
@@ -1126,7 +1126,7 @@ $datalogin = Core::checkSessions();?>
             $(document).on("focusout", "#custid", function() {
                 $(this).prop('readonly', false); 
             });
-
+            
             $('#radio1').click(function() {
                 if($('#radio1').is(':checked')) {
                     consigneeReset();
@@ -1192,14 +1192,6 @@ $datalogin = Core::checkSessions();?>
             $('a[href$="#next"]').addClass('bg-theme');
             $("#dobrowse").hide();
             /* default event */
-            $(document).on("focusin", "#koli", function() {
-                $(this).prop('readonly', true);  
-            });
-
-            $(document).on("focusout", "#koli", function() {
-                $(this).prop('readonly', false); 
-            });
-
             $('#destination').on('keydown', function(e) {
                 /* detect tab also ctrl and a or c or v*/
                 if (e.ctrlKey){
@@ -1295,7 +1287,14 @@ $datalogin = Core::checkSessions();?>
                     success: function(data) {
                         if (data.status == "success"){
                             console.log("<?php echo Core::lang('core_process_add').' '.Core::lang('transaction').' '.Core::lang('status_success')?>");
-                            swal("<?php echo Core::lang('transaction_success')?>",  "No Waybill: "+data.waybill,"success");
+                            swal({
+                                title: "<?php echo Core::lang('transaction_success')?>",
+                                text: "No Waybill: "+data.waybill,
+                                type: "success"
+                            },
+                            function(){
+                                window.location.href = "print-waybill.php?no="+data.waybill+"&ref=modul-transaction.php";
+                            });
                         } else {
                             console.log("<?php echo Core::lang('core_process_add').' '.Core::lang('transaction').' '.Core::lang('status_failed')?>");
                             console.log("Message: "+data.message);
