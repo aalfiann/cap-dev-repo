@@ -102,9 +102,29 @@ $datalogin = Core::checkSessions();?>
                                         </address>
                                         
                                         <h3>Route</h3>
-                                            <span>Jakarta Selatan >> Kalimantan Selatan</span><br>
-                                            <span>Tanggal Kirim: 15-09-2018</span><br>
-                                            <span>Estimasi: 1 hari</span>
+                                        <span class="text-muted m-l-5">Jakarta Selatan >> Kalimantan Selatan</span><br>
+                                        <span class="text-muted m-l-5">Tanggal Kirim: 15-09-2018</span><br>
+                                        <span class="text-muted m-l-5">Estimasi: 1 hari</span>
+                                        
+                                        <hr>
+                                        <table style="width:100%">
+                                                <tr>
+                                                    <td align="left"><h5>Petugas</h5></td>
+                                                    <td align="right"><h5>Pengirim</h5></td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="left"></td>
+                                                    <td align="right"><br></td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="left"></td>
+                                                    <td align="right"><br></td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="left"><span class="m-l-5">RESLIM</span></td>
+                                                    <td align="right">........................</td>
+                                                </tr>
+                                            </table>
                                     </div>
 
                                     <div class="pull-right">
@@ -125,10 +145,30 @@ $datalogin = Core::checkSessions();?>
                                             PAKET SEPATU KACA<br>
                                             PAKET SEPATU KACA<br>
                                             </p>
-                                            <p class="text-muted m-l-5"><span><b>Actual Kg:</b> 1 Kg, <b>Berat:</b> 1 Kg, <b>Koli:</b> 1<br>
-                                            <b>Rate Asuransi %:</b> 0.02, <b>Nilai Barang:</b> 1,000,000</span></p>
                                             
-                                            
+                                            <table style="width:100%">
+                                                <tr>
+                                                    <td align="left"><b class="text-muted">Actual Kg :</b></td>
+                                                    <td align="left">1 Kg</td>
+                                                    
+                                                    <td align="left"><b class="text-muted">Berat :</b></td>
+                                                    <td align="left">1 Kg</td>
+
+                                                    <td align="left"><b class="text-muted">Koli :</b></td>
+                                                    <td align="left">1</td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="left"><b class="text-muted">Rate Asuransi % :</b></td>
+                                                    <td align="left">0.02</td>
+                                                    
+                                                    <td align="left"><b class="text-muted"></b></td>
+                                                    <td align="left"></td>
+
+                                                    <td align="left"><b class="text-muted">Nilai Barang :</b></td>
+                                                    <td align="left">1,000,000</td>
+                                                </tr>
+                                            </table>
+                                            <hr>
                                             <table style="width:100%">
                                                 <tr>
                                                     <td align="left"><h3>Transaction</h3></td>
