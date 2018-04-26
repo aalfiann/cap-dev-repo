@@ -1,7 +1,25 @@
 <?php spl_autoload_register(function ($classname) {require ( $classname . ".php");});
 $refpage = (empty($_GET['ref'])?'modul-transaction.php':$_GET['ref']);
 $waybill = (empty($_GET['no'])?'0000000000000':$_GET['no']);
-$datalogin = Core::checkSessions();?>
+$datalogin = Core::checkSessions();
+// Get data waybill
+$urlwaybill = Core::getInstance()->api.'/cargo/transaction/data/waybill/'.$datalogin['username'].'/'.$datalogin['token'].'/'.$waybill;
+$datawaybill = json_decode(Core::execGetRequest($urlwaybill));
+$callsuccess = false;
+$callmsg = "";
+if (!empty($datawaybill)){
+    if ($datawaybill->{'status'} == 'success'){
+        $callsuccess = true;
+        $callmsg = $datawaybill->{'message'};
+    } else {
+        $callsuccess = false;
+        $callmsg = $datawaybill->{'message'};
+    }
+} else {
+    $callsuccess = false;
+    $callmsg = Core::lang('core_not_connected');
+}
+?>
 <!DOCTYPE html>
 <html lang="<?php echo Core::getInstance()->setlang?>">
 <head>
@@ -45,38 +63,38 @@ $datalogin = Core::checkSessions();?>
             <!-- Container fluid  -->
             <!-- ============================================================== -->
             <div class="container-fluid">
-                <!-- ============================================================== -->
-                <!-- Bread crumb and right sidebar toggle -->
-                <!-- ============================================================== -->
-                <div class="row page-titles">
-                    <div class="col-md-12 align-self-center">
-                        <h3 class="text-themecolor m-b-0 m-t-0"><?php echo Core::lang('print_preview').' '.Core::lang('waybill')?> <button id="print" class="btn btn-themecolor pull-right" type="button"> <span><i class="fa fa-print"></i> Print</span> </button></h3>
-                        
-                        
+            <?php 
+                if ($callsuccess){
+                    echo '<!-- ============================================================== -->
+                    <!-- Additional Print start -->
+                    <!-- ============================================================== -->
+                    <div class="row page-titles">
+                        <div class="col-md-12 align-self-center">
+                            <h3 class="text-themecolor m-b-0 m-t-0">'.Core::lang('print_preview').' '.Core::lang('waybill').' <button id="print" class="btn btn-themecolor pull-right" type="button"> <span><i class="fa fa-print"></i> Print</span> </button></h3>
+                        </div>
                     </div>
-                </div>
-                <!-- ============================================================== -->
-                <!-- End Bread crumb and right sidebar toggle -->
-                <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+                    <!-- Additional Print start -->
+                    <!-- ============================================================== -->
 
-                <!-- ============================================================== -->
-                <!-- Start Page Content -->
-                <!-- ============================================================== -->
-                <div class="row">
+                    <!-- ============================================================== -->
+                    <!-- Start Page Content -->
+                    <!-- ============================================================== -->
+                    <div class="row">
                     <div class="col-md-12">
                         <div class="card card-body printableArea">
                             <!-- Sheet 1 start -->
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="pull-left">
-                                        <h3><b class="text-primary"><?php echo Core::getInstance()->title?></b></h3>
-                                        <span style="font-size: 13px !important;">Jl. Dewi Sartika No.182 Jakarta Timur
+                                        <h3><b class="text-primary">'.Core::getInstance()->title.'</b></h3>
+                                        <span style="font-size: 13px !important;">'.$datawaybill->result[0]->Branch->Address.'
                                         <br>
-                                        <i class="mdi mdi-phone-classic"></i> : 083806075400 | <i class="mdi mdi-fax"></i> : 021123123 | <i class="mdi mdi-email-outline"></i> : cs@cap-express.co.id</span>
+                                        <i class="mdi mdi-phone-classic"></i> : '.$datawaybill->result[0]->Branch->Phone.' | <i class="mdi mdi-fax"></i> : '.(empty($datawaybill->result[0]->Branch->Fax)?'-':$datawaybill->result[0]->Branch->Fax).' | <i class="mdi mdi-email-outline"></i> : '.(empty($datawaybill->result[0]->Branch->Email)?Core::getInstance()->email:$datawaybill->result[0]->Branch->Email).'</span>
                                     </div>
                                     <div class="pull-right text-right">
-                                        <h3 class="text-right"><b>[CGK]</b></h3>
-                                        <span>Road Freight</span><br>
+                                        <h3 class="text-right"><b>['.strtoupper($datawaybill->result[0]->Data->DestID).']</b></h3>
+                                        <span>'.$datawaybill->result[0]->Route->Mode.'</span><br>
                                         <span style="font-size: 11px !important;"><b>Lembar 1 untuk pengirim.</b></span>                                    
                                     </div>
                                 </div>
@@ -87,25 +105,25 @@ $datalogin = Core::checkSessions();?>
                                     <div class="pull-left">
                                         <address>
                                             <h3>From:</h3>
-                                            <h4><b class="text-success">Material Pro Admin</b> (M ABD AZIZ ALFIAN)</h4>
-                                            <p class="text-muted m-l-5" style="width: 500px;height: 100px;">Jl. H. Taiman Ujung Blok J110 No.08 RT. 08 RW. 09, Kampung Tengah, Kramat Jati, Jakarta Timur - 14560
-                                             (Dekat Masjid al fitrah, Depot Megaqua) <br>
-                                                 <b>Telp:</b> 021976998 - <b>Fax:</b> 02101203123</p>
+                                            <h4><b class="text-success">'.$datawaybill->result[0]->Consignor->Name.'</b> '.(empty($datawaybill->result[0]->Consignor->Alias)?'':'('.$datawaybill->result[0]->Consignor->Alias.')').'</h4>
+                                            <p class="text-muted m-l-5" style="width: 500px;height: 100px;">'.$datawaybill->result[0]->Consignor->Address.'<br>
+                                                <b>Telp:</b> '.$datawaybill->result[0]->Consignor->Phone.(empty($datawaybill->result[0]->Consignor->Fax)?'':' - <b>Fax:</b> '.$datawaybill->result[0]->Consignor->Fax).'
+                                            </p>
                                         </address>
                                         <address>
                                             <h3>To:</h3>
-                                            <h4><b class="font-bold text-danger">Gaala & Sons</b> (Bpk. Budi)</h4>
-                                            <p class="text-muted m-l-5" style="width: 500px;height: 100px;">E 104, Dharti-2,
-                                                 Nr' Viswakarma Temple,
-                                                 Talaja Road,
-                                                 Bhavnagar - 364002<br>
-                                                 <b>Telp:</b> 021976998 - <b>Fax:</b> 02101203123</p>
+                                            <h4><b class="font-bold text-danger">'.$datawaybill->result[0]->Consignee->Name.'</b> '.(empty($datawaybill->result[0]->Consignee->Attention)?'':'('.$datawaybill->result[0]->Consignee->Attention.')').'</h4>
+                                            <p class="text-muted m-l-5" style="width: 500px;height: 100px;">
+                                                '.$datawaybill->result[0]->Consignee->Address.'
+                                                <br>
+                                                <b>Telp:</b> '.$datawaybill->result[0]->Consignee->Phone.(empty($datawaybill->result[0]->Consignee->Fax)?'':' - <b>Fax:</b> '.$datawaybill->result[0]->Consignee->Fax).'
+                                            </p>
                                         </address>
                                         
                                         <h3>Route</h3>
-                                        <span class="text-muted m-l-5">Jakarta Selatan >> Kalimantan Selatan</span><br>
-                                        <span class="text-muted m-l-5">Tanggal Kirim: 15-09-2018</span><br>
-                                        <span class="text-muted m-l-5">Estimasi: 1 hari</span>
+                                        <span class="text-muted m-l-5">'.$datawaybill->result[0]->Route->Origin.' >> '.$datawaybill->result[0]->Route->Destination.'</span><br>
+                                        <span class="text-muted m-l-5">Tanggal Kirim: '.$datawaybill->result[0]->Data->Created_at.'</span><br>
+                                        <span class="text-muted m-l-5">Estimasi: '.$datawaybill->result[0]->Route->Estimation.' hari</span>
                                         
                                         <hr>
                                         <table style="width:100%">
@@ -123,8 +141,8 @@ $datalogin = Core::checkSessions();?>
                                                     <td align="right"><br></td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="left">RESLIM</td>
-                                                    <td align="right">........................</td>
+                                                    <td align="left">'.strtoupper($datawaybill->result[0]->Data->Created_by).'</td>
+                                                    <td align="right">........................<br><span style="font-size: 11px !important;">* TTD dan Nama</span></td>
                                                     
                                                 </tr>
                                             </table>
@@ -135,85 +153,83 @@ $datalogin = Core::checkSessions();?>
                                             <table style="width:100%">
                                                 <tr>
                                                     <td align="left"><b class="text-muted">Cust. ID :</b></td>
-                                                    <td align="right">CGS10453</td>
+                                                    <td align="right">'.$datawaybill->result[0]->Consignor->CustomerID.'</td>
                                                     <td align="center"><b> | </b></td>
                                                     <td align="left"><b class="text-muted">Ref. ID :</b></td>
-                                                    <td align="right">CGS10453</td>
+                                                    <td align="right">'.$datawaybill->result[0]->Consignee->ReferenceID.'</td>
                                                 </tr>
                                             </table>
                                         <svg id="barcode"></svg>
                                             <h3>Goods Detail</h3>
                                             <p class="text-muted m-l-5" style="width: 500px;height: 60px;">
-                                            PAKET SEPATU KACA<br>
-                                            PAKET SEPATU KACA<br>
-                                            PAKET SEPATU KACA<br>
+                                            '.$datawaybill->result[0]->Goods->Description.'
                                             </p>
                                             
                                             <table style="width:100%">
                                                 <tr>
                                                     <td align="left"><b class="text-muted">Actual Kg :</b></td>
-                                                    <td align="left">1 Kg</td>
+                                                    <td align="left">'.$datawaybill->result[0]->Goods->Weight_real.' Kg</td>
                                                     
                                                     <td align="left"><b class="text-muted">Berat :</b></td>
-                                                    <td align="left">1 Kg</td>
+                                                    <td align="left">'.$datawaybill->result[0]->Goods->Weight.' Kg</td>
 
                                                     <td align="left"><b class="text-muted">Koli :</b></td>
-                                                    <td align="left">1</td>
+                                                    <td align="left">'.$datawaybill->result[0]->Goods->Koli.'</td>
                                                 </tr>
                                                 <tr>
                                                     <td align="left"><b class="text-muted">Rate Asuransi % :</b></td>
-                                                    <td align="left">0.02</td>
+                                                    <td align="left">'.$datawaybill->result[0]->Insurance->Rate.'</td>
                                                     
                                                     <td align="left"><b class="text-muted"></b></td>
                                                     <td align="left"></td>
 
                                                     <td align="left"><b class="text-muted">Nilai Barang :</b></td>
-                                                    <td align="left">1,000,000</td>
+                                                    <td align="left">'.$datawaybill->result[0]->Insurance->Value.'</td>
                                                 </tr>
                                             </table>
                                             <hr>
                                             <table style="width:100%">
                                                 <tr>
                                                     <td align="left"><h3>Transaction</h3></td>
-                                                    <td align="right"><h3><b>[</b><b class="text-success">CASH</b><b>]</b></h3></td>
+                                                    <td align="right"><h3><b>[</b><b '.(($datawaybill->result[0]->Payment->PaymentID == '1')?'class="text-success"':'').'>'.$datawaybill->result[0]->Payment->Name.'</b><b>]</b></h3></td>
                                                 </tr>
                                             </table>
                                             <p>
                                                 <table style="width:100%">
                                                     <tr>
                                                         <td class="text-muted">Shipping Cost :</td>
-                                                        <td align="right" class="text-primary"><?php echo Core::lang('currency_format')?></td>
-                                                        <td align="right"><b class="text-primary">10,000</b></td>
+                                                        <td align="right" class="text-primary">'.Core::lang('currency_format').'</td>
+                                                        <td align="right"><b class="text-primary">'.number_format($datawaybill->result[0]->Transaction->Shipping_cost).'</b></td>
                                                     </tr>
                                                     <tr>
                                                         <td class="text-muted">Shipping Insurance :</td>
-                                                        <td align="right"><?php echo Core::lang('currency_format')?></td>
-                                                        <td align="right">1,000</td>
+                                                        <td align="right">'.Core::lang('currency_format').'</td>
+                                                        <td align="right">'.number_format($datawaybill->result[0]->Transaction->Shipping_insurance).'</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="text-muted">Shipping Packing :</td>
-                                                        <td align="right"><?php echo Core::lang('currency_format')?></td>
-                                                        <td align="right">1,000</td>
+                                                        <td align="right">'.Core::lang('currency_format').'</td>
+                                                        <td align="right">'.number_format($datawaybill->result[0]->Transaction->Shipping_packing).'</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="text-muted">Shipping Forward :</td>
-                                                        <td align="right"><?php echo Core::lang('currency_format')?></td>
-                                                        <td align="right">1,000</td>
+                                                        <td align="right">'.Core::lang('currency_format').'</td>
+                                                        <td align="right">'.number_format($datawaybill->result[0]->Transaction->Shipping_forward).'</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="text-muted">Shipping Surcharge :</td>
-                                                        <td align="right"><?php echo Core::lang('currency_format')?></td>
-                                                        <td align="right">1,000</td>
+                                                        <td align="right">'.Core::lang('currency_format').'</td>
+                                                        <td align="right">'.number_format($datawaybill->result[0]->Transaction->Shipping_surcharge).'</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="text-muted">Shipping Admin :</td>
-                                                        <td align="right"><?php echo Core::lang('currency_format')?></td>
-                                                        <td align="right">1,000</td>
+                                                        <td align="right">'.Core::lang('currency_format').'</td>
+                                                        <td align="right">'.number_format($datawaybill->result[0]->Transaction->Shipping_admin).'</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="text-muted">Shipping Discount :</td>
-                                                        <td align="right" class="text-danger"><?php echo Core::lang('currency_format')?></td>
-                                                        <td align="right"><b class="text-danger">1,000</b></td>
+                                                        <td align="right" class="text-danger">'.Core::lang('currency_format').'</td>
+                                                        <td align="right"><b class="text-danger">'.number_format($datawaybill->result[0]->Transaction->Shipping_discount).'</b></td>
                                                     </tr>
                                                     <tr>
                                                         <td></td>
@@ -222,11 +238,10 @@ $datalogin = Core::checkSessions();?>
                                                     </tr>
                                                     <tr>
                                                         <td><b class="text-muted">Total :</b></td>
-                                                        <td align="right"><?php echo Core::lang('currency_format')?></td>
-                                                        <td align="right"><b class="text-success">1,000</b></td>
+                                                        <td align="right">'.Core::lang('currency_format').'</td>
+                                                        <td align="right"><b class="text-success">'.number_format($datawaybill->result[0]->Transaction->Shipping_cost_total).'</b></td>
                                                     </tr>
                                                 </table>
-                                                
                                             </p>
                                         </address>
                                     </div>
@@ -238,15 +253,15 @@ $datalogin = Core::checkSessions();?>
                             <div class="col-md-12"><hr></div>
                                 <div class="col-md-12">
                                     <div class="pull-left">
-                                        <h3><b class="text-primary"><?php echo Core::getInstance()->title?></b></h3>
-                                        <span style="font-size: 13px !important;">Jl. Dewi Sartika No.182 Jakarta Timur
+                                        <h3><b class="text-primary">'.Core::getInstance()->title.'</b></h3>
+                                        <span style="font-size: 13px !important;">'.$datawaybill->result[0]->Branch->Address.'
                                         <br>
-                                        <i class="mdi mdi-phone-classic"></i> : 083806075400 | <i class="mdi mdi-fax"></i> : 021123123 | <i class="mdi mdi-email-outline"></i> : cs@cap-express.co.id</span>
+                                        <i class="mdi mdi-phone-classic"></i> : '.$datawaybill->result[0]->Branch->Phone.' | <i class="mdi mdi-fax"></i> : '.(empty($datawaybill->result[0]->Branch->Fax)?'-':$datawaybill->result[0]->Branch->Fax).' | <i class="mdi mdi-email-outline"></i> : '.(empty($datawaybill->result[0]->Branch->Email)?Core::getInstance()->email:$datawaybill->result[0]->Branch->Email).'</span>
                                     </div>
                                     <div class="pull-right text-right">
-                                        <h3 class="text-right"><b>[CGK]</b></h3>
-                                        <span>Road Freight</span><br>
-                                        <span style="font-size: 11px !important;"><b>Lembar 2 POD / Goods.</b></span>                                    
+                                        <h3 class="text-right"><b>['.strtoupper($datawaybill->result[0]->Data->DestID).']</b></h3>
+                                        <span>'.$datawaybill->result[0]->Route->Mode.'</span><br>
+                                        <span style="font-size: 11px !important;"><b>Lembar 2 POD / Goods.</b></span>
                                     </div>
                                 </div>
                             </div>
@@ -256,25 +271,25 @@ $datalogin = Core::checkSessions();?>
                                     <div class="pull-left">
                                         <address>
                                             <h3>From:</h3>
-                                            <h4><b class="text-success">Material Pro Admin</b> (M ABD AZIZ ALFIAN)</h4>
-                                            <p class="text-muted m-l-5" style="width: 500px;height: 100px;">Jl. H. Taiman Ujung Blok J110 No.08 RT. 08 RW. 09, Kampung Tengah, Kramat Jati, Jakarta Timur - 14560
-                                             (Dekat Masjid al fitrah, Depot Megaqua) <br>
-                                                 <b>Telp:</b> 021976998 - <b>Fax:</b> 02101203123</p>
+                                            <h4><b class="text-success">'.$datawaybill->result[0]->Consignor->Name.'</b> '.(empty($datawaybill->result[0]->Consignor->Alias)?'':'('.$datawaybill->result[0]->Consignor->Alias.')').'</h4>
+                                            <p class="text-muted m-l-5" style="width: 500px;height: 100px;">'.$datawaybill->result[0]->Consignor->Address.'<br>
+                                                <b>Telp:</b> '.$datawaybill->result[0]->Consignor->Phone.(empty($datawaybill->result[0]->Consignor->Fax)?'':' - <b>Fax:</b> '.$datawaybill->result[0]->Consignor->Fax).'
+                                            </p>
                                         </address>
                                         <address>
                                             <h3>To:</h3>
-                                            <h4><b class="font-bold text-danger">Gaala & Sons</b> (Bpk. Budi)</h4>
-                                            <p class="text-muted m-l-5" style="width: 500px;height: 100px;">E 104, Dharti-2,
-                                                 Nr' Viswakarma Temple,
-                                                 Talaja Road,
-                                                 Bhavnagar - 364002<br>
-                                                 <b>Telp:</b> 021976998 - <b>Fax:</b> 02101203123</p>
+                                            <h4><b class="font-bold text-danger">'.$datawaybill->result[0]->Consignee->Name.'</b> '.(empty($datawaybill->result[0]->Consignee->Attention)?'':'('.$datawaybill->result[0]->Consignee->Attention.')').'</h4>
+                                            <p class="text-muted m-l-5" style="width: 500px;height: 100px;">
+                                                '.$datawaybill->result[0]->Consignee->Address.'
+                                                <br>
+                                                <b>Telp:</b> '.$datawaybill->result[0]->Consignee->Phone.(empty($datawaybill->result[0]->Consignee->Fax)?'':' - <b>Fax:</b> '.$datawaybill->result[0]->Consignee->Fax).'
+                                            </p>
                                         </address>
                                         
                                         <h3>Route</h3>
-                                        <span class="text-muted m-l-5">Jakarta Selatan >> Kalimantan Selatan</span><br>
-                                        <span class="text-muted m-l-5">Tanggal Kirim: 15-09-2018</span><br>
-                                        <span class="text-muted m-l-5">Estimasi: 1 hari</span>
+                                        <span class="text-muted m-l-5">'.$datawaybill->result[0]->Route->Origin.' >> '.$datawaybill->result[0]->Route->Destination.'</span><br>
+                                        <span class="text-muted m-l-5">Tanggal Kirim: '.$datawaybill->result[0]->Data->Created_at.'</span><br>
+                                        <span class="text-muted m-l-5">Estimasi: '.$datawaybill->result[0]->Route->Estimation.' hari</span>
                                         
                                         <hr>
                                         <table style="width:100%">
@@ -291,8 +306,8 @@ $datalogin = Core::checkSessions();?>
                                                     <td align="right"><br></td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="left"><span class="m-l-5">RESLIM</span></td>
-                                                    <td align="right">........................</td>
+                                                    <td align="left"><span class="m-l-5">'.strtoupper($datawaybill->result[0]->Data->Created_by).'</span></td>
+                                                    <td align="right">........................<br><span style="font-size: 11px !important;">* TTD dan Nama</span></td>
                                                 </tr>
                                             </table>
                                     </div>
@@ -302,39 +317,34 @@ $datalogin = Core::checkSessions();?>
                                             <table style="width:100%">
                                                 <tr>
                                                     <td align="left"><b class="text-muted">Cust. ID :</b></td>
-                                                    <td align="right">CGS10453</td>
+                                                    <td align="right">'.$datawaybill->result[0]->Consignor->CustomerID.'</td>
                                                     <td align="center"><b> | </b></td>
                                                     <td align="left"><b class="text-muted">Ref. ID :</b></td>
-                                                    <td align="right">CGS10453</td>
+                                                    <td align="right">'.$datawaybill->result[0]->Consignee->ReferenceID.'</td>
                                                 </tr>
                                             </table>
                                         <svg id="barcode"></svg>
                                             <h3>Instruction</h3>
                                             <p class="text-muted m-l-5" style="width: 500px;height: 60px;">
-                                            PAKET SEPATU KACA<br>
-                                            PAKET SEPATU KACA<br>
-                                            PAKET SEPATU KACA<br>
+                                            '.$datawaybill->result[0]->Goods->Instruction.'
                                             </p>
                                             <hr>
                                             <h3>Goods Detail</h3>
                                             <p class="text-muted m-l-5" style="width: 500px;height: 60px;">
-                                            PAKET SEPATU KACA<br>
-                                            PAKET SEPATU KACA<br>
-                                            PAKET SEPATU KACA<br>
+                                            '.$datawaybill->result[0]->Goods->Description.'
                                             </p>
                                             
                                             <table style="width:100%">
                                                 <tr>
                                                     <td align="left"><b class="text-muted">Actual Kg :</b></td>
-                                                    <td align="left">1 Kg</td>
+                                                    <td align="left">'.$datawaybill->result[0]->Goods->Weight_real.' Kg</td>
                                                     
                                                     <td align="left"><b class="text-muted">Berat :</b></td>
-                                                    <td align="left">1 Kg</td>
+                                                    <td align="left">'.$datawaybill->result[0]->Goods->Weight.' Kg</td>
 
                                                     <td align="left"><b class="text-muted">Koli :</b></td>
-                                                    <td align="left">1</td>
+                                                    <td align="left">'.$datawaybill->result[0]->Goods->Koli.'</td>
                                                 </tr>
-                                                
                                             </table>
                                             <hr>
                                             <table style="width:100%">
@@ -359,7 +369,7 @@ $datalogin = Core::checkSessions();?>
                                                     <td align="right"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="left">........................</td>
+                                                    <td align="left">........................<br><span style="font-size: 11px !important;">* TTD, Nama dan Hubungan Status</span></td>
                                                     <td align="right"></td>
                                                     <td align="right"></td>
                                                 </tr>
@@ -373,23 +383,32 @@ $datalogin = Core::checkSessions();?>
                     </div>
                 </div>
 
-                <!-- ============================================================== -->
-                <!-- End Page Content -->
-                <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+                    <!-- End Page Content -->
+                    <!-- ============================================================== -->
                 
-                <!-- ============================================================== -->
-                <!-- Additional Print start -->
-                <!-- ============================================================== -->
-                <div class="row page-titles">
-                    <div class="col-md-12 align-self-center">
-                        <h3 class="text-themecolor m-b-0 m-t-0"><?php echo Core::lang('print_preview').' '.Core::lang('waybill')?> <button id="print2" class="btn btn-themecolor pull-right" type="button"> <span><i class="fa fa-print"></i> Print</span> </button></h3>
-                        
-                        
+                    <!-- ============================================================== -->
+                    <!-- Additional Print start -->
+                    <!-- ============================================================== -->
+                    <div class="card card-body">
+                        <div class="col-md-12 align-self-center">
+                            <h3 class="text-themecolor m-b-0 m-t-0">'.Core::lang('print_preview').' '.Core::lang('waybill').' <button id="print2" class="btn btn-themecolor pull-right" type="button"> <span><i class="fa fa-print"></i> Print</span> </button></h3>
+                        </div>
                     </div>
-                </div>
-                <!-- ============================================================== -->
-                <!-- Additional Print end -->
-                <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+                    <!-- Additional Print end -->
+                    <!-- ============================================================== -->
+                ';
+                } else {
+                    echo '<div class="col-lg-12">'.Core::getMessage('danger',$callmsg).'</div>';
+                }
+            ?>
+                
+
+                
+                
+
+                
                 <?php include_once 'sidebar-right.php';?>
             </div>
             <!-- ============================================================== -->
