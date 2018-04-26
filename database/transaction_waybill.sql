@@ -10,7 +10,7 @@ Target Server Type    : MariaDB
 Target Server Version : 100131
 File Encoding         : 65001
 
-Date: 2018-04-24 13:01:44
+Date: 2018-04-26 18:47:39
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -41,7 +41,7 @@ CREATE TABLE `transaction_waybill` (
   `Description` varchar(255) NOT NULL,
   `Goods_data` varchar(1000) NOT NULL,
   `Goods_koli` decimal(5,0) NOT NULL,
-  `Goods_value` decimal(10,2) NOT NULL,
+  `Goods_value` decimal(10,0) NOT NULL,
   `Weight` decimal(7,2) NOT NULL,
   `Weight_real` decimal(7,2) NOT NULL,
   `Origin` varchar(50) NOT NULL,
