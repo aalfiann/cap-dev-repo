@@ -247,6 +247,26 @@ use \classes\SimpleCache as SimpleCache;
         return classes\Cors::modify($response,$body,200);
     });
 
+    // GET api to show data trace waybill detail public
+    $app->get('/cargo/transaction/data/public/trace/detail/waybill/{waybill}/', function (Request $request, Response $response) {
+        $cargo = new classes\system\cargo\Transaction($this->db);
+        $cargo->waybill = $request->getAttribute('waybill');
+        $response = $this->cache->withEtag($response, $this->etag.'-'.trim($_SERVER['REQUEST_URI'],'/'));
+        $body = $response->getBody();
+        $body->write($cargo->traceWaybillDetailPublic());
+        return classes\Cors::modify($response,$body,200);
+    })->add(new \classes\middleware\ApiKey());
+
+    // GET api to show data trace waybill simple public
+    $app->get('/cargo/transaction/data/public/trace/simple/waybill/{waybill}/', function (Request $request, Response $response) {
+        $cargo = new classes\system\cargo\Transaction($this->db);
+        $cargo->waybill = $request->getAttribute('waybill');
+        $response = $this->cache->withEtag($response, $this->etag.'-'.trim($_SERVER['REQUEST_URI'],'/'));
+        $body = $response->getBody();
+        $body->write($cargo->traceWaybillSimplePublic());
+        return classes\Cors::modify($response,$body,200);
+    })->add(new \classes\middleware\ApiKey());
+
     // GET api to show all data transaction pagination registered user
     $app->get('/cargo/transaction/data/search/{username}/{token}/{page}/{itemsperpage}/', function (Request $request, Response $response) {
         $cargo = new classes\system\cargo\Mode($this->db);
