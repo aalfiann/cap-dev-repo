@@ -96,7 +96,7 @@ $customlang = [
     'goods_weight' => 'Berat Barang',
     'goods_detail' => 'Detil Barang',
     'goods_instruction' => 'Instruksi',
-    'goods_description' => 'Deskripsi',
+    'goods_description' => 'Deskripsi Barang',
     //help transaction
     'help_browse_customer' => 'Klik browse untuk mencari Customer ID.',
     'help_reference_id' => 'Referensi ID adalah no resi mitra, agar sistem dapat tracking menggunakan no resi mitra.',
@@ -115,5 +115,21 @@ $customlang = [
     'city_district' => 'Kota / Kabupaten',
     //print
     'print' => 'Print',
-    'print_preview' => 'Pratinjau Print'
+    'print_preview' => 'Pratinjau Print',
+    //print report
+    'sheet_for_shipper' => 'Lembar 1 untuk pengirim.',
+    'sheet_for_goods' => 'Lembar 2 POD/Barang.',
+    'tel' => 'Telp',
+    'route_shipment' => 'Rute Kiriman',
+    'date_send' => 'Tanggal Kirim',
+    'date_received' => 'Tanggal Diterima',
+    'admin' => 'Admin',
+    'custid' => 'Cust. ID',
+    'refid' => 'Ref. ID',
+    'weight_or_volume' => 'Kg/Vol',
+    //print info
+    'print_desktop_notice' => 'Jika menggunakan Handphone, hanya tampilan saja yang terlihat rusak, tapi hasil print tetap oke.',
+    //signature
+    'info_signature_1' => '* TTD dan Nama',
+    'info_signature_2' => '* TTD, Nama dan Hubungan Status'
 ];

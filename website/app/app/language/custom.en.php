@@ -96,7 +96,7 @@ $customlang = [
     'goods_weight' => 'Weight of Goods',
     'goods_detail' => 'Goods Detail',
     'goods_instruction' => 'Instruction',
-    'goods_description' => 'Description',
+    'goods_description' => 'Goods Description',
     //help transaction
     'help_browse_customer' => 'Click browse to search Customer ID.',
     'help_reference_id' => 'Reference ID is no partner\'s receipt, so the system can tracking using no partner\'s receipt.',
@@ -115,5 +115,21 @@ $customlang = [
     'city_district' => 'City / District',
     //print
     'print' => 'Print',
-    'print_preview' => 'Preview Print'
+    'print_preview' => 'Preview Print',
+    //print report
+    'sheet_for_shipper' => 'Sheet 1 for shipper.',
+    'sheet_for_goods' => 'Sheet 2 for POD/Goods.',
+    'tel' => 'Tel.',
+    'route_shipment' => 'Route of Shipment',
+    'date_send' => 'Date Send',
+    'date_received' => 'Date Received',
+    'admin' => 'Admin',
+    'custid' => 'Cust. ID',
+    'refid' => 'Ref. ID',
+    'weight_or_volume' => 'Weight/Volume',
+    //print info
+    'print_desktop_notice' => 'If using Mobile, only view that looks broke, but the print remains okay.',
+    //signature
+    'info_signature_1' => '* Signature',
+    'info_signature_2' => '* Signature and Relation Status'
 ];
