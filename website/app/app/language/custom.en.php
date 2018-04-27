@@ -131,5 +131,7 @@ $customlang = [
     'print_desktop_notice' => 'If using Mobile, only view that looks broke, but the print remains okay.',
     //signature
     'info_signature_1' => '* Signature',
-    'info_signature_2' => '* Signature and Relation Status'
+    'info_signature_2' => '* Signature and Relation Status',
+    //report
+    'report' => 'Report'
 ];

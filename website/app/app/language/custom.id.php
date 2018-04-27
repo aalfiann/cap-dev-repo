@@ -131,5 +131,7 @@ $customlang = [
     'print_desktop_notice' => 'Jika menggunakan Handphone, hanya tampilan saja yang terlihat rusak, tapi hasil print tetap oke.',
     //signature
     'info_signature_1' => '* TTD dan Nama',
-    'info_signature_2' => '* TTD, Nama dan Hubungan Status'
+    'info_signature_2' => '* TTD, Nama dan Hubungan Status',
+    //report
+    'report' => 'Laporan'
 ];
