@@ -66,7 +66,7 @@ if (!empty($datawaybill)){
             <?php 
                 if ($callsuccess){
                     echo '
-                    '.Core::getMessage('primary',Core::lang('print_desktop_notice')).'
+                    <div class="d-md-none d-lg-none d-xl-none">'.Core::getMessage('primary',Core::lang('print_desktop_notice')).'</div>
                     <!-- ============================================================== -->
                     <!-- Additional Print start -->
                     <!-- ============================================================== -->
