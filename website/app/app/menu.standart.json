@@ -66,12 +66,27 @@
                 },
                 {
                     "id":"2",
+                    "title":"report",
+                    "icon_class":"mdi mdi-chart-line",
+                    "menus": [
+                        {
+                            "title": "transaction",
+                            "link": "modul-report-transaction.php"
+                        }
+                    ]
+                },
+                {
+                    "id":"3",
                     "title":"inquiry",
                     "icon_class":"mdi mdi-magnify",
                     "menus": [
                         {
                             "title": "info tariff",
                             "link": "modul-inquiry-tariff.php"
+                        },
+                        {
+                            "title": "info waybill",
+                            "link": "modul-inquiry-waybill.php"
                         }
                     ]
                 }
