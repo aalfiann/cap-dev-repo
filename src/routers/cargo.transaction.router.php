@@ -2,6 +2,7 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 use \classes\SimpleCache as SimpleCache;
+use \classes\middleware\ValidateParamURL as ValidateParamURL;
 
     // POST api to create new transaction
     $app->post('/cargo/transaction/data/new', function (Request $request, Response $response) {
@@ -269,16 +270,20 @@ use \classes\SimpleCache as SimpleCache;
 
     // GET api to show all data transaction pagination registered user
     $app->get('/cargo/transaction/data/search/{username}/{token}/{page}/{itemsperpage}/', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Mode($this->db);
+        $cargo = new classes\system\cargo\Transaction($this->db);
         $cargo->search = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);
+        $cargo->branchid = filter_var((empty($_GET['branchid'])?'':$_GET['branchid']),FILTER_SANITIZE_STRING);
+        $cargo->firstdate = filter_var((empty($_GET['firstdate'])?'':$_GET['firstdate']),FILTER_SANITIZE_STRING);
+        $cargo->lastdate = filter_var((empty($_GET['lastdate'])?'':$_GET['lastdate']),FILTER_SANITIZE_STRING);
         $cargo->username = $request->getAttribute('username');
         $cargo->token = $request->getAttribute('token');
         $cargo->page = $request->getAttribute('page');
         $cargo->itemsPerPage = $request->getAttribute('itemsperpage');
         $body = $response->getBody();
-        $body->write($cargo->searchModeAsPagination());
+        $body->write($cargo->searchTransactionAsPagination());
         return classes\Cors::modify($response,$body,200);
-    });
+    })->add(new ValidateParamURL(['query','branchid']))
+    ->add(new ValidateParamURL(['firstdate','lastdate'],'','date'));
 
     // GET api to test generate waybill
     $app->get('/cargo/transaction/generate/waybill/{username}/{token}', function (Request $request, Response $response) {
