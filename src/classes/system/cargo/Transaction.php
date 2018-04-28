@@ -46,7 +46,7 @@ use PDO;
 		var $page,$itemsPerPage;
 
 		// for search
-		var $search;
+		var $firstdate,$lastdate,$search;
 
 		protected $db;
         
@@ -1424,4 +1424,112 @@ use PDO;
 			return json_encode($data);
 	        $this->db= null;
         }
+
+        /** 
+		 * Search all data transaction paginated
+		 * @return result process in json encoded data
+		 */
+		public function searchTransactionAsPagination() {
+			if (Auth::validToken($this->db,$this->token,$this->username)){
+                $newbranchid = ""; 
+                if(empty($this->branchid)){
+                    $newbranchid = Util::getUserBranchID($this->db,$this->username);
+                } else {
+                    $newbranchid = $this->branchid;
+                }
+				$search = "%$this->search%";
+				//count total row
+				$sqlcountrow = "SELECT count(a.WayBill) as TotalRow
+                    FROM transaction_waybill a 
+                    INNER JOIN mas_mode b ON a.ModeID = b.ModeID
+                    INNER JOIN mas_payment c ON a.PaymentID = c.PaymentID
+                    INNER JOIN core_status d ON a.StatusID = d.StatusID
+                    WHERE DATE(a.Created_at) BETWEEN :firstdate AND :lastdate AND a.BranchID = :branchid 
+                    AND (
+                            a.Waybill like :search OR a.DestID like :search  OR a.Created_by like :search OR a.Consignee_phone like :search OR a.Consignor_phone like :search
+                        )
+                    ORDER BY a.Created_at DESC;";
+				$stmt = $this->db->prepare($sqlcountrow);		
+                $stmt->bindParam(':search', $search, PDO::PARAM_STR);
+                $stmt->bindParam(':firstdate', $this->firstdate, PDO::PARAM_STR);
+                $stmt->bindParam(':lastdate', $this->lastdate, PDO::PARAM_STR);
+                $stmt->bindParam(':branchid', $newbranchid, PDO::PARAM_STR);
+				
+				if ($stmt->execute()) {	
+    	    		if ($stmt->rowCount() > 0){
+						$single = $stmt->fetch();
+						
+						// Paginate won't work if page and items per page is negative.
+						// So make sure that page and items per page is always return minimum zero number.
+						$newpage = Validation::integerOnly($this->page);
+						$newitemsperpage = Validation::integerOnly($this->itemsPerPage);
+						$limits = (((($newpage-1)*$newitemsperpage) <= 0)?0:(($newpage-1)*$newitemsperpage));
+						$offsets = (($newitemsperpage <= 0)?0:$newitemsperpage);
+
+						// Query Data
+						$sql = "SELECT a.Created_at,a.Waybill,a.BranchID,a.DestID,
+                                a.CustomerID,a.Consignor_name,a.Consignor_phone,
+                                a.ReferenceID,a.Consignee_name,a.Consignee_phone,a.Consignee_address,
+                                b.`Mode`,a.Instruction,a.Goods_koli,a.Weight,a.Weight_real,
+                                a.Origin,a.Destination,a.Estimation,
+                                a.Insurance_rate,a.Goods_value,
+                                c.Payment,a.Shipping_cost,a.Shipping_insurance,a.Shipping_packing,a.Shipping_forward,a.Shipping_handling,a.Shipping_surcharge,a.Shipping_admin,a.Shipping_discount,a.Shipping_cost_total,
+                                a.StatusID,d.`Status`,a.Created_by
+                            FROM transaction_waybill a 
+                            INNER JOIN mas_mode b ON a.ModeID = b.ModeID
+                            INNER JOIN mas_payment c ON a.PaymentID = c.PaymentID
+                            INNER JOIN core_status d ON a.StatusID = d.StatusID
+                            WHERE DATE(a.Created_at) BETWEEN :firstdate AND :lastdate AND a.BranchID = :branchid 
+                            AND (
+                                    a.Waybill like :search OR a.DestID like :search  OR a.Created_by like :search OR a.Consignee_phone like :search OR a.Consignor_phone like :search
+                                )
+                            ORDER BY a.Created_at DESC LIMIT :limpage , :offpage;";
+						$stmt2 = $this->db->prepare($sql);
+                        $stmt2->bindParam(':search', $search, PDO::PARAM_STR);
+                        $stmt2->bindParam(':firstdate', $this->firstdate, PDO::PARAM_STR);
+                        $stmt2->bindParam(':lastdate', $this->lastdate, PDO::PARAM_STR);
+                        $stmt2->bindParam(':branchid', $newbranchid, PDO::PARAM_STR);
+						$stmt2->bindValue(':limpage', (INT) $limits, PDO::PARAM_INT);
+						$stmt2->bindValue(':offpage', (INT) $offsets, PDO::PARAM_INT);
+						
+						if ($stmt2->execute()){
+							$pagination = new \classes\Pagination();
+							$pagination->totalRow = $single['TotalRow'];
+							$pagination->page = $this->page;
+							$pagination->itemsPerPage = $this->itemsPerPage;
+							$pagination->fetchAllAssoc = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+							$data = $pagination->toDataArray();
+						} else {
+							$data = [
+        	    	    		'status' => 'error',
+		        		    	'code' => 'RS202',
+	    			    	    'message' => CustomHandlers::getreSlimMessage('RS202')
+							];	
+						}			
+				    } else {
+    	    			$data = [
+        	    			'status' => 'error',
+		    	    		'code' => 'RS601',
+        			    	'message' => CustomHandlers::getreSlimMessage('RS601')
+						];
+		    	    }          	   	
+				} else {
+					$data = [
+    	    			'status' => 'error',
+						'code' => 'RS202',
+	        		    'message' => CustomHandlers::getreSlimMessage('RS202')
+					];
+				}
+				
+			} else {
+				$data = [
+	    			'status' => 'error',
+					'code' => 'RS401',
+        	    	'message' => CustomHandlers::getreSlimMessage('RS401')
+				];
+			}		
+        
+			return json_encode($data);
+	        $this->db= null;
+		}
     }
