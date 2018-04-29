@@ -133,5 +133,8 @@ $customlang = [
     'info_signature_1' => '* Signature',
     'info_signature_2' => '* Signature and Relation Status',
     //report
-    'report' => 'Report'
+    'report' => 'Report',
+    'firstdate' => 'Firstdate',
+    'lastdate' => 'Lastdate',
+    'destid' => 'Dest. ID'
 ];

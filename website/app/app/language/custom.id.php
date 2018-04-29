@@ -133,5 +133,8 @@ $customlang = [
     'info_signature_1' => '* TTD dan Nama',
     'info_signature_2' => '* TTD, Nama dan Hubungan Status',
     //report
-    'report' => 'Laporan'
+    'report' => 'Laporan',
+    'firstdate' => 'Tanggal Awal',
+    'lastdate' => 'Tanggal Akhir',
+    'destid' => 'Dest. ID'
 ];
