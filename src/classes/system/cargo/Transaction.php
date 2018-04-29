@@ -1474,7 +1474,7 @@ use PDO;
                                 a.Origin,a.Destination,a.Estimation,
                                 a.Insurance_rate,a.Goods_value,
                                 c.Payment,a.Shipping_cost,a.Shipping_insurance,a.Shipping_packing,a.Shipping_forward,a.Shipping_handling,a.Shipping_surcharge,a.Shipping_admin,a.Shipping_discount,a.Shipping_cost_total,
-                                a.StatusID,d.`Status`,a.Created_by
+                                a.StatusID,d.`Status`,a.Created_by,a.Updated_at,a.Updated_by,a.Updated_sys
                             FROM transaction_waybill a 
                             INNER JOIN mas_mode b ON a.ModeID = b.ModeID
                             INNER JOIN mas_payment c ON a.PaymentID = c.PaymentID
