@@ -1,0 +1,90 @@
+<?php spl_autoload_register(function ($classname) {require ( $classname . ".php");});
+$datalogin = Core::checkSessions();
+$codeid = (empty($_GET['no'])?'':$_GET['no']);
+$refpage = (empty($_GET['ref'])?Core::lang('pod'):'<a href="'.$_GET['ref'].'"><i class="mdi mdi-arrow-left"></i> '.Core::lang('go_back').'</a>');?>
+<!DOCTYPE html>
+<html lang="<?php echo Core::getInstance()->setlang?>">
+<head>
+    <?php include_once 'global-meta.php';?>    
+    <title><?php echo Core::lang('pod')?> - <?php echo Core::getInstance()->title?></title>
+    <!--alerts CSS -->
+    <link href="../assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
+</head>
+
+<body class="fix-sidebar fix-header card-no-border">
+    <?php include_once 'global-preloader.php';?>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper">
+        <?php include_once 'navbar-header.php';?>
+        <?php include_once 'sidebar-left.php';?>
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h3 class="text-themecolor"><?php echo $refpage?></h3>
+                </div>
+                <div class="col-md-7 align-self-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)"><?php echo Core::lang('system')?></a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0)"><?php echo Core::lang('data')?></a></li>
+                        <li class="breadcrumb-item active"><?php echo Core::lang('pod')?></li>
+                    </ol>
+                </div>
+                <div>
+                    <button class="right-side-toggle waves-effect waves-light btn-themecolor btn btn-circle btn-sm pull-right m-l-10"><i class="ti-settings text-white"></i></button>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <div class="row page-titles">
+                    <div class="col-md-5 col-8 align-self-center">
+                        <h3 class="text-themecolor m-b-0 m-t-0"><?php echo Core::lang('pod')?></h3>
+                        <p class="text-muted"><?php echo Core::lang('develop_process_info')?></p>
+                        
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <?php include_once 'sidebar-right.php';?>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+            <?php include_once 'global-footer.php';?>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <?php include_once 'global-js.php';?>
+    <!-- Sweet-Alert  -->
+    <script src="../assets/plugins/sweetalert/sweetalert.min.js"></script>
+</body>
+
+</html>
