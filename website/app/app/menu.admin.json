@@ -89,6 +89,14 @@
                             "link": "modul-transaction.php"
                         },
                         {
+                            "title": "status pod",
+                            "link": "modul-pod.php"
+                        },
+                        {
+                            "title": "void",
+                            "link": "modul-void.php"
+                        },
+                        {
                             "title": "invoice",
                             "link": "modul-invoice.php"
                         }
