@@ -95,28 +95,74 @@ $datalogin = Core::checkSessions();?>
                                             <tr>
                                                 <th><?php echo Core::lang('tb_no')?></th>
                                                 <th><?php echo Core::lang('waybill')?></th>
+                                                <th><?php echo Core::lang('manage')?></th>
                                                 <th><?php echo Core::lang('branchid')?></th>
-                                                <th><?php echo Core::lang('destid')?></th>
+                                                <th><?php echo Core::lang('branch').' '.Core::lang('handling')?></th>
                                             	<th><?php echo Core::lang('status')?></th>
-                                                <th><?php echo Core::lang('tb_created_at')?></th>
-                                                <th><?php echo Core::lang('tb_username')?></th>
+                                                <th><?php echo Core::lang('date_transaction')?></th>
+                                                <th><?php echo Core::lang('mode')?></th>
+                                                <th><?php echo Core::lang('weight')?></th>
+                                                <th><?php echo Core::lang('bag')?></th>
+                                                <th><?php echo Core::lang('destination')?></th>
+                                                <th><?php echo Core::lang('goods_value')?></th>
+                                                <th><?php echo Core::lang('insurance_rate')?></th>
+                                                <th><?php echo Core::lang('shipping_cost')?></th>
+                                                <th><?php echo Core::lang('shipping_cost_insurance')?></th>
+                                                <th><?php echo Core::lang('shipping_cost_packing')?></th>
+                                                <th><?php echo Core::lang('shipping_cost_forward')?></th>
+                                                <th><?php echo Core::lang('shipping_cost_handling')?></th>
+                                                <th><?php echo Core::lang('shipping_cost_surcharge')?></th>
+                                                <th><?php echo Core::lang('shipping_cost_admin')?></th>
+                                                <th><?php echo Core::lang('shipping_cost_discount')?></th>
+                                                <th><?php echo Core::lang('shipping_cost_total')?></th>
+                                                <th><?php echo Core::lang('payment')?></th>
+                                                <th><?php echo Core::lang('custid')?></th>
+                                                <th><?php echo Core::lang('shipper_name')?></th>
+                                                <th><?php echo Core::lang('shipper_phone')?></th>
+                                                <th><?php echo Core::lang('refid')?></th>
+                                                <th><?php echo Core::lang('consignee_name')?></th>
+                                                <th><?php echo Core::lang('consignee_phone')?></th>
+                                                <th><?php echo Core::lang('consignee_address')?></th>
+                                                <th><?php echo Core::lang('admin')?></th>
                                                 <th><?php echo Core::lang('tb_updated_at')?></th>
                                                 <th><?php echo Core::lang('tb_updated_by')?></th>
-                                                <th><?php echo Core::lang('manage')?></th>
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
                                                 <th><?php echo Core::lang('tb_no')?></th>
                                                 <th><?php echo Core::lang('waybill')?></th>
+                                                <th><?php echo Core::lang('manage')?></th>
                                                 <th><?php echo Core::lang('branchid')?></th>
-                                                <th><?php echo Core::lang('destid')?></th>
+                                                <th><?php echo Core::lang('branch').' '.Core::lang('handling')?></th>
                                             	<th><?php echo Core::lang('status')?></th>
-                                                <th><?php echo Core::lang('tb_created_at')?></th>
-                                                <th><?php echo Core::lang('tb_username')?></th>
+                                                <th><?php echo Core::lang('date_transaction')?></th>
+                                                <th><?php echo Core::lang('mode')?></th>
+                                                <th><?php echo Core::lang('weight')?></th>
+                                                <th><?php echo Core::lang('bag')?></th>
+                                                <th><?php echo Core::lang('destination')?></th>
+                                                <th><?php echo Core::lang('goods_value')?></th>
+                                                <th><?php echo Core::lang('insurance_rate')?></th>
+                                                <th><?php echo Core::lang('shipping_cost')?></th>
+                                                <th><?php echo Core::lang('shipping_cost_insurance')?></th>
+                                                <th><?php echo Core::lang('shipping_cost_packing')?></th>
+                                                <th><?php echo Core::lang('shipping_cost_forward')?></th>
+                                                <th><?php echo Core::lang('shipping_cost_handling')?></th>
+                                                <th><?php echo Core::lang('shipping_cost_surcharge')?></th>
+                                                <th><?php echo Core::lang('shipping_cost_admin')?></th>
+                                                <th><?php echo Core::lang('shipping_cost_discount')?></th>
+                                                <th><?php echo Core::lang('shipping_cost_total')?></th>
+                                                <th><?php echo Core::lang('payment')?></th>
+                                                <th><?php echo Core::lang('custid')?></th>
+                                                <th><?php echo Core::lang('shipper_name')?></th>
+                                                <th><?php echo Core::lang('shipper_phone')?></th>
+                                                <th><?php echo Core::lang('refid')?></th>
+                                                <th><?php echo Core::lang('consignee_name')?></th>
+                                                <th><?php echo Core::lang('consignee_phone')?></th>
+                                                <th><?php echo Core::lang('consignee_address')?></th>
+                                                <th><?php echo Core::lang('admin')?></th>
                                                 <th><?php echo Core::lang('tb_updated_at')?></th>
                                                 <th><?php echo Core::lang('tb_updated_by')?></th>
-                                                <th><?php echo Core::lang('manage')?></th>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -158,6 +204,8 @@ $datalogin = Core::checkSessions();?>
     <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.colVis.min.js"></script>
+    <script>$(function(){$("head").append('<link href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />')});</script>
     <!-- end - This is for export functionality only -->
     <script>
         /** 
@@ -311,12 +359,17 @@ $datalogin = Core::checkSessions();?>
             $(function() {
                 if (firstdate == '') firstdate = document.getElementById('firstdate').value;
                 if (lastdate == '') lastdate = document.getElementById('lastdate').value;
+                if (search == ''){
+                    $(document).attr("title", "[<?php echo Core::lang('report').' '.Core::lang('transaction')?>]-["+firstdate+"]-["+lastdate+"]");
+                } else {
+                    $(document).attr("title", "[<?php echo Core::lang('report').' '.Core::lang('transaction')?>]-["+firstdate+"]-["+lastdate+"]-"+search);
+                }
                 /* Make sure there is no datatables with same id */
                 if ($.fn.DataTable.isDataTable(idtable)) {
                     $(idtable).DataTable().destroy();
                 }
                 /* Choose columns index for printing purpose */
-                var selectCol = [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ];
+                var selectCol = [ 0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 ];
                 /* Built table is here */
                 var table = $(idtable).DataTable({
                     ajax: {
@@ -343,19 +396,6 @@ $datalogin = Core::checkSessions();?>
                             return '<a href="print-waybill.php?no='+row.Waybill+'&ref=modul-report-transaction.php">'+row.Waybill+'</a>';
                             }
                         },
-                        { "render": function(data,type,row,meta) { /* render event defines the markup of the cell text */
-                                return row.BranchID.toUpperCase();
-                            } 
-                        },
-                        { "render": function(data,type,row,meta) { /* render event defines the markup of the cell text */
-                                return row.DestID.toUpperCase();
-                            } 
-                        },
-                        { data: "Status" },
-                        { data: "Created_at" },
-                        { data: "Created_by" },
-                        { data: "Updated_at" },
-                        { data: "Updated_by" },
                         { "render": function(data,type,row,meta) { /* render event defines the markup of the cell text */ 
                                 
                                 var a = '<a href="#" data-toggle="modal" data-target=".'+row.Waybill+'"><i class="mdi mdi-pencil-box-outline"></i> <?php echo Core::lang('edit')?></a>'; /* row object contains the row data */
@@ -416,8 +456,44 @@ $datalogin = Core::checkSessions();?>
                                     </div>\
                                     <!-- /.modal -->';
                                 return a;
+                            }
+                        },
+                        { "render": function(data,type,row,meta) { /* render event defines the markup of the cell text */
+                                return row.BranchID.toUpperCase();
                             } 
-                        }
+                        },
+                        { "render": function(data,type,row,meta) { /* render event defines the markup of the cell text */
+                                return row.DestID.toUpperCase();
+                            } 
+                        },
+                        { data: "Status" },
+                        { data: "Created_at" },
+                        { data: "Mode" },
+                        { data: "Weight" },
+                        { data: "Goods_koli" },
+                        { data: "Destination" },
+                        { data: "Goods_value" },
+                        { data: "Insurance_rate" },
+                        { data: "Shipping_cost" },
+                        { data: "Shipping_insurance" },
+                        { data: "Shipping_packing" },
+                        { data: "Shipping_forward" },
+                        { data: "Shipping_handling" },
+                        { data: "Shipping_surcharge" },
+                        { data: "Shipping_admin" },
+                        { data: "Shipping_discount" },
+                        { data: "Shipping_cost_total" },
+                        { data: "Payment" },
+                        { data: "CustomerID" },
+                        { data: "Consignor_name" },
+                        { data: "Consignor_phone" },
+                        { data: "ReferenceID" },
+                        { data: "Consignee_name" },
+                        { data: "Consignee_phone" },
+                        { data: "Consignee_address" },
+                        { data: "Created_by" },
+                        { data: "Updated_at" },
+                        { data: "Updated_by" }
                     ],
                     bFilter: false,
                     paging:   false,
@@ -438,6 +514,7 @@ $datalogin = Core::checkSessions();?>
                         search: "<?php echo Core::lang('dt_search')?>"
                     },
                     dom: "Bfrtip",
+                    stateSave: true,
                     buttons: [
                         {
                             extend: "copy",
@@ -474,6 +551,11 @@ $datalogin = Core::checkSessions();?>
                             exportOptions: {
                                 columns: selectCol
                             }
+                        }, {
+                            extend: 'colvis',
+                            text: "Hide/Show Collumn <i class=\"mdi mdi-chevron-down\"></i>",
+                            className: "bg-secondary",
+                            columns: selectCol
                         }
                     ]
                 });
@@ -621,13 +703,13 @@ $datalogin = Core::checkSessions();?>
         }
         /* Delete data end */
 
-        jQuery('#firstdate').datepicker({
+        $('#firstdate').datepicker({
             format: 'yyyy-mm-dd',
             autoclose: true,
             todayHighlight: true
         });
 
-        jQuery('#lastdate').datepicker({
+        $('#lastdate').datepicker({
             format: 'yyyy-mm-dd',
             autoclose: true,
             todayHighlight: true
