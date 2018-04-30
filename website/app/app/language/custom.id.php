@@ -4,6 +4,7 @@ $customlang = [
     //your custom language variable
     'custom_test' => 'Test',
     //global
+    'reason' => 'Sebab',
     'result' => 'Hasil',
     'clear' => 'Hapus',
     'submit_success' => 'Submit Sukses!',
@@ -46,6 +47,8 @@ $customlang = [
     'actual' => 'Actual',
     'bag' => 'Koli',
     'waybill' => 'Waybill',
+    'pod' => 'Proof of Delivery',
+    'void' => 'Void',
     //dimension
     'length' => 'Panjang',
     'width' => 'Lebar',
@@ -101,6 +104,9 @@ $customlang = [
     'help_browse_customer' => 'Klik browse untuk mencari Customer ID.',
     'help_reference_id' => 'Referensi ID adalah no resi mitra, agar sistem dapat tracking menggunakan no resi mitra.',
     'help_dest_id' => 'Anda harus memilih cabang destinasi mana yang akan menghandle barang Anda.<br>Jika City Courier maka pilih cabang Anda sendiri.',
+    //help void
+    'help_void' => 'Void adalah pembatalan dokumen',
+    'help_void_waybill' => 'Waybill hanya dapat di void oleh Origin',
     //validation
     'select_destination_required' => 'Anda belum memilih cabang destinasi!',
     //input transaction
@@ -121,6 +127,7 @@ $customlang = [
     'sheet_for_goods' => 'Lembar 2 POD/Barang.',
     'tel' => 'Telp',
     'route_shipment' => 'Rute Kiriman',
+    'date_transaction' => 'Tanggal Transaksi',
     'date_send' => 'Tanggal Kirim',
     'date_received' => 'Tanggal Diterima',
     'admin' => 'Admin',

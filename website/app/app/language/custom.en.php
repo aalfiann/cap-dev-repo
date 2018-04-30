@@ -4,6 +4,7 @@ $customlang = [
     //your custom language variable
     'custom_test' => 'Test',
     //global
+    'reason' => 'Reason',
     'result' => 'Result',
     'clear' => 'Clear',
     'submit_success' => 'Submit Success!',
@@ -46,6 +47,8 @@ $customlang = [
     'actual' => 'Actual',
     'bag' => 'Bag',
     'waybill' => 'Waybill',
+    'pod' => 'Proof of Delivery',
+    'void' => 'Void',
     //dimension
     'length' => 'Length',
     'width' => 'Width',
@@ -101,6 +104,9 @@ $customlang = [
     'help_browse_customer' => 'Click browse to search Customer ID.',
     'help_reference_id' => 'Reference ID is no partner\'s receipt, so the system can tracking using no partner\'s receipt.',
     'help_dest_id' => 'You have to choose which branch of destination will handle your goods.<br>If City Courier then select your own branch.',
+    //help void
+    'help_void' => 'Void is a document cancellation',
+    'help_void_waybill' => 'Waybill can only be void by Origin',
     //validation
     'select_destination_required' => 'You have not selected destination branches yet!',
     //input transaction
@@ -121,6 +127,7 @@ $customlang = [
     'sheet_for_goods' => 'Sheet 2 for POD/Goods.',
     'tel' => 'Tel.',
     'route_shipment' => 'Route of Shipment',
+    'date_transaction' => 'Date Transaction',
     'date_send' => 'Date Send',
     'date_received' => 'Date Received',
     'admin' => 'Admin',
