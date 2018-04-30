@@ -205,7 +205,7 @@ $datalogin = Core::checkSessions();?>
     <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.colVis.min.js"></script>
-    <script>$(function(){$("head").append('<link href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />')});</script>
+    <script>$(function(){$("head").append('<link href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" /><style>.dt-button-collection{width:100% !important;min-width:200px !important;max-width:300px !important;height:100% !important;min-height:200px !important;max-height:350px !important;overflow-y:auto !important;}</style>')});</script>
     <!-- end - This is for export functionality only -->
     <script>
         /** 
