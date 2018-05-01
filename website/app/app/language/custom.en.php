@@ -49,6 +49,11 @@ $customlang = [
     'waybill' => 'Waybill',
     'pod' => 'Proof of Delivery',
     'void' => 'Void',
+    'deliveryid' => 'Delivery ID',
+    'return' => 'Return',
+    'return_shipper' => 'Shipper Request',
+    'return_recipient' => 'Recipient Request',
+    'return_origin' => 'Origin Request',
     //dimension
     'length' => 'Length',
     'width' => 'Width',
@@ -107,6 +112,10 @@ $customlang = [
     //help void
     'help_void' => 'Void is a document cancellation',
     'help_void_waybill' => 'Waybill can only be void by Origin',
+    //help pod
+    'help_pod' => 'POD is a delivery status report',
+    'help_pod_waybill' => 'POD Status can only be filled by Destination',
+    'help_pod_description' => 'Caution, Please be filled wisely as it will be read by the customer',
     //validation
     'select_destination_required' => 'You have not selected destination branches yet!',
     //input transaction
@@ -134,6 +143,7 @@ $customlang = [
     'custid' => 'Cust. ID',
     'refid' => 'Ref. ID',
     'weight_or_volume' => 'Weight/Volume',
+    'relation_status' => 'Relation Status',
     //print info
     'print_desktop_notice' => 'If using Mobile, only view that looks broke, but the print remains okay.',
     //signature

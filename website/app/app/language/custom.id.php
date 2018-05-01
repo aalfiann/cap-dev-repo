@@ -49,6 +49,11 @@ $customlang = [
     'waybill' => 'Waybill',
     'pod' => 'Proof of Delivery',
     'void' => 'Void',
+    'deliveryid' => 'Delivery ID',
+    'return' => 'Retur',
+    'return_shipper' => 'Permintaan Pengirim',
+    'return_recipient' => 'Permintaan Penerima',
+    'return_origin' => 'Permintaan Origin',
     //dimension
     'length' => 'Panjang',
     'width' => 'Lebar',
@@ -107,6 +112,10 @@ $customlang = [
     //help void
     'help_void' => 'Void adalah pembatalan dokumen',
     'help_void_waybill' => 'Waybill hanya dapat di void oleh Origin',
+    //help pod
+    'help_pod' => 'POD adalah laporan status pengantaran',
+    'help_pod_waybill' => 'POD Status hanya dapat di isi oleh Destinasi',
+    'help_pod_description' => 'Perhatian, Harap diisi dengan bijak karena akan dibaca oleh customer',
     //validation
     'select_destination_required' => 'Anda belum memilih cabang destinasi!',
     //input transaction
@@ -134,6 +143,7 @@ $customlang = [
     'custid' => 'Cust. ID',
     'refid' => 'Ref. ID',
     'weight_or_volume' => 'Kg/Vol',
+    'relation_status' => 'Hubungan Status',
     //print info
     'print_desktop_notice' => 'Jika menggunakan Handphone, hanya tampilan saja yang terlihat rusak, tapi hasil print tetap oke.',
     //signature
