@@ -10,6 +10,7 @@ namespace classes\system\cargo;
 use \classes\Auth as Auth;
 use \classes\Validation as Validation;
 use \classes\CustomHandlers as CustomHandlers;
+use \classes\system\Util as Util;
 use PDO;
 	/**
      * A class for tariff management cargo
@@ -801,15 +802,7 @@ use PDO;
 		public function listOriginAuto() {
 			if (Auth::validToken($this->db,$this->token,$this->username)){
 				$newusername = strtolower($this->username);
-				$roles = Auth::getRoleID($this->db,$this->token);
-                if ($roles < 3){
-					$sql = "SELECT a.BranchID,a.Name
-						FROM sys_company a
-						WHERE a.StatusID = '1'
-						ORDER BY a.Name ASC;";
-				
-					$stmt = $this->db->prepare($sql);
-				} else {
+                if (Util::isUserActive($this->db,$this->username)){
 					$sql = "SELECT b.BranchID,b.Name
 						FROM sys_user a
 						INNER JOIN sys_company b ON a.BranchID = b.BranchID
@@ -818,9 +811,14 @@ use PDO;
 				
 					$stmt = $this->db->prepare($sql);
 					$stmt->bindParam(':username', $newusername, PDO::PARAM_STR);
+				} else {
+					$data = [
+						'status' => 'error',
+						'code' => 'RS906',
+						'message' => CustomHandlers::getreSlimMessage('RS906')
+					];
 				}
-				
-
+					
 				if ($stmt->execute()) {	
     	    	    if ($stmt->rowCount() > 0){
         	   		   	$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
