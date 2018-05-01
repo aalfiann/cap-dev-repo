@@ -393,7 +393,7 @@ $datalogin = Core::checkSessions();?>
                             } 
                         },
                         { "render": function(data,type,row,meta) {
-                            return '<a href="print-waybill.php?no='+row.Waybill+'&ref=modul-report-transaction.php">'+row.Waybill+'</a>';
+                            return '<a href="modul-inquiry-waybill.php?no='+row.Waybill+'&ref=modul-report-transaction.php">'+row.Waybill+'</a>';
                             }
                         },
                         { "render": function(data,type,row,meta) { /* render event defines the markup of the cell text */ 
@@ -404,49 +404,19 @@ $datalogin = Core::checkSessions();?>
                                         <div class="modal-dialog modal-lg">\
                                             <div class="modal-content">\
                                                 <div class="modal-header">\
-                                                    <h4 class="modal-title text-themecolor" id="myLargeModalLabel"><i class="mdi mdi-plus"></i> <?php echo Core::lang('update').' '.Core::lang('waybill')?></h4>\
+                                                    <h4 class="modal-title text-themecolor" id="myLargeModalLabel"><i class="mdi mdi-pencil-box-outline"></i> <?php echo Core::lang('manage').' '.Core::lang('waybill')?></h4>\
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>\
                                                 </div>\
                                                 <form class="form-horizontal form-material" id="data'+row.Waybill+'" action="<?php echo $_SERVER['PHP_SELF']?>">\
                                                     <div class="modal-body">\
-                                                        <div class="row">\
-                                                            <div class="col-md-6">\
-                                                                <div class="form-group">\
-                                                                    <label class="col-md-12"><?php echo Core::lang('branchid')?></label>\
-                                                                    <div class="col-md-12">\
-                                                                        <input id="branch'+row.Waybill+'" type="text" class="form-control form-control-line" value="'+row.BranchID.toUpperCase()+'" readonly>\
-                                                                    </div>\
-                                                                </div>\
-                                                            </div>\
-                                                            <div class="col-md-6">\
-                                                                <div class="form-group">\
-                                                                    <label class="col-md-12"><?php echo Core::lang('destid')?></label>\
-                                                                    <div class="col-md-12">\
-                                                                        <input id="branch'+row.Waybill+'" type="text" class="form-control form-control-line" value="'+row.DestID.toUpperCase()+'" readonly>\
-                                                                    </div>\
-                                                                </div>\
-                                                            </div>\
-                                                        </div>\
-                                                        <div class="form-group">\
-                                                            <label class="col-md-12"><?php echo Core::lang('waybill')?></label>\
-                                                             <div class="col-md-12">\
-                                                                <input id="name'+row.Waybill+'" type="text" class="form-control form-control-line" value="'+row.Waybill+'">\
-                                                                <span class="help-block text-danger name'+row.Waybill+'"></span>\
-                                                            </div>\
+                                                        <div class="col-sm-12">\
+                                                            <a href="print-waybill.php?no='+row.Waybill+'&ref=modul-report-transaction.php" class="btn btn-primary"><?php echo Core::lang('print')?></a>\
+                                                            <a href="modul-pod.php?no='+row.Waybill+'&ref=modul-report-transaction.php" class="btn btn-success"><?php echo Core::lang('pod')?></a>\
+                                                            <a href="modul-void.php?no='+row.Waybill+'&ref=modul-report-transaction.php" class="btn btn-danger"><?php echo Core::lang('void')?></a>\
                                                         </div>\
                                                     </div>\
                                                     <div class="modal-footer">\
-                                                        <div class="col-sm-12">\
-                                                        <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">\
-                                                            <div class="btn-group mr-2" role="group" aria-label="First group">\
-                                                                <button type="submit" onclick="deletedata(\''+row.Waybill+'\');return false;" class="btn btn-danger"><?php echo Core::lang('delete')?></button>\
-                                                            </div>\
-                                                            <div class="btn-group mr-2" role="group" aria-label="Second group">\
-                                                                <button type="button" class="btn btn-default waves-effect text-left mr-2" data-dismiss="modal"><?php echo Core::lang('cancel')?></button>\
-                                                                <button type="submit" onclick="updatedata(\''+row.Waybill+'\');return false;" class="btn btn-success"><?php echo Core::lang('update')?></button>\
-                                                            </div>\
-                                                        </div>\
-                                                        </div>\
+                                                        <button type="button" class="btn btn-default waves-effect text-left mr-2" data-dismiss="modal"><?php echo Core::lang('cancel')?></button>\
                                                     </div>\
                                                 </form>\
                                             </div>\
