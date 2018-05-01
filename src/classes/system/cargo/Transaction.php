@@ -697,7 +697,7 @@ use PDO;
                         $this->db->beginTransaction();
                         $sql = "UPDATE transaction_waybill a 
                             SET a.StatusID = '53',a.Updated_at=current_timestamp,a.Updated_by=:username 
-                            WHERE a.WayBill = :waybill AND a.DestID = :destid AND a.StatusID<>'41' AND a.StatusID<>'53';";
+                            WHERE a.WayBill = :waybill AND a.DestID = :destid AND a.StatusID='19';";
                         $stmt = $this->db->prepare($sql);
                         $stmt->bindParam(':username', $newusername, PDO::PARAM_STR);
                         $stmt->bindParam(':waybill', $this->waybill, PDO::PARAM_STR);
