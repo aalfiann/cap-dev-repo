@@ -80,7 +80,7 @@ $refpage = (empty($_GET['ref'])?Core::lang('pod'):'<a href="'.$_GET['ref'].'"><i
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="form-group col-md-6">
+                                        <div id="rcodeid" class="form-group col-md-6">
                                             <label class="form-control-label"><b><?php echo Core::lang('waybill')?></b></label>
                                             <input id="codeid" type="text" class="form-control" maxlength="13" value="<?php echo $codeid?>" required>
                                             <span class="help-block text-muted"><small><i class="ti-info-alt"></i> <?php echo Core::lang('help_pod_waybill')?></small></span>
@@ -189,7 +189,9 @@ $refpage = (empty($_GET['ref'])?Core::lang('pod'):'<a href="'.$_GET['ref'].'"><i
                         Username: "<?php echo $datalogin['username']?>",
                         Token: "<?php echo $datalogin['token']?>",
                         Waybill: $("#codeid").val(),
-                        Description: $("#description").val()
+                        Recipient: $("#consignee_name").val().toUpperCase(),
+                        Relation: $("#relation_status").val().toUpperCase(),
+                        DeliveryID: $("#deliveryid").val()
                     },
                     dataType: "json",
                     type: "POST",
@@ -200,11 +202,85 @@ $refpage = (empty($_GET['ref'])?Core::lang('pod'):'<a href="'.$_GET['ref'].'"><i
                             .find("input,textarea")
                             .val("")
                             .end()
-                            console.log("<?php echo Core::lang('submit').' '.Core::lang('void').' '.Core::lang('status_success')?>");
-                            swal("<?php echo Core::lang('void').' '.Core::lang('status_success')?>", data.message,"success");
+                            console.log("<?php echo Core::lang('submit').' '.Core::lang('pod').' '.Core::lang('status_success')?>");
+                            swal("<?php echo Core::lang('pod').' '.Core::lang('status_success')?>", data.message,"success");
                         } else {
-                            console.log("<?php echo Core::lang('submit').' '.Core::lang('void').' '.Core::lang('status_failed')?>");
-                            swal("<?php echo Core::lang('void').' '.Core::lang('status_failed')?>", data.message,"error");
+                            console.log("<?php echo Core::lang('submit').' '.Core::lang('pod').' '.Core::lang('status_failed')?>");
+                            swal("<?php echo Core::lang('pod').' '.Core::lang('status_failed')?>", data.message,"error");
+                        }
+                    },
+                    error: function(x, e) {}
+                });
+            });
+        }
+
+        function sendPodFailed(){
+            $(function(){
+                $.ajax({
+                    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargo/transaction/data/pod/failed')?>"),
+                    data : {
+                        Username: "<?php echo $datalogin['username']?>",
+                        Token: "<?php echo $datalogin['token']?>",
+                        Waybill: $("#codeid").val(),
+                        Description: $("#description").val(),
+                        DeliveryID: $("#deliveryid").val()
+                    },
+                    dataType: "json",
+                    type: "POST",
+                    success: function(data) {
+                        if (data.status == "success"){
+                            /* clear from */
+                            $("#submitdata")
+                            .find("input,textarea")
+                            .val("")
+                            .end()
+                            console.log("<?php echo Core::lang('submit').' '.Core::lang('pod').' '.Core::lang('status_success')?>");
+                            swal("<?php echo Core::lang('pod').' '.Core::lang('status_success')?>", data.message,"success");
+                        } else {
+                            console.log("<?php echo Core::lang('submit').' '.Core::lang('pod').' '.Core::lang('status_failed')?>");
+                            swal("<?php echo Core::lang('pod').' '.Core::lang('status_failed')?>", data.message,"error");
+                        }
+                    },
+                    error: function(x, e) {}
+                });
+            });
+        }
+
+        function sendPodReturn(opt='1'){
+            $(function(){
+                var urldata = '';
+                switch(opt){
+                    case '1':
+                        urldata = Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargo/transaction/data/pod/returned/consignor')?>");
+                        break;
+                    case '2':
+                        urldata = Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargo/transaction/data/pod/returned/consignee')?>");
+                        break;
+                    default:
+                        urldata = Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargo/transaction/data/pod/returned')?>");
+                }
+                $.ajax({
+                    url: urldata,
+                    data : {
+                        Username: "<?php echo $datalogin['username']?>",
+                        Token: "<?php echo $datalogin['token']?>",
+                        Waybill: $("#codeid").val(),
+                        DeliveryID: $("#deliveryid").val()
+                    },
+                    dataType: "json",
+                    type: "POST",
+                    success: function(data) {
+                        if (data.status == "success"){
+                            /* clear from */
+                            $("#submitdata")
+                            .find("input,textarea")
+                            .val("")
+                            .end()
+                            console.log("<?php echo Core::lang('submit').' '.Core::lang('pod').' '.Core::lang('status_success')?>");
+                            swal("<?php echo Core::lang('pod').' '.Core::lang('status_success')?>", data.message,"success");
+                        } else {
+                            console.log("<?php echo Core::lang('submit').' '.Core::lang('pod').' '.Core::lang('status_failed')?>");
+                            swal("<?php echo Core::lang('pod').' '.Core::lang('status_failed')?>", data.message,"error");
                         }
                     },
                     error: function(x, e) {}
@@ -232,7 +308,75 @@ $refpage = (empty($_GET['ref'])?Core::lang('pod'):'<a href="'.$_GET['ref'].'"><i
                 }
             });
         }
+
+        function sendPOD(){
+            $(function(){
+                if (validateCheck()){
+                    if($('#radio1').is(':checked')){
+                        sendPodSuccess();
+                    } else if ($('#radio2').is(':checked')){
+                        sendPodFailed();
+                    } else if ($('#radio3').is(':checked')){
+                        if ($('#radio4').is(':checked')){
+                            sendPodReturn('1');
+                        } else if ($('#radio5').is(':checked')){
+                            sendPodReturn('2');
+                        } else if ($('#radio6').is(':checked')){
+                            sendPodReturn('3');
+                        }
+                    }
+                    validateClear();
+                }
+            });
+        }
+
+        function validateCheck(){
+            var result = true;
+            if($('#radio1').is(':checked')){
+                if (!$.trim($('#codeid').val()).length){
+                    $("#codeid").addClass('form-control-danger');
+                    $("#rcodeid").addClass('has-danger');
+                    result = false;
+                } 
+                if (!$.trim($('#consignee_name').val()).length){
+                    $("#consignee_name").addClass('form-control-danger');
+                    $("#consignee").addClass('has-danger');
+                    result = false;
+                }
+            } else if ($('#radio2').is(':checked')){
+                if (!$.trim($('#codeid').val()).length){
+                    $("#codeid").addClass('form-control-danger');
+                    $("#rcodeid").addClass('has-danger');
+                    result = false;
+                }
+                if (!$.trim($('#description').val()).length){
+                    $("#description").addClass('form-control-danger');
+                    $("#desc").addClass('has-danger');
+                    result = false;
+                }
+            } else if ($('#radio3').is(':checked')){
+                if (!$.trim($('#codeid').val()).length){
+                    $("#codeid").addClass('form-control-danger');
+                    $("#rcodeid").addClass('has-danger');
+                    result = false;
+                }
+            }
+            return result;
+        }
+
+        function validateClear(){
+            $(function(){
+                console.log('Clear form data...');
+                $("#codeid").removeClass('form-control-danger');
+                $("#rcodeid").removeClass('has-danger');
+                $("#consignee_name").removeClass('form-control-danger');
+                $("#consignee").removeClass('has-danger');
+                $("#description").removeClass('form-control-danger');
+                $("#desc").removeClass('has-danger');
+            });
+        }
         
+        /* event onload */
         $(function(){
             $('#radio1').click(function() {
                 if($('#radio1').is(':checked')) {
