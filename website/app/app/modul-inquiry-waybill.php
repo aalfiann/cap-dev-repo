@@ -1,10 +1,12 @@
 <?php spl_autoload_register(function ($classname) {require ( $classname . ".php");});
-$datalogin = Core::checkSessions();?>
+$datalogin = Core::checkSessions();
+$codeid = (empty($_GET['no'])?'':$_GET['no']);
+$refpage = (empty($_GET['ref'])?Core::lang('info').' '.Core::lang('waybill'):'<a href="'.$_GET['ref'].'"><i class="mdi mdi-arrow-left"></i> '.Core::lang('go_back').'</a>');?>
 <!DOCTYPE html>
 <html lang="<?php echo Core::getInstance()->setlang?>">
 <head>
     <?php include_once 'global-meta.php';?>    
-    <title><?php echo Core::lang('info'),' '.Core::lang('waybill')?> - <?php echo Core::getInstance()->title?></title>
+    <title><?php echo Core::lang('info').' '.Core::lang('waybill')?> - <?php echo Core::getInstance()->title?></title>
 </head>
 
 <body class="fix-sidebar fix-header card-no-border">
@@ -24,7 +26,7 @@ $datalogin = Core::checkSessions();?>
             <!-- ============================================================== -->
             <div class="row page-titles">
                 <div class="col-md-5 align-self-center">
-                    <h3 class="text-themecolor"><?php echo Core::lang('info'),' '.Core::lang('waybill')?></h3>
+                    <h3 class="text-themecolor"><?php echo $refpage?></h3>
                 </div>
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
@@ -49,7 +51,7 @@ $datalogin = Core::checkSessions();?>
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 col-8 align-self-center">
-                        <h3 class="text-themecolor m-b-0 m-t-0"><?php echo Core::lang('info'),' '.Core::lang('waybill')?></h3>
+                        <h3 class="text-themecolor m-b-0 m-t-0"><?php echo Core::lang('info').' '.Core::lang('waybill')?></h3>
                         <p class="text-muted"><?php echo Core::lang('develop_process_info')?></p>
                         
                     </div>
