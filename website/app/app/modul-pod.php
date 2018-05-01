@@ -49,22 +49,94 @@ $refpage = (empty($_GET['ref'])?Core::lang('pod'):'<a href="'.$_GET['ref'].'"><i
             <!-- ============================================================== -->
             <div class="container-fluid">
                 <!-- ============================================================== -->
-                <!-- Bread crumb and right sidebar toggle -->
-                <!-- ============================================================== -->
-                <div class="row page-titles">
-                    <div class="col-md-5 col-8 align-self-center">
-                        <h3 class="text-themecolor m-b-0 m-t-0"><?php echo Core::lang('pod')?></h3>
-                        <p class="text-muted"><?php echo Core::lang('develop_process_info')?></p>
-                        
-                    </div>
-                </div>
-                <!-- ============================================================== -->
-                <!-- End Bread crumb and right sidebar toggle -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
-                
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="text-themecolor m-b-0 m-t-0"><?php echo Core::lang('pod')?></h3>
+                                <p class="text-muted"><?php echo Core::lang('help_pod')?></p>
+                                <hr>
+                                <form class="form-control-line" id="submitdata">
+                                    <div class="form-group">
+                                        <label><?php echo Core::lang('status')?> :</label>
+                                        <div class="radio-list">
+                                            <label class="custom-control custom-radio">
+                                                <input id="radio1" name="radio1" type="radio" checked="" class="custom-control-input">
+                                                <span class="custom-control-indicator"></span>
+                                                <span class="custom-control-description">Delivered</span>
+                                            </label>
+                                            <label class="custom-control custom-radio">
+                                                <input id="radio2" name="radio1" type="radio" class="custom-control-input">
+                                                <span class="custom-control-indicator"></span>
+                                                <span class="custom-control-description">Failed</span>
+                                            </label>
+                                            <label class="custom-control custom-radio">
+                                                <input id="radio3" name="radio1" type="radio" class="custom-control-input">
+                                                <span class="custom-control-indicator"></span>
+                                                <span class="custom-control-description">Return</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label class="form-control-label"><b><?php echo Core::lang('waybill')?></b></label>
+                                            <input id="codeid" type="text" class="form-control" maxlength="13" value="<?php echo $codeid?>" required>
+                                            <span class="help-block text-muted"><small><i class="ti-info-alt"></i> <?php echo Core::lang('help_pod_waybill')?></small></span>
+                                        </div>
+                                        <div class="form-group col-md-6" hidden>
+                                            <label class="form-control-label"><b><?php echo Core::lang('deliveryid')?></b></label>
+                                            <input id="deliveryid" type="text" class="form-control" maxlength="20" value="<?php echo $codeid?>" required>
+                                            <span class="help-block text-muted"></span>
+                                        </div>
+                                    </div>
+                                    <div id="desc" class="form-group">
+                                        <label class="form-control-label"><b><?php echo Core::lang('description')?></b></label>
+                                        <textarea id="description" type="text" style="resize: vertical;" rows="5" class="form-control" maxlength="200" required></textarea>
+                                        <span class="help-block text-muted"><small><i class="ti-info-alt"></i> <?php echo Core::lang('help_pod_description')?></small></span>
+                                    </div>
+                                    <div class="row">
+                                        <div id="consignee" class="form-group col-md-6">
+                                            <label class="form-control-label"><b><?php echo Core::lang('consignee_name')?></b></label>
+                                            <input id="consignee_name" type="text" class="form-control" maxlength="50"  style="text-transform: uppercase" required>
+                                            <span class="help-block text-muted"></span>
+                                        </div>
+                                        <div id="relation" class="form-group col-md-6">
+                                            <label class="form-control-label"><b><?php echo Core::lang('relation_status')?></b></label>
+                                            <select class="custom-select form-control required" id="relation_status" onfocus="this.size=5;" onblur="this.size=1;" onchange="this.size=1; this.blur();" required></select>
+                                            <span class="help-block text-muted"></span>
+                                        </div>
+                                    </div>
+                                    <div id="return" class="form-group">
+                                        <label><b><?php echo Core::lang('reason').' '.Core::lang('return')?></b></label>
+                                        <div class="radio-list">
+                                            <label class="custom-control custom-radio">
+                                                <input id="radio4" name="radio2" type="radio" checked="" class="custom-control-input">
+                                                <span class="custom-control-indicator"></span>
+                                                <span class="custom-control-description"><?php echo Core::lang('return_shipper')?></span>
+                                            </label>
+                                            <label class="custom-control custom-radio">
+                                                <input id="radio5" name="radio2" type="radio" class="custom-control-input">
+                                                <span class="custom-control-indicator"></span>
+                                                <span class="custom-control-description"><?php echo Core::lang('return_recipient')?></span>
+                                            </label>
+                                            <label class="custom-control custom-radio">
+                                                <input id="radio6" name="radio2" type="radio" class="custom-control-input">
+                                                <span class="custom-control-indicator"></span>
+                                                <span class="custom-control-description"><?php echo Core::lang('return_origin')?></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group">
+                                        <button type="button" onclick="sendPOD()" class="btn btn-themecolor"><?php echo Core::lang('submit')?></button>
+                                    </div>                                 
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
                 <!-- ============================================================== -->
@@ -85,6 +157,113 @@ $refpage = (empty($_GET['ref'])?Core::lang('pod'):'<a href="'.$_GET['ref'].'"><i
     <?php include_once 'global-js.php';?>
     <!-- Sweet-Alert  -->
     <script src="../assets/plugins/sweetalert/sweetalert.min.js"></script>
+    <script>
+        /* Get relation option start */
+        function loadRelationOption(){
+            $(function(){
+                $.ajax({
+				    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargo/relation/data/list/'.$datalogin['username'].'/'.$datalogin['token'])?>")+"?_="+randomText(60),
+	    	    	dataType: 'json',
+	    	    	type: 'GET',
+		    		ifModified: true,
+    		        success: function(data,status) {
+    			    	if (status === "success") {
+					    	if (data.status == "success"){
+                                $.each(data.results, function(i, item) {
+                                    $("#relation_status").append("<option value=\""+data.results[i].Relation+"\">"+data.results[i].Relation+"</option>");
+                                });
+    				    	}
+    	    			}
+	    		    },
+                	error: function(x, e) {}
+    	    	});
+            });
+        }
+        /* Get relation option end */
+
+        function sendPodSuccess(){
+            $(function(){
+                $.ajax({
+                    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargo/transaction/data/pod/delivered')?>"),
+                    data : {
+                        Username: "<?php echo $datalogin['username']?>",
+                        Token: "<?php echo $datalogin['token']?>",
+                        Waybill: $("#codeid").val(),
+                        Description: $("#description").val()
+                    },
+                    dataType: "json",
+                    type: "POST",
+                    success: function(data) {
+                        if (data.status == "success"){
+                            /* clear from */
+                            $("#submitdata")
+                            .find("input,textarea")
+                            .val("")
+                            .end()
+                            console.log("<?php echo Core::lang('submit').' '.Core::lang('void').' '.Core::lang('status_success')?>");
+                            swal("<?php echo Core::lang('void').' '.Core::lang('status_success')?>", data.message,"success");
+                        } else {
+                            console.log("<?php echo Core::lang('submit').' '.Core::lang('void').' '.Core::lang('status_failed')?>");
+                            swal("<?php echo Core::lang('void').' '.Core::lang('status_failed')?>", data.message,"error");
+                        }
+                    },
+                    error: function(x, e) {}
+                });
+            });
+        }
+
+        function showRecipient(allow=true){
+            $(function(){
+                if (allow){
+                    $("#consignee").show();
+                    $("#relation").show();
+                    $("#desc").hide();
+                    $('#return').hide();
+                } else {
+                    $("#consignee").hide();
+                    $("#relation").hide();
+                    if($('#radio3').is(':checked')) {
+                        $("#desc").hide();
+                        $('#return').show();
+                    } else {
+                        $("#desc").show();
+                        $('#return').hide();
+                    }
+                }
+            });
+        }
+        
+        $(function(){
+            $('#radio1').click(function() {
+                if($('#radio1').is(':checked')) {
+                    showRecipient();
+                }
+            });
+
+            $('#radio2').click(function() {
+                if($('#radio2').is(':checked')) {
+                    showRecipient(false);
+                }
+            });
+
+            $('#radio3').click(function() {
+                if($('#radio3').is(':checked')) {
+                    showRecipient(false);
+                }
+            });
+
+            $(document).on("focusin", "#relation_status", function() {
+                $(this).css('height', '200px');  
+            });
+
+            $(document).on("focusout", "#relation_status", function() {
+                $(this).css('height', '40px'); 
+            });
+
+            showRecipient();
+            loadRelationOption();
+        });
+    </script>
 </body>
 
 </html>
