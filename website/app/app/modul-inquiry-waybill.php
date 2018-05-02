@@ -66,6 +66,7 @@ $refpage = (empty($_GET['ref'])?Core::lang('info').' '.Core::lang('waybill'):'<a
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
                 <div class="col-md-12">
+                    <div id="errorinfo"></div>
                     <div id="floatcard" class="card">
                         <div class="card-header">
                             <b><span id="hwaybill"></span> <span id="hstatus"></span> <span id="hrecipient"></span> <span id="hrelation"></span></b>
@@ -411,30 +412,7 @@ $refpage = (empty($_GET['ref'])?Core::lang('info').' '.Core::lang('waybill'):'<a
                                 <div class="col-lg-4">
                                     <h4><?php echo Core::lang('shipment_history')?></h4>
                                     <hr>
-
-                                    <div id="trace"></div>
-                                        <!--<div id="trace" class="profiletimeline">
-                                            <div class="sl-item">
-                                            <div class="sl-left"> <b><i class="mdi mdi-check"></i></b> </div>
-                                            <div class="sl-right">
-                                                <div class="link">On Process <span class="sl-date">15-08-2018 15:33:28</span>
-                                                    <p>Menunggu proses kirim barang</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="sl-item">
-                                            <div class="sl-left"> <b><i class="mdi mdi-close"></i></b> </div>
-                                            <div class="sl-right">
-                                                <div class="link">Failed <span class="sl-date">15-08-2018 15:33:28</span>
-                                                    <p>Alamat tidak ketemu</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        </div>-->
-                                    
-
+                                    <div id="trace" class="profiletimeline"></div>
                                 </div>
                             </div>
                         </div>
@@ -461,25 +439,27 @@ $refpage = (empty($_GET['ref'])?Core::lang('info').' '.Core::lang('waybill'):'<a
     <script>
         function getWaybill(waybill){
             $(function(){
+                clearData();
                 $.ajax({
                     url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargo/transaction/data/trace/waybill/'.$datalogin['username'].'/'.$datalogin['token'].'/')?>")+encodeURIComponent(waybill)+"?_="+randomText(2),
                     dataType: "json",
                     type: "GET",
                     success: function(data) {
                         if (data.status == "success"){
+                            closeCard("floatcard",false);
                             console.log(data.message);
                             $('#hwaybill').html(data.result[0].Data.Waybill.toUpperCase());
                             $('#hstatus').html(' >> '+ucwords(data.result[0].Log.Status));
-                            if (data.result[0].POD.Recipient != '') $('#hrecipient').html(' >> '+data.result[0].POD.Recipient);
-                            if (data.result[0].POD.Relation != '') $('#hrelation').html(' ('+data.result[0].POD.Relation+')');
+                            if (!$.isEmptyObject(data.result[0].POD.Recipient)) $('#hrecipient').html(' >> '+data.result[0].POD.Recipient);
+                            if (!$.isEmptyObject(data.result[0].POD.Relation)) $('#hrelation').html(' ('+data.result[0].POD.Relation+')');
                             
                             //data waybill
                             $('#waybill').html(data.result[0].Data.Waybill.toUpperCase());
                             $('#datesend').html(formatDate(data.result[0].Data.Created_at,true));
                             $('#admin').html(data.result[0].Data.Created_by.toUpperCase());
                             $('#status').html(ucwords(data.result[0].Log.Status));
-                            $('#recipient').html(data.result[0].POD.Recipient.toUpperCase());
-                            $('#relation').html(data.result[0].POD.Relation.toUpperCase());
+                            if (!$.isEmptyObject(data.result[0].POD.Recipient)) $('#recipient').html(data.result[0].POD.Recipient.toUpperCase());
+                            if (!$.isEmptyObject(data.result[0].POD.Relation)) $('#relation').html(data.result[0].POD.Relation.toUpperCase());
 
                             //shipper
                             $('#custid').html(data.result[0].Consignor.CustomerID.toUpperCase());
@@ -547,26 +527,23 @@ $refpage = (empty($_GET['ref'])?Core::lang('info').' '.Core::lang('waybill'):'<a
                             $('#shippingcosttotal').html(addCommas(data.result[0].Transaction.Shipping_cost_total));
 
                             //trace
-                            var trc = '<div class="profiletimeline">';
                             $.each(data.result[0].Trace, function(index, value){
                                 var icon = "";
                                 if (value.StatusID == '19'){icon = "close";} else {icon = "check";}
-                                trc += '<div class="sl-item">\
-                                            <div class="sl-left"> <b><i class="mdi mdi-'+icon+'></i></b> </div>\
+                                $('#trace').append('<div class="sl-item">\
+                                            <div class="sl-left"><b><i class="mdi mdi-'+icon+'"></i></b> </div>\
                                             <div class="sl-right">\
-                                                <div class="link">'+value.Status+' <span class="sl-date">'+formatDate(value.Created_at,true)+'</span>\
+                                                <div class="link">'+ucwords(value.Status)+' <span class="sl-date">'+formatDate(value.Created_at,true)+'</span>\
                                                     <p>'+value.Description+'</p>\
                                                 </div>\
                                             </div>\
                                         </div>\
-                                        <hr>'
+                                        <hr>');
                             });
-                            trc +='</div>';
-                            
-                            $('#trace').html(trc);
-                            console.log(trc);
                         } else {
                             console.log(data.message);
+                            writeMessage('#errorinfo','danger',data.message);
+                            closeCard('floatcard');
                         }
                     },
                     error: function(x, e) {}
@@ -574,9 +551,37 @@ $refpage = (empty($_GET['ref'])?Core::lang('info').' '.Core::lang('waybill'):'<a
             });    
         }
 
+        function closeCard(selectorid,todo=true){
+            if (todo){
+                var div = document.getElementById(selectorid);
+                div.style.display = "none";
+            } else {
+                var div = document.getElementById(selectorid);
+                div.style.display = "block";
+            }
+        }
+
+        function clearData(){
+            /* clear from */
+            $("#floatcard").find("span").html("").end();
+            $("#trace").html("");
+            $('#errorinfo').html("");
+        }
+
+        /** 
+         * Create event enter key on search (Pure JS)
+         * Usage: button id in search element must be set to submitsearchdt
+         */
+        document.getElementById("search").addEventListener("keyup", function(event) {
+            event.preventDefault();
+            if (event.keyCode === 13) {
+                document.getElementById("submitsearchdt").click();
+            }
+        });
+
         /* onload event */
         $(function(){
-
+            closeCard('floatcard');
         });
     </script>
 </body>
