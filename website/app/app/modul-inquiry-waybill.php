@@ -582,6 +582,7 @@ $refpage = (empty($_GET['ref'])?Core::lang('info').' '.Core::lang('waybill'):'<a
         /* onload event */
         $(function(){
             closeCard('floatcard');
+            <?php if (!empty($codeid)) echo 'document.getElementById("submitsearchdt").click();'?>
         });
     </script>
 </body>
