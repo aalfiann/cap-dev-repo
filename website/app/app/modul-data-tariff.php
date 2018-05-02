@@ -205,6 +205,8 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
     <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.colVis.min.js"></script>
+    <script>$(function(){$("head").append('<link href="css/datatables.css" rel="stylesheet" type="text/css" />')});</script>
     <!-- end - This is for export functionality only -->
     <script>
         /** 
@@ -494,6 +496,7 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                         search: "<?php echo Core::lang('dt_search')?>"
                     },
                     dom: "Bfrtip",
+                    stateSave: true,
                     buttons: [
                         {
                             extend: "copy",
@@ -530,6 +533,11 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                             exportOptions: {
                                 columns: selectCol
                             }
+                        }, {
+                            extend: 'colvis',
+                            text: "Hide/Show Collumn <i class=\"mdi mdi-chevron-down\"></i>",
+                            className: "bg-secondary",
+                            columns: selectCol
                         }
                     ]
                 });
