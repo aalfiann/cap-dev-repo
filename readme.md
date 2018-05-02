@@ -61,21 +61,21 @@ Laporan data semua transaksi termasuk harian, mingguan, bulanan dan tahunan<br>
 Pengisian status antaran dan retur barang kiriman
 9. Void System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
 Fitur pembatalan dokumen kiriman
-10. Inquiry Data >> ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) `on progress`<br>
+10. Inquiry Data >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
 Untuk mendapatkan info detail data dalam sistem<br>
 
 
 Timeline plan 3:
 ---------------
 Proses pengembangan sekitar 3 bulan
-1. Tracking System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
-Untuk mendapatkan informasi riwayat perjalanan data customer<br>
-2. Operasional System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
-Sistem operasional CARGO<br>
-3. Corporate System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+1. Corporate System >> ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) `on progress`<br>
 Pendataan Corporate atau perusahaan yang bekerja sama<br>
-4. Invoice System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+2. Invoice System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
 Manajemen tagihan atau invoice secara sistem agar memudahkan untuk di kontrol<br>
+3. Tracking System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+Untuk mendapatkan informasi riwayat perjalanan data customer<br>
+4. Operasional System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+Sistem operasional CARGO<br>
 5. Customer App System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
 Aplikasi untuk customer yang terdaftar dengan fitur login<br>
 6. Customer Reporting System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
