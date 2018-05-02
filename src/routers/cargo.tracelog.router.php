@@ -77,18 +77,3 @@ use \classes\SimpleCache as SimpleCache;
         $body->write($cargo->showOptionMode());
         return classes\Cors::modify($response,$body,200);
     });
-
-    // GET api to show all data mode public
-    $app->map(['GET','OPTIONS'],'/cargo/mode/data/list/public/', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Mode($this->db);
-        $cargo->codeid = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);
-        $body = $response->getBody();
-        $response = $this->cache->withEtag($response, $this->etag30min.'-'.trim($_SERVER['REQUEST_URI'],'/'));
-        if (SimpleCache::isCached(300,["apikey","query"])){
-            $datajson = SimpleCache::load(["apikey","query"]);
-        } else {
-            $datajson = SimpleCache::save($cargo->showOptionModePublic(),["apikey","query"]);
-        }
-        $body->write($datajson);
-        return classes\Cors::modify($response,$body,200,$request);
-    })->add(new \classes\middleware\ApiKey());
