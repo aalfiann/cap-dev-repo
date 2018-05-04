@@ -1,6 +1,8 @@
 <?php
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
+use \classes\middleware\ValidateParam as ValidateParam;
+use \classes\middleware\ValidateParamURL as ValidateParamURL;
 use \classes\SimpleCache as SimpleCache;
 
     // POST api to create new company
@@ -14,7 +16,9 @@ use \classes\SimpleCache as SimpleCache;
         $body = $response->getBody();
         $body->write($user->register());
         return classes\Cors::modify($response,$body,200);
-    });
+    })->add(new ValidateParam('BranchID','1-10','required'))
+        ->add(new ValidateParam('Token','1-250','required'))
+        ->add(new ValidateParam(['Username','Adminname'],'1-50','required'));
 
     // POST api to update user
     $app->post('/system/user/data/update', function (Request $request, Response $response) {
@@ -28,7 +32,10 @@ use \classes\SimpleCache as SimpleCache;
         $body = $response->getBody();
         $body->write($user->update());
         return classes\Cors::modify($response,$body,200);
-    });
+    })->add(new ValidateParam('StatusID','1-11','numeric'))
+        ->add(new ValidateParam('BranchID','1-10','required'))
+        ->add(new ValidateParam('Token','1-250','required'))
+        ->add(new ValidateParam(['Username','Adminname'],'1-50','required'));
 
     // POST api to delete user
     $app->post('/system/user/data/delete', function (Request $request, Response $response) {
@@ -40,7 +47,8 @@ use \classes\SimpleCache as SimpleCache;
         $body = $response->getBody();
         $body->write($user->delete());
         return classes\Cors::modify($response,$body,200);
-    });
+    })->add(new ValidateParam('Token','1-250','required'))
+        ->add(new ValidateParam(['Username','Adminname'],'1-50','required'));
 
     // GET api to show all data user pagination registered user
     $app->get('/system/user/data/search/{username}/{token}/{page}/{itemsperpage}/', function (Request $request, Response $response) {
@@ -53,7 +61,7 @@ use \classes\SimpleCache as SimpleCache;
         $body = $response->getBody();
         $body->write($user->searchUserAsPagination());
         return classes\Cors::modify($response,$body,200);
-    });
+    })->add(new ValidateParamURL('query'));
 
     // GET api to get verify user is registered
     $app->get('/system/user/data/verify/register/{username}', function (Request $request, Response $response) {

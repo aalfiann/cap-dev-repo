@@ -1,6 +1,9 @@
 <?php
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
+use \classes\middleware\ValidateParam as ValidateParam;
+use \classes\middleware\ValidateParamURL as ValidateParamURL;
+use \classes\middleware\ApiKey as ApiKey;
 use \classes\SimpleCache as SimpleCache;
 
     // POST api to create new company
@@ -21,7 +24,14 @@ use \classes\SimpleCache as SimpleCache;
         $body = $response->getBody();
         $body->write($company->add());
         return classes\Cors::modify($response,$body,200);
-    });
+    })->add(new ValidateParam('BranchID','1-10','required'))
+        ->add(new ValidateParam('Address','0-250'))
+        ->add(new ValidateParam('Phone','1-15','numeric'))
+        ->add(new ValidateParam('Fax','0-15','numeric'))
+        ->add(new ValidateParam('Email','0-50','email'))
+        ->add(new ValidateParam(['Owner','PIC','TIN'],'0-50'))
+        ->add(new ValidateParam('Token','1-250','required'))
+        ->add(new ValidateParam(['Username','Name'],'1-50','required'));
 
     // POST api to update company
     $app->post('/system/company/data/update', function (Request $request, Response $response) {
@@ -42,7 +52,15 @@ use \classes\SimpleCache as SimpleCache;
         $body = $response->getBody();
         $body->write($company->update());
         return classes\Cors::modify($response,$body,200);
-    });
+    })->add(new ValidateParam('BranchID','1-10','required'))
+        ->add(new ValidateParam('Address','0-250'))
+        ->add(new ValidateParam('Phone','1-15','numeric'))
+        ->add(new ValidateParam('Fax','0-15','numeric'))
+        ->add(new ValidateParam('StatusID','1-11','numeric'))
+        ->add(new ValidateParam('Email','0-50','email'))
+        ->add(new ValidateParam(['Owner','PIC','TIN'],'0-50'))
+        ->add(new ValidateParam('Token','1-250','required'))
+        ->add(new ValidateParam(['Username','Name'],'1-50','required'));
 
     // POST api to delete company
     $app->post('/system/company/data/delete', function (Request $request, Response $response) {
@@ -67,7 +85,7 @@ use \classes\SimpleCache as SimpleCache;
         $body = $response->getBody();
         $body->write($company->searchCompanyAsPagination());
         return classes\Cors::modify($response,$body,200);
-    });
+    })->add(new ValidateParamURL('query'));
 
     // GET api to show all data company
     $app->get('/system/company/data/company/{username}/{token}', function (Request $request, Response $response) {
@@ -103,7 +121,8 @@ use \classes\SimpleCache as SimpleCache;
         }
         $body->write($datajson);
         return classes\Cors::modify($response,$body,200,$request);
-    })->add(new \classes\middleware\ApiKey());
+    })->add(new ValidateParamURL('query'))
+        ->add(new ApiKey);
 
     // GET api to get all data page for statistic purpose
     $app->get('/system/company/stats/data/summary/{username}/{token}', function (Request $request, Response $response) {
