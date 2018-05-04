@@ -1,6 +1,9 @@
 <?php
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
+use \classes\middleware\ValidateParam as ValidateParam;
+use \classes\middleware\ValidateParamURL as ValidateParamURL;
+use \classes\middleware\ApiKey as ApiKey;
 use \classes\SimpleCache as SimpleCache;
 
     // POST api to create new relation
@@ -13,7 +16,8 @@ use \classes\SimpleCache as SimpleCache;
         $body = $response->getBody();
         $body->write($cargo->add());
         return classes\Cors::modify($response,$body,200);
-    });
+    })->add(new ValidateParam('Token','1-250','required'))
+        ->add(new ValidateParam(['Username','Relation'],'1-50','required'));
 
     // POST api to update relation
     $app->post('/cargo/relation/data/update', function (Request $request, Response $response) {
@@ -26,7 +30,9 @@ use \classes\SimpleCache as SimpleCache;
         $body = $response->getBody();
         $body->write($cargo->update());
         return classes\Cors::modify($response,$body,200);
-    });
+    })->add(new ValidateParam('RelationID','1-11','numeric'))
+        ->add(new ValidateParam('Token','1-250','required'))
+        ->add(new ValidateParam(['Username','Relation'],'1-50','required'));
 
     // POST api to delete relation
     $app->post('/cargo/relation/data/delete', function (Request $request, Response $response) {
@@ -38,7 +44,9 @@ use \classes\SimpleCache as SimpleCache;
         $body = $response->getBody();
         $body->write($cargo->delete());
         return classes\Cors::modify($response,$body,200);
-    });
+    })->add(new ValidateParam('RelationID','1-11','numeric'))
+        ->add(new ValidateParam('Token','1-250','required'))
+        ->add(new ValidateParam('Username','1-50','required'));
 
     // GET api to show all data relation pagination registered user
     $app->get('/cargo/relation/data/search/{username}/{token}/{page}/{itemsperpage}/', function (Request $request, Response $response) {
@@ -51,7 +59,7 @@ use \classes\SimpleCache as SimpleCache;
         $body = $response->getBody();
         $body->write($cargo->searchRelationAsPagination());
         return classes\Cors::modify($response,$body,200);
-    });
+    })->add(new ValidateParamURL('query'));
 
     // GET api to show all data relation pagination public
     $app->map(['GET','OPTIONS'],'/cargo/relation/data/public/search/{page}/{itemsperpage}/', function (Request $request, Response $response) {
@@ -68,7 +76,7 @@ use \classes\SimpleCache as SimpleCache;
         }
         $body->write($datajson);
         return classes\Cors::modify($response,$body,200,$request);
-    })->add(new \classes\middleware\ApiKey());
+    })->add(new ValidateParamURL('query'))->add(new ApiKey);
 
     // GET api to show all data relation
     $app->get('/cargo/relation/data/list/{username}/{token}', function (Request $request, Response $response) {
@@ -92,4 +100,4 @@ use \classes\SimpleCache as SimpleCache;
         }
         $body->write($datajson);
         return classes\Cors::modify($response,$body,200,$request);
-    })->add(new \classes\middleware\ApiKey());
+    })->add(new ApiKey);

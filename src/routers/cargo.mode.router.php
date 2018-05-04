@@ -1,6 +1,9 @@
 <?php
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
+use \classes\middleware\ValidateParam as ValidateParam;
+use \classes\middleware\ValidateParamURL as ValidateParamURL;
+use \classes\middleware\ApiKey as ApiKey;
 use \classes\SimpleCache as SimpleCache;
 
     // POST api to create new mode
@@ -13,7 +16,9 @@ use \classes\SimpleCache as SimpleCache;
         $body = $response->getBody();
         $body->write($cargo->add());
         return classes\Cors::modify($response,$body,200);
-    });
+    })->add(new ValidateParam('Mode','1-20','required'))
+        ->add(new ValidateParam('Token','1-250','required'))
+        ->add(new ValidateParam('Username','1-50','required'));
 
     // POST api to update mode
     $app->post('/cargo/mode/data/update', function (Request $request, Response $response) {
@@ -26,7 +31,10 @@ use \classes\SimpleCache as SimpleCache;
         $body = $response->getBody();
         $body->write($cargo->update());
         return classes\Cors::modify($response,$body,200);
-    });
+    })->add(new ValidateParam('ModeID','1-11','numeric'))
+        ->add(new ValidateParam('Mode','1-20','required'))
+        ->add(new ValidateParam('Token','1-250','required'))
+        ->add(new ValidateParam('Username','1-50','required'));
 
     // POST api to delete mode
     $app->post('/cargo/mode/data/delete', function (Request $request, Response $response) {
@@ -38,7 +46,9 @@ use \classes\SimpleCache as SimpleCache;
         $body = $response->getBody();
         $body->write($cargo->delete());
         return classes\Cors::modify($response,$body,200);
-    });
+    })->add(new ValidateParam('ModeID','1-11','numeric'))
+        ->add(new ValidateParam('Token','1-250','required'))
+        ->add(new ValidateParam('Username','1-50','required'));
 
     // GET api to show all data mode pagination registered user
     $app->get('/cargo/mode/data/search/{username}/{token}/{page}/{itemsperpage}/', function (Request $request, Response $response) {
@@ -51,7 +61,7 @@ use \classes\SimpleCache as SimpleCache;
         $body = $response->getBody();
         $body->write($cargo->searchModeAsPagination());
         return classes\Cors::modify($response,$body,200);
-    });
+    })->add(new ValidateParamURL('query'));
 
     // GET api to show all data mode pagination public
     $app->map(['GET','OPTIONS'],'/cargo/mode/data/public/search/{page}/{itemsperpage}/', function (Request $request, Response $response) {
@@ -68,7 +78,7 @@ use \classes\SimpleCache as SimpleCache;
         }
         $body->write($datajson);
         return classes\Cors::modify($response,$body,200,$request);
-    })->add(new \classes\middleware\ApiKey());
+    })->add(new ValidateParamURL('query'))->add(new ApiKey);
 
     // GET api to show all data mode
     $app->get('/cargo/mode/data/list/{username}/{token}', function (Request $request, Response $response) {
@@ -92,4 +102,4 @@ use \classes\SimpleCache as SimpleCache;
         }
         $body->write($datajson);
         return classes\Cors::modify($response,$body,200,$request);
-    })->add(new \classes\middleware\ApiKey());
+    })->add(new ApiKey);

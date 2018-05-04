@@ -1,6 +1,9 @@
 <?php
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
+use \classes\middleware\ValidateParam as ValidateParam;
+use \classes\middleware\ValidateParamURL as ValidateParamURL;
+use \classes\middleware\ApiKey as ApiKey;
 use \classes\SimpleCache as SimpleCache;
 
     // POST api to create new cargo tariff data
@@ -18,7 +21,12 @@ use \classes\SimpleCache as SimpleCache;
         $body = $response->getBody();
         $body->write($cargo->addTariff());
         return classes\Cors::modify($response,$body,200);
-    });
+    })->add(new ValidateParam('Minkg','1-5','numeric'))
+        ->add(new ValidateParam(['KGP','KGS','Estimasi'],'1-10','numeric'))
+        ->add(new ValidateParam('Kabupaten','1-250','required'))
+        ->add(new ValidateParam('BranchID','1-10','required'))
+        ->add(new ValidateParam('Token','1-250','required'))
+        ->add(new ValidateParam('Username','1-50','required'));
 
     // POST api to update cargo tariff data
     $app->post('/cargo/tariff/data/update', function (Request $request, Response $response) {
@@ -35,7 +43,12 @@ use \classes\SimpleCache as SimpleCache;
         $body = $response->getBody();
         $body->write($cargo->updateTariff());
         return classes\Cors::modify($response,$body,200);
-    });
+    })->add(new ValidateParam('Minkg','1-5','numeric'))
+        ->add(new ValidateParam(['KGP','KGS','Estimasi'],'1-10','numeric'))
+        ->add(new ValidateParam('Kabupaten','1-250','required'))
+        ->add(new ValidateParam('BranchID','1-10','required'))
+        ->add(new ValidateParam('Token','1-250','required'))
+        ->add(new ValidateParam('Username','1-50','required'));
 
     // POST api to delete cargo tariff data
     $app->post('/cargo/tariff/data/delete', function (Request $request, Response $response) {
@@ -48,7 +61,10 @@ use \classes\SimpleCache as SimpleCache;
         $body = $response->getBody();
         $body->write($cargo->deleteTariff());
         return classes\Cors::modify($response,$body,200);
-    });
+    })->add(new ValidateParam('Kabupaten','1-250','required'))
+        ->add(new ValidateParam('BranchID','1-10','required'))
+        ->add(new ValidateParam('Token','1-250','required'))
+        ->add(new ValidateParam('Username','1-50','required'));
 
     // GET api to show all tariff data pagination registered user
     $app->get('/cargo/tariff/data/search/{username}/{token}/{page}/{itemsperpage}/', function (Request $request, Response $response) {
@@ -61,7 +77,7 @@ use \classes\SimpleCache as SimpleCache;
         $body = $response->getBody();
         $body->write($cargo->searchTariffAsPagination());
         return classes\Cors::modify($response,$body,200);
-    });
+    })->add(new ValidateParamURL('query'));
 
     // GET api to show all auto list origin tariff
     $app->get('/cargo/tariff/data/list/origin/auto/search/{username}/{token}/', function (Request $request, Response $response) {
@@ -72,7 +88,7 @@ use \classes\SimpleCache as SimpleCache;
         $body = $response->getBody();
         $body->write($cargo->listOriginAuto());
         return classes\Cors::modify($response,$body,200);
-    });
+    })->add(new ValidateParamURL('query'));
 
     // GET api to show all list origin tariff
     $app->get('/cargo/tariff/data/list/origin/search/{token}/', function (Request $request, Response $response) {
@@ -82,7 +98,7 @@ use \classes\SimpleCache as SimpleCache;
         $body = $response->getBody();
         $body->write($cargo->listOrigin());
         return classes\Cors::modify($response,$body,200);
-    });
+    })->add(new ValidateParamURL('query'));
 
     // GET api to show all list destinasi tariff
     $app->get('/cargo/tariff/data/list/destination/search/{token}/', function (Request $request, Response $response) {
@@ -92,7 +108,7 @@ use \classes\SimpleCache as SimpleCache;
         $body = $response->getBody();
         $body->write($cargo->listDestination());
         return classes\Cors::modify($response,$body,200);
-    });
+    })->add(new ValidateParamURL('query'));
 
     // GET api to search tariff
     $app->get('/cargo/tariff/data/get/search/{token}/', function (Request $request, Response $response) {
@@ -146,7 +162,7 @@ use \classes\SimpleCache as SimpleCache;
         }
         $body->write($datajson);
         return classes\Cors::modify($response,$body,200,$request);
-    })->add(new \classes\middleware\ApiKey());
+    })->add(new ValidateParamURL('query'))->add(new ApiKey);
 
     // GET api to show all list destinasi tariff public
     $app->get('/cargo/tariff/data/list/destination/public/search/', function (Request $request, Response $response) {
@@ -161,7 +177,7 @@ use \classes\SimpleCache as SimpleCache;
         }
         $body->write($datajson);
         return classes\Cors::modify($response,$body,200,$request);
-    })->add(new \classes\middleware\ApiKey());
+    })->add(new ValidateParamURL('query'))->add(new ApiKey);
 
     // POST api to create new cargo tariff handling
     $app->post('/cargo/tariff/handling/data/new', function (Request $request, Response $response) {
@@ -176,7 +192,10 @@ use \classes\SimpleCache as SimpleCache;
         $body = $response->getBody();
         $body->write($cargo->addHandling());
         return classes\Cors::modify($response,$body,200);
-    });
+    })->add(new ValidateParam('Minkg','1-5','numeric'))
+        ->add(new ValidateParam(['KGP','KGS'],'1-10','numeric'))
+        ->add(new ValidateParam('Token','1-250','required'))
+        ->add(new ValidateParam(['Username','Kabupaten'],'1-50','required'));
 
     // POST api to update cargo tariff handling
     $app->post('/cargo/tariff/handling/data/update', function (Request $request, Response $response) {
@@ -191,7 +210,10 @@ use \classes\SimpleCache as SimpleCache;
         $body = $response->getBody();
         $body->write($cargo->updateHandling());
         return classes\Cors::modify($response,$body,200);
-    });
+    })->add(new ValidateParam('Minkg','1-5','numeric'))
+        ->add(new ValidateParam(['KGP','KGS'],'1-10','numeric'))
+        ->add(new ValidateParam('Token','1-250','required'))
+        ->add(new ValidateParam(['Username','Kabupaten'],'1-50','required'));
 
     // POST api to delete cargo tariff handling
     $app->post('/cargo/tariff/handling/data/delete', function (Request $request, Response $response) {
@@ -203,7 +225,8 @@ use \classes\SimpleCache as SimpleCache;
         $body = $response->getBody();
         $body->write($cargo->deleteHandling());
         return classes\Cors::modify($response,$body,200);
-    });
+    })->add(new ValidateParam('Token','1-250','required'))
+        ->add(new ValidateParam(['Username','Kabupaten'],'1-50','required'));
 
     // GET api to show all tariff data pagination registered user
     $app->get('/cargo/tariff/handling/data/search/{username}/{token}/{page}/{itemsperpage}/', function (Request $request, Response $response) {
@@ -216,4 +239,4 @@ use \classes\SimpleCache as SimpleCache;
         $body = $response->getBody();
         $body->write($cargo->searchHandlingAsPagination());
         return classes\Cors::modify($response,$body,200);
-    });
+    })->add(new ValidateParamURL('query'));
