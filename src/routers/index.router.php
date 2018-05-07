@@ -2,6 +2,7 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 use \classes\SimpleCache as SimpleCache;
+use \classes\JSON as JSON;
 
     // GET example api to show all data role
     $app->get('/', function (Request $request, Response $response) {
@@ -18,11 +19,10 @@ use \classes\SimpleCache as SimpleCache;
                 'info' => [
                     'webmaster' => 'M ABD AZIZ ALFIAN (aalfiann@gmail.com)',
                     'documentation' => 'The documentation about this API is on our blogs.'
-                ],
-                'generate_time' => date('Y-m-d h:i:s a', time())
+                ]
             ];
             $blacklistparam = ["&_=","&query=","&search=","token","apikey","api_key","time","timestamp","time_stamp","etag","key","q","s","k","t"];
-            $datajson = SimpleCache::save(json_encode($data, JSON_PRETTY_PRINT),null,$blacklistparam);
+            $datajson = SimpleCache::save(JSON::encode($data, true),null,$blacklistparam);
         }
         $body->write($datajson);
         return classes\Cors::modify($response,$body,200);
