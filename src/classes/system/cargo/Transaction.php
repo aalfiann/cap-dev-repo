@@ -264,7 +264,7 @@ use PDO;
                 ];
             }
 			
-			return json_encode($data);
+			return JSON::encode($data);
 			$this->db = null;
         }
 
@@ -415,7 +415,7 @@ use PDO;
                 ];
             }
 			
-			return json_encode($data);
+			return JSON::encode($data);
 			$this->db = null;
         }
 
@@ -468,7 +468,7 @@ use PDO;
 					'message' => CustomHandlers::getreSlimMessage('RS401')
     			];
 			}
-		    return json_encode($data);
+		    return JSON::encode($data);
     		$this->db = null;
         }
 
@@ -545,7 +545,7 @@ use PDO;
 					'message' => CustomHandlers::getreSlimMessage('RS401')
     			];
 			}
-		    return json_encode($data);
+		    return JSON::encode($data);
     		$this->db = null;
         }
 
@@ -615,7 +615,7 @@ use PDO;
 					'message' => CustomHandlers::getreSlimMessage('RS401')
     			];
 			}
-		    return json_encode($data);
+		    return JSON::encode($data);
     		$this->db = null;
         }
 
@@ -684,7 +684,7 @@ use PDO;
 					'message' => CustomHandlers::getreSlimMessage('RS401')
     			];
 			}
-		    return json_encode($data);
+		    return JSON::encode($data);
     		$this->db = null;
         }
 
@@ -766,7 +766,7 @@ use PDO;
 					'message' => CustomHandlers::getreSlimMessage('RS401')
     			];
 			}
-		    return json_encode($data);
+		    return JSON::encode($data);
     		$this->db = null;
         }
 
@@ -831,87 +831,87 @@ use PDO;
 								{
 									$datares .= '{
                                         "Branch":{
-                                            "ID":'.json_encode($redata['BranchID']).',
-                                            "Origin":'.json_encode($redata['Origin']).',
-                                            "Address":'.json_encode($redata['Branch_address']).',
-                                            "Phone":'.json_encode($redata['Branch_phone']).',
-                                            "Fax":'.json_encode($redata['Branch_fax']).',
-                                            "Email":'.json_encode($redata['Branch_email']).',
-                                            "TIN":'.json_encode($redata['Branch_TIN']).'
+                                            "ID":'.json_encode(utf8_encode($redata['BranchID'])).',
+                                            "Origin":'.json_encode(utf8_encode($redata['Origin'])).',
+                                            "Address":'.json_encode(utf8_encode($redata['Branch_address'])).',
+                                            "Phone":'.json_encode(utf8_encode($redata['Branch_phone'])).',
+                                            "Fax":'.json_encode(utf8_encode($redata['Branch_fax'])).',
+                                            "Email":'.json_encode(utf8_encode($redata['Branch_email'])).',
+                                            "TIN":'.json_encode(utf8_encode($redata['Branch_TIN'])).'
                                         },
                                         "Data":{
-                                            "Waybill":'.json_encode($redata['Waybill']).',
-                                            "DestID":'.json_encode($redata['DestID']).',
-                                            "Created_at":'.json_encode($redata['Created_at']).',
-                                            "Created_by":'.json_encode($redata['Created_by']).'
+                                            "Waybill":'.json_encode(utf8_encode($redata['Waybill'])).',
+                                            "DestID":'.json_encode(utf8_encode($redata['DestID'])).',
+                                            "Created_at":'.json_encode(utf8_encode($redata['Created_at'])).',
+                                            "Created_by":'.json_encode(utf8_encode($redata['Created_by'])).'
                                         },
                                         "Consignor":{
-                                            "CustomerID":'.json_encode($redata['CustomerID']).',
-                                            "Name":'.json_encode($redata['Consignor_name']).',
-                                            "Alias":'.json_encode($redata['Consignor_alias']).',
-                                            "Address":'.json_encode($redata['Consignor_address']).',
-                                            "Phone":'.json_encode($redata['Consignor_phone']).',
-                                            "Fax":'.json_encode($redata['Consignor_fax']).',
-                                            "Email":'.json_encode($redata['Consignor_email']).'
+                                            "CustomerID":'.json_encode(utf8_encode($redata['CustomerID'])).',
+                                            "Name":'.json_encode(utf8_encode($redata['Consignor_name'])).',
+                                            "Alias":'.json_encode(utf8_encode($redata['Consignor_alias'])).',
+                                            "Address":'.json_encode(utf8_encode($redata['Consignor_address'])).',
+                                            "Phone":'.json_encode(utf8_encode($redata['Consignor_phone'])).',
+                                            "Fax":'.json_encode(utf8_encode($redata['Consignor_fax'])).',
+                                            "Email":'.json_encode(utf8_encode($redata['Consignor_email'])).'
                                         },
                                         "Consignee":{
-                                            "ReferenceID":'.json_encode($redata['ReferenceID']).',
-                                            "Name":'.json_encode($redata['Consignee_name']).',
-                                            "Attention":'.json_encode($redata['Consignee_attention']).',
-                                            "Address":'.json_encode($redata['Consignee_address']).',
-                                            "Phone":'.json_encode($redata['Consignee_phone']).',
-                                            "Fax":'.json_encode($redata['Consignee_fax']).'
+                                            "ReferenceID":'.json_encode(utf8_encode($redata['ReferenceID'])).',
+                                            "Name":'.json_encode(utf8_encode($redata['Consignee_name'])).',
+                                            "Attention":'.json_encode(utf8_encode($redata['Consignee_attention'])).',
+                                            "Address":'.json_encode(utf8_encode($redata['Consignee_address'])).',
+                                            "Phone":'.json_encode(utf8_encode($redata['Consignee_phone'])).',
+                                            "Fax":'.json_encode(utf8_encode($redata['Consignee_fax'])).'
                                         },
                                         "Goods":{
-                                            "Instruction":'.json_encode($redata['Instruction']).',
-                                            "Description":'.json_encode($redata['Description']).',
-                                            "Weight_real":'.json_encode($redata['Weight_real']).',
-                                            "Weight":'.json_encode($redata['Weight']).',
-                                            "Koli":'.json_encode($redata['Goods_koli']).',
+                                            "Instruction":'.json_encode(utf8_encode($redata['Instruction'])).',
+                                            "Description":'.json_encode(utf8_encode($redata['Description'])).',
+                                            "Weight_real":'.json_encode(utf8_encode($redata['Weight_real'])).',
+                                            "Weight":'.json_encode(utf8_encode($redata['Weight'])).',
+                                            "Koli":'.json_encode(utf8_encode($redata['Goods_koli'])).',
                                             "Detail":'.$redata['Goods_data'].'
                                         },
                                         "Route":{
-                                            "ModeID":'.json_encode($redata['ModeID']).',
-                                            "Mode":'.json_encode($redata['Mode']).',
-                                            "Origin":'.json_encode($redata['Origin']).',
-                                            "Destination":'.json_encode($redata['Destination']).',
-                                            "Estimation":'.json_encode($redata['Estimation']).'
+                                            "ModeID":'.json_encode(utf8_encode($redata['ModeID'])).',
+                                            "Mode":'.json_encode(utf8_encode($redata['Mode'])).',
+                                            "Origin":'.json_encode(utf8_encode($redata['Origin'])).',
+                                            "Destination":'.json_encode(utf8_encode($redata['Destination'])).',
+                                            "Estimation":'.json_encode(utf8_encode($redata['Estimation'])).'
                                         },
                                         "Insurance":{
-                                            "Rate":'.json_encode($redata['Insurance_rate']).',
-                                            "Value":'.json_encode($redata['Goods_value']).'
+                                            "Rate":'.json_encode(utf8_encode($redata['Insurance_rate'])).',
+                                            "Value":'.json_encode(utf8_encode($redata['Goods_value'])).'
                                         },
                                         "Tariff":{
-                                            "KGP":'.json_encode($redata['Tariff_kgp']).',
-                                            "KGS":'.json_encode($redata['Tariff_kgs']).',
-                                            "MinKG":'.json_encode($redata['Tariff_kgp_min']).'
+                                            "KGP":'.json_encode(utf8_encode($redata['Tariff_kgp'])).',
+                                            "KGS":'.json_encode(utf8_encode($redata['Tariff_kgs'])).',
+                                            "MinKG":'.json_encode(utf8_encode($redata['Tariff_kgp_min'])).'
                                         },
                                         "Tariff_handling":{
-                                            "KGP":'.json_encode($redata['Tariff_hkgp']).',
-                                            "KGS":'.json_encode($redata['Tariff_hkgs']).',
-                                            "MinKG":'.json_encode($redata['Tariff_hkgp_min']).'
+                                            "KGP":'.json_encode(utf8_encode($redata['Tariff_hkgp'])).',
+                                            "KGS":'.json_encode(utf8_encode($redata['Tariff_hkgs'])).',
+                                            "MinKG":'.json_encode(utf8_encode($redata['Tariff_hkgp_min'])).'
                                         },
                                         "Payment":{
-                                            "PaymentID":'.json_encode($redata['PaymentID']).',
-                                            "Name":'.json_encode($redata['Payment']).'
+                                            "PaymentID":'.json_encode(utf8_encode($redata['PaymentID'])).',
+                                            "Name":'.json_encode(utf8_encode($redata['Payment'])).'
                                         },
                                         "Transaction":{
-                                            "Shipping_cost":'.json_encode($redata['Shipping_cost']).',
-                                            "Shipping_insurance":'.json_encode($redata['Shipping_insurance']).',
-                                            "Shipping_packing":'.json_encode($redata['Shipping_packing']).',
-                                            "Shipping_forward":'.json_encode($redata['Shipping_forward']).',
-                                            "Shipping_handling":'.json_encode($redata['Shipping_handling']).',
-                                            "Shipping_surcharge":'.json_encode($redata['Shipping_surcharge']).',
-                                            "Shipping_admin":'.json_encode($redata['Shipping_admin']).',
-                                            "Shipping_discount":'.json_encode($redata['Shipping_discount']).',
-                                            "Shipping_cost_total":'.json_encode($redata['Shipping_cost_total']).'
+                                            "Shipping_cost":'.json_encode(utf8_encode($redata['Shipping_cost'])).',
+                                            "Shipping_insurance":'.json_encode(utf8_encode($redata['Shipping_insurance'])).',
+                                            "Shipping_packing":'.json_encode(utf8_encode($redata['Shipping_packing'])).',
+                                            "Shipping_forward":'.json_encode(utf8_encode($redata['Shipping_forward'])).',
+                                            "Shipping_handling":'.json_encode(utf8_encode($redata['Shipping_handling'])).',
+                                            "Shipping_surcharge":'.json_encode(utf8_encode($redata['Shipping_surcharge'])).',
+                                            "Shipping_admin":'.json_encode(utf8_encode($redata['Shipping_admin'])).',
+                                            "Shipping_discount":'.json_encode(utf8_encode($redata['Shipping_discount'])).',
+                                            "Shipping_cost_total":'.json_encode(utf8_encode($redata['Shipping_cost_total'])).'
                                         },
                                         "Log":{
-                                            "StatusID":'.json_encode($redata['StatusID']).',
-                                            "Status":'.json_encode($redata['Status']).',
-                                            "Updated_at":'.json_encode($redata['Updated_at']).',
-                                            "Updated_by":'.json_encode($redata['Updated_by']).',
-                                            "Updated_sys":'.json_encode($redata['Updated_sys']).'
+                                            "StatusID":'.json_encode(utf8_encode($redata['StatusID'])).',
+                                            "Status":'.json_encode(utf8_encode($redata['Status'])).',
+                                            "Updated_at":'.json_encode(utf8_encode($redata['Updated_at'])).',
+                                            "Updated_by":'.json_encode(utf8_encode($redata['Updated_by'])).',
+                                            "Updated_sys":'.json_encode(utf8_encode($redata['Updated_sys'])).'
                                         }
                                     },';
 								}
@@ -945,7 +945,7 @@ use PDO;
 				];
 			}
 			
-			return json_encode($data);
+			return JSON::safeEncode($data);
 	        $this->db= null;
         }
         
@@ -991,11 +991,11 @@ use PDO;
                                 $datatrace = "[";
                                 while($retrace = $stmt2->fetch()){
                                     $datatrace .= '{
-                                        "Created_at":'.json_encode($retrace['Created_at']).',
-                                        "Description":'.json_encode($retrace['Description']).',
-                                        "StatusID":'.json_encode($retrace['StatusID']).',
-                                        "Status":'.json_encode($retrace['Status']).',
-                                        "Created_by":'.json_encode($retrace['Username']).'
+                                        "Created_at":'.json_encode(utf8_encode($retrace['Created_at'])).',
+                                        "Description":'.json_encode(utf8_encode($retrace['Description'])).',
+                                        "StatusID":'.json_encode(utf8_encode($retrace['StatusID'])).',
+                                        "Status":'.json_encode(utf8_encode($retrace['Status'])).',
+                                        "Created_by":'.json_encode(utf8_encode($retrace['Username'])).'
                                     },';
                                 }
                                 $datatrace = substr($datatrace, 0, -1);
@@ -1008,91 +1008,91 @@ use PDO;
 								{
 									$datares .= '{
                                         "Branch":{
-                                            "ID":'.json_encode($redata['BranchID']).',
-                                            "Origin":'.json_encode($redata['Origin']).',
-                                            "Address":'.json_encode($redata['Branch_address']).',
-                                            "Phone":'.json_encode($redata['Branch_phone']).',
-                                            "Fax":'.json_encode($redata['Branch_fax']).',
-                                            "Email":'.json_encode($redata['Branch_email']).',
-                                            "TIN":'.json_encode($redata['Branch_TIN']).'
+                                            "ID":'.json_encode(utf8_encode($redata['BranchID'])).',
+                                            "Origin":'.json_encode(utf8_encode($redata['Origin'])).',
+                                            "Address":'.json_encode(utf8_encode($redata['Branch_address'])).',
+                                            "Phone":'.json_encode(utf8_encode($redata['Branch_phone'])).',
+                                            "Fax":'.json_encode(utf8_encode($redata['Branch_fax'])).',
+                                            "Email":'.json_encode(utf8_encode($redata['Branch_email'])).',
+                                            "TIN":'.json_encode(utf8_encode($redata['Branch_TIN'])).'
                                         },
                                         "Data":{
-                                            "Waybill":'.json_encode($redata['Waybill']).',
-                                            "DestID":'.json_encode($redata['DestID']).',
-                                            "Created_at":'.json_encode($redata['Created_at']).',
-                                            "Created_by":'.json_encode($redata['Created_by']).'
+                                            "Waybill":'.json_encode(utf8_encode($redata['Waybill'])).',
+                                            "DestID":'.json_encode(utf8_encode($redata['DestID'])).',
+                                            "Created_at":'.json_encode(utf8_encode($redata['Created_at'])).',
+                                            "Created_by":'.json_encode(utf8_encode($redata['Created_by'])).'
                                         },
                                         "Consignor":{
-                                            "CustomerID":'.json_encode($redata['CustomerID']).',
-                                            "Name":'.json_encode($redata['Consignor_name']).',
-                                            "Alias":'.json_encode($redata['Consignor_alias']).',
-                                            "Address":'.json_encode($redata['Consignor_address']).',
-                                            "Phone":'.json_encode($redata['Consignor_phone']).',
-                                            "Fax":'.json_encode($redata['Consignor_fax']).',
-                                            "Email":'.json_encode($redata['Consignor_email']).'
+                                            "CustomerID":'.json_encode(utf8_encode($redata['CustomerID'])).',
+                                            "Name":'.json_encode(utf8_encode($redata['Consignor_name'])).',
+                                            "Alias":'.json_encode(utf8_encode($redata['Consignor_alias'])).',
+                                            "Address":'.json_encode(utf8_encode($redata['Consignor_address'])).',
+                                            "Phone":'.json_encode(utf8_encode($redata['Consignor_phone'])).',
+                                            "Fax":'.json_encode(utf8_encode($redata['Consignor_fax'])).',
+                                            "Email":'.json_encode(utf8_encode($redata['Consignor_email'])).'
                                         },
                                         "Consignee":{
-                                            "ReferenceID":'.json_encode($redata['ReferenceID']).',
-                                            "Name":'.json_encode($redata['Consignee_name']).',
-                                            "Attention":'.json_encode($redata['Consignee_attention']).',
-                                            "Address":'.json_encode($redata['Consignee_address']).',
-                                            "Phone":'.json_encode($redata['Consignee_phone']).',
-                                            "Fax":'.json_encode($redata['Consignee_fax']).'
+                                            "ReferenceID":'.json_encode(utf8_encode($redata['ReferenceID'])).',
+                                            "Name":'.json_encode(utf8_encode($redata['Consignee_name'])).',
+                                            "Attention":'.json_encode(utf8_encode($redata['Consignee_attention'])).',
+                                            "Address":'.json_encode(utf8_encode($redata['Consignee_address'])).',
+                                            "Phone":'.json_encode(utf8_encode($redata['Consignee_phone'])).',
+                                            "Fax":'.json_encode(utf8_encode($redata['Consignee_fax'])).'
                                         },
                                         "Goods":{
-                                            "Instruction":'.json_encode($redata['Instruction']).',
-                                            "Description":'.json_encode($redata['Description']).',
-                                            "Weight_real":'.json_encode($redata['Weight_real']).',
-                                            "Weight":'.json_encode($redata['Weight']).',
-                                            "Koli":'.json_encode($redata['Goods_koli']).',
+                                            "Instruction":'.json_encode(utf8_encode($redata['Instruction'])).',
+                                            "Description":'.json_encode(utf8_encode($redata['Description'])).',
+                                            "Weight_real":'.json_encode(utf8_encode($redata['Weight_real'])).',
+                                            "Weight":'.json_encode(utf8_encode($redata['Weight'])).',
+                                            "Koli":'.json_encode(utf8_encode($redata['Goods_koli'])).',
                                             "Detail":'.$redata['Goods_data'].'
                                         },
                                         "Route":{
-                                            "ModeID":'.json_encode($redata['ModeID']).',
-                                            "Mode":'.json_encode($redata['Mode']).',
-                                            "Origin":'.json_encode($redata['Origin']).',
-                                            "Destination":'.json_encode($redata['Destination']).',
-                                            "Estimation":'.json_encode($redata['Estimation']).'
+                                            "ModeID":'.json_encode(utf8_encode($redata['ModeID'])).',
+                                            "Mode":'.json_encode(utf8_encode($redata['Mode'])).',
+                                            "Origin":'.json_encode(utf8_encode($redata['Origin'])).',
+                                            "Destination":'.json_encode(utf8_encode($redata['Destination'])).',
+                                            "Estimation":'.json_encode(utf8_encode($redata['Estimation'])).'
                                         },
                                         "Insurance":{
-                                            "Rate":'.json_encode($redata['Insurance_rate']).',
-                                            "Value":'.json_encode($redata['Goods_value']).'
+                                            "Rate":'.json_encode(utf8_encode($redata['Insurance_rate'])).',
+                                            "Value":'.json_encode(utf8_encode($redata['Goods_value'])).'
                                         },
                                         "Tariff":{
-                                            "KGP":'.json_encode($redata['Tariff_kgp']).',
-                                            "KGS":'.json_encode($redata['Tariff_kgs']).',
-                                            "MinKG":'.json_encode($redata['Tariff_kgp_min']).'
+                                            "KGP":'.json_encode(utf8_encode($redata['Tariff_kgp'])).',
+                                            "KGS":'.json_encode(utf8_encode($redata['Tariff_kgs'])).',
+                                            "MinKG":'.json_encode(utf8_encode($redata['Tariff_kgp_min'])).'
                                         },
                                         "Tariff_handling":{
-                                            "KGP":'.json_encode($redata['Tariff_hkgp']).',
-                                            "KGS":'.json_encode($redata['Tariff_hkgs']).',
-                                            "MinKG":'.json_encode($redata['Tariff_hkgp_min']).'
+                                            "KGP":'.json_encode(utf8_encode($redata['Tariff_hkgp'])).',
+                                            "KGS":'.json_encode(utf8_encode($redata['Tariff_hkgs'])).',
+                                            "MinKG":'.json_encode(utf8_encode($redata['Tariff_hkgp_min'])).'
                                         },
                                         "Payment":{
-                                            "PaymentID":'.json_encode($redata['PaymentID']).',
-                                            "Name":'.json_encode($redata['Payment']).'
+                                            "PaymentID":'.json_encode(utf8_encode($redata['PaymentID'])).',
+                                            "Name":'.json_encode(utf8_encode($redata['Payment'])).'
                                         },
                                         "Transaction":{
-                                            "Shipping_cost":'.json_encode($redata['Shipping_cost']).',
-                                            "Shipping_insurance":'.json_encode($redata['Shipping_insurance']).',
-                                            "Shipping_packing":'.json_encode($redata['Shipping_packing']).',
-                                            "Shipping_forward":'.json_encode($redata['Shipping_forward']).',
-                                            "Shipping_handling":'.json_encode($redata['Shipping_handling']).',
-                                            "Shipping_surcharge":'.json_encode($redata['Shipping_surcharge']).',
-                                            "Shipping_admin":'.json_encode($redata['Shipping_admin']).',
-                                            "Shipping_discount":'.json_encode($redata['Shipping_discount']).',
-                                            "Shipping_cost_total":'.json_encode($redata['Shipping_cost_total']).'
+                                            "Shipping_cost":'.json_encode(utf8_encode($redata['Shipping_cost'])).',
+                                            "Shipping_insurance":'.json_encode(utf8_encode($redata['Shipping_insurance'])).',
+                                            "Shipping_packing":'.json_encode(utf8_encode($redata['Shipping_packing'])).',
+                                            "Shipping_forward":'.json_encode(utf8_encode($redata['Shipping_forward'])).',
+                                            "Shipping_handling":'.json_encode(utf8_encode($redata['Shipping_handling'])).',
+                                            "Shipping_surcharge":'.json_encode(utf8_encode($redata['Shipping_surcharge'])).',
+                                            "Shipping_admin":'.json_encode(utf8_encode($redata['Shipping_admin'])).',
+                                            "Shipping_discount":'.json_encode(utf8_encode($redata['Shipping_discount'])).',
+                                            "Shipping_cost_total":'.json_encode(utf8_encode($redata['Shipping_cost_total'])).'
                                         },
                                         "Log":{
-                                            "StatusID":'.json_encode($redata['StatusID']).',
-                                            "Status":'.json_encode($redata['Status']).',
-                                            "Updated_at":'.json_encode($redata['Updated_at']).',
-                                            "Updated_by":'.json_encode($redata['Updated_by']).',
-                                            "Updated_sys":'.json_encode($redata['Updated_sys']).'
+                                            "StatusID":'.json_encode(utf8_encode($redata['StatusID'])).',
+                                            "Status":'.json_encode(utf8_encode($redata['Status'])).',
+                                            "Updated_at":'.json_encode(utf8_encode($redata['Updated_at'])).',
+                                            "Updated_by":'.json_encode(utf8_encode($redata['Updated_by'])).',
+                                            "Updated_sys":'.json_encode(utf8_encode($redata['Updated_sys'])).'
                                         },
                                         "POD":{
-                                            "Recipient":'.json_encode($redata['Recipient']).',
-                                            "Relation":'.json_encode($redata['Relation']).'
+                                            "Recipient":'.json_encode(utf8_encode($redata['Recipient'])).',
+                                            "Relation":'.json_encode(utf8_encode($redata['Relation'])).'
                                         }'.(!empty($datatrace)?',"Trace":'.$datatrace:'').'
                                     },';
 								}
@@ -1126,7 +1126,7 @@ use PDO;
 				];
 			}
 			
-			return json_encode($data);
+			return JSON::safeEncode($data);
 	        $this->db= null;
         }
         
@@ -1171,11 +1171,11 @@ use PDO;
                             $datatrace = "[";
                             while($retrace = $stmt2->fetch()){
                                 $datatrace .= '{
-                                    "Created_at":'.json_encode($retrace['Created_at']).',
-                                    "Description":'.json_encode($retrace['Description']).',
-                                    "StatusID":'.json_encode($retrace['StatusID']).',
-                                    "Status":'.json_encode($retrace['Status']).',
-                                    "Created_by":'.json_encode($retrace['Username']).'
+                                    "Created_at":'.json_encode(utf8_encode($retrace['Created_at'])).',
+                                    "Description":'.json_encode(utf8_encode($retrace['Description'])).',
+                                    "StatusID":'.json_encode(utf8_encode($retrace['StatusID'])).',
+                                    "Status":'.json_encode(utf8_encode($retrace['Status'])).',
+                                    "Created_by":'.json_encode(utf8_encode($retrace['Username'])).'
                                 },';
                             }
                             $datatrace = substr($datatrace, 0, -1);
@@ -1188,91 +1188,91 @@ use PDO;
 						{
 							$datares .= '{
                                 "Branch":{
-                                    "ID":'.json_encode($redata['BranchID']).',
-                                    "Origin":'.json_encode($redata['Origin']).',
-                                    "Address":'.json_encode($redata['Branch_address']).',
-                                    "Phone":'.json_encode($redata['Branch_phone']).',
-                                    "Fax":'.json_encode($redata['Branch_fax']).',
-                                    "Email":'.json_encode($redata['Branch_email']).',
-                                    "TIN":'.json_encode($redata['Branch_TIN']).'
+                                    "ID":'.json_encode(utf8_encode($redata['BranchID'])).',
+                                    "Origin":'.json_encode(utf8_encode($redata['Origin'])).',
+                                    "Address":'.json_encode(utf8_encode($redata['Branch_address'])).',
+                                    "Phone":'.json_encode(utf8_encode($redata['Branch_phone'])).',
+                                    "Fax":'.json_encode(utf8_encode($redata['Branch_fax'])).',
+                                    "Email":'.json_encode(utf8_encode($redata['Branch_email'])).',
+                                    "TIN":'.json_encode(utf8_encode($redata['Branch_TIN'])).'
                                 },
                                 "Data":{
-                                    "Waybill":'.json_encode($redata['Waybill']).',
-                                    "DestID":'.json_encode($redata['DestID']).',
-                                    "Created_at":'.json_encode($redata['Created_at']).',
-                                    "Created_by":'.json_encode($redata['Created_by']).'
+                                    "Waybill":'.json_encode(utf8_encode($redata['Waybill'])).',
+                                    "DestID":'.json_encode(utf8_encode($redata['DestID'])).',
+                                    "Created_at":'.json_encode(utf8_encode($redata['Created_at'])).',
+                                    "Created_by":'.json_encode(utf8_encode($redata['Created_by'])).'
                                 },
                                 "Consignor":{
-                                    "CustomerID":'.json_encode($redata['CustomerID']).',
-                                    "Name":'.json_encode($redata['Consignor_name']).',
-                                    "Alias":'.json_encode($redata['Consignor_alias']).',
-                                    "Address":'.json_encode($redata['Consignor_address']).',
-                                    "Phone":'.json_encode($redata['Consignor_phone']).',
-                                    "Fax":'.json_encode($redata['Consignor_fax']).',
-                                    "Email":'.json_encode($redata['Consignor_email']).'
+                                    "CustomerID":'.json_encode(utf8_encode($redata['CustomerID'])).',
+                                    "Name":'.json_encode(utf8_encode($redata['Consignor_name'])).',
+                                    "Alias":'.json_encode(utf8_encode($redata['Consignor_alias'])).',
+                                    "Address":'.json_encode(utf8_encode($redata['Consignor_address'])).',
+                                    "Phone":'.json_encode(utf8_encode($redata['Consignor_phone'])).',
+                                    "Fax":'.json_encode(utf8_encode($redata['Consignor_fax'])).',
+                                    "Email":'.json_encode(utf8_encode($redata['Consignor_email'])).'
                                 },
                                 "Consignee":{
-                                    "ReferenceID":'.json_encode($redata['ReferenceID']).',
-                                    "Name":'.json_encode($redata['Consignee_name']).',
-                                    "Attention":'.json_encode($redata['Consignee_attention']).',
-                                    "Address":'.json_encode($redata['Consignee_address']).',
-                                    "Phone":'.json_encode($redata['Consignee_phone']).',
-                                    "Fax":'.json_encode($redata['Consignee_fax']).'
+                                    "ReferenceID":'.json_encode(utf8_encode($redata['ReferenceID'])).',
+                                    "Name":'.json_encode(utf8_encode($redata['Consignee_name'])).',
+                                    "Attention":'.json_encode(utf8_encode($redata['Consignee_attention'])).',
+                                    "Address":'.json_encode(utf8_encode($redata['Consignee_address'])).',
+                                    "Phone":'.json_encode(utf8_encode($redata['Consignee_phone'])).',
+                                    "Fax":'.json_encode(utf8_encode($redata['Consignee_fax'])).'
                                 },
                                 "Goods":{
-                                    "Instruction":'.json_encode($redata['Instruction']).',
-                                    "Description":'.json_encode($redata['Description']).',
-                                    "Weight_real":'.json_encode($redata['Weight_real']).',
-                                    "Weight":'.json_encode($redata['Weight']).',
-                                    "Koli":'.json_encode($redata['Goods_koli']).',
+                                    "Instruction":'.json_encode(utf8_encode($redata['Instruction'])).',
+                                    "Description":'.json_encode(utf8_encode($redata['Description'])).',
+                                    "Weight_real":'.json_encode(utf8_encode($redata['Weight_real'])).',
+                                    "Weight":'.json_encode(utf8_encode($redata['Weight'])).',
+                                    "Koli":'.json_encode(utf8_encode($redata['Goods_koli'])).',
                                     "Detail":'.$redata['Goods_data'].'
                                 },
                                 "Route":{
-                                    "ModeID":'.json_encode($redata['ModeID']).',
-                                    "Mode":'.json_encode($redata['Mode']).',
-                                    "Origin":'.json_encode($redata['Origin']).',
-                                    "Destination":'.json_encode($redata['Destination']).',
-                                    "Estimation":'.json_encode($redata['Estimation']).'
+                                    "ModeID":'.json_encode(utf8_encode($redata['ModeID'])).',
+                                    "Mode":'.json_encode(utf8_encode($redata['Mode'])).',
+                                    "Origin":'.json_encode(utf8_encode($redata['Origin'])).',
+                                    "Destination":'.json_encode(utf8_encode($redata['Destination'])).',
+                                    "Estimation":'.json_encode(utf8_encode($redata['Estimation'])).'
                                 },
                                 "Insurance":{
-                                    "Rate":'.json_encode($redata['Insurance_rate']).',
-                                    "Value":'.json_encode($redata['Goods_value']).'
+                                    "Rate":'.json_encode(utf8_encode($redata['Insurance_rate'])).',
+                                    "Value":'.json_encode(utf8_encode($redata['Goods_value'])).'
                                 },
                                 "Tariff":{
-                                    "KGP":'.json_encode($redata['Tariff_kgp']).',
-                                    "KGS":'.json_encode($redata['Tariff_kgs']).',
-                                    "MinKG":'.json_encode($redata['Tariff_kgp_min']).'
+                                    "KGP":'.json_encode(utf8_encode($redata['Tariff_kgp'])).',
+                                    "KGS":'.json_encode(utf8_encode($redata['Tariff_kgs'])).',
+                                    "MinKG":'.json_encode(utf8_encode($redata['Tariff_kgp_min'])).'
                                 },
                                 "Tariff_handling":{
-                                    "KGP":'.json_encode($redata['Tariff_hkgp']).',
-                                    "KGS":'.json_encode($redata['Tariff_hkgs']).',
-                                    "MinKG":'.json_encode($redata['Tariff_hkgp_min']).'
+                                    "KGP":'.json_encode(utf8_encode($redata['Tariff_hkgp'])).',
+                                    "KGS":'.json_encode(utf8_encode($redata['Tariff_hkgs'])).',
+                                    "MinKG":'.json_encode(utf8_encode($redata['Tariff_hkgp_min'])).'
                                 },
                                 "Payment":{
-                                    "PaymentID":'.json_encode($redata['PaymentID']).',
-                                    "Name":'.json_encode($redata['Payment']).'
+                                    "PaymentID":'.json_encode(utf8_encode($redata['PaymentID'])).',
+                                    "Name":'.json_encode(utf8_encode($redata['Payment'])).'
                                 },
                                 "Transaction":{
-                                    "Shipping_cost":'.json_encode($redata['Shipping_cost']).',
-                                    "Shipping_insurance":'.json_encode($redata['Shipping_insurance']).',
-                                    "Shipping_packing":'.json_encode($redata['Shipping_packing']).',
-                                    "Shipping_forward":'.json_encode($redata['Shipping_forward']).',
-                                    "Shipping_handling":'.json_encode($redata['Shipping_handling']).',
-                                    "Shipping_surcharge":'.json_encode($redata['Shipping_surcharge']).',
-                                    "Shipping_admin":'.json_encode($redata['Shipping_admin']).',
-                                    "Shipping_discount":'.json_encode($redata['Shipping_discount']).',
-                                    "Shipping_cost_total":'.json_encode($redata['Shipping_cost_total']).'
+                                    "Shipping_cost":'.json_encode(utf8_encode($redata['Shipping_cost'])).',
+                                    "Shipping_insurance":'.json_encode(utf8_encode($redata['Shipping_insurance'])).',
+                                    "Shipping_packing":'.json_encode(utf8_encode($redata['Shipping_packing'])).',
+                                    "Shipping_forward":'.json_encode(utf8_encode($redata['Shipping_forward'])).',
+                                    "Shipping_handling":'.json_encode(utf8_encode($redata['Shipping_handling'])).',
+                                    "Shipping_surcharge":'.json_encode(utf8_encode($redata['Shipping_surcharge'])).',
+                                    "Shipping_admin":'.json_encode(utf8_encode($redata['Shipping_admin'])).',
+                                    "Shipping_discount":'.json_encode(utf8_encode($redata['Shipping_discount'])).',
+                                    "Shipping_cost_total":'.json_encode(utf8_encode($redata['Shipping_cost_total'])).'
                                 },
                                 "Log":{
-                                    "StatusID":'.json_encode($redata['StatusID']).',
-                                    "Status":'.json_encode($redata['Status']).',
-                                    "Updated_at":'.json_encode($redata['Updated_at']).',
-                                    "Updated_by":'.json_encode($redata['Updated_by']).',
-                                    "Updated_sys":'.json_encode($redata['Updated_sys']).'
+                                    "StatusID":'.json_encode(utf8_encode($redata['StatusID'])).',
+                                    "Status":'.json_encode(utf8_encode($redata['Status'])).',
+                                    "Updated_at":'.json_encode(utf8_encode($redata['Updated_at'])).',
+                                    "Updated_by":'.json_encode(utf8_encode($redata['Updated_by'])).',
+                                    "Updated_sys":'.json_encode(utf8_encode($redata['Updated_sys'])).'
                                 },
                                 "POD":{
-                                    "Recipient":'.json_encode($redata['Recipient']).',
-                                    "Relation":'.json_encode($redata['Relation']).'
+                                    "Recipient":'.json_encode(utf8_encode($redata['Recipient'])).',
+                                    "Relation":'.json_encode(utf8_encode($redata['Relation'])).'
                                 }'.(!empty($datatrace)?',"Trace":'.$datatrace:'').'
                             },';
 						}
@@ -1299,7 +1299,7 @@ use PDO;
 					];
 				}	
 			
-			return json_encode($data);
+			return JSON::safeEncode($data);
 	        $this->db= null;
         }
 
@@ -1338,11 +1338,11 @@ use PDO;
                             $datatrace = "[";
                             while($retrace = $stmt2->fetch()){
                                 $datatrace .= '{
-                                    "Created_at":'.json_encode($retrace['Created_at']).',
-                                    "Description":'.json_encode($retrace['Description']).',
-                                    "StatusID":'.json_encode($retrace['StatusID']).',
-                                    "Status":'.json_encode($retrace['Status']).',
-                                    "Created_by":'.json_encode($retrace['Username']).'
+                                    "Created_at":'.json_encode(utf8_encode($retrace['Created_at'])).',
+                                    "Description":'.json_encode(utf8_encode($retrace['Description'])).',
+                                    "StatusID":'.json_encode(utf8_encode($retrace['StatusID'])).',
+                                    "Status":'.json_encode(utf8_encode($retrace['Status'])).',
+                                    "Created_by":'.json_encode(utf8_encode($retrace['Username'])).'
                                 },';
                             }
                             $datatrace = substr($datatrace, 0, -1);
@@ -1355,46 +1355,46 @@ use PDO;
 						{
 							$datares .= '{
                                 "Data":{
-                                    "Waybill":'.json_encode($redata['Waybill']).',
-                                    "BranchID":'.json_encode($redata['BranchID']).',
-                                    "DestID":'.json_encode($redata['DestID']).',
-                                    "Created_at":'.json_encode($redata['Created_at']).',
-                                    "Created_by":'.json_encode($redata['Created_by']).'
+                                    "Waybill":'.json_encode(utf8_encode($redata['Waybill'])).',
+                                    "BranchID":'.json_encode(utf8_encode($redata['BranchID'])).',
+                                    "DestID":'.json_encode(utf8_encode($redata['DestID'])).',
+                                    "Created_at":'.json_encode(utf8_encode($redata['Created_at'])).',
+                                    "Created_by":'.json_encode(utf8_encode($redata['Created_by'])).'
                                 },
                                 "Consignor":{
-                                    "CustomerID":'.json_encode($redata['CustomerID']).',
-                                    "Name":'.json_encode($redata['Consignor_name']).',
-                                    "Alias":'.json_encode($redata['Consignor_alias']).',
-                                    "Address":'.json_encode($redata['Consignor_address']).',
-                                    "Phone":'.json_encode($redata['Consignor_phone']).',
-                                    "Fax":'.json_encode($redata['Consignor_fax']).',
-                                    "Email":'.json_encode($redata['Consignor_email']).'
+                                    "CustomerID":'.json_encode(utf8_encode($redata['CustomerID'])).',
+                                    "Name":'.json_encode(utf8_encode($redata['Consignor_name'])).',
+                                    "Alias":'.json_encode(utf8_encode($redata['Consignor_alias'])).',
+                                    "Address":'.json_encode(utf8_encode($redata['Consignor_address'])).',
+                                    "Phone":'.json_encode(utf8_encode($redata['Consignor_phone'])).',
+                                    "Fax":'.json_encode(utf8_encode($redata['Consignor_fax'])).',
+                                    "Email":'.json_encode(utf8_encode($redata['Consignor_email'])).'
                                 },
                                 "Consignee":{
-                                    "ReferenceID":'.json_encode($redata['ReferenceID']).',
-                                    "Name":'.json_encode($redata['Consignee_name']).',
-                                    "Attention":'.json_encode($redata['Consignee_attention']).',
-                                    "Address":'.json_encode($redata['Consignee_address']).',
-                                    "Phone":'.json_encode($redata['Consignee_phone']).',
-                                    "Fax":'.json_encode($redata['Consignee_fax']).'
+                                    "ReferenceID":'.json_encode(utf8_encode($redata['ReferenceID'])).',
+                                    "Name":'.json_encode(utf8_encode($redata['Consignee_name'])).',
+                                    "Attention":'.json_encode(utf8_encode($redata['Consignee_attention'])).',
+                                    "Address":'.json_encode(utf8_encode($redata['Consignee_address'])).',
+                                    "Phone":'.json_encode(utf8_encode($redata['Consignee_phone'])).',
+                                    "Fax":'.json_encode(utf8_encode($redata['Consignee_fax'])).'
                                 },
                                 "Route":{
-                                    "ModeID":'.json_encode($redata['ModeID']).',
-                                    "Mode":'.json_encode($redata['Mode']).',
-                                    "Origin":'.json_encode($redata['Origin']).',
-                                    "Destination":'.json_encode($redata['Destination']).',
-                                    "Estimation":'.json_encode($redata['Estimation']).'
+                                    "ModeID":'.json_encode(utf8_encode($redata['ModeID'])).',
+                                    "Mode":'.json_encode(utf8_encode($redata['Mode'])).',
+                                    "Origin":'.json_encode(utf8_encode($redata['Origin'])).',
+                                    "Destination":'.json_encode(utf8_encode($redata['Destination'])).',
+                                    "Estimation":'.json_encode(utf8_encode($redata['Estimation'])).'
                                 },
                                 "Log":{
-                                    "StatusID":'.json_encode($redata['StatusID']).',
-                                    "Status":'.json_encode($redata['Status']).',
-                                    "Updated_at":'.json_encode($redata['Updated_at']).',
-                                    "Updated_by":'.json_encode($redata['Updated_by']).',
-                                    "Updated_sys":'.json_encode($redata['Updated_sys']).'
+                                    "StatusID":'.json_encode(utf8_encode($redata['StatusID'])).',
+                                    "Status":'.json_encode(utf8_encode($redata['Status'])).',
+                                    "Updated_at":'.json_encode(utf8_encode($redata['Updated_at'])).',
+                                    "Updated_by":'.json_encode(utf8_encode($redata['Updated_by'])).',
+                                    "Updated_sys":'.json_encode(utf8_encode($redata['Updated_sys'])).'
                                 },
                                 "POD":{
-                                    "Recipient":'.json_encode($redata['Recipient']).',
-                                    "Relation":'.json_encode($redata['Relation']).'
+                                    "Recipient":'.json_encode(utf8_encode($redata['Recipient'])).',
+                                    "Relation":'.json_encode(utf8_encode($redata['Relation'])).'
                                 }'.(!empty($datatrace)?',"Trace":'.$datatrace:'').'
                             },';
 						}
@@ -1421,7 +1421,7 @@ use PDO;
 					];
 				}	
 			
-			return json_encode($data);
+			return JSON::safeEncode($data);
 	        $this->db= null;
         }
 
@@ -1529,7 +1529,7 @@ use PDO;
 				];
 			}		
         
-			return json_encode($data);
+			return JSON::safeEncode($data);
 	        $this->db= null;
 		}
     }

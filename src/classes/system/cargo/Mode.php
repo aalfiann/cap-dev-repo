@@ -8,6 +8,7 @@
  */
 namespace classes\system\cargo;
 use \classes\Auth as Auth;
+use \classes\JSON as JSON;
 use \classes\Validation as Validation;
 use \classes\CustomHandlers as CustomHandlers;
 use PDO;
@@ -131,7 +132,7 @@ use PDO;
                 ];
             }
 			
-			return json_encode($data,JSON_PRETTY_PRINT);
+			return JSON::encode($data,JSON_PRETTY_PRINT);
         }
         
         /** 
@@ -185,7 +186,7 @@ use PDO;
     			];
 			}
 			
-		    return json_encode($data);
+		    return JSON::encode($data);
     		$this->db = null;
 		}
 
@@ -242,7 +243,7 @@ use PDO;
 					'message' => CustomHandlers::getreSlimMessage('RS401')
     			];
 			}
-		    return json_encode($data);
+		    return JSON::encode($data);
     		$this->db = null;
 		}
 
@@ -321,7 +322,7 @@ use PDO;
 				];
 			}		
         
-			return json_encode($data);
+			return JSON::safeEncode($data);
 	        $this->db= null;
 		}
 
@@ -391,7 +392,7 @@ use PDO;
 				];
 			}		
         
-			return json_encode($data);
+			return JSON::safeEncode($data);
 	        $this->db= null;
 		}
         
@@ -441,7 +442,7 @@ use PDO;
 				];
 			}		
         
-			return json_encode($data);
+			return JSON::safeEncode($data);
 	        $this->db= null;
         }
 
@@ -479,7 +480,7 @@ use PDO;
 				];
 			}		
         
-	    	return json_encode($data);
+	    	return JSON::safeEncode($data);
 	        $this->db= null;
         }
         
