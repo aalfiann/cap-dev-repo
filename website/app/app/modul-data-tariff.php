@@ -82,16 +82,27 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                                                 <form class="form-horizontal form-material" id="addnewdata" action="#">
                                                     <div class="modal-body">
                                                         <div id="report-newdata"></div>
-                                                        <div class="form-group">
-                                                            <label class="col-md-12"><?php echo Core::lang('branchid')?></label>
-                                                            <div class="col-md-12">
-                                                            <select id="branchid" style="max-height:200px; overflow-y:scroll; overflow-x:hidden;" class="form-control form-control-line" required>
-                                                            <?php if (!empty($datacompany)) {
-                                                                foreach ($datacompany->results as $name => $valuecompany) {
-                                                                    echo '<option value="'.$valuecompany->{'BranchID'}.'">'.$valuecompany->{'BranchID'}.'</option>';
-                                                                }
-                                                            }?>
-                                                            </select>
+                                                        <div class="col-md-12">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label><?php echo Core::lang('branchid')?></label>
+                                                                        <select id="branchid" style="max-height:200px; overflow-y:scroll; overflow-x:hidden;" class="form-control form-control-line" required>
+                                                                        <?php if (!empty($datacompany)) {
+                                                                            foreach ($datacompany->results as $name => $valuecompany) {
+                                                                                echo '<option value="'.$valuecompany->{'BranchID'}.'">'.$valuecompany->{'BranchID'}.'</option>';
+                                                                            }
+                                                                        }?>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label><?php echo Core::lang('mode')?></label>
+                                                                        <select id="mode" style="max-height:200px; overflow-y:scroll; overflow-x:hidden;" class="form-control form-control-line" required>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
@@ -143,6 +154,8 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                                                 <th><?php echo Core::lang('tb_no')?></th>
                                                 <th><?php echo Core::lang('branchid')?></th>
                                                 <th><?php echo Core::lang('district')?></th>
+                                                <th><?php echo Core::lang('modeid')?></th>
+                                                <th><?php echo Core::lang('mode')?></th>
                                                 <th><?php echo Core::lang('estimation')?></th>
                                                 <th><?php echo Core::lang('kgp')?></th>
                                                 <th><?php echo Core::lang('kgs')?></th>
@@ -158,6 +171,8 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                                                 <th><?php echo Core::lang('tb_no')?></th>
                                                 <th><?php echo Core::lang('branchid')?></th>
                                                 <th><?php echo Core::lang('district')?></th>
+                                                <th><?php echo Core::lang('modeid')?></th>
+                                                <th><?php echo Core::lang('mode')?></th>
                                                 <th><?php echo Core::lang('estimation')?></th>
                                                 <th><?php echo Core::lang('kgp')?></th>
                                                 <th><?php echo Core::lang('kgs')?></th>
@@ -209,6 +224,43 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
     <script>$(function(){$("head").append('<link href="css/datatables.css" rel="stylesheet" type="text/css" />')});</script>
     <!-- end - This is for export functionality only -->
     <script>
+        /* Get mode option start */
+        function loadModeOption(){
+            $(function(){
+                $.ajax({
+				    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargo/mode/data/list/'.$datalogin['username'].'/'.$datalogin['token'])?>")+"?_="+randomText(60),
+	    	    	dataType: 'json',
+	    	    	type: 'GET',
+		    		ifModified: true,
+    		        success: function(data,status) {
+    			    	if (status === "success") {
+					    	if (data.status == "success"){
+                                $.each(data.results, function(i, item) {
+                                    $("#mode").append("<option value=\""+data.results[i].ModeID+"\">"+data.results[i].Mode+"</option>");
+                                });
+    				    	}
+    	    			}
+	    		    },
+                	error: function(x, e) {}
+    	    	});
+            });
+        }
+        /* Get mode option end */
+
+        /** 
+         * Get selected option value for moda (Pure JS)
+         */
+        function selectedOptionMode(){
+            var selection = document.getElementById("mode") !== null;
+            if (selection){
+                var selectBox = document.getElementById("mode");
+                var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+                return selectedValue;
+            } else {
+                return "0";
+            }
+        }
+
         /** 
          * Create event enter key on search (Pure JS)
          * Usage: button id in search element must be set to submitsearchdt
@@ -363,7 +415,7 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                     $(idtable).DataTable().destroy();
                 }
                 /* Choose columns index for printing purpose */
-                var selectCol = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ];
+                var selectCol = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ];
                 /* Built table is here */
                 var table = $(idtable).DataTable({
                     ajax: {
@@ -391,6 +443,8 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                             } 
                         },
                         { data: "Kabupaten" },
+                        { data: "ModeID" },
+                        { data: "Mode" },
                         { data: "Estimasi" },
                         { data: "KGP" },
                         { data: "KGS" },
@@ -399,56 +453,80 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                         { data: "H_KGS" },
                         { data: "H_Min_Kg" },
                         { "render": function(data,type,row,meta) { /* render event defines the markup of the cell text */ 
-                                var a = '<a href="#" data-toggle="modal" data-target=".'+row.BranchID+row.Kabupaten.replace(' ','-')+'"><i class="mdi mdi-pencil-box-outline"></i> <?php echo Core::lang('edit')?></a>'; /* row object contains the row data */
+                                var a = '<a href="#" data-toggle="modal" data-target=".'+row.BranchID+row.Kabupaten.replace(' ','-')+row.ModeID+'"><i class="mdi mdi-pencil-box-outline"></i> <?php echo Core::lang('edit')?></a>'; /* row object contains the row data */
                                 a += '<!-- terms modal content -->\
-                                    <div class="modal fade '+row.BranchID+row.Kabupaten.replace(' ','-')+'" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">\
+                                    <div class="modal fade '+row.BranchID+row.Kabupaten.replace(' ','-')+row.ModeID+'" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">\
                                         <div class="modal-dialog modal-lg">\
                                             <div class="modal-content">\
                                                 <div class="modal-header">\
                                                     <h4 class="modal-title text-themecolor" id="myLargeModalLabel"><i class="mdi mdi-key-plus"></i> <?php echo Core::lang('update').' '.Core::lang('tariff')?></h4>\
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>\
                                                 </div>\
-                                                <form class="form-horizontal form-material" id="data'+row.BranchID+row.Kabupaten.replace(' ','-')+'" action="<?php echo $_SERVER['PHP_SELF']?>">\
+                                                <form class="form-horizontal form-material" id="data'+row.BranchID+row.Kabupaten.replace(' ','-')+row.ModeID+'" action="<?php echo $_SERVER['PHP_SELF']?>">\
                                                     <div class="modal-body">\
-                                                        <div class="form-group">\
-                                                            <label class="col-md-12"><?php echo Core::lang('branchid')?></label>\
-                                                             <div class="col-md-12">\
-                                                                <input id="branchid'+row.BranchID+row.Kabupaten.replace(' ','-')+'" type="text" class="form-control form-control-line" value="'+row.BranchID.toUpperCase()+'" readonly>\
-                                                                <span class="help-block text-danger branchid'+row.BranchID+row.Kabupaten.replace(' ','-')+'"></span>\
+                                                        <div class="col-md-12">\
+                                                            <div class="row">\
+                                                                <div class="col-md-4">\
+                                                                    <div class="form-group">\
+                                                                        <label><?php echo Core::lang('branchid')?></label>\
+                                                                        <div>\
+                                                                            <input id="branchid'+row.BranchID+row.Kabupaten.replace(' ','-')+row.ModeID+'" type="text" class="form-control form-control-line" value="'+row.BranchID.toUpperCase()+'" readonly>\
+                                                                            <span class="help-block text-danger branchid'+row.BranchID+row.Kabupaten.replace(' ','-')+'"></span>\
+                                                                        </div>\
+                                                                    </div>\
+                                                                </div>\
+                                                                <div class="col-md-4">\
+                                                                    <div class="form-group">\
+                                                                        <label><?php echo Core::lang('modeid')?></label>\
+                                                                        <div>\
+                                                                            <input id="modeid'+row.BranchID+row.Kabupaten.replace(' ','-')+row.ModeID+'" type="text" pattern="[0-9]" title="<?php echo Core::lang('val_numeric_html')?>" class="form-control form-control-line" value="'+row.ModeID+'" readonly>\
+                                                                            <span class="help-block text-danger modeid'+row.BranchID+row.Kabupaten.replace(' ','-')+'"></span>\
+                                                                        </div>\
+                                                                    </div>\
+                                                                </div>\
+                                                                <div class="col-md-4">\
+                                                                    <div class="form-group">\
+                                                                        <label><?php echo Core::lang('mode')?></label>\
+                                                                        <div>\
+                                                                            <input id="mode'+row.BranchID+row.Kabupaten.replace(' ','-')+row.ModeID+'" type="text" title="<?php echo Core::lang('input_required')?>" class="form-control form-control-line" value="'+row.Mode+'" readonly>\
+                                                                            <span class="help-block text-danger mode'+row.BranchID+row.Kabupaten.replace(' ','-')+'"></span>\
+                                                                        </div>\
+                                                                    </div>\
+                                                                </div>\
                                                             </div>\
                                                         </div>\
                                                         <div class="form-group">\
                                                             <label class="col-md-12"><?php echo Core::lang('district')?></label>\
                                                              <div class="col-md-12">\
-                                                                <input id="district'+row.BranchID+row.Kabupaten.replace(' ','-')+'" type="text" class="form-control form-control-line" value="'+row.Kabupaten+'" readonly>\
+                                                                <input id="district'+row.BranchID+row.Kabupaten.replace(' ','-')+row.ModeID+'" type="text" class="form-control form-control-line" value="'+row.Kabupaten+'" readonly>\
                                                                 <span class="help-block text-danger district'+row.BranchID+row.Kabupaten.replace(' ','-')+'"></span>\
                                                             </div>\
                                                         </div>\
                                                         <div class="form-group">\
                                                             <label class="col-md-12"><?php echo Core::lang('kgp')?></label>\
                                                              <div class="col-md-12">\
-                                                                <input id="kgp'+row.BranchID+row.Kabupaten.replace(' ','-')+'" type="text" pattern="[0-9]" title="<?php echo Core::lang('val_numeric_html')?>" class="form-control form-control-line" value="'+row.KGP+'" required>\
+                                                                <input id="kgp'+row.BranchID+row.Kabupaten.replace(' ','-')+row.ModeID+'" type="text" pattern="[0-9]" title="<?php echo Core::lang('val_numeric_html')?>" class="form-control form-control-line" value="'+row.KGP+'" required>\
                                                                 <span class="help-block text-danger kgp'+row.BranchID+row.Kabupaten.replace(' ','-')+'"></span>\
                                                             </div>\
                                                         </div>\
                                                         <div class="form-group">\
                                                             <label class="col-md-12"><?php echo Core::lang('kgs')?></label>\
                                                              <div class="col-md-12">\
-                                                                <input id="kgs'+row.BranchID+row.Kabupaten.replace(' ','-')+'" type="text" pattern="[0-9]" title="<?php echo Core::lang('val_numeric_html')?>" class="form-control form-control-line" value="'+row.KGS+'" required>\
+                                                                <input id="kgs'+row.BranchID+row.Kabupaten.replace(' ','-')+row.ModeID+'" type="text" pattern="[0-9]" title="<?php echo Core::lang('val_numeric_html')?>" class="form-control form-control-line" value="'+row.KGS+'" required>\
                                                                 <span class="help-block text-danger kgs'+row.BranchID+row.Kabupaten.replace(' ','-')+'"></span>\
                                                             </div>\
                                                         </div>\
                                                         <div class="form-group">\
                                                             <label class="col-md-12"><?php echo Core::lang('minkg')?></label>\
                                                              <div class="col-md-12">\
-                                                                <input id="minkg'+row.BranchID+row.Kabupaten.replace(' ','-')+'" type="text" pattern="[0-9]" title="<?php echo Core::lang('val_numeric_html')?>" class="form-control form-control-line" value="'+row.Min_Kg+'" required>\
+                                                                <input id="minkg'+row.BranchID+row.Kabupaten.replace(' ','-')+row.ModeID+'" type="text" pattern="[0-9]" title="<?php echo Core::lang('val_numeric_html')?>" class="form-control form-control-line" value="'+row.Min_Kg+'" required>\
                                                                 <span class="help-block text-danger minkg'+row.BranchID+row.Kabupaten.replace(' ','-')+'"></span>\
                                                             </div>\
                                                         </div>\
                                                         <div class="form-group">\
                                                             <label class="col-md-12"><?php echo Core::lang('estimation')?></label>\
                                                              <div class="col-md-12">\
-                                                                <input id="estimation'+row.BranchID+row.Kabupaten.replace(' ','-')+'" type="text" pattern="[0-9]" title="<?php echo Core::lang('val_numeric_html')?>" class="form-control form-control-line" value="'+row.Estimasi+'" required>\
+                                                                <input id="estimation'+row.BranchID+row.Kabupaten.replace(' ','-')+row.ModeID+'" type="text" pattern="[0-9]" title="<?php echo Core::lang('val_numeric_html')?>" class="form-control form-control-line" value="'+row.Estimasi+'" required>\
                                                                 <span class="help-block text-danger estimation'+row.BranchID+row.Kabupaten.replace(' ','-')+'"></span>\
                                                             </div>\
                                                         </div>\
@@ -457,11 +535,11 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                                                         <div class="col-sm-12">\
                                                         <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">\
                                                             <div class="btn-group mr-2" role="group" aria-label="First group">\
-                                                                <button type="submit" onclick="deletedata(\''+row.BranchID+row.Kabupaten.replace(' ','-')+'\');return false;" class="btn btn-danger"><?php echo Core::lang('delete')?></button>\
+                                                                <button type="submit" onclick="deletedata(\''+row.BranchID+row.Kabupaten.replace(' ','-')+row.ModeID+'\');return false;" class="btn btn-danger"><?php echo Core::lang('delete')?></button>\
                                                             </div>\
                                                             <div class="btn-group mr-2" role="group" aria-label="Second group">\
                                                                 <button type="button" class="btn btn-default waves-effect text-left mr-2" data-dismiss="modal"><?php echo Core::lang('cancel')?></button>\
-                                                                <button type="submit" onclick="updatedata(\''+row.BranchID+row.Kabupaten.replace(' ','-')+'\');return false;" class="btn btn-success"><?php echo Core::lang('update')?></button>\
+                                                                <button type="submit" onclick="updatedata(\''+row.BranchID+row.Kabupaten.replace(' ','-')+row.ModeID+'\');return false;" class="btn btn-success"><?php echo Core::lang('update')?></button>\
                                                             </div>\
                                                         </div>\
                                                         </div>\
@@ -546,6 +624,7 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
         
         /* Load data from datatables onload */
         loadData('#datamain','1','10');
+        loadModeOption();
 
         /* Add new data start */
         $("#addnewdata").on("submit",sendnewdata);
@@ -566,7 +645,8 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                         KGP: $("#kgp").val(),
                         KGS: $("#kgs").val(),
                         Minkg: $("#minkg").val(),
-                        Estimasi: $("#estimation").val()
+                        Estimasi: $("#estimation").val(),
+                        ModeID: selectedOptionMode()
                     },
                     dataType: "json",
                     type: "POST",
@@ -633,7 +713,8 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                         KGP: $("#kgp"+dataid).val(),
                         KGS: $("#kgs"+dataid).val(),
                         Minkg: $("#minkg"+dataid).val(),
-                        Estimasi: $("#estimation"+dataid).val()
+                        Estimasi: $("#estimation"+dataid).val(),
+                        ModeID: $("#modeid"+dataid).val()
                     },
                     dataType: "json",
                     type: "POST",
@@ -676,7 +757,8 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                         Username: "<?php echo $datalogin['username']?>",
                         Token: "<?php echo $datalogin['token']?>",
                         BranchID: $("#branchid"+dataid).val(),
-                        Kabupaten: $("#district"+dataid).val()
+                        Kabupaten: $("#district"+dataid).val(),
+                        ModeID: $("#modeid"+dataid).val()
                     },
                     dataType: "json",
                     type: "POST",
