@@ -23,7 +23,7 @@ use PDO;
      */
 	class Tariff {
         // model data tariff
-        var $username,$branchid,$kabupaten,$kgp,$kgs,$minkg,$estimasi,$origin,$destination,$length,$width,$height,$weight,$cubic,$mode;
+        var $username,$branchid,$kabupaten,$kgp,$kgs,$minkg,$estimasi,$origin,$destination,$length,$width,$height,$weight,$cubic,$modeid,$mode;
 
         // for pagination
 		var $page,$itemsPerPage;
@@ -116,18 +116,20 @@ use PDO;
                 if ($roles < 3 || $roles == 6){
 			        $newbranchid = strtolower($this->branchid);
 					$newest = Validation::integerOnly($this->estimasi);
+					$newmodeid = Validation::integerOnly($this->modeid);
 
         			try {
 		        		$this->db->beginTransaction();
-				        $sql = "INSERT INTO tariff_data (BranchID,Kabupaten,KGP,KGS,Min_Kg,Estimasi) 
-        					VALUES (:branchid,:kabupaten,:kgp,:kgs,:minkg,:estimasi);";
+				        $sql = "INSERT INTO tariff_data (BranchID,Kabupaten,KGP,KGS,Min_Kg,Estimasi,ModeID) 
+        					VALUES (:branchid,:kabupaten,:kgp,:kgs,:minkg,:estimasi,:modeid);";
 		    			$stmt = $this->db->prepare($sql);
     					$stmt->bindParam(':branchid', $newbranchid, PDO::PARAM_STR);
                         $stmt->bindParam(':kabupaten', $this->kabupaten, PDO::PARAM_STR);
                         $stmt->bindParam(':kgp', $this->kgp, PDO::PARAM_STR);
                         $stmt->bindParam(':kgs', $this->kgs, PDO::PARAM_STR);
                         $stmt->bindParam(':minkg', $this->minkg, PDO::PARAM_STR);
-                        $stmt->bindParam(':estimasi', $newest, PDO::PARAM_STR);
+						$stmt->bindParam(':estimasi', $newest, PDO::PARAM_STR);
+						$stmt->bindParam(':modeid', $newmodeid, PDO::PARAM_STR);
     					if ($stmt->execute()) {
 	    					$data = [
 		    					'status' => 'success',
@@ -175,17 +177,19 @@ use PDO;
                 if ($roles < 3 || $roles == 6){
 			        $newbranchid = strtolower($this->branchid);
 					$newest = Validation::integerOnly($this->estimasi);
+					$newmodeid = Validation::integerOnly($this->modeid);
         			try {
 		        		$this->db->beginTransaction();
 				        $sql = "UPDATE tariff_data SET KGP=:kgp,KGS=:kgs,Min_Kg=:minkg,Estimasi=:estimasi 
-        					WHERE BranchID=:branchid AND Kabupaten=:kabupaten;";
+        					WHERE BranchID=:branchid AND Kabupaten=:kabupaten AND ModeID=:modeid;";
 		    			$stmt = $this->db->prepare($sql);
     					$stmt->bindParam(':branchid', $newbranchid, PDO::PARAM_STR);
                         $stmt->bindParam(':kabupaten', $this->kabupaten, PDO::PARAM_STR);
                         $stmt->bindParam(':kgp', $this->kgp, PDO::PARAM_STR);
                         $stmt->bindParam(':kgs', $this->kgs, PDO::PARAM_STR);
                         $stmt->bindParam(':minkg', $this->minkg, PDO::PARAM_STR);
-                        $stmt->bindParam(':estimasi', $newest, PDO::PARAM_STR);
+						$stmt->bindParam(':estimasi', $newest, PDO::PARAM_STR);
+						$stmt->bindParam(':modeid', $newmodeid, PDO::PARAM_STR);
     					if ($stmt->execute()) {
 	    					$data = [
 		    					'status' => 'success',
@@ -231,14 +235,16 @@ use PDO;
             if (Auth::validToken($this->db,$this->token,$this->username)){
                 $roles = Auth::getRoleID($this->db,$this->token);
                 if ($roles == '1'){
-                    $newbranchid = strtolower($this->branchid);
+					$newbranchid = strtolower($this->branchid);
+					$newmodeid = Validation::integerOnly($this->modeid);
     				try{
                         $this->db->beginTransaction();
     
-                        $sql = "DELETE FROM tariff_data WHERE BranchID = :branchid AND Kabupaten=:kabupaten;";
+                        $sql = "DELETE FROM tariff_data WHERE BranchID = :branchid AND Kabupaten=:kabupaten AND ModeID=:modeid;";
                         $stmt = $this->db->prepare($sql);
                         $stmt->bindParam(':branchid', $newbranchid, PDO::PARAM_STR);
-                        $stmt->bindParam(':kabupaten', $this->kabupaten, PDO::PARAM_STR);
+						$stmt->bindParam(':kabupaten', $this->kabupaten, PDO::PARAM_STR);
+						$stmt->bindParam(':modeid', $this->modeid, PDO::PARAM_STR);
 						
 						if ($stmt->execute()) {
     						$data = [
@@ -289,23 +295,32 @@ use PDO;
 				if ($roles < 3 || $roles == 6){
 					//count total row
 					$sqlcountrow = "SELECT count(a.BranchID) as TotalRow 
-						from tariff_data a
-						left join tariff_handling b on a.Kabupaten=b.Kabupaten
+						from (
+									SELECT x.BranchID,x.Kabupaten,x.ModeID,y.Mode,x.Estimasi,x.KGP,x.KGS,x.Min_Kg
+									FROM tariff_data x
+									INNER JOIN mas_mode y ON x.ModeID = y.ModeID
+									ORDER BY x.Kabupaten ASC
+								) as a
+						left join tariff_handling b on a.Kabupaten=b.Kabupaten and b.ModeID = a.ModeID
 						where a.BranchID like :search
-						or a.Kabupaten like :search
-						order by a.Kabupaten asc;";
+						or a.Kabupaten like :search;";
 					$stmt = $this->db->prepare($sqlcountrow);		
 					$stmt->bindParam(':search', $search, PDO::PARAM_STR);
 				} else {
 					//count total row
 					$sqlcountrow = "SELECT count(x.BranchID) as TotalRow 
 						from (
-							SELECT a.BranchID,a.Kabupaten,a.KGP,a.KGS,a.Min_Kg,ifnull(b.KGP,0) as 'H_KGP',ifnull(b.KGS,0) as 'H_KGS',ifnull(b.Min_Kg,0) as 'H_Min_Kg',
-								(SELECT a.BranchID FROM sys_user a WHERE a.Username = :username) as UserBranch 
-							from tariff_data a
-							left join tariff_handling b on a.Kabupaten=b.Kabupaten
+							SELECT a.BranchID,a.Kabupaten,a.KGP,a.KGS,a.Min_Kg,ifnull(b.KGP,0) as 'H_KGP',ifnull(b.KGS,0) as 'H_KGS',ifnull(b.Min_Kg,0) as 'H_Min_Kg' 
+							from (
+									SELECT x.BranchID,x.Kabupaten,x.ModeID,y.Mode,x.Estimasi,x.KGP,x.KGS,x.Min_Kg,
+										(SELECT a.BranchID FROM sys_user a WHERE a.Username = :username) as UserBranch
+									FROM tariff_data x
+									INNER JOIN mas_mode y ON x.ModeID = y.ModeID
+									HAVING x.BranchID = UserBranch
+									ORDER BY x.Kabupaten ASC
+								) as a
+							left join tariff_handling b on a.Kabupaten=b.Kabupaten and b.ModeID = a.ModeID
 							where a.Kabupaten like :search
-							having a.BranchID = UserBranch
 						) x;";
 					$stmt = $this->db->prepare($sqlcountrow);
 					$stmt->bindParam(':username', $newusername, PDO::PARAM_STR);
@@ -325,25 +340,33 @@ use PDO;
 						
 						if ($roles < 3){
 							// Query Data
-							$sql = "SELECT a.BranchID,a.Kabupaten,a.Estimasi,a.KGP,a.KGS,a.Min_Kg,ifnull(b.KGP,0) as 'H_KGP',ifnull(b.KGS,0) as 'H_KGS',ifnull(b.Min_Kg,0) as 'H_Min_Kg'
-								from tariff_data a
-								left join tariff_handling b on a.Kabupaten=b.Kabupaten
+							$sql = "SELECT a.BranchID,a.Kabupaten,a.ModeID,a.Mode,a.Estimasi,a.KGP,a.KGS,a.Min_Kg,ifnull(b.KGP,0) as 'H_KGP',ifnull(b.KGS,0) as 'H_KGS',ifnull(b.Min_Kg,0) as 'H_Min_Kg'
+								from (
+									SELECT x.BranchID,x.Kabupaten,x.ModeID,y.Mode,x.Estimasi,x.KGP,x.KGS,x.Min_Kg
+									FROM tariff_data x
+									INNER JOIN mas_mode y ON x.ModeID = y.ModeID
+									ORDER BY x.Kabupaten ASC LIMIT :limpage,:offpage
+								) as a
+								left join tariff_handling b on a.Kabupaten=b.Kabupaten and b.ModeID = a.ModeID
 								where a.BranchID like :search
-								or a.Kabupaten like :search
-								order by a.Kabupaten asc LIMIT :limpage , :offpage;";
+								or a.Kabupaten like :search;";
 							$stmt2 = $this->db->prepare($sql);
 							$stmt2->bindParam(':search', $search, PDO::PARAM_STR);
 							$stmt2->bindValue(':limpage', (INT) $limits, PDO::PARAM_INT);
 							$stmt2->bindValue(':offpage', (INT) $offsets, PDO::PARAM_INT);
 						} else {
 							// Query Data
-							$sql = "SELECT a.BranchID,a.Kabupaten,a.Estimasi,a.KGP,a.KGS,a.Min_Kg,ifnull(b.KGP,0) as 'H_KGP',ifnull(b.KGS,0) as 'H_KGS',ifnull(b.Min_Kg,0) as 'H_Min_Kg',
-									(SELECT a.BranchID FROM sys_user a WHERE a.Username = :username) as UserBranch 
-								from tariff_data a
-								left join tariff_handling b on a.Kabupaten=b.Kabupaten
-								where a.Kabupaten like :search
-								having a.BranchID = UserBranch
-								order by a.Kabupaten asc LIMIT :limpage , :offpage;";
+							$sql = "SELECT a.BranchID,a.Kabupaten,a.ModeID,a.Mode,a.Estimasi,a.KGP,a.KGS,a.Min_Kg,ifnull(b.KGP,0) as 'H_KGP',ifnull(b.KGS,0) as 'H_KGS',ifnull(b.Min_Kg,0) as 'H_Min_Kg' 
+								from (
+									SELECT x.BranchID,x.Kabupaten,x.ModeID,y.Mode,x.Estimasi,x.KGP,x.KGS,x.Min_Kg,
+										(SELECT a.BranchID FROM sys_user a WHERE a.Username = :username) as UserBranch
+									FROM tariff_data x
+									INNER JOIN mas_mode y ON x.ModeID = y.ModeID
+									having x.BranchID = UserBranch
+									ORDER BY x.Kabupaten ASC LIMIT :limpage,:offpage
+								) as a
+								left join tariff_handling b on a.Kabupaten=b.Kabupaten and b.ModeID = a.ModeID
+								where a.Kabupaten like :search;";
 							$stmt2 = $this->db->prepare($sql);
 							$stmt2->bindParam(':username', $newusername, PDO::PARAM_STR);
 							$stmt2->bindParam(':search', $search, PDO::PARAM_STR);
@@ -398,15 +421,19 @@ use PDO;
 				switch ($this->mode) {
 					case "air":
 						$mode = ucwords('air');
+						$modeid = '1';
 						break;
 					case "road":
 						$mode = ucwords('road');
+						$modeid = '2';
 						break;
 					case "sea":
 						$mode = ucwords('sea');
+						$modeid = '3';
 						break;
 					default:
 						$mode = ucwords('road');
+						$modeid = '2';
 				}
 
 				$origin = "$this->origin";
@@ -430,8 +457,8 @@ use PDO;
 							('$mode') as Mode
 						FROM tariff_data a
 						INNER JOIN sys_company b ON a.BranchID = b.BranchID
-						LEFT JOIN tariff_handling c ON a.Kabupaten = c.Kabupaten
-						WHERE b.`Name` = :origin and a.Kabupaten = :destination;";
+						LEFT JOIN tariff_handling c ON a.Kabupaten = c.Kabupaten and c.ModeID = a.ModeID
+						WHERE b.`Name` = :origin and a.Kabupaten = :destination and a.ModeID = '".$modeid."';";
 					$stmt = $this->db->prepare($sql);
 					$stmt->bindParam(':origin', $origin, PDO::PARAM_STR);
 					$stmt->bindParam(':destination', $destination, PDO::PARAM_STR);
@@ -482,15 +509,19 @@ use PDO;
 			switch ($this->mode) {
 				case "air":
 					$mode = ucwords('air');
+					$modeid = '1';
 					break;
 				case "road":
 					$mode = ucwords('road');
+					$modeid = '2';
 					break;
 				case "sea":
 					$mode = ucwords('sea');
+					$modeid = '3';
 					break;
 				default:
 					$mode = ucwords('road');
+					$modeid = '2';
 			}
 
 			$origin = "$this->origin";
@@ -513,8 +544,8 @@ use PDO;
 						('$mode') as Mode				
 					FROM tariff_data a
 					INNER JOIN sys_company b ON a.BranchID = b.BranchID
-					LEFT JOIN tariff_handling c ON a.Kabupaten = c.Kabupaten
-					WHERE b.`Name` = :origin and a.Kabupaten = :destination;";
+					LEFT JOIN tariff_handling c ON a.Kabupaten = c.Kabupaten and c.ModeID = a.ModeID
+					WHERE b.`Name` = :origin and a.Kabupaten = :destination and a.ModeID='".$modeid."';";
 				$stmt = $this->db->prepare($sql);
 				$stmt->bindParam(':origin', $origin, PDO::PARAM_STR);
 				$stmt->bindParam(':destination', $destination, PDO::PARAM_STR);
@@ -562,13 +593,14 @@ use PDO;
                 if ($roles < 3){			
         			try {
 		        		$this->db->beginTransaction();
-				        $sql = "INSERT INTO tariff_handling (Kabupaten,KGP,KGS,Min_Kg) 
-        					VALUES (:kabupaten,:kgp,:kgs,:minkg);";
+				        $sql = "INSERT INTO tariff_handling (Kabupaten,KGP,KGS,Min_Kg,ModeID) 
+        					VALUES (:kabupaten,:kgp,:kgs,:minkg,:modeid);";
 		    			$stmt = $this->db->prepare($sql);
                         $stmt->bindParam(':kabupaten', $this->kabupaten, PDO::PARAM_STR);
                         $stmt->bindParam(':kgp', $this->kgp, PDO::PARAM_STR);
                         $stmt->bindParam(':kgs', $this->kgs, PDO::PARAM_STR);
-                        $stmt->bindParam(':minkg', $this->minkg, PDO::PARAM_STR);
+						$stmt->bindParam(':minkg', $this->minkg, PDO::PARAM_STR);
+						$stmt->bindParam(':modeid', $this->modeid, PDO::PARAM_STR);
     					if ($stmt->execute()) {
 	    					$data = [
 		    					'status' => 'success',
@@ -617,12 +649,13 @@ use PDO;
         			try {
 		        		$this->db->beginTransaction();
 				        $sql = "UPDATE tariff_handling SET KGP=:kgp,KGS=:kgs,Min_Kg=:minkg 
-        					WHERE Kabupaten=:kabupaten;";
+        					WHERE Kabupaten=:kabupaten and ModeID=:modeid;";
 		    			$stmt = $this->db->prepare($sql);
     					$stmt->bindParam(':kabupaten', $this->kabupaten, PDO::PARAM_STR);
                         $stmt->bindParam(':kgp', $this->kgp, PDO::PARAM_STR);
                         $stmt->bindParam(':kgs', $this->kgs, PDO::PARAM_STR);
-                        $stmt->bindParam(':minkg', $this->minkg, PDO::PARAM_STR);
+						$stmt->bindParam(':minkg', $this->minkg, PDO::PARAM_STR);
+						$stmt->bindParam(':modeid', $this->modeid, PDO::PARAM_STR);
     					if ($stmt->execute()) {
 	    					$data = [
 		    					'status' => 'success',
@@ -671,9 +704,10 @@ use PDO;
     				try{
                         $this->db->beginTransaction();
     
-                        $sql = "DELETE FROM tariff_handling WHERE Kabupaten=:kabupaten;";
+                        $sql = "DELETE FROM tariff_handling WHERE Kabupaten=:kabupaten and ModeID=:modeid;";
                         $stmt = $this->db->prepare($sql);
-                        $stmt->bindParam(':kabupaten', $this->kabupaten, PDO::PARAM_STR);
+						$stmt->bindParam(':kabupaten', $this->kabupaten, PDO::PARAM_STR);
+						$stmt->bindParam(':modeid', $this->modeid, PDO::PARAM_STR);
 						
 						if ($stmt->execute()) {
     						$data = [
@@ -725,6 +759,7 @@ use PDO;
 					//count total row
 					$sqlcountrow = "SELECT count(a.Kabupaten) as TotalRow 
 						from tariff_handling a
+						inner join mas_mode b on a.ModeID = b.ModeID
 						where a.Kabupaten like :search
 						order by a.Kabupaten asc;";
 					$stmt = $this->db->prepare($sqlcountrow);		
@@ -742,8 +777,9 @@ use PDO;
 							$offsets = (($newitemsperpage <= 0)?0:$newitemsperpage);
 							
 							// Query Data
-							$sql = "SELECT a.Kabupaten,a.KGP,a.KGS,a.Min_Kg
+							$sql = "SELECT a.Kabupaten,a.ModeID,b.Mode,a.KGP,a.KGS,a.Min_Kg
 								from tariff_handling a
+								inner join mas_mode b on a.ModeID = b.ModeID
 								where a.Kabupaten like :search
 								order by a.Kabupaten asc LIMIT :limpage , :offpage;";
 							$stmt2 = $this->db->prepare($sql);
