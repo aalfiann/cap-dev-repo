@@ -441,7 +441,7 @@ $refpage = (empty($_GET['ref'])?Core::lang('info').' '.Core::lang('waybill'):'<a
             $(function(){
                 clearData();
                 $.ajax({
-                    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargo/transaction/data/trace/waybill/'.$datalogin['username'].'/'.$datalogin['token'].'/')?>")+encodeURIComponent(waybill)+"?_="+randomText(2),
+                    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargo/transaction/data/trace/waybill/'.$datalogin['username'].'/'.$datalogin['token'].'/?no=')?>")+encodeURIComponent(waybill)+"&_="+randomText(2),
                     dataType: "json",
                     type: "GET",
                     success: function(data) {
