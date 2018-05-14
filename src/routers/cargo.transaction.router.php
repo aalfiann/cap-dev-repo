@@ -85,46 +85,6 @@ use \classes\SimpleCache as SimpleCache;
         ->add(new ValidateParam(['Consignor_phone','Consignee_phone'],'1-15','numeric'))
         ->add(new ValidateParam('DestID','1-10','required'));
 
-        /*->add(new ValidateParam('DestID','1-10','required'))
-        ->add(new ValidateParam('Token','1-250','required'))
-        ->add(new ValidateParam('Username','1-50','required'))
-
-        ->add(new ValidateParam('CustomerID','0-20'))
-        ->add(new ValidateParam('Consignor_name','1-50','required'))
-        ->add(new ValidateParam('Consignor_alias','0-50'))
-        ->add(new ValidateParam('Consignor_address','1-250','required'))
-        ->add(new ValidateParam('Consignor_phone','1-15','numeric'))
-        ->add(new ValidateParam('Consignor_fax','0-15','numeric'))
-        ->add(new ValidateParam('Consignor_email','0-50','email'))
-
-        ->add(new ValidateParam('ReferenceID','0-20'))
-        ->add(new ValidateParam('Consignee_name','1-50','required'))
-        ->add(new ValidateParam('Consignee_attention','0-50'))
-        ->add(new ValidateParam('Consignee_address','1-250','required'))
-        ->add(new ValidateParam('Consignee_phone','1-15','numeric'))
-        ->add(new ValidateParam('Consignee_fax','0-15','numeric'))
-
-        ->add(new ValidateParam('ModeID','1-11','numeric'))
-        ->add(new ValidateParam('Origin','1-50','required'))
-        ->add(new ValidateParam('Destination','1-50','required'))
-        ->add(new ValidateParam('Estimation','1-7','numeric'))
-
-        ->add(new ValidateParam('Instruction','0-250'))
-        ->add(new ValidateParam('Description','1-250','required'))
-        ->add(new ValidateParam('Goods_data','0-1000'))
-        ->add(new ValidateParam('Goods_koli','1-5','numeric'))
-        ->add(new ValidateParam('Weight','1-7','decimal'))
-        ->add(new ValidateParam('Weight_real','1-7','decimal'))
-
-        ->add(new ValidateParam('Insurance_rate','0-7','decimal'))
-        ->add(new ValidateParam('Goods_value','0-10','numeric'))
-
-        ->add(new ValidateParam(['KGP','KGS','HKGP','HKGS'],'1-10','numeric'))
-        ->add(new ValidateParam(['MINKGP','MINHKGP'],'1-4','numeric'))
-
-        ->add(new ValidateParam('PaymentID','1-11','numeric'))
-        ->add(new ValidateParam(['Shipping_cost','Shipping_insurance','Shipping_packing','Shipping_forward','Shipping_handling','Shipping_surcharge','Shipping_admin','Shipping_discount','Shipping_cost_total'],'1-10','numeric'));
-        */
     // POST api to update transaction
     $app->post('/cargo/transaction/data/update', function (Request $request, Response $response) {
         $cargo = new classes\system\cargo\Transaction($this->db);
@@ -336,35 +296,35 @@ use \classes\SimpleCache as SimpleCache;
     });
 
     // GET api to show data trace waybill registered user
-    $app->get('/cargo/transaction/data/trace/waybill/{username}/{token}/{waybill}', function (Request $request, Response $response) {
+    $app->get('/cargo/transaction/data/trace/waybill/{username}/{token}/', function (Request $request, Response $response) {
         $cargo = new classes\system\cargo\Transaction($this->db);
         $cargo->username = $request->getAttribute('username');
         $cargo->token = $request->getAttribute('token');
-        $cargo->waybill = $request->getAttribute('waybill');
+        $cargo->waybill = filter_var((empty($_GET['no'])?'':$_GET['no']),FILTER_SANITIZE_STRING);
         $body = $response->getBody();
         $body->write($cargo->traceWaybillDetail());
         return classes\Cors::modify($response,$body,200);
-    });
+    })->add(new ValidateParamURL('no'));
 
     // GET api to show data trace waybill detail public
-    $app->get('/cargo/transaction/data/public/trace/detail/waybill/{waybill}/', function (Request $request, Response $response) {
+    $app->get('/cargo/transaction/data/public/trace/detail/waybill/', function (Request $request, Response $response) {
         $cargo = new classes\system\cargo\Transaction($this->db);
-        $cargo->waybill = $request->getAttribute('waybill');
+        $cargo->waybill = filter_var((empty($_GET['no'])?'':$_GET['no']),FILTER_SANITIZE_STRING);
         $response = $this->cache->withEtag($response, $this->etag.'-'.trim($_SERVER['REQUEST_URI'],'/'));
         $body = $response->getBody();
         $body->write($cargo->traceWaybillDetailPublic());
         return classes\Cors::modify($response,$body,200);
-    })->add(new ApiKey);
+    })->add(new ValidateParamURL('no'))->add(new ApiKey);
 
     // GET api to show data trace waybill simple public
-    $app->get('/cargo/transaction/data/public/trace/simple/waybill/{waybill}/', function (Request $request, Response $response) {
+    $app->get('/cargo/transaction/data/public/trace/simple/waybill/', function (Request $request, Response $response) {
         $cargo = new classes\system\cargo\Transaction($this->db);
-        $cargo->waybill = $request->getAttribute('waybill');
+        $cargo->waybill = filter_var((empty($_GET['no'])?'':$_GET['no']),FILTER_SANITIZE_STRING);
         $response = $this->cache->withEtag($response, $this->etag.'-'.trim($_SERVER['REQUEST_URI'],'/'));
         $body = $response->getBody();
         $body->write($cargo->traceWaybillSimplePublic());
         return classes\Cors::modify($response,$body,200);
-    })->add(new ApiKey);
+    })->add(new ValidateParamURL('no'))->add(new ApiKey);
 
     // GET api to show all data transaction pagination registered user
     $app->get('/cargo/transaction/data/search/{username}/{token}/{page}/{itemsperpage}/', function (Request $request, Response $response) {

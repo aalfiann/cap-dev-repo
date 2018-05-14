@@ -970,18 +970,18 @@ use PDO;
                 INNER JOIN mas_mode d ON a.ModeID = d.ModeID
                 INNER JOIN sys_company e ON a.BranchID = e.BranchID
                 LEFT JOIN log_data_pod f ON a.Waybill = f.WayBill
-                WHERE a.Waybill = :waybill LIMIT 1;";
+                WHERE a.Waybill = :waybill OR a.ReferenceID= :waybill LIMIT 1;";
 				
 				$stmt = $this->db->prepare($sql);		
 				$stmt->bindParam(':waybill', $this->waybill, PDO::PARAM_STR);
 
 				if ($stmt->execute()) {	
     	    	    if ($stmt->rowCount() > 0){
-
+                        $redata = $stmt->fetchAll();
                         $sql2 = "SELECT a.Created_at,a.CodeID,a.Description,a.StatusID,b.Status,a.Username
             				FROM log_data a
 			            	INNER JOIN core_status b ON a.StatusID = b.StatusID
-            				WHERE a.CodeID = :waybill
+            				WHERE a.CodeID = :waybill OR a.CodeID='".$redata[0]['Waybill']."'
 			            	ORDER BY a.ItemID ASC";
             			$stmt2 = $this->db->prepare($sql2);
             			$stmt2->bindParam(':waybill', $this->waybill, PDO::PARAM_STR);
@@ -1004,98 +1004,98 @@ use PDO;
                         }
 
         	   		   	$datares = "[";
-								while($redata = $stmt->fetch()) 
-								{
+								//while($redata) 
+								//{
 									$datares .= '{
                                         "Branch":{
-                                            "ID":'.JSON::safeEncode($redata['BranchID']).',
-                                            "Origin":'.JSON::safeEncode($redata['Origin']).',
-                                            "Address":'.JSON::safeEncode($redata['Branch_address']).',
-                                            "Phone":'.JSON::safeEncode($redata['Branch_phone']).',
-                                            "Fax":'.JSON::safeEncode($redata['Branch_fax']).',
-                                            "Email":'.JSON::safeEncode($redata['Branch_email']).',
-                                            "TIN":'.JSON::safeEncode($redata['Branch_TIN']).'
+                                            "ID":'.JSON::safeEncode($redata[0]['BranchID']).',
+                                            "Origin":'.JSON::safeEncode($redata[0]['Origin']).',
+                                            "Address":'.JSON::safeEncode($redata[0]['Branch_address']).',
+                                            "Phone":'.JSON::safeEncode($redata[0]['Branch_phone']).',
+                                            "Fax":'.JSON::safeEncode($redata[0]['Branch_fax']).',
+                                            "Email":'.JSON::safeEncode($redata[0]['Branch_email']).',
+                                            "TIN":'.JSON::safeEncode($redata[0]['Branch_TIN']).'
                                         },
                                         "Data":{
-                                            "Waybill":'.JSON::safeEncode($redata['Waybill']).',
-                                            "DestID":'.JSON::safeEncode($redata['DestID']).',
-                                            "Created_at":'.JSON::safeEncode($redata['Created_at']).',
-                                            "Created_by":'.JSON::safeEncode($redata['Created_by']).'
+                                            "Waybill":'.JSON::safeEncode($redata[0]['Waybill']).',
+                                            "DestID":'.JSON::safeEncode($redata[0]['DestID']).',
+                                            "Created_at":'.JSON::safeEncode($redata[0]['Created_at']).',
+                                            "Created_by":'.JSON::safeEncode($redata[0]['Created_by']).'
                                         },
                                         "Consignor":{
-                                            "CustomerID":'.JSON::safeEncode($redata['CustomerID']).',
-                                            "Name":'.JSON::safeEncode($redata['Consignor_name']).',
-                                            "Alias":'.JSON::safeEncode($redata['Consignor_alias']).',
-                                            "Address":'.JSON::safeEncode($redata['Consignor_address']).',
-                                            "Phone":'.JSON::safeEncode($redata['Consignor_phone']).',
-                                            "Fax":'.JSON::safeEncode($redata['Consignor_fax']).',
-                                            "Email":'.JSON::safeEncode($redata['Consignor_email']).'
+                                            "CustomerID":'.JSON::safeEncode($redata[0]['CustomerID']).',
+                                            "Name":'.JSON::safeEncode($redata[0]['Consignor_name']).',
+                                            "Alias":'.JSON::safeEncode($redata[0]['Consignor_alias']).',
+                                            "Address":'.JSON::safeEncode($redata[0]['Consignor_address']).',
+                                            "Phone":'.JSON::safeEncode($redata[0]['Consignor_phone']).',
+                                            "Fax":'.JSON::safeEncode($redata[0]['Consignor_fax']).',
+                                            "Email":'.JSON::safeEncode($redata[0]['Consignor_email']).'
                                         },
                                         "Consignee":{
-                                            "ReferenceID":'.JSON::safeEncode($redata['ReferenceID']).',
-                                            "Name":'.JSON::safeEncode($redata['Consignee_name']).',
-                                            "Attention":'.JSON::safeEncode($redata['Consignee_attention']).',
-                                            "Address":'.JSON::safeEncode($redata['Consignee_address']).',
-                                            "Phone":'.JSON::safeEncode($redata['Consignee_phone']).',
-                                            "Fax":'.JSON::safeEncode($redata['Consignee_fax']).'
+                                            "ReferenceID":'.JSON::safeEncode($redata[0]['ReferenceID']).',
+                                            "Name":'.JSON::safeEncode($redata[0]['Consignee_name']).',
+                                            "Attention":'.JSON::safeEncode($redata[0]['Consignee_attention']).',
+                                            "Address":'.JSON::safeEncode($redata[0]['Consignee_address']).',
+                                            "Phone":'.JSON::safeEncode($redata[0]['Consignee_phone']).',
+                                            "Fax":'.JSON::safeEncode($redata[0]['Consignee_fax']).'
                                         },
                                         "Goods":{
-                                            "Instruction":'.JSON::safeEncode($redata['Instruction']).',
-                                            "Description":'.JSON::safeEncode($redata['Description']).',
-                                            "Weight_real":'.JSON::safeEncode($redata['Weight_real']).',
-                                            "Weight":'.JSON::safeEncode($redata['Weight']).',
-                                            "Koli":'.JSON::safeEncode($redata['Goods_koli']).',
-                                            "Detail":'.$redata['Goods_data'].'
+                                            "Instruction":'.JSON::safeEncode($redata[0]['Instruction']).',
+                                            "Description":'.JSON::safeEncode($redata[0]['Description']).',
+                                            "Weight_real":'.JSON::safeEncode($redata[0]['Weight_real']).',
+                                            "Weight":'.JSON::safeEncode($redata[0]['Weight']).',
+                                            "Koli":'.JSON::safeEncode($redata[0]['Goods_koli']).',
+                                            "Detail":'.$redata[0]['Goods_data'].'
                                         },
                                         "Route":{
-                                            "ModeID":'.JSON::safeEncode($redata['ModeID']).',
-                                            "Mode":'.JSON::safeEncode($redata['Mode']).',
-                                            "Origin":'.JSON::safeEncode($redata['Origin']).',
-                                            "Destination":'.JSON::safeEncode($redata['Destination']).',
-                                            "Estimation":'.JSON::safeEncode($redata['Estimation']).'
+                                            "ModeID":'.JSON::safeEncode($redata[0]['ModeID']).',
+                                            "Mode":'.JSON::safeEncode($redata[0]['Mode']).',
+                                            "Origin":'.JSON::safeEncode($redata[0]['Origin']).',
+                                            "Destination":'.JSON::safeEncode($redata[0]['Destination']).',
+                                            "Estimation":'.JSON::safeEncode($redata[0]['Estimation']).'
                                         },
                                         "Insurance":{
-                                            "Rate":'.JSON::safeEncode($redata['Insurance_rate']).',
-                                            "Value":'.JSON::safeEncode($redata['Goods_value']).'
+                                            "Rate":'.JSON::safeEncode($redata[0]['Insurance_rate']).',
+                                            "Value":'.JSON::safeEncode($redata[0]['Goods_value']).'
                                         },
                                         "Tariff":{
-                                            "KGP":'.JSON::safeEncode($redata['Tariff_kgp']).',
-                                            "KGS":'.JSON::safeEncode($redata['Tariff_kgs']).',
-                                            "MinKG":'.JSON::safeEncode($redata['Tariff_kgp_min']).'
+                                            "KGP":'.JSON::safeEncode($redata[0]['Tariff_kgp']).',
+                                            "KGS":'.JSON::safeEncode($redata[0]['Tariff_kgs']).',
+                                            "MinKG":'.JSON::safeEncode($redata[0]['Tariff_kgp_min']).'
                                         },
                                         "Tariff_handling":{
-                                            "KGP":'.JSON::safeEncode($redata['Tariff_hkgp']).',
-                                            "KGS":'.JSON::safeEncode($redata['Tariff_hkgs']).',
-                                            "MinKG":'.JSON::safeEncode($redata['Tariff_hkgp_min']).'
+                                            "KGP":'.JSON::safeEncode($redata[0]['Tariff_hkgp']).',
+                                            "KGS":'.JSON::safeEncode($redata[0]['Tariff_hkgs']).',
+                                            "MinKG":'.JSON::safeEncode($redata[0]['Tariff_hkgp_min']).'
                                         },
                                         "Payment":{
-                                            "PaymentID":'.JSON::safeEncode($redata['PaymentID']).',
-                                            "Name":'.JSON::safeEncode($redata['Payment']).'
+                                            "PaymentID":'.JSON::safeEncode($redata[0]['PaymentID']).',
+                                            "Name":'.JSON::safeEncode($redata[0]['Payment']).'
                                         },
                                         "Transaction":{
-                                            "Shipping_cost":'.JSON::safeEncode($redata['Shipping_cost']).',
-                                            "Shipping_insurance":'.JSON::safeEncode($redata['Shipping_insurance']).',
-                                            "Shipping_packing":'.JSON::safeEncode($redata['Shipping_packing']).',
-                                            "Shipping_forward":'.JSON::safeEncode($redata['Shipping_forward']).',
-                                            "Shipping_handling":'.JSON::safeEncode($redata['Shipping_handling']).',
-                                            "Shipping_surcharge":'.JSON::safeEncode($redata['Shipping_surcharge']).',
-                                            "Shipping_admin":'.JSON::safeEncode($redata['Shipping_admin']).',
-                                            "Shipping_discount":'.JSON::safeEncode($redata['Shipping_discount']).',
-                                            "Shipping_cost_total":'.JSON::safeEncode($redata['Shipping_cost_total']).'
+                                            "Shipping_cost":'.JSON::safeEncode($redata[0]['Shipping_cost']).',
+                                            "Shipping_insurance":'.JSON::safeEncode($redata[0]['Shipping_insurance']).',
+                                            "Shipping_packing":'.JSON::safeEncode($redata[0]['Shipping_packing']).',
+                                            "Shipping_forward":'.JSON::safeEncode($redata[0]['Shipping_forward']).',
+                                            "Shipping_handling":'.JSON::safeEncode($redata[0]['Shipping_handling']).',
+                                            "Shipping_surcharge":'.JSON::safeEncode($redata[0]['Shipping_surcharge']).',
+                                            "Shipping_admin":'.JSON::safeEncode($redata[0]['Shipping_admin']).',
+                                            "Shipping_discount":'.JSON::safeEncode($redata[0]['Shipping_discount']).',
+                                            "Shipping_cost_total":'.JSON::safeEncode($redata[0]['Shipping_cost_total']).'
                                         },
                                         "Log":{
-                                            "StatusID":'.JSON::safeEncode($redata['StatusID']).',
-                                            "Status":'.JSON::safeEncode($redata['Status']).',
-                                            "Updated_at":'.JSON::safeEncode($redata['Updated_at']).',
-                                            "Updated_by":'.JSON::safeEncode($redata['Updated_by']).',
-                                            "Updated_sys":'.JSON::safeEncode($redata['Updated_sys']).'
+                                            "StatusID":'.JSON::safeEncode($redata[0]['StatusID']).',
+                                            "Status":'.JSON::safeEncode($redata[0]['Status']).',
+                                            "Updated_at":'.JSON::safeEncode($redata[0]['Updated_at']).',
+                                            "Updated_by":'.JSON::safeEncode($redata[0]['Updated_by']).',
+                                            "Updated_sys":'.JSON::safeEncode($redata[0]['Updated_sys']).'
                                         },
                                         "POD":{
-                                            "Recipient":'.JSON::safeEncode($redata['Recipient']).',
-                                            "Relation":'.JSON::safeEncode($redata['Relation']).'
+                                            "Recipient":'.JSON::safeEncode($redata[0]['Recipient']).',
+                                            "Relation":'.JSON::safeEncode($redata[0]['Relation']).'
                                         }'.(!empty($datatrace)?',"Trace":'.$datatrace:'').'
                                     },';
-								}
+								//}
 								$datares = substr($datares, 0, -1);
 								$datares .= "]";
 						$data = [
@@ -1150,18 +1150,18 @@ use PDO;
             INNER JOIN mas_mode d ON a.ModeID = d.ModeID
             INNER JOIN sys_company e ON a.BranchID = e.BranchID
             LEFT JOIN log_data_pod f ON a.Waybill = f.WayBill
-            WHERE a.Waybill = :waybill LIMIT 1;";
+            WHERE a.Waybill = :waybill OR a.ReferenceID= :waybill LIMIT 1;";
 				
 			$stmt = $this->db->prepare($sql);		
 			$stmt->bindParam(':waybill', $this->waybill, PDO::PARAM_STR);
 
 			if ($stmt->execute()) {	
     		    if ($stmt->rowCount() > 0){
-
+                    $redata = $stmt->fetchAll();
                     $sql2 = "SELECT a.Created_at,a.CodeID,a.Description,a.StatusID,b.Status,a.Username
             			FROM log_data a
 			        	INNER JOIN core_status b ON a.StatusID = b.StatusID
-            			WHERE a.CodeID = :waybill
+            			WHERE a.CodeID = :waybill OR a.CodeID='".$redata[0]['Waybill']."'
 			        	ORDER BY a.ItemID ASC";
         			$stmt2 = $this->db->prepare($sql2);
         			$stmt2->bindParam(':waybill', $this->waybill, PDO::PARAM_STR);
@@ -1184,98 +1184,98 @@ use PDO;
                     }
 
         	   		$datares = "[";
-						while($redata = $stmt->fetch()) 
-						{
+						//while($redata = $stmt->fetch()) 
+						//{
 							$datares .= '{
                                 "Branch":{
-                                    "ID":'.JSON::safeEncode($redata['BranchID']).',
-                                    "Origin":'.JSON::safeEncode($redata['Origin']).',
-                                    "Address":'.JSON::safeEncode($redata['Branch_address']).',
-                                    "Phone":'.JSON::safeEncode($redata['Branch_phone']).',
-                                    "Fax":'.JSON::safeEncode($redata['Branch_fax']).',
-                                    "Email":'.JSON::safeEncode($redata['Branch_email']).',
-                                    "TIN":'.JSON::safeEncode($redata['Branch_TIN']).'
+                                    "ID":'.JSON::safeEncode($redata[0]['BranchID']).',
+                                    "Origin":'.JSON::safeEncode($redata[0]['Origin']).',
+                                    "Address":'.JSON::safeEncode($redata[0]['Branch_address']).',
+                                    "Phone":'.JSON::safeEncode($redata[0]['Branch_phone']).',
+                                    "Fax":'.JSON::safeEncode($redata[0]['Branch_fax']).',
+                                    "Email":'.JSON::safeEncode($redata[0]['Branch_email']).',
+                                    "TIN":'.JSON::safeEncode($redata[0]['Branch_TIN']).'
                                 },
                                 "Data":{
-                                    "Waybill":'.JSON::safeEncode($redata['Waybill']).',
-                                    "DestID":'.JSON::safeEncode($redata['DestID']).',
-                                    "Created_at":'.JSON::safeEncode($redata['Created_at']).',
-                                    "Created_by":'.JSON::safeEncode($redata['Created_by']).'
+                                    "Waybill":'.JSON::safeEncode($redata[0]['Waybill']).',
+                                    "DestID":'.JSON::safeEncode($redata[0]['DestID']).',
+                                    "Created_at":'.JSON::safeEncode($redata[0]['Created_at']).',
+                                    "Created_by":'.JSON::safeEncode($redata[0]['Created_by']).'
                                 },
                                 "Consignor":{
-                                    "CustomerID":'.JSON::safeEncode($redata['CustomerID']).',
-                                    "Name":'.JSON::safeEncode($redata['Consignor_name']).',
-                                    "Alias":'.JSON::safeEncode($redata['Consignor_alias']).',
-                                    "Address":'.JSON::safeEncode($redata['Consignor_address']).',
-                                    "Phone":'.JSON::safeEncode($redata['Consignor_phone']).',
-                                    "Fax":'.JSON::safeEncode($redata['Consignor_fax']).',
-                                    "Email":'.JSON::safeEncode($redata['Consignor_email']).'
+                                    "CustomerID":'.JSON::safeEncode($redata[0]['CustomerID']).',
+                                    "Name":'.JSON::safeEncode($redata[0]['Consignor_name']).',
+                                    "Alias":'.JSON::safeEncode($redata[0]['Consignor_alias']).',
+                                    "Address":'.JSON::safeEncode($redata[0]['Consignor_address']).',
+                                    "Phone":'.JSON::safeEncode($redata[0]['Consignor_phone']).',
+                                    "Fax":'.JSON::safeEncode($redata[0]['Consignor_fax']).',
+                                    "Email":'.JSON::safeEncode($redata[0]['Consignor_email']).'
                                 },
                                 "Consignee":{
-                                    "ReferenceID":'.JSON::safeEncode($redata['ReferenceID']).',
-                                    "Name":'.JSON::safeEncode($redata['Consignee_name']).',
-                                    "Attention":'.JSON::safeEncode($redata['Consignee_attention']).',
-                                    "Address":'.JSON::safeEncode($redata['Consignee_address']).',
-                                    "Phone":'.JSON::safeEncode($redata['Consignee_phone']).',
-                                    "Fax":'.JSON::safeEncode($redata['Consignee_fax']).'
+                                    "ReferenceID":'.JSON::safeEncode($redata[0]['ReferenceID']).',
+                                    "Name":'.JSON::safeEncode($redata[0]['Consignee_name']).',
+                                    "Attention":'.JSON::safeEncode($redata[0]['Consignee_attention']).',
+                                    "Address":'.JSON::safeEncode($redata[0]['Consignee_address']).',
+                                    "Phone":'.JSON::safeEncode($redata[0]['Consignee_phone']).',
+                                    "Fax":'.JSON::safeEncode($redata[0]['Consignee_fax']).'
                                 },
                                 "Goods":{
-                                    "Instruction":'.JSON::safeEncode($redata['Instruction']).',
-                                    "Description":'.JSON::safeEncode($redata['Description']).',
-                                    "Weight_real":'.JSON::safeEncode($redata['Weight_real']).',
-                                    "Weight":'.JSON::safeEncode($redata['Weight']).',
-                                    "Koli":'.JSON::safeEncode($redata['Goods_koli']).',
-                                    "Detail":'.$redata['Goods_data'].'
+                                    "Instruction":'.JSON::safeEncode($redata[0]['Instruction']).',
+                                    "Description":'.JSON::safeEncode($redata[0]['Description']).',
+                                    "Weight_real":'.JSON::safeEncode($redata[0]['Weight_real']).',
+                                    "Weight":'.JSON::safeEncode($redata[0]['Weight']).',
+                                    "Koli":'.JSON::safeEncode($redata[0]['Goods_koli']).',
+                                    "Detail":'.$redata[0]['Goods_data'].'
                                 },
                                 "Route":{
-                                    "ModeID":'.JSON::safeEncode($redata['ModeID']).',
-                                    "Mode":'.JSON::safeEncode($redata['Mode']).',
-                                    "Origin":'.JSON::safeEncode($redata['Origin']).',
-                                    "Destination":'.JSON::safeEncode($redata['Destination']).',
-                                    "Estimation":'.JSON::safeEncode($redata['Estimation']).'
+                                    "ModeID":'.JSON::safeEncode($redata[0]['ModeID']).',
+                                    "Mode":'.JSON::safeEncode($redata[0]['Mode']).',
+                                    "Origin":'.JSON::safeEncode($redata[0]['Origin']).',
+                                    "Destination":'.JSON::safeEncode($redata[0]['Destination']).',
+                                    "Estimation":'.JSON::safeEncode($redata[0]['Estimation']).'
                                 },
                                 "Insurance":{
-                                    "Rate":'.JSON::safeEncode($redata['Insurance_rate']).',
-                                    "Value":'.JSON::safeEncode($redata['Goods_value']).'
+                                    "Rate":'.JSON::safeEncode($redata[0]['Insurance_rate']).',
+                                    "Value":'.JSON::safeEncode($redata[0]['Goods_value']).'
                                 },
                                 "Tariff":{
-                                    "KGP":'.JSON::safeEncode($redata['Tariff_kgp']).',
-                                    "KGS":'.JSON::safeEncode($redata['Tariff_kgs']).',
-                                    "MinKG":'.JSON::safeEncode($redata['Tariff_kgp_min']).'
+                                    "KGP":'.JSON::safeEncode($redata[0]['Tariff_kgp']).',
+                                    "KGS":'.JSON::safeEncode($redata[0]['Tariff_kgs']).',
+                                    "MinKG":'.JSON::safeEncode($redata[0]['Tariff_kgp_min']).'
                                 },
                                 "Tariff_handling":{
-                                    "KGP":'.JSON::safeEncode($redata['Tariff_hkgp']).',
-                                    "KGS":'.JSON::safeEncode($redata['Tariff_hkgs']).',
-                                    "MinKG":'.JSON::safeEncode($redata['Tariff_hkgp_min']).'
+                                    "KGP":'.JSON::safeEncode($redata[0]['Tariff_hkgp']).',
+                                    "KGS":'.JSON::safeEncode($redata[0]['Tariff_hkgs']).',
+                                    "MinKG":'.JSON::safeEncode($redata[0]['Tariff_hkgp_min']).'
                                 },
                                 "Payment":{
-                                    "PaymentID":'.JSON::safeEncode($redata['PaymentID']).',
-                                    "Name":'.JSON::safeEncode($redata['Payment']).'
+                                    "PaymentID":'.JSON::safeEncode($redata[0]['PaymentID']).',
+                                    "Name":'.JSON::safeEncode($redata[0]['Payment']).'
                                 },
                                 "Transaction":{
-                                    "Shipping_cost":'.JSON::safeEncode($redata['Shipping_cost']).',
-                                    "Shipping_insurance":'.JSON::safeEncode($redata['Shipping_insurance']).',
-                                    "Shipping_packing":'.JSON::safeEncode($redata['Shipping_packing']).',
-                                    "Shipping_forward":'.JSON::safeEncode($redata['Shipping_forward']).',
-                                    "Shipping_handling":'.JSON::safeEncode($redata['Shipping_handling']).',
-                                    "Shipping_surcharge":'.JSON::safeEncode($redata['Shipping_surcharge']).',
-                                    "Shipping_admin":'.JSON::safeEncode($redata['Shipping_admin']).',
-                                    "Shipping_discount":'.JSON::safeEncode($redata['Shipping_discount']).',
-                                    "Shipping_cost_total":'.JSON::safeEncode($redata['Shipping_cost_total']).'
+                                    "Shipping_cost":'.JSON::safeEncode($redata[0]['Shipping_cost']).',
+                                    "Shipping_insurance":'.JSON::safeEncode($redata[0]['Shipping_insurance']).',
+                                    "Shipping_packing":'.JSON::safeEncode($redata[0]['Shipping_packing']).',
+                                    "Shipping_forward":'.JSON::safeEncode($redata[0]['Shipping_forward']).',
+                                    "Shipping_handling":'.JSON::safeEncode($redata[0]['Shipping_handling']).',
+                                    "Shipping_surcharge":'.JSON::safeEncode($redata[0]['Shipping_surcharge']).',
+                                    "Shipping_admin":'.JSON::safeEncode($redata[0]['Shipping_admin']).',
+                                    "Shipping_discount":'.JSON::safeEncode($redata[0]['Shipping_discount']).',
+                                    "Shipping_cost_total":'.JSON::safeEncode($redata[0]['Shipping_cost_total']).'
                                 },
                                 "Log":{
-                                    "StatusID":'.JSON::safeEncode($redata['StatusID']).',
-                                    "Status":'.JSON::safeEncode($redata['Status']).',
-                                    "Updated_at":'.JSON::safeEncode($redata['Updated_at']).',
-                                    "Updated_by":'.JSON::safeEncode($redata['Updated_by']).',
-                                    "Updated_sys":'.JSON::safeEncode($redata['Updated_sys']).'
+                                    "StatusID":'.JSON::safeEncode($redata[0]['StatusID']).',
+                                    "Status":'.JSON::safeEncode($redata[0]['Status']).',
+                                    "Updated_at":'.JSON::safeEncode($redata[0]['Updated_at']).',
+                                    "Updated_by":'.JSON::safeEncode($redata[0]['Updated_by']).',
+                                    "Updated_sys":'.JSON::safeEncode($redata[0]['Updated_sys']).'
                                 },
                                 "POD":{
-                                    "Recipient":'.JSON::safeEncode($redata['Recipient']).',
-                                    "Relation":'.JSON::safeEncode($redata['Relation']).'
+                                    "Recipient":'.JSON::safeEncode($redata[0]['Recipient']).',
+                                    "Relation":'.JSON::safeEncode($redata[0]['Relation']).'
                                 }'.(!empty($datatrace)?',"Trace":'.$datatrace:'').'
                             },';
-						}
+						//}
 						$datares = substr($datares, 0, -1);
 						$datares .= "]";
 						$data = [
@@ -1317,18 +1317,18 @@ use PDO;
             INNER JOIN core_status b ON a.StatusID=b.StatusID
             INNER JOIN mas_mode c ON a.ModeID = c.ModeID
             LEFT JOIN log_data_pod d ON a.Waybill = d.WayBill
-            WHERE a.Waybill = :waybill LIMIT 1;";
+            WHERE a.Waybill = :waybill OR a.ReferenceID= :waybill LIMIT 1;";
 				
 			$stmt = $this->db->prepare($sql);		
 			$stmt->bindParam(':waybill', $this->waybill, PDO::PARAM_STR);
 
 			if ($stmt->execute()) {	
     		    if ($stmt->rowCount() > 0){
-
+                    $redata = $stmt->fetchAll();
                     $sql2 = "SELECT a.Created_at,a.CodeID,a.Description,a.StatusID,b.Status,a.Username
             			FROM log_data a
 			        	INNER JOIN core_status b ON a.StatusID = b.StatusID
-            			WHERE a.CodeID = :waybill
+            			WHERE a.CodeID = :waybill OR a.CodeID='".$redata[0]['Waybill']."'
 			        	ORDER BY a.ItemID ASC";
         			$stmt2 = $this->db->prepare($sql2);
         			$stmt2->bindParam(':waybill', $this->waybill, PDO::PARAM_STR);
@@ -1351,53 +1351,53 @@ use PDO;
                     }
 
         	   		$datares = "[";
-						while($redata = $stmt->fetch()) 
-						{
+						//while($redata = $stmt->fetch()) 
+						//{
 							$datares .= '{
                                 "Data":{
-                                    "Waybill":'.JSON::safeEncode($redata['Waybill']).',
-                                    "BranchID":'.JSON::safeEncode($redata['BranchID']).',
-                                    "DestID":'.JSON::safeEncode($redata['DestID']).',
-                                    "Created_at":'.JSON::safeEncode($redata['Created_at']).',
-                                    "Created_by":'.JSON::safeEncode($redata['Created_by']).'
+                                    "Waybill":'.JSON::safeEncode($redata[0]['Waybill']).',
+                                    "BranchID":'.JSON::safeEncode($redata[0]['BranchID']).',
+                                    "DestID":'.JSON::safeEncode($redata[0]['DestID']).',
+                                    "Created_at":'.JSON::safeEncode($redata[0]['Created_at']).',
+                                    "Created_by":'.JSON::safeEncode($redata[0]['Created_by']).'
                                 },
                                 "Consignor":{
-                                    "CustomerID":'.JSON::safeEncode($redata['CustomerID']).',
-                                    "Name":'.JSON::safeEncode($redata['Consignor_name']).',
-                                    "Alias":'.JSON::safeEncode($redata['Consignor_alias']).',
-                                    "Address":'.JSON::safeEncode($redata['Consignor_address']).',
-                                    "Phone":'.JSON::safeEncode($redata['Consignor_phone']).',
-                                    "Fax":'.JSON::safeEncode($redata['Consignor_fax']).',
-                                    "Email":'.JSON::safeEncode($redata['Consignor_email']).'
+                                    "CustomerID":'.JSON::safeEncode($redata[0]['CustomerID']).',
+                                    "Name":'.JSON::safeEncode($redata[0]['Consignor_name']).',
+                                    "Alias":'.JSON::safeEncode($redata[0]['Consignor_alias']).',
+                                    "Address":'.JSON::safeEncode($redata[0]['Consignor_address']).',
+                                    "Phone":'.JSON::safeEncode($redata[0]['Consignor_phone']).',
+                                    "Fax":'.JSON::safeEncode($redata[0]['Consignor_fax']).',
+                                    "Email":'.JSON::safeEncode($redata[0]['Consignor_email']).'
                                 },
                                 "Consignee":{
-                                    "ReferenceID":'.JSON::safeEncode($redata['ReferenceID']).',
-                                    "Name":'.JSON::safeEncode($redata['Consignee_name']).',
-                                    "Attention":'.JSON::safeEncode($redata['Consignee_attention']).',
-                                    "Address":'.JSON::safeEncode($redata['Consignee_address']).',
-                                    "Phone":'.JSON::safeEncode($redata['Consignee_phone']).',
-                                    "Fax":'.JSON::safeEncode($redata['Consignee_fax']).'
+                                    "ReferenceID":'.JSON::safeEncode($redata[0]['ReferenceID']).',
+                                    "Name":'.JSON::safeEncode($redata[0]['Consignee_name']).',
+                                    "Attention":'.JSON::safeEncode($redata[0]['Consignee_attention']).',
+                                    "Address":'.JSON::safeEncode($redata[0]['Consignee_address']).',
+                                    "Phone":'.JSON::safeEncode($redata[0]['Consignee_phone']).',
+                                    "Fax":'.JSON::safeEncode($redata[0]['Consignee_fax']).'
                                 },
                                 "Route":{
-                                    "ModeID":'.JSON::safeEncode($redata['ModeID']).',
-                                    "Mode":'.JSON::safeEncode($redata['Mode']).',
-                                    "Origin":'.JSON::safeEncode($redata['Origin']).',
-                                    "Destination":'.JSON::safeEncode($redata['Destination']).',
-                                    "Estimation":'.JSON::safeEncode($redata['Estimation']).'
+                                    "ModeID":'.JSON::safeEncode($redata[0]['ModeID']).',
+                                    "Mode":'.JSON::safeEncode($redata[0]['Mode']).',
+                                    "Origin":'.JSON::safeEncode($redata[0]['Origin']).',
+                                    "Destination":'.JSON::safeEncode($redata[0]['Destination']).',
+                                    "Estimation":'.JSON::safeEncode($redata[0]['Estimation']).'
                                 },
                                 "Log":{
-                                    "StatusID":'.JSON::safeEncode($redata['StatusID']).',
-                                    "Status":'.JSON::safeEncode($redata['Status']).',
-                                    "Updated_at":'.JSON::safeEncode($redata['Updated_at']).',
-                                    "Updated_by":'.JSON::safeEncode($redata['Updated_by']).',
-                                    "Updated_sys":'.JSON::safeEncode($redata['Updated_sys']).'
+                                    "StatusID":'.JSON::safeEncode($redata[0]['StatusID']).',
+                                    "Status":'.JSON::safeEncode($redata[0]['Status']).',
+                                    "Updated_at":'.JSON::safeEncode($redata[0]['Updated_at']).',
+                                    "Updated_by":'.JSON::safeEncode($redata[0]['Updated_by']).',
+                                    "Updated_sys":'.JSON::safeEncode($redata[0]['Updated_sys']).'
                                 },
                                 "POD":{
-                                    "Recipient":'.JSON::safeEncode($redata['Recipient']).',
-                                    "Relation":'.JSON::safeEncode($redata['Relation']).'
+                                    "Recipient":'.JSON::safeEncode($redata[0]['Recipient']).',
+                                    "Relation":'.JSON::safeEncode($redata[0]['Relation']).'
                                 }'.(!empty($datatrace)?',"Trace":'.$datatrace:'').'
                             },';
-						}
+						//}
 						$datares = substr($datares, 0, -1);
 						$datares .= "]";
 						$data = [
@@ -1531,5 +1531,62 @@ use PDO;
         
 			return JSON::safeEncode($data,true);
 	        $this->db= null;
-		}
+        }
+        
+        public function tester(){
+			if (Auth::validToken($this->db,$this->token,$this->username)){
+				$sql = "SELECT a.Waybill,a.BranchID,e.Address as 'Branch_address',e.Phone as 'Branch_phone',e.Fax as 'Branch_fax',e.Email as 'Branch_email',e.TIN as 'Branch_TIN',a.DestID,
+                    a.CustomerID,a.Consignor_name,a.Consignor_alias,a.Consignor_address,a.Consignor_phone,a.Consignor_fax,a.Consignor_email,
+                    a.ReferenceID,a.Consignee_name,a.Consignee_attention,a.Consignee_address,a.Consignee_phone,a.Consignee_fax,
+                    a.Instruction,a.Description,a.Goods_data,a.Goods_koli,a.Weight,a.Weight_real,
+                    a.ModeID,d.Mode,a.Origin,a.Destination,a.Estimation,
+                    a.Insurance_rate,a.Goods_value,
+                    a.Tariff_kgp,a.Tariff_kgs,a.Tariff_kgp_min,a.Tariff_hkgp,a.Tariff_hkgs,a.Tariff_hkgp_min,
+                    a.PaymentID,c.Payment,a.Shipping_cost,a.Shipping_insurance,a.Shipping_packing,a.Shipping_forward,a.Shipping_handling,a.Shipping_surcharge,a.Shipping_admin,a.Shipping_discount,a.Shipping_cost_total,
+                    a.StatusID,b.`Status`,f.Recipient,f.Relation,a.Created_at,a.Created_by,a.Updated_at,a.Updated_by,a.Updated_sys
+                FROM transaction_waybill a
+                INNER JOIN core_status b ON a.StatusID=b.StatusID
+                INNER JOIN mas_payment c ON a.PaymentID = c.PaymentID
+                INNER JOIN mas_mode d ON a.ModeID = d.ModeID
+                INNER JOIN sys_company e ON a.BranchID = e.BranchID
+                LEFT JOIN log_data_pod f ON a.Waybill = f.WayBill
+                WHERE a.Waybill = :waybill LIMIT 1;";
+				
+				$stmt = $this->db->prepare($sql);		
+				$stmt->bindParam(':waybill', $this->waybill, PDO::PARAM_STR);
+
+				if ($stmt->execute()) {	
+    	    	    if ($stmt->rowCount() > 0){
+                        $fetch = $stmt->fetchAll();
+						$data = [
+			   	            'result' => $fetch[0]['Waybill'], 
+    	    		        'status' => 'success', 
+			           	    'code' => 'RS501',
+        		        	'message' => CustomHandlers::getreSlimMessage('RS501')
+						];
+			        } else {
+        			    $data = [
+            		    	'status' => 'error',
+		        		    'code' => 'RS601',
+        		    	    'message' => CustomHandlers::getreSlimMessage('RS601')
+						];
+	    	        }          	   	
+				} else {
+					$data = [
+    	    			'status' => 'error',
+						'code' => 'RS202',
+	        		    'message' => CustomHandlers::getreSlimMessage('RS202')
+					];
+				}	
+			} else {
+                $data = [
+	    			'status' => 'error',
+					'code' => 'RS401',
+        	    	'message' => CustomHandlers::getreSlimMessage('RS401')
+				];
+			}
+			
+			return JSON::safeEncode($data,true);
+	        $this->db= null;
+        }
     }
