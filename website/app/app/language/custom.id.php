@@ -44,6 +44,7 @@ $customlang = [
     'realkg' => 'Real Kg',
     'days' => 'Hari',
     'mode' => 'Moda',
+    'modeid' => 'Moda ID',
     'type' => 'Tipe',
     'customer' => 'Customer',
     'actual' => 'Actual',
@@ -112,7 +113,7 @@ $customlang = [
     //help transaction
     'help_browse_customer' => 'Klik browse untuk mencari Customer ID.',
     'help_reference_id' => 'Referensi ID adalah no resi mitra, agar sistem dapat tracking menggunakan no resi mitra.',
-    'help_dest_id' => 'Anda harus memilih cabang destinasi mana yang akan menghandle barang Anda.<br>Jika City Courier maka pilih cabang Anda sendiri.',
+    'help_dest_id' => 'Anda harus memilih cabang destinasi mana yang akan menghandle barang Anda.<br>Jika <span class="badge badge-inverse">City Courier</span> atau <span class="badge badge-inverse">Direct</span> maka pilih cabang Anda sendiri.',
     //help void
     'help_void' => 'Void adalah pembatalan dokumen',
     'help_void_waybill' => 'Waybill hanya dapat di void oleh Origin',

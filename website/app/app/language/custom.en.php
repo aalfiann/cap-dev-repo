@@ -44,6 +44,7 @@ $customlang = [
     'realkg' => 'Real Kg',
     'days' => 'Day(s)',
     'mode' => 'Mode',
+    'modeid' => 'Mode ID',
     'type' => 'Type',
     'customer' => 'Customer',
     'actual' => 'Actual',
@@ -112,7 +113,7 @@ $customlang = [
     //help transaction
     'help_browse_customer' => 'Click browse to search Customer ID.',
     'help_reference_id' => 'Reference ID is no partner\'s receipt, so the system can tracking using no partner\'s receipt.',
-    'help_dest_id' => 'You have to choose which branch of destination will handle your goods.<br>If City Courier then select your own branch.',
+    'help_dest_id' => 'You have to choose which branch of destination will handle your goods.<br>If <span class="badge badge-inverse">City Courier</span> or <span class="badge badge-inverse">Direct</span> then select your own branch.',
     //help void
     'help_void' => 'Void is a document cancellation',
     'help_void_waybill' => 'Waybill can only be void by Origin',
