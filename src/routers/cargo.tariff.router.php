@@ -18,11 +18,12 @@ use \classes\SimpleCache as SimpleCache;
         $cargo->kgs = $datapost['KGS'];
         $cargo->minkg = $datapost['Minkg'];
         $cargo->estimasi = $datapost['Estimasi'];
+        $cargo->modeid = $datapost['ModeID'];
         $body = $response->getBody();
         $body->write($cargo->addTariff());
         return classes\Cors::modify($response,$body,200);
     })->add(new ValidateParam('Minkg','1-5','numeric'))
-        ->add(new ValidateParam(['KGP','KGS','Estimasi'],'1-10','numeric'))
+        ->add(new ValidateParam(['KGP','KGS','Estimasi','ModeID'],'1-10','numeric'))
         ->add(new ValidateParam('Kabupaten','1-250','required'))
         ->add(new ValidateParam('BranchID','1-10','required'))
         ->add(new ValidateParam('Token','1-250','required'))
@@ -40,11 +41,12 @@ use \classes\SimpleCache as SimpleCache;
         $cargo->kgs = $datapost['KGS'];
         $cargo->minkg = $datapost['Minkg'];
         $cargo->estimasi = $datapost['Estimasi'];
+        $cargo->modeid = $datapost['ModeID'];
         $body = $response->getBody();
         $body->write($cargo->updateTariff());
         return classes\Cors::modify($response,$body,200);
     })->add(new ValidateParam('Minkg','1-5','numeric'))
-        ->add(new ValidateParam(['KGP','KGS','Estimasi'],'1-10','numeric'))
+        ->add(new ValidateParam(['KGP','KGS','Estimasi','ModeID'],'1-10','numeric'))
         ->add(new ValidateParam('Kabupaten','1-250','required'))
         ->add(new ValidateParam('BranchID','1-10','required'))
         ->add(new ValidateParam('Token','1-250','required'))
@@ -56,12 +58,14 @@ use \classes\SimpleCache as SimpleCache;
         $datapost = $request->getParsedBody();    
         $cargo->branchid = $datapost['BranchID'];
         $cargo->kabupaten = $datapost['Kabupaten'];
+        $cargo->modeid = $datapost['ModeID'];
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
         $body = $response->getBody();
         $body->write($cargo->deleteTariff());
         return classes\Cors::modify($response,$body,200);
-    })->add(new ValidateParam('Kabupaten','1-250','required'))
+    })->add(new ValidateParam('ModeID','1-10','numeric'))
+        ->add(new ValidateParam('Kabupaten','1-250','required'))
         ->add(new ValidateParam('BranchID','1-10','required'))
         ->add(new ValidateParam('Token','1-250','required'))
         ->add(new ValidateParam('Username','1-50','required'));
@@ -189,11 +193,12 @@ use \classes\SimpleCache as SimpleCache;
         $cargo->kgp = $datapost['KGP'];
         $cargo->kgs = $datapost['KGS'];
         $cargo->minkg = $datapost['Minkg'];
+        $cargo->modeid = $datapost['ModeID'];
         $body = $response->getBody();
         $body->write($cargo->addHandling());
         return classes\Cors::modify($response,$body,200);
     })->add(new ValidateParam('Minkg','1-5','numeric'))
-        ->add(new ValidateParam(['KGP','KGS'],'1-10','numeric'))
+        ->add(new ValidateParam(['KGP','KGS','ModeID'],'1-10','numeric'))
         ->add(new ValidateParam('Token','1-250','required'))
         ->add(new ValidateParam(['Username','Kabupaten'],'1-50','required'));
 
@@ -207,11 +212,12 @@ use \classes\SimpleCache as SimpleCache;
         $cargo->kgp = $datapost['KGP'];
         $cargo->kgs = $datapost['KGS'];
         $cargo->minkg = $datapost['Minkg'];
+        $cargo->modeid = $datapost['ModeID'];
         $body = $response->getBody();
         $body->write($cargo->updateHandling());
         return classes\Cors::modify($response,$body,200);
     })->add(new ValidateParam('Minkg','1-5','numeric'))
-        ->add(new ValidateParam(['KGP','KGS'],'1-10','numeric'))
+        ->add(new ValidateParam(['KGP','KGS','ModeID'],'1-10','numeric'))
         ->add(new ValidateParam('Token','1-250','required'))
         ->add(new ValidateParam(['Username','Kabupaten'],'1-50','required'));
 
@@ -220,12 +226,14 @@ use \classes\SimpleCache as SimpleCache;
         $cargo = new classes\system\cargo\Tariff($this->db);
         $datapost = $request->getParsedBody();
         $cargo->kabupaten = $datapost['Kabupaten'];
+        $cargo->modeid = $datapost['ModeID'];
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
         $body = $response->getBody();
         $body->write($cargo->deleteHandling());
         return classes\Cors::modify($response,$body,200);
-    })->add(new ValidateParam('Token','1-250','required'))
+    })->add(new ValidateParam('ModeID','1-10','numeric'))
+        ->add(new ValidateParam('Token','1-250','required'))
         ->add(new ValidateParam(['Username','Kabupaten'],'1-50','required'));
 
     // GET api to show all tariff data pagination registered user
