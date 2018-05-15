@@ -60,6 +60,8 @@ $datalogin = Core::checkSessions();?>
                                 </div>
                             </div>
                             
+                            <div class="col-md-6 hidden-md-up"><br></div>
+
                             <div class="col-md-3">
                                 <label for="lastdate" class="hidden-md-up"><?php echo Core::lang('lastdate')?> :</label>
                                 <div class="input-group">
@@ -68,6 +70,8 @@ $datalogin = Core::checkSessions();?>
                                 </div>
                             </div>
 
+                            <div class="col-md-6 hidden-md-up"><br></div>
+                            
                             <div class="col-md-6">
                                 <div class="input-group">
                                     <input id="searchdt" type="text" class="form-control" placeholder="<?php echo Core::lang('input_search')?>">
