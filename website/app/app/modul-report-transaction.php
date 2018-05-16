@@ -1,5 +1,9 @@
 <?php spl_autoload_register(function ($classname) {require ( $classname . ".php");});
-$datalogin = Core::checkSessions();?>
+$datalogin = Core::checkSessions();
+$fd = (empty($_GET['fd'])?'':$_GET['fd']);
+$ld = (empty($_GET['ld'])?'':$_GET['ld']);
+$s = (empty($_GET['s'])?'':$_GET['s']);
+?>
 <!DOCTYPE html>
 <html lang="<?php echo Core::getInstance()->setlang?>">
 <head>
@@ -49,13 +53,13 @@ $datalogin = Core::checkSessions();?>
                 <!-- ============================================================== -->
                 <!-- Search Box -->
                 <!-- ============================================================== -->
-                <div class="row card card-body">
-                    <div class="col-md-12">
+                <div class="row page-titles">
+                    <div class="col-12">
                         <div class="row">
                             <div class="col-md-3">
                                 <label for="firstdate" class="hidden-md-up"><?php echo Core::lang('firstdate')?> :</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="firstdate" placeholder="<?php echo Core::lang('firstdate')?>. Format: yyyy-mm-dd">
+                                    <input type="text" class="form-control" id="firstdate" placeholder="<?php echo Core::lang('firstdate')?>. Format: yyyy-mm-dd" value="<?php echo $fd?>">
                                     <span class="input-group-addon"><i class="icon-calender"></i></span>
                                 </div>
                             </div>
@@ -65,7 +69,7 @@ $datalogin = Core::checkSessions();?>
                             <div class="col-md-3">
                                 <label for="lastdate" class="hidden-md-up"><?php echo Core::lang('lastdate')?> :</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="lastdate" placeholder="<?php echo Core::lang('lastdate')?>. Format: yyyy-mm-dd">
+                                    <input type="text" class="form-control" id="lastdate" placeholder="<?php echo Core::lang('lastdate')?>. Format: yyyy-mm-dd" value="<?php echo $ld?>">
                                     <span class="input-group-addon"><i class="icon-calender"></i></span>
                                 </div>
                             </div>
@@ -74,7 +78,7 @@ $datalogin = Core::checkSessions();?>
                             
                             <div class="col-md-6">
                                 <div class="input-group">
-                                    <input id="searchdt" type="text" class="form-control" placeholder="<?php echo Core::lang('input_search')?>">
+                                    <input id="searchdt" type="text" class="form-control" placeholder="<?php echo Core::lang('input_search')?>" value="<?php echo $s?>">
                                     <span class="input-group-btn">
                                         <button id="submitsearchdt" onclick="loadData('#datamain','1',selectedOption(),document.getElementById('firstdate').value,document.getElementById('lastdate').value,document.getElementById('searchdt').value);" class="btn btn-themecolor" type="button"><?php echo Core::lang('search')?></button>
                                     </span>
@@ -397,7 +401,7 @@ $datalogin = Core::checkSessions();?>
                             } 
                         },
                         { "render": function(data,type,row,meta) {
-                            return '<a href="modul-inquiry-waybill.php?no='+row.Waybill+'&ref=modul-report-transaction.php">'+row.Waybill+'</a>';
+                            return '<a href="modul-inquiry-waybill.php?no='+row.Waybill+'&ref=modul-report-transaction.php&fd='+firstdate+'&ld='+lastdate+'&s='+search+'">'+row.Waybill+'</a>';
                             }
                         },
                         { "render": function(data,type,row,meta) { /* render event defines the markup of the cell text */ 
@@ -414,9 +418,9 @@ $datalogin = Core::checkSessions();?>
                                                 <form class="form-horizontal form-material" id="data'+row.Waybill+'" action="<?php echo $_SERVER['PHP_SELF']?>">\
                                                     <div class="modal-body">\
                                                         <div class="col-sm-12">\
-                                                            <a href="print-waybill.php?no='+row.Waybill+'&ref=modul-report-transaction.php" class="btn btn-primary"><?php echo Core::lang('print')?></a>\
-                                                            <a href="modul-pod.php?no='+row.Waybill+'&ref=modul-report-transaction.php" class="btn btn-success"><?php echo Core::lang('pod')?></a>\
-                                                            <a href="modul-void.php?no='+row.Waybill+'&ref=modul-report-transaction.php" class="btn btn-danger"><?php echo Core::lang('void')?></a>\
+                                                            <a href="print-waybill.php?no='+row.Waybill+'&ref=modul-report-transaction.php&fd='+firstdate+'&ld='+lastdate+'&s='+search+'" class="btn btn-primary"><?php echo Core::lang('print')?></a>\
+                                                            <a href="modul-pod.php?no='+row.Waybill+'&ref=modul-report-transaction.php&fd='+firstdate+'&ld='+lastdate+'&s='+search+'" class="btn btn-success"><?php echo Core::lang('pod')?></a>\
+                                                            <a href="modul-void.php?no='+row.Waybill+'&ref=modul-report-transaction.php&fd='+firstdate+'&ld='+lastdate+'&s='+search+'" class="btn btn-danger"><?php echo Core::lang('void')?></a>\
                                                         </div>\
                                                     </div>\
                                                     <div class="modal-footer">\
@@ -536,8 +540,6 @@ $datalogin = Core::checkSessions();?>
             });
         }
         
-        /* Load data from datatables onload */
-        loadData('#datamain','1','10',getDate(),getDate());
 
         $('#firstdate').datepicker({
             format: 'yyyy-mm-dd',
@@ -567,11 +569,19 @@ $datalogin = Core::checkSessions();?>
             var ddChars = dd.split('');
             return yyyy + '-' + (mmChars[1]?mm:"0"+mmChars[0]) + '-' + (ddChars[1]?dd:"0"+ddChars[0]);
         }
-
-        $(function(){
-            $('#firstdate').val(getDate());
-            $('#lastdate').val(getDate());
-        });
+        <?php 
+            if (empty($fd) && empty($ld)){
+                echo '$(function(){
+                    $("#firstdate").val(getDate());
+                    $("#lastdate").val(getDate());
+                });';
+                echo '/* Load data from datatables onload */
+                loadData("#datamain","1","10",getDate(),getDate());';
+            } else {
+                echo '/* Load data from datatables onload */
+                loadData("#datamain","1","10","'.$fd.'","'.$ld.'","'.$s.'");';
+            }
+        ?>
 
     </script>
 </body>

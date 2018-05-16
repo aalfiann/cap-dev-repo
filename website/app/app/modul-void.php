@@ -1,7 +1,11 @@
 <?php spl_autoload_register(function ($classname) {require ( $classname . ".php");});
 $datalogin = Core::checkSessions();
 $codeid = (empty($_GET['no'])?'':$_GET['no']);
-$refpage = (empty($_GET['ref'])?Core::lang('void'):'<a href="'.$_GET['ref'].'"><i class="mdi mdi-arrow-left"></i> '.Core::lang('go_back').'</a>');?>
+$fd = (empty($_GET['fd'])?'':$_GET['fd']);
+$ld = (empty($_GET['ld'])?'':$_GET['ld']);
+$s = (empty($_GET['s'])?'':$_GET['s']);
+$refdate = ((!empty($_GET['fd']) && !empty($_GET['ld']))?'?fd='.$fd.'&ld='.$ld.'&s='.$s:'');
+$refpage = (empty($_GET['ref'])?Core::lang('void'):'<a href="'.$_GET['ref'].$refdate.'"><i class="mdi mdi-arrow-left"></i> '.Core::lang('go_back').'</a>');?>
 <!DOCTYPE html>
 <html lang="<?php echo Core::getInstance()->setlang?>">
 <head>

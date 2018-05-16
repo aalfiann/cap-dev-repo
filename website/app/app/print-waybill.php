@@ -1,5 +1,9 @@
 <?php spl_autoload_register(function ($classname) {require ( $classname . ".php");});
-$refpage = (empty($_GET['ref'])?'modul-transaction.php':$_GET['ref']);
+$fd = (empty($_GET['fd'])?'':$_GET['fd']);
+$ld = (empty($_GET['ld'])?'':$_GET['ld']);
+$s = (empty($_GET['s'])?'':$_GET['s']);
+$refdate = ((!empty($_GET['fd']) && !empty($_GET['ld']))?'?fd='.$fd.'&ld='.$ld.'&s='.$s:'');
+$refpage = (empty($_GET['ref'])?'modul-transaction.php':$_GET['ref'].$refdate);
 $waybill = (empty($_GET['no'])?'0000000000000':$_GET['no']);
 $datalogin = Core::checkSessions();
 // Get data waybill
