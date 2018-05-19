@@ -112,14 +112,14 @@ use PDO;                                            //To connect with database
 					if ($stmt->execute()) {
 						$data = [
 							'status' => 'success',
-							'code' => 'RS101',
-							'message' => CustomHandlers::getreSlimMessage('RS101')
+							'code' => 'RS104',
+							'message' => CustomHandlers::getreSlimMessage('RS104')
 						];	
 					} else {
     					$data = [
 					    	'status' => 'error',
-				    		'code' => 'RS201',
-			    			'message' => CustomHandlers::getreSlimMessage('RS201')
+				    		'code' => 'RS204',
+			    			'message' => CustomHandlers::getreSlimMessage('RS204')
 		    			];
 	    			}
 	    			$this->db->commit();

@@ -38,7 +38,7 @@ use \classes\JSON as JSON;                                      //JSON class    
         return classes\Cors::modify($response,$body,200);
     });
 
-    // Remove (This will clear all data) 
+    // Uninstall (This will clear all data) 
     $app->get('/modules/deposit/uninstall/{username}/{token}', function (Request $request, Response $response) {
         $deposit = new Deposit($this->db);
         $deposit->username = $request->getAttribute('username');
