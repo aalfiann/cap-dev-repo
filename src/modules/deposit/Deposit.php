@@ -10,7 +10,7 @@ use PDO;                                            //To connect with database
 	/**
      * Deposit class
      *
-     * @package    reSlim-modules
+     * @package    modules/deposit
      * @author     M ABD AZIZ ALFIAN <github.com/aalfiann>
      * @copyright  Copyright (c) 2018 M ABD AZIZ ALFIAN
      * @license    https://github.com/aalfiann/reSlim/blob/master/license.md  MIT License
@@ -69,7 +69,8 @@ use PDO;                                            //To connect with database
 						$data = [
                             'status' => 'success',
 							'code' => 'RS101',
-                            'message' => CustomHandlers::getreSlimMessage('RS101')
+                            'message' => CustomHandlers::getreSlimMessage('RS101'),
+                            'notice' => 'For security reason, please rename or remove the router url for install and uninstall!'
 						];	
 					} else {
     					$data = [
