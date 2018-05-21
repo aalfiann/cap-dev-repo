@@ -14,7 +14,7 @@ use \classes\JSON as JSON;                                      //JSON class    
 
     
     // Get module information (include cache and for public user)
-    $app->get('/modules/deposit/get/info/', function (Request $request, Response $response) {
+    $app->get('/deposit/get/info/', function (Request $request, Response $response) {
         $deposit = new Deposit($this->db);
         $body = $response->getBody();
         $response = $this->cache->withEtag($response, $this->etag2hour.'-'.trim($_SERVER['REQUEST_URI'],'/'));
@@ -29,7 +29,7 @@ use \classes\JSON as JSON;                                      //JSON class    
 
     
     // Installation 
-    $app->get('/modules/deposit/install/{username}/{token}', function (Request $request, Response $response) {
+    $app->get('/deposit/install/{username}/{token}', function (Request $request, Response $response) {
         $deposit = new Deposit($this->db);
         $deposit->username = $request->getAttribute('username');
         $deposit->token = $request->getAttribute('token');
@@ -39,7 +39,7 @@ use \classes\JSON as JSON;                                      //JSON class    
     });
 
     // Uninstall (This will clear all data) 
-    $app->get('/modules/deposit/uninstall/{username}/{token}', function (Request $request, Response $response) {
+    $app->get('/deposit/uninstall/{username}/{token}', function (Request $request, Response $response) {
         $deposit = new Deposit($this->db);
         $deposit->username = $request->getAttribute('username');
         $deposit->token = $request->getAttribute('token');
