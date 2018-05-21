@@ -6,14 +6,14 @@
  * Don't remove this class unless You know what to do
  *
  */
-namespace classes\system;
+namespace modules\enterprise;
 use \classes\Auth as Auth;
 use \classes\CustomHandlers as CustomHandlers;
 use PDO;
 	/**
-     * A class for utilities to use with external system in reSlim
+     * A class for utilities
      *
-     * @package    System Utilities reSlim
+     * @package    Enterprise Utilities
      * @author     M ABD AZIZ ALFIAN <github.com/aalfiann>
      * @copyright  Copyright (c) 2018 M ABD AZIZ ALFIAN
      * @license    https://github.com/aalfiann/reSlim-b2b/blob/master/license.md  MIT License

@@ -1,7 +1,7 @@
 {
 	"variables": [],
 	"info": {
-		"name": "reSlim System",
+		"name": "reSlim Enterprise",
 		"_postman_id": "5015809d-f4b1-b819-f9ec-ecf5b47f774e",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
@@ -10,7 +10,7 @@
 		{
 			"name": "Company Add New",
 			"request": {
-				"url": "http://localhost:1337/reSlim-b2b/src/api/system/company/data/new",
+				"url": "http://localhost:1337/reSlim-b2b/src/api/enterprise/company/data/new",
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -91,7 +91,7 @@
 		{
 			"name": "Company Update",
 			"request": {
-				"url": "http://localhost:1337/reSlim-b2b/src/api/system/company/data/update",
+				"url": "http://localhost:1337/reSlim-b2b/src/api/enterprise/company/data/update",
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -178,7 +178,7 @@
 		{
 			"name": "Company Delete",
 			"request": {
-				"url": "http://localhost:1337/reSlim-b2b/src/api/system/company/data/delete",
+				"url": "http://localhost:1337/reSlim-b2b/src/api/enterprise/company/data/delete",
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -212,7 +212,7 @@
 			"name": "Search Company As Pagination",
 			"request": {
 				"url": {
-					"raw": "http://localhost:1337/reSlim-b2b/src/api/system/company/data/search/{username}/{yourtoken}/{page}/{itemsperpage}/?query={query to search data}",
+					"raw": "http://localhost:1337/reSlim-b2b/src/api/enterprise/company/data/search/{username}/{yourtoken}/{page}/{itemsperpage}/?query={query to search data}",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -275,7 +275,7 @@
 			"name": "Search Company As Pagination Public",
 			"request": {
 				"url": {
-					"raw": "http://localhost:1337/reSlim-b2b/src/api/system/company/data/public/search/{page}/{itemperpage}/?apikey={yourapikey}&query={query to search data}",
+					"raw": "http://localhost:1337/reSlim-b2b/src/api/enterprise/company/data/public/search/{page}/{itemperpage}/?apikey={yourapikey}&query={query to search data}",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -342,7 +342,7 @@
 		{
 			"name": "Show Option Company",
 			"request": {
-				"url": "http://localhost:1337/reSlim-b2b/src/api/system/company/data/company/{username}/{yourtoken}",
+				"url": "http://localhost:1337/reSlim-b2b/src/api/enterprise/company/data/company/{username}/{yourtoken}",
 				"method": "GET",
 				"header": [],
 				"body": {
@@ -375,7 +375,7 @@
 		{
 			"name": "Show Option Status",
 			"request": {
-				"url": "http://localhost:1337/reSlim-b2b/src/api/system/company/data/status/{yourtoken}",
+				"url": "http://localhost:1337/reSlim-b2b/src/api/enterprise/company/data/status/{yourtoken}",
 				"method": "GET",
 				"header": [],
 				"body": {
@@ -408,7 +408,7 @@
 		{
 			"name": "Stat Company Summary",
 			"request": {
-				"url": "http://localhost:1337/reSlim-b2b/src/api/system/company/stats/data/summary/{username}/{yourtoken}",
+				"url": "http://localhost:1337/reSlim-b2b/src/api/enterprise/company/stats/data/summary/{username}/{yourtoken}",
 				"method": "GET",
 				"header": [],
 				"body": {
@@ -441,7 +441,7 @@
 		{
 			"name": "System User Add New",
 			"request": {
-				"url": "http://localhost:1337/reSlim-b2b/src/api/system/user/data/new",
+				"url": "http://localhost:1337/reSlim-b2b/src/api/enterprise/user/data/new",
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -480,7 +480,7 @@
 		{
 			"name": "System User Update",
 			"request": {
-				"url": "http://localhost:1337/reSlim-b2b/src/api/system/user/data/update",
+				"url": "http://localhost:1337/reSlim-b2b/src/api/enterprise/user/data/update",
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -525,7 +525,7 @@
 		{
 			"name": "System User Delete",
 			"request": {
-				"url": "http://localhost:1337/reSlim-b2b/src/api/system/user/data/delete",
+				"url": "http://localhost:1337/reSlim-b2b/src/api/enterprise/user/data/delete",
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -559,7 +559,7 @@
 			"name": "Search System User As Pagination",
 			"request": {
 				"url": {
-					"raw": "http://localhost:1337/reSlim-b2b/src/api/system/user/data/search/{username}/{yourtoken}/{page}/{itemsperpage}/?query={query to search data}",
+					"raw": "http://localhost:1337/reSlim-b2b/src/api/enterprise/user/data/search/{username}/{yourtoken}/{page}/{itemsperpage}/?query={query to search data}",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -621,7 +621,7 @@
 		{
 			"name": "Show Option User Status",
 			"request": {
-				"url": "http://localhost:1337/reSlim-b2b/src/api/system/user/data/status/{yourtoken}",
+				"url": "http://localhost:1337/reSlim-b2b/src/api/enterprise/user/data/status/{yourtoken}",
 				"method": "GET",
 				"header": [],
 				"body": {
@@ -654,7 +654,7 @@
 		{
 			"name": "Stat System User Summary",
 			"request": {
-				"url": "http://localhost:1337/reSlim-b2b/src/api/system/user/stats/data/summary/{username}/{yourtoken}",
+				"url": "http://localhost:1337/reSlim-b2b/src/api/enterprise/user/stats/data/summary/{username}/{yourtoken}",
 				"method": "GET",
 				"header": [],
 				"body": {
@@ -687,7 +687,7 @@
 		{
 			"name": "Get User Data Branch",
 			"request": {
-				"url": "http://localhost:1337/reSlim-b2b/src/api/system/user/data/branch/{username}",
+				"url": "http://localhost:1337/reSlim-b2b/src/api/enterprise/user/data/branch/{username}",
 				"method": "GET",
 				"header": [],
 				"body": {},
@@ -698,7 +698,7 @@
 		{
 			"name": "Verify User Exists",
 			"request": {
-				"url": "http://localhost:1337/reSlim-b2b/src/api/system/user/data/verify/exists/{username}",
+				"url": "http://localhost:1337/reSlim-b2b/src/api/enterprise/user/data/verify/exists/{username}",
 				"method": "GET",
 				"header": [],
 				"body": {},
@@ -709,7 +709,7 @@
 		{
 			"name": "Verify User Registered",
 			"request": {
-				"url": "http://localhost:1337/reSlim-b2b/src/api/system/user/data/verify/register/{username}",
+				"url": "http://localhost:1337/reSlim-b2b/src/api/enterprise/user/data/verify/register/{username}",
 				"method": "GET",
 				"header": [],
 				"body": {},

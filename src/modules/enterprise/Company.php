@@ -6,19 +6,19 @@
  * Don't remove this class unless You know what to do
  *
  */
-namespace classes\system;
+namespace modules\enterprise;
 use \classes\Auth as Auth;
 use \classes\JSON as JSON;
 use \classes\Validation as Validation;
 use \classes\CustomHandlers as CustomHandlers;
 use PDO;
 	/**
-     * A class for company management external system in reSlim
+     * A class for company management
      *
-     * @package    System Company reSlim
+     * @package    Enterprise Company
      * @author     M ABD AZIZ ALFIAN <github.com/aalfiann>
      * @copyright  Copyright (c) 2018 M ABD AZIZ ALFIAN
-     * @license    https://github.com/aalfiann/reSlim-b2b/blob/master/license.md  MIT License
+     * @license    https://github.com/aalfiann/reSlim/blob/master/license.md  MIT License
      */
 	class Company {
         // model data company

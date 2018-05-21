@@ -4,10 +4,12 @@ use \Psr\Http\Message\ResponseInterface as Response;
 use \classes\middleware\ValidateParam as ValidateParam;
 use \classes\middleware\ValidateParamURL as ValidateParamURL;
 use \classes\SimpleCache as SimpleCache;
+use \modules\enterprise\User as User;
+use \modules\enterprise\Util as Util;
 
     // POST api to create new company
-    $app->post('/system/user/data/new', function (Request $request, Response $response) {
-        $user = new classes\system\User($this->db);
+    $app->post('/enterprise/user/data/new', function (Request $request, Response $response) {
+        $user = new User($this->db);
         $datapost = $request->getParsedBody();
         $user->adminname = $datapost['Adminname'];
         $user->token = $datapost['Token'];
@@ -21,8 +23,8 @@ use \classes\SimpleCache as SimpleCache;
         ->add(new ValidateParam(['Username','Adminname'],'1-50','required'));
 
     // POST api to update user
-    $app->post('/system/user/data/update', function (Request $request, Response $response) {
-        $user = new classes\system\User($this->db);
+    $app->post('/enterprise/user/data/update', function (Request $request, Response $response) {
+        $user = new User($this->db);
         $datapost = $request->getParsedBody();    
         $user->adminname = $datapost['Adminname'];
         $user->token = $datapost['Token'];
@@ -38,8 +40,8 @@ use \classes\SimpleCache as SimpleCache;
         ->add(new ValidateParam(['Username','Adminname'],'1-50','required'));
 
     // POST api to delete user
-    $app->post('/system/user/data/delete', function (Request $request, Response $response) {
-        $user = new classes\system\User($this->db);
+    $app->post('/enterprise/user/data/delete', function (Request $request, Response $response) {
+        $user = new User($this->db);
         $datapost = $request->getParsedBody();    
         $user->adminname = $datapost['Adminname'];
         $user->token = $datapost['Token'];
@@ -51,8 +53,8 @@ use \classes\SimpleCache as SimpleCache;
         ->add(new ValidateParam(['Username','Adminname'],'1-50','required'));
 
     // GET api to show all data user pagination registered user
-    $app->get('/system/user/data/search/{username}/{token}/{page}/{itemsperpage}/', function (Request $request, Response $response) {
-        $user = new classes\system\User($this->db);
+    $app->get('/enterprise/user/data/search/{username}/{token}/{page}/{itemsperpage}/', function (Request $request, Response $response) {
+        $user = new User($this->db);
         $user->search = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);
         $user->username = $request->getAttribute('username');
         $user->token = $request->getAttribute('token');
@@ -64,10 +66,10 @@ use \classes\SimpleCache as SimpleCache;
     })->add(new ValidateParamURL('query'));
 
     // GET api to get verify user is registered
-    $app->get('/system/user/data/verify/register/{username}', function (Request $request, Response $response) {
+    $app->get('/enterprise/user/data/verify/register/{username}', function (Request $request, Response $response) {
         $username = $request->getAttribute('username');
         $body = $response->getBody();
-        if (classes\system\Util::isUserRegistered($this->db,$username)){
+        if (Util::isUserRegistered($this->db,$username)){
             $body->write('{"status":"success","code":"RS501","result": {"Username": "'.$username.'","Registered":true},"message":"'.classes\CustomHandlers::getreSlimMessage('RS501').'"}');
         } else {
             $body->write('{"status":"error","code":"RS601","result": {"Username": "'.$username.'","Registered":false},"message":"'.classes\CustomHandlers::getreSlimMessage('RS601').'"}');
@@ -76,10 +78,10 @@ use \classes\SimpleCache as SimpleCache;
     });
 
     // GET api to get verify user is exists
-    $app->get('/system/user/data/verify/exists/{username}', function (Request $request, Response $response) {
+    $app->get('/enterprise/user/data/verify/exists/{username}', function (Request $request, Response $response) {
         $username = $request->getAttribute('username');
         $body = $response->getBody();
-        if (classes\system\Util::isMainUserExist($this->db,$username)){
+        if (Util::isMainUserExist($this->db,$username)){
             $body->write('{"status":"success","code":"RS501","result": {"Username": "'.$username.'","Exists":true},"message":"'.classes\CustomHandlers::getreSlimMessage('RS501').'"}');
         } else {
             $body->write('{"status":"error","code":"RS601","result": {"Username": "'.$username.'","Exists":false},"message":"'.classes\CustomHandlers::getreSlimMessage('RS601').'"}');
@@ -88,9 +90,9 @@ use \classes\SimpleCache as SimpleCache;
     });
 
     // GET api to get data branchid user
-    $app->get('/system/user/data/branch/{username}', function (Request $request, Response $response) {
+    $app->get('/enterprise/user/data/branch/{username}', function (Request $request, Response $response) {
         $username = strtolower($request->getAttribute('username'));
-        $branch = classes\system\Util::getUserBranchID($this->db,$username);
+        $branch = Util::getUserBranchID($this->db,$username);
         $body = $response->getBody();
         if (!empty($branch)){
             $body->write('{"status":"success","code":"RS501","result": {"Username": "'.$username.'","BranchID": "'.$branch.'"},"message":"'.classes\CustomHandlers::getreSlimMessage('RS501').'"}');
@@ -102,8 +104,8 @@ use \classes\SimpleCache as SimpleCache;
     });
 
     // GET api to show all data status user
-    $app->get('/system/user/data/status/{token}', function (Request $request, Response $response) {
-        $user = new classes\system\User($this->db);
+    $app->get('/enterprise/user/data/status/{token}', function (Request $request, Response $response) {
+        $user = new User($this->db);
         $user->token = $request->getAttribute('token');
         $body = $response->getBody();
         $body->write($user->showOptionStatus());
@@ -111,8 +113,8 @@ use \classes\SimpleCache as SimpleCache;
     });
 
     // GET api to get all data user for statistic purpose
-    $app->get('/system/user/stats/data/summary/{username}/{token}', function (Request $request, Response $response) {
-        $user = new classes\system\User($this->db);
+    $app->get('/enterprise/user/stats/data/summary/{username}/{token}', function (Request $request, Response $response) {
+        $user = new User($this->db);
         $user->token = $request->getAttribute('token');
         $user->username = $request->getAttribute('username');
         $body = $response->getBody();
