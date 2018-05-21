@@ -6,23 +6,23 @@
  * Don't remove this class unless You know what to do
  *
  */
-namespace classes\system\cargo;
+namespace modules\cargo;
 use \classes\Auth as Auth;
 use \classes\JSON as JSON;
 use \classes\Validation as Validation;
 use \classes\CustomHandlers as CustomHandlers;
 use PDO;
 	/**
-     * A class for payment management
+     * A class for mode management
      *
-     * @package    Payment Cargo
+     * @package    Mode Cargo
      * @author     M ABD AZIZ ALFIAN <github.com/aalfiann>
      * @copyright  Copyright (c) 2018 M ABD AZIZ ALFIAN
      * @license    https://github.com/aalfiann/cap-dev-repo/blob/master/license.md  MIT License
      */
-	class Payment {
-        // model data payment
-		var $username,$paymentid,$payment;
+	class Mode {
+        // model data mode
+		var $username,$modeid,$mode;
 		
 		// for pagination
 		var $page,$itemsPerPage;
@@ -40,20 +40,20 @@ use PDO;
 		}
 		
 		/**
-		 * Inserting into database to add new payment
+		 * Inserting into database to add new mode
 		 * @return result process in json encoded data
 		 */
 		private function doAdd(){
             if (Auth::validToken($this->db,$this->token,$this->username)){
                 $roles = Auth::getRoleID($this->db,$this->token);
                 if ($roles < 2){
-			        $newpayment = ucwords($this->payment);			
+			        $newmode = ucwords($this->mode);			
         			try {
 		        		$this->db->beginTransaction();
-				        $sql = "INSERT INTO mas_payment (Payment) 
-        					VALUES (:payment);";
+				        $sql = "INSERT INTO mas_mode (Mode) 
+        					VALUES (:mode);";
 		    			$stmt = $this->db->prepare($sql);
-    					$stmt->bindParam(':payment', $newpayment, PDO::PARAM_STR);
+    					$stmt->bindParam(':mode', $newmode, PDO::PARAM_STR);
     					if ($stmt->execute()) {
 	    					$data = [
 		    					'status' => 'success',
@@ -97,17 +97,17 @@ use PDO;
         
 
 		/**
-		 * Determine if payment name is already exist or not
+		 * Determine if mode name is already exist or not
 		 * @return boolean true / false
 		 */
-		private function isPaymentExist(){
-			$newpayment = ucwords($this->payment);
+		private function isModeExist(){
+			$newmode = ucwords($this->mode);
 			$r = false;
-			$sql = "SELECT a.Payment
-				FROM mas_payment a 
-				WHERE a.Payment = :payment;";
+			$sql = "SELECT a.Mode
+				FROM mas_mode a 
+				WHERE a.Mode = :mode;";
 			$stmt = $this->db->prepare($sql);
-			$stmt->bindParam(':payment', $newpayment, PDO::PARAM_STR);
+			$stmt->bindParam(':mode', $newmode, PDO::PARAM_STR);
 			if ($stmt->execute()) {	
             	if ($stmt->rowCount() > 0){
 	                $r = true;
@@ -118,11 +118,11 @@ use PDO;
 		}
 
 		/** 
-		 * Add new payment
+		 * Add new mode
 		 * @return result process in json encoded data
 		 */
 		public function add(){
-			if ($this->isPaymentExist() == false){
+			if ($this->isModeExist() == false){
                 $data = $this->doAdd();
             } else {
                 $data = [
@@ -136,7 +136,7 @@ use PDO;
         }
         
         /** 
-         * Update payment
+         * Update mode
          *
          * @return json encoded data
          */
@@ -144,16 +144,16 @@ use PDO;
 			if (Auth::validToken($this->db,$this->token,$this->username)){
                 $roles = Auth::getRoleID($this->db,$this->token);
                 if ($roles < 3){
-                    $newpaymentid = Validation::integerOnly($this->paymentid);
-                    $newpayment = ucwords($this->payment);
+                    $newmodeid = Validation::integerOnly($this->modeid);
+                    $newmode = ucwords($this->mode);
 		    		try{
                         $this->db->beginTransaction();
     
-                        $sql = "UPDATE mas_payment a SET a.Payment=:payment
-                            WHERE a.PaymentID = :paymentid;";
+                        $sql = "UPDATE mas_mode a SET a.Mode=:mode
+                            WHERE a.ModeID = :modeid;";
                         $stmt = $this->db->prepare($sql);
-                        $stmt->bindParam(':payment', $newpayment, PDO::PARAM_STR);
-                        $stmt->bindParam(':paymentid', $newpaymentid, PDO::PARAM_STR);
+                        $stmt->bindParam(':mode', $newmode, PDO::PARAM_STR);
+                        $stmt->bindParam(':modeid', $newmodeid, PDO::PARAM_STR);
                         $stmt->execute();
                     
                         $this->db->commit();
@@ -191,7 +191,7 @@ use PDO;
 		}
 
 		/** 
-         * Delete payment
+         * Delete mode
          *
          * @return json encoded data
          */
@@ -199,13 +199,13 @@ use PDO;
 			if (Auth::validToken($this->db,$this->token,$this->username)){
                 $roles = Auth::getRoleID($this->db,$this->token);
                 if ($roles == '1'){
-                    $newpaymentid = Validation::integerOnly($this->paymentid);
+                    $newmodeid = Validation::integerOnly($this->modeid);
     				try{
                         $this->db->beginTransaction();
     
-                        $sql = "DELETE FROM mas_payment WHERE PaymentID = :paymentid;";
+                        $sql = "DELETE FROM mas_mode WHERE ModeID = :modeid;";
                         $stmt = $this->db->prepare($sql);
-                        $stmt->bindParam(':paymentid', $newpaymentid, PDO::PARAM_STR);
+                        $stmt->bindParam(':modeid', $newmodeid, PDO::PARAM_STR);
                         
 						if ($stmt->execute()) {
     						$data = [
@@ -248,18 +248,18 @@ use PDO;
 		}
 
 		/** 
-		 * Search all data payment paginated
+		 * Search all data mode paginated
 		 * @return result process in json encoded data
 		 */
-		public function searchPaymentAsPagination() {
+		public function searchModeAsPagination() {
 			if (Auth::validToken($this->db,$this->token)){
 				$search = "%$this->search%";
 				//count total row
-				$sqlcountrow = "SELECT count(a.PaymentID) as TotalRow 
-					from mas_payment a
-					where a.PaymentID like :search
-                    or a.Payment like :search
-                    order by a.Payment asc;";
+				$sqlcountrow = "SELECT count(a.ModeID) as TotalRow 
+					from mas_mode a
+					where a.ModeID like :search
+                    or a.Mode like :search
+                    order by a.Mode asc;";
 				$stmt = $this->db->prepare($sqlcountrow);		
 				$stmt->bindParam(':search', $search, PDO::PARAM_STR);
 				
@@ -275,11 +275,11 @@ use PDO;
 						$offsets = (($newitemsperpage <= 0)?0:$newitemsperpage);
 
 						// Query Data
-						$sql = "SELECT a.PaymentID,a.Payment 
-							from mas_payment a
-							where a.PaymentID like :search
-                            or a.Payment like :search
-                            order by a.Payment asc LIMIT :limpage , :offpage;";
+						$sql = "SELECT a.ModeID,a.Mode 
+							from mas_mode a
+							where a.ModeID like :search
+                            or a.Mode like :search
+                            order by a.Mode asc LIMIT :limpage , :offpage;";
 						$stmt2 = $this->db->prepare($sql);
 						$stmt2->bindParam(':search', $search, PDO::PARAM_STR);
 						$stmt2->bindValue(':limpage', (INT) $limits, PDO::PARAM_INT);
@@ -327,17 +327,17 @@ use PDO;
 		}
 
 		/** 
-		 * Search all data payment paginated public
+		 * Search all data mode paginated public
 		 * @return result process in json encoded data
 		 */
-		public function searchPaymentAsPaginationPublic() {
+		public function searchModeAsPaginationPublic() {
 			$search = "%$this->search%";
 			//count total row
-			$sqlcountrow = "SELECT count(a.PaymentID) as TotalRow 
-				from mas_payment a
-				where a.PaymentID like :search
-                or a.Payment like :search
-                order by a.Payment asc;";
+			$sqlcountrow = "SELECT count(a.ModeID) as TotalRow 
+				from mas_mode a
+				where a.ModeID like :search
+                or a.Mode like :search
+                order by a.Mode asc;";
 			$stmt = $this->db->prepare($sqlcountrow);		
 			$stmt->bindParam(':search', $search, PDO::PARAM_STR);
 				
@@ -353,11 +353,11 @@ use PDO;
 					$offsets = (($newitemsperpage <= 0)?0:$newitemsperpage);
 
 					// Query Data
-					$sql = "SELECT a.PaymentID,a.Payment 
-						from mas_payment a
-						where a.PaymentID like :search
-                        or a.Payment like :search
-                        order by a.Payment asc LIMIT :limpage , :offpage;";
+					$sql = "SELECT a.ModeID,a.Mode 
+						from mas_mode a
+						where a.ModeID like :search
+                        or a.Mode like :search
+                        order by a.Mode asc LIMIT :limpage , :offpage;";
 					$stmt2 = $this->db->prepare($sql);
 					$stmt2->bindParam(':search', $search, PDO::PARAM_STR);
 					$stmt2->bindValue(':limpage', (INT) $limits, PDO::PARAM_INT);
@@ -401,14 +401,14 @@ use PDO;
 
 
         /** 
-		 * Get all data Payment as a list option
+		 * Get all data Mode as a list option
 		 * @return result process in json encoded data
 		 */
-		public function showOptionPayment() {
+		public function showOptionMode() {
 			if (Auth::validToken($this->db,$this->token,$this->username)){
-				$sql = "SELECT a.PaymentID,a.Payment
-					FROM mas_payment a
-					ORDER BY a.Payment ASC";
+				$sql = "SELECT a.ModeID,a.Mode
+					FROM mas_mode a
+					ORDER BY a.Mode ASC";
 				$stmt = $this->db->prepare($sql);
 				
 				if ($stmt->execute()) {	
@@ -447,13 +447,13 @@ use PDO;
         }
 
         /** 
-		 * Get all data Payment as a list option
+		 * Get all data Mode as a list option
 		 * @return result process in json encoded data
 		 */
-		public function showOptionPaymentPublic() {
-			$sql = "SELECT a.PaymentID,a.Payment
-				FROM mas_payment a
-				ORDER BY a.Payment ASC";
+		public function showOptionModePublic() {
+			$sql = "SELECT a.ModeID,a.Mode
+				FROM mas_mode a
+				ORDER BY a.Mode ASC";
 			$stmt = $this->db->prepare($sql);
 				
 			if ($stmt->execute()) {	

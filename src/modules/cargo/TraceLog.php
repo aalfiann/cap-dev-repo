@@ -6,7 +6,7 @@
  * Don't remove this class unless You know what to do
  *
  */
-namespace classes\system\cargo;
+namespace modules\cargo;
 use \classes\Auth as Auth;
 use \classes\JSON as JSON;
 use \classes\Validation as Validation;

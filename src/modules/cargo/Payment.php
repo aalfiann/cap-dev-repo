@@ -6,23 +6,23 @@
  * Don't remove this class unless You know what to do
  *
  */
-namespace classes\system\cargo;
+namespace modules\cargo;
 use \classes\Auth as Auth;
 use \classes\JSON as JSON;
 use \classes\Validation as Validation;
 use \classes\CustomHandlers as CustomHandlers;
 use PDO;
 	/**
-     * A class for insurance management
+     * A class for payment management
      *
-     * @package    Insurance Cargo
+     * @package    Payment Cargo
      * @author     M ABD AZIZ ALFIAN <github.com/aalfiann>
      * @copyright  Copyright (c) 2018 M ABD AZIZ ALFIAN
      * @license    https://github.com/aalfiann/cap-dev-repo/blob/master/license.md  MIT License
      */
-	class Insurance {
-        // model data mode
-		var $username,$insuranceid,$insurance,$premium,$minpremium;
+	class Payment {
+        // model data payment
+		var $username,$paymentid,$payment;
 		
 		// for pagination
 		var $page,$itemsPerPage;
@@ -40,21 +40,20 @@ use PDO;
 		}
 		
 		/**
-		 * Inserting into database to add new insurance
+		 * Inserting into database to add new payment
 		 * @return result process in json encoded data
 		 */
 		private function doAdd(){
             if (Auth::validToken($this->db,$this->token,$this->username)){
                 $roles = Auth::getRoleID($this->db,$this->token);
-                if ($roles < 2){			
+                if ($roles < 2){
+			        $newpayment = ucwords($this->payment);			
         			try {
 		        		$this->db->beginTransaction();
-				        $sql = "INSERT INTO mas_insurance (Insurance,Premium,Min_Premium) 
-        					VALUES (:insurance,:premium,:minpremium);";
+				        $sql = "INSERT INTO mas_payment (Payment) 
+        					VALUES (:payment);";
 		    			$stmt = $this->db->prepare($sql);
-						$stmt->bindParam(':insurance', $this->insurance, PDO::PARAM_STR);
-						$stmt->bindParam(':premium', $this->premium, PDO::PARAM_STR);
-						$stmt->bindParam(':minpremium', $this->minpremium, PDO::PARAM_STR);
+    					$stmt->bindParam(':payment', $newpayment, PDO::PARAM_STR);
     					if ($stmt->execute()) {
 	    					$data = [
 		    					'status' => 'success',
@@ -98,16 +97,17 @@ use PDO;
         
 
 		/**
-		 * Determine if insurance name is already exist or not
+		 * Determine if payment name is already exist or not
 		 * @return boolean true / false
 		 */
-		private function isInsuranceExist(){
+		private function isPaymentExist(){
+			$newpayment = ucwords($this->payment);
 			$r = false;
-			$sql = "SELECT a.Insurance
-				FROM mas_insurance a 
-				WHERE a.Insurance = :insurance;";
+			$sql = "SELECT a.Payment
+				FROM mas_payment a 
+				WHERE a.Payment = :payment;";
 			$stmt = $this->db->prepare($sql);
-			$stmt->bindParam(':insurance', $this->insurance, PDO::PARAM_STR);
+			$stmt->bindParam(':payment', $newpayment, PDO::PARAM_STR);
 			if ($stmt->execute()) {	
             	if ($stmt->rowCount() > 0){
 	                $r = true;
@@ -118,11 +118,11 @@ use PDO;
 		}
 
 		/** 
-		 * Add new insurance
+		 * Add new payment
 		 * @return result process in json encoded data
 		 */
 		public function add(){
-			if ($this->isInsuranceExist() == false){
+			if ($this->isPaymentExist() == false){
                 $data = $this->doAdd();
             } else {
                 $data = [
@@ -136,7 +136,7 @@ use PDO;
         }
         
         /** 
-         * Update insurance
+         * Update payment
          *
          * @return json encoded data
          */
@@ -144,17 +144,16 @@ use PDO;
 			if (Auth::validToken($this->db,$this->token,$this->username)){
                 $roles = Auth::getRoleID($this->db,$this->token);
                 if ($roles < 3){
-                    $newinsuranceid = Validation::integerOnly($this->insuranceid);
+                    $newpaymentid = Validation::integerOnly($this->paymentid);
+                    $newpayment = ucwords($this->payment);
 		    		try{
                         $this->db->beginTransaction();
     
-                        $sql = "UPDATE mas_insurance a SET a.Insurance=:insurance,a.Premium=:premium,a.Min_Premium=:minpremium
-                            WHERE a.InsuranceID = :insuranceid;";
+                        $sql = "UPDATE mas_payment a SET a.Payment=:payment
+                            WHERE a.PaymentID = :paymentid;";
                         $stmt = $this->db->prepare($sql);
-						$stmt->bindParam(':insurance', $this->insurance, PDO::PARAM_STR);
-						$stmt->bindParam(':premium', $this->premium, PDO::PARAM_STR);
-						$stmt->bindParam(':minpremium', $this->minpremium, PDO::PARAM_STR);
-                        $stmt->bindParam(':insuranceid', $newinsuranceid, PDO::PARAM_STR);
+                        $stmt->bindParam(':payment', $newpayment, PDO::PARAM_STR);
+                        $stmt->bindParam(':paymentid', $newpaymentid, PDO::PARAM_STR);
                         $stmt->execute();
                     
                         $this->db->commit();
@@ -192,7 +191,7 @@ use PDO;
 		}
 
 		/** 
-         * Delete insurance
+         * Delete payment
          *
          * @return json encoded data
          */
@@ -200,13 +199,13 @@ use PDO;
 			if (Auth::validToken($this->db,$this->token,$this->username)){
                 $roles = Auth::getRoleID($this->db,$this->token);
                 if ($roles == '1'){
-                    $newinsuranceid = Validation::integerOnly($this->insuranceid);
+                    $newpaymentid = Validation::integerOnly($this->paymentid);
     				try{
                         $this->db->beginTransaction();
     
-                        $sql = "DELETE FROM mas_insurance WHERE InsuranceID = :insuranceid;";
+                        $sql = "DELETE FROM mas_payment WHERE PaymentID = :paymentid;";
                         $stmt = $this->db->prepare($sql);
-                        $stmt->bindParam(':insuranceid', $newinsuranceid, PDO::PARAM_STR);
+                        $stmt->bindParam(':paymentid', $newpaymentid, PDO::PARAM_STR);
                         
 						if ($stmt->execute()) {
     						$data = [
@@ -249,18 +248,18 @@ use PDO;
 		}
 
 		/** 
-		 * Search all data insurance paginated
+		 * Search all data payment paginated
 		 * @return result process in json encoded data
 		 */
-		public function searchInsuranceAsPagination() {
+		public function searchPaymentAsPagination() {
 			if (Auth::validToken($this->db,$this->token)){
 				$search = "%$this->search%";
 				//count total row
-				$sqlcountrow = "SELECT count(a.InsuranceID) as TotalRow 
-					from mas_insurance a
-					where a.InsuranceID like :search
-                    or a.Insurance like :search
-                    order by a.Insurance asc;";
+				$sqlcountrow = "SELECT count(a.PaymentID) as TotalRow 
+					from mas_payment a
+					where a.PaymentID like :search
+                    or a.Payment like :search
+                    order by a.Payment asc;";
 				$stmt = $this->db->prepare($sqlcountrow);		
 				$stmt->bindParam(':search', $search, PDO::PARAM_STR);
 				
@@ -276,11 +275,11 @@ use PDO;
 						$offsets = (($newitemsperpage <= 0)?0:$newitemsperpage);
 
 						// Query Data
-						$sql = "SELECT a.InsuranceID,a.Insurance,a.Premium,a.Min_Premium
-							from mas_insurance a
-							where a.InsuranceID like :search
-                            or a.Insurance like :search
-                            order by a.Insurance asc LIMIT :limpage , :offpage;";
+						$sql = "SELECT a.PaymentID,a.Payment 
+							from mas_payment a
+							where a.PaymentID like :search
+                            or a.Payment like :search
+                            order by a.Payment asc LIMIT :limpage , :offpage;";
 						$stmt2 = $this->db->prepare($sql);
 						$stmt2->bindParam(':search', $search, PDO::PARAM_STR);
 						$stmt2->bindValue(':limpage', (INT) $limits, PDO::PARAM_INT);
@@ -328,17 +327,17 @@ use PDO;
 		}
 
 		/** 
-		 * Search all data insurance paginated public
+		 * Search all data payment paginated public
 		 * @return result process in json encoded data
 		 */
-		public function searchInsuranceAsPaginationPublic() {
+		public function searchPaymentAsPaginationPublic() {
 			$search = "%$this->search%";
 			//count total row
-			$sqlcountrow = "SELECT count(a.InsuranceID) as TotalRow 
-				from mas_insurance a
-				where a.InsuranceID like :search
-                or a.Insurance like :search
-                order by a.Insurance asc;";
+			$sqlcountrow = "SELECT count(a.PaymentID) as TotalRow 
+				from mas_payment a
+				where a.PaymentID like :search
+                or a.Payment like :search
+                order by a.Payment asc;";
 			$stmt = $this->db->prepare($sqlcountrow);		
 			$stmt->bindParam(':search', $search, PDO::PARAM_STR);
 				
@@ -354,11 +353,11 @@ use PDO;
 					$offsets = (($newitemsperpage <= 0)?0:$newitemsperpage);
 
 					// Query Data
-					$sql = "SELECT a.InsuranceID,a.Insurance,a.Premium,a.Min_Premium 
-						from mas_insurance a
-						where a.InsuranceID like :search
-                        or a.Insurance like :search
-                        order by a.Insurance asc LIMIT :limpage , :offpage;";
+					$sql = "SELECT a.PaymentID,a.Payment 
+						from mas_payment a
+						where a.PaymentID like :search
+                        or a.Payment like :search
+                        order by a.Payment asc LIMIT :limpage , :offpage;";
 					$stmt2 = $this->db->prepare($sql);
 					$stmt2->bindParam(':search', $search, PDO::PARAM_STR);
 					$stmt2->bindValue(':limpage', (INT) $limits, PDO::PARAM_INT);
@@ -396,5 +395,93 @@ use PDO;
 			return JSON::safeEncode($data,true);
 	        $this->db= null;
 		}
+        
+        
+        //OPTIONS=======================================
+
+
+        /** 
+		 * Get all data Payment as a list option
+		 * @return result process in json encoded data
+		 */
+		public function showOptionPayment() {
+			if (Auth::validToken($this->db,$this->token,$this->username)){
+				$sql = "SELECT a.PaymentID,a.Payment
+					FROM mas_payment a
+					ORDER BY a.Payment ASC";
+				$stmt = $this->db->prepare($sql);
+				
+				if ($stmt->execute()) {	
+    	    	    if ($stmt->rowCount() > 0){
+        	   		   	$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+						$data = [
+			   	            'results' => $results, 
+    	    		        'status' => 'success', 
+			           	    'code' => 'RS501',
+        		        	'message' => CustomHandlers::getreSlimMessage('RS501')
+						];
+			        } else {
+        			    $data = [
+            		    	'status' => 'error',
+		        		    'code' => 'RS601',
+        		    	    'message' => CustomHandlers::getreSlimMessage('RS601')
+						];
+	    	        }          	   	
+				} else {
+					$data = [
+    	    			'status' => 'error',
+						'code' => 'RS202',
+	        		    'message' => CustomHandlers::getreSlimMessage('RS202')
+					];
+				}
+			} else {
+				$data = [
+	    			'status' => 'error',
+					'code' => 'RS401',
+        	    	'message' => CustomHandlers::getreSlimMessage('RS401')
+				];
+			}		
+        
+			return JSON::safeEncode($data,true);
+	        $this->db= null;
+        }
+
+        /** 
+		 * Get all data Payment as a list option
+		 * @return result process in json encoded data
+		 */
+		public function showOptionPaymentPublic() {
+			$sql = "SELECT a.PaymentID,a.Payment
+				FROM mas_payment a
+				ORDER BY a.Payment ASC";
+			$stmt = $this->db->prepare($sql);
+				
+			if ($stmt->execute()) {	
+    		    if ($stmt->rowCount() > 0){
+    	   		   	$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+					$data = [
+			   	        'results' => $results, 
+    	    	        'status' => 'success', 
+		           	    'code' => 'RS501',
+    		        	'message' => CustomHandlers::getreSlimMessage('RS501')
+					];
+			    } else {
+        		    $data = [
+        		    	'status' => 'error',
+	        		    'code' => 'RS601',
+    		    	    'message' => CustomHandlers::getreSlimMessage('RS601')
+					];
+	    	    }          	   	
+			} else {
+				$data = [
+        			'status' => 'error',
+					'code' => 'RS202',
+	        		'message' => CustomHandlers::getreSlimMessage('RS202')
+				];
+			}		
+        
+	    	return JSON::safeEncode($data,true);
+	        $this->db= null;
+        }
         
     }

@@ -6,23 +6,23 @@
  * Don't remove this class unless You know what to do
  *
  */
-namespace classes\system\cargo;
+namespace modules\cargo;
 use \classes\Auth as Auth;
 use \classes\JSON as JSON;
 use \classes\Validation as Validation;
 use \classes\CustomHandlers as CustomHandlers;
 use PDO;
 	/**
-     * A class for relation management
+     * A class for insurance management
      *
-     * @package    Relation Cargo
+     * @package    Insurance Cargo
      * @author     M ABD AZIZ ALFIAN <github.com/aalfiann>
      * @copyright  Copyright (c) 2018 M ABD AZIZ ALFIAN
      * @license    https://github.com/aalfiann/cap-dev-repo/blob/master/license.md  MIT License
      */
-	class Relation {
-        // model data relation
-		var $username,$relationid,$relation;
+	class Insurance {
+        // model data mode
+		var $username,$insuranceid,$insurance,$premium,$minpremium;
 		
 		// for pagination
 		var $page,$itemsPerPage;
@@ -40,20 +40,21 @@ use PDO;
 		}
 		
 		/**
-		 * Inserting into database to add new relation
+		 * Inserting into database to add new insurance
 		 * @return result process in json encoded data
 		 */
 		private function doAdd(){
             if (Auth::validToken($this->db,$this->token,$this->username)){
                 $roles = Auth::getRoleID($this->db,$this->token);
-                if ($roles < 2){
-			        $newrelation = strtoupper($this->relation);			
+                if ($roles < 2){			
         			try {
 		        		$this->db->beginTransaction();
-				        $sql = "INSERT INTO mas_relation (Relation) 
-        					VALUES (:relation);";
+				        $sql = "INSERT INTO mas_insurance (Insurance,Premium,Min_Premium) 
+        					VALUES (:insurance,:premium,:minpremium);";
 		    			$stmt = $this->db->prepare($sql);
-    					$stmt->bindParam(':relation', $newrelation, PDO::PARAM_STR);
+						$stmt->bindParam(':insurance', $this->insurance, PDO::PARAM_STR);
+						$stmt->bindParam(':premium', $this->premium, PDO::PARAM_STR);
+						$stmt->bindParam(':minpremium', $this->minpremium, PDO::PARAM_STR);
     					if ($stmt->execute()) {
 	    					$data = [
 		    					'status' => 'success',
@@ -97,17 +98,16 @@ use PDO;
         
 
 		/**
-		 * Determine if relation name is already exist or not
+		 * Determine if insurance name is already exist or not
 		 * @return boolean true / false
 		 */
-		private function isRelationExist(){
-			$newrelation = strtoupper($this->Relation);
+		private function isInsuranceExist(){
 			$r = false;
-			$sql = "SELECT a.Relation
-				FROM mas_relation a 
-				WHERE a.Relation = :relation;";
+			$sql = "SELECT a.Insurance
+				FROM mas_insurance a 
+				WHERE a.Insurance = :insurance;";
 			$stmt = $this->db->prepare($sql);
-			$stmt->bindParam(':relation', $newrelation, PDO::PARAM_STR);
+			$stmt->bindParam(':insurance', $this->insurance, PDO::PARAM_STR);
 			if ($stmt->execute()) {	
             	if ($stmt->rowCount() > 0){
 	                $r = true;
@@ -118,11 +118,11 @@ use PDO;
 		}
 
 		/** 
-		 * Add new relation
+		 * Add new insurance
 		 * @return result process in json encoded data
 		 */
 		public function add(){
-			if ($this->isRelationExist() == false){
+			if ($this->isInsuranceExist() == false){
                 $data = $this->doAdd();
             } else {
                 $data = [
@@ -136,7 +136,7 @@ use PDO;
         }
         
         /** 
-         * Update relation
+         * Update insurance
          *
          * @return json encoded data
          */
@@ -144,16 +144,17 @@ use PDO;
 			if (Auth::validToken($this->db,$this->token,$this->username)){
                 $roles = Auth::getRoleID($this->db,$this->token);
                 if ($roles < 3){
-                    $newrelationid = Validation::integerOnly($this->relationid);
-                    $newrelation = strtoupper($this->relation);
+                    $newinsuranceid = Validation::integerOnly($this->insuranceid);
 		    		try{
                         $this->db->beginTransaction();
     
-                        $sql = "UPDATE mas_relation a SET a.Relation=:relation
-                            WHERE a.RelationID = :relationid;";
+                        $sql = "UPDATE mas_insurance a SET a.Insurance=:insurance,a.Premium=:premium,a.Min_Premium=:minpremium
+                            WHERE a.InsuranceID = :insuranceid;";
                         $stmt = $this->db->prepare($sql);
-                        $stmt->bindParam(':relation', $newrelation, PDO::PARAM_STR);
-                        $stmt->bindParam(':relationid', $newrelationid, PDO::PARAM_STR);
+						$stmt->bindParam(':insurance', $this->insurance, PDO::PARAM_STR);
+						$stmt->bindParam(':premium', $this->premium, PDO::PARAM_STR);
+						$stmt->bindParam(':minpremium', $this->minpremium, PDO::PARAM_STR);
+                        $stmt->bindParam(':insuranceid', $newinsuranceid, PDO::PARAM_STR);
                         $stmt->execute();
                     
                         $this->db->commit();
@@ -191,7 +192,7 @@ use PDO;
 		}
 
 		/** 
-         * Delete relation
+         * Delete insurance
          *
          * @return json encoded data
          */
@@ -199,13 +200,13 @@ use PDO;
 			if (Auth::validToken($this->db,$this->token,$this->username)){
                 $roles = Auth::getRoleID($this->db,$this->token);
                 if ($roles == '1'){
-                    $newrelationid = Validation::integerOnly($this->relationid);
+                    $newinsuranceid = Validation::integerOnly($this->insuranceid);
     				try{
                         $this->db->beginTransaction();
     
-                        $sql = "DELETE FROM mas_relation WHERE RelationID = :relationid;";
+                        $sql = "DELETE FROM mas_insurance WHERE InsuranceID = :insuranceid;";
                         $stmt = $this->db->prepare($sql);
-                        $stmt->bindParam(':relationid', $newrelationid, PDO::PARAM_STR);
+                        $stmt->bindParam(':insuranceid', $newinsuranceid, PDO::PARAM_STR);
                         
 						if ($stmt->execute()) {
     						$data = [
@@ -248,18 +249,18 @@ use PDO;
 		}
 
 		/** 
-		 * Search all data relation paginated
+		 * Search all data insurance paginated
 		 * @return result process in json encoded data
 		 */
-		public function searchRelationAsPagination() {
+		public function searchInsuranceAsPagination() {
 			if (Auth::validToken($this->db,$this->token)){
 				$search = "%$this->search%";
 				//count total row
-				$sqlcountrow = "SELECT count(a.RelationID) as TotalRow 
-					from mas_relation a
-					where a.RelationID like :search
-                    or a.Relation like :search
-                    order by a.Relation asc;";
+				$sqlcountrow = "SELECT count(a.InsuranceID) as TotalRow 
+					from mas_insurance a
+					where a.InsuranceID like :search
+                    or a.Insurance like :search
+                    order by a.Insurance asc;";
 				$stmt = $this->db->prepare($sqlcountrow);		
 				$stmt->bindParam(':search', $search, PDO::PARAM_STR);
 				
@@ -275,11 +276,11 @@ use PDO;
 						$offsets = (($newitemsperpage <= 0)?0:$newitemsperpage);
 
 						// Query Data
-						$sql = "SELECT a.RelationID,a.Relation 
-							from mas_relation a
-							where a.RelationID like :search
-                            or a.Relation like :search
-                            order by a.Relation asc LIMIT :limpage , :offpage;";
+						$sql = "SELECT a.InsuranceID,a.Insurance,a.Premium,a.Min_Premium
+							from mas_insurance a
+							where a.InsuranceID like :search
+                            or a.Insurance like :search
+                            order by a.Insurance asc LIMIT :limpage , :offpage;";
 						$stmt2 = $this->db->prepare($sql);
 						$stmt2->bindParam(':search', $search, PDO::PARAM_STR);
 						$stmt2->bindValue(':limpage', (INT) $limits, PDO::PARAM_INT);
@@ -327,17 +328,17 @@ use PDO;
 		}
 
 		/** 
-		 * Search all data relation paginated public
+		 * Search all data insurance paginated public
 		 * @return result process in json encoded data
 		 */
-		public function searchRelationAsPaginationPublic() {
+		public function searchInsuranceAsPaginationPublic() {
 			$search = "%$this->search%";
 			//count total row
-			$sqlcountrow = "SELECT count(a.RelationID) as TotalRow 
-				from mas_relation a
-				where a.RelationID like :search
-                or a.Relation like :search
-                order by a.Relation asc;";
+			$sqlcountrow = "SELECT count(a.InsuranceID) as TotalRow 
+				from mas_insurance a
+				where a.InsuranceID like :search
+                or a.Insurance like :search
+                order by a.Insurance asc;";
 			$stmt = $this->db->prepare($sqlcountrow);		
 			$stmt->bindParam(':search', $search, PDO::PARAM_STR);
 				
@@ -353,11 +354,11 @@ use PDO;
 					$offsets = (($newitemsperpage <= 0)?0:$newitemsperpage);
 
 					// Query Data
-					$sql = "SELECT a.RelationID,a.Relation 
-						from mas_relation a
-						where a.RelationID like :search
-                        or a.Relation like :search
-                        order by a.Relation asc LIMIT :limpage , :offpage;";
+					$sql = "SELECT a.InsuranceID,a.Insurance,a.Premium,a.Min_Premium 
+						from mas_insurance a
+						where a.InsuranceID like :search
+                        or a.Insurance like :search
+                        order by a.Insurance asc LIMIT :limpage , :offpage;";
 					$stmt2 = $this->db->prepare($sql);
 					$stmt2->bindParam(':search', $search, PDO::PARAM_STR);
 					$stmt2->bindValue(':limpage', (INT) $limits, PDO::PARAM_INT);
@@ -395,93 +396,5 @@ use PDO;
 			return JSON::safeEncode($data,true);
 	        $this->db= null;
 		}
-        
-        
-        //OPTIONS=======================================
-
-
-        /** 
-		 * Get all data relation as a list option
-		 * @return result process in json encoded data
-		 */
-		public function showOptionRelation() {
-			if (Auth::validToken($this->db,$this->token,$this->username)){
-				$sql = "SELECT a.RelationID,a.Relation
-					FROM mas_relation a
-					ORDER BY a.Relation ASC";
-				$stmt = $this->db->prepare($sql);
-				
-				if ($stmt->execute()) {	
-    	    	    if ($stmt->rowCount() > 0){
-        	   		   	$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-						$data = [
-			   	            'results' => $results, 
-    	    		        'status' => 'success', 
-			           	    'code' => 'RS501',
-        		        	'message' => CustomHandlers::getreSlimMessage('RS501')
-						];
-			        } else {
-        			    $data = [
-            		    	'status' => 'error',
-		        		    'code' => 'RS601',
-        		    	    'message' => CustomHandlers::getreSlimMessage('RS601')
-						];
-	    	        }          	   	
-				} else {
-					$data = [
-    	    			'status' => 'error',
-						'code' => 'RS202',
-	        		    'message' => CustomHandlers::getreSlimMessage('RS202')
-					];
-				}
-			} else {
-				$data = [
-	    			'status' => 'error',
-					'code' => 'RS401',
-        	    	'message' => CustomHandlers::getreSlimMessage('RS401')
-				];
-			}		
-        
-			return JSON::safeEncode($data,true);
-	        $this->db= null;
-        }
-
-        /** 
-		 * Get all data Relation as a list option
-		 * @return result process in json encoded data
-		 */
-		public function showOptionRelationPublic() {
-			$sql = "SELECT a.RelationID,a.Relation
-				FROM mas_relation a
-				ORDER BY a.Relation ASC";
-			$stmt = $this->db->prepare($sql);
-				
-			if ($stmt->execute()) {	
-    		    if ($stmt->rowCount() > 0){
-    	   		   	$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-					$data = [
-			   	        'results' => $results, 
-    	    	        'status' => 'success', 
-		           	    'code' => 'RS501',
-    		        	'message' => CustomHandlers::getreSlimMessage('RS501')
-					];
-			    } else {
-        		    $data = [
-        		    	'status' => 'error',
-	        		    'code' => 'RS601',
-    		    	    'message' => CustomHandlers::getreSlimMessage('RS601')
-					];
-	    	    }          	   	
-			} else {
-				$data = [
-        			'status' => 'error',
-					'code' => 'RS202',
-	        		'message' => CustomHandlers::getreSlimMessage('RS202')
-				];
-			}		
-        
-	    	return JSON::safeEncode($data,true);
-	        $this->db= null;
-        }
         
     }

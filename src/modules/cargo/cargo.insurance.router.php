@@ -4,10 +4,11 @@ use \Psr\Http\Message\ResponseInterface as Response;
 use \classes\middleware\ValidateParam as ValidateParam;
 use \classes\middleware\ValidateParamURL as ValidateParamURL;
 use \classes\SimpleCache as SimpleCache;
+use \modules\cargo\Insurance as Insurance;
 
     // POST api to create new insurance
     $app->post('/cargo/insurance/data/new', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Insurance($this->db);
+        $cargo = new Insurance($this->db);
         $datapost = $request->getParsedBody();
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
@@ -23,7 +24,7 @@ use \classes\SimpleCache as SimpleCache;
 
     // POST api to update insurance
     $app->post('/cargo/insurance/data/update', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Insurance($this->db);
+        $cargo = new Insurance($this->db);
         $datapost = $request->getParsedBody();    
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
@@ -41,7 +42,7 @@ use \classes\SimpleCache as SimpleCache;
 
     // POST api to delete insurance
     $app->post('/cargo/insurance/data/delete', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Insurance($this->db);
+        $cargo = new Insurance($this->db);
         $datapost = $request->getParsedBody();    
         $cargo->insuranceid = $datapost['InsuranceID'];
         $cargo->username = $datapost['Username'];
@@ -55,7 +56,7 @@ use \classes\SimpleCache as SimpleCache;
 
     // GET api to show all data insurance pagination registered user
     $app->get('/cargo/insurance/data/search/{username}/{token}/{page}/{itemsperpage}/', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Insurance($this->db);
+        $cargo = new Insurance($this->db);
         $cargo->search = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);
         $cargo->username = $request->getAttribute('username');
         $cargo->token = $request->getAttribute('token');
@@ -68,7 +69,7 @@ use \classes\SimpleCache as SimpleCache;
 
     // GET api to show all data insurance pagination public
     $app->map(['GET','OPTIONS'],'/cargo/insurance/data/public/search/{page}/{itemsperpage}/', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Insurance($this->db);
+        $cargo = new Insurance($this->db);
         $cargo->search = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);
         $cargo->page = $request->getAttribute('page');
         $cargo->itemsPerPage = $request->getAttribute('itemsperpage');

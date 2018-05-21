@@ -6,7 +6,7 @@
  * Don't remove this class unless You know what to do
  *
  */
-namespace classes\system\cargo;
+namespace modules\cargo;
     /**
      * A class for transaction management cargo
      *

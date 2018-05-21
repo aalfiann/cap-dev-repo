@@ -6,23 +6,23 @@
  * Don't remove this class unless You know what to do
  *
  */
-namespace classes\system\cargo;
+namespace modules\cargo;
 use \classes\Auth as Auth;
 use \classes\JSON as JSON;
 use \classes\Validation as Validation;
 use \classes\CustomHandlers as CustomHandlers;
 use PDO;
 	/**
-     * A class for mode management
+     * A class for relation management
      *
-     * @package    Mode Cargo
+     * @package    Relation Cargo
      * @author     M ABD AZIZ ALFIAN <github.com/aalfiann>
      * @copyright  Copyright (c) 2018 M ABD AZIZ ALFIAN
      * @license    https://github.com/aalfiann/cap-dev-repo/blob/master/license.md  MIT License
      */
-	class Mode {
-        // model data mode
-		var $username,$modeid,$mode;
+	class Relation {
+        // model data relation
+		var $username,$relationid,$relation;
 		
 		// for pagination
 		var $page,$itemsPerPage;
@@ -40,20 +40,20 @@ use PDO;
 		}
 		
 		/**
-		 * Inserting into database to add new mode
+		 * Inserting into database to add new relation
 		 * @return result process in json encoded data
 		 */
 		private function doAdd(){
             if (Auth::validToken($this->db,$this->token,$this->username)){
                 $roles = Auth::getRoleID($this->db,$this->token);
                 if ($roles < 2){
-			        $newmode = ucwords($this->mode);			
+			        $newrelation = strtoupper($this->relation);			
         			try {
 		        		$this->db->beginTransaction();
-				        $sql = "INSERT INTO mas_mode (Mode) 
-        					VALUES (:mode);";
+				        $sql = "INSERT INTO mas_relation (Relation) 
+        					VALUES (:relation);";
 		    			$stmt = $this->db->prepare($sql);
-    					$stmt->bindParam(':mode', $newmode, PDO::PARAM_STR);
+    					$stmt->bindParam(':relation', $newrelation, PDO::PARAM_STR);
     					if ($stmt->execute()) {
 	    					$data = [
 		    					'status' => 'success',
@@ -97,17 +97,17 @@ use PDO;
         
 
 		/**
-		 * Determine if mode name is already exist or not
+		 * Determine if relation name is already exist or not
 		 * @return boolean true / false
 		 */
-		private function isModeExist(){
-			$newmode = ucwords($this->mode);
+		private function isRelationExist(){
+			$newrelation = strtoupper($this->Relation);
 			$r = false;
-			$sql = "SELECT a.Mode
-				FROM mas_mode a 
-				WHERE a.Mode = :mode;";
+			$sql = "SELECT a.Relation
+				FROM mas_relation a 
+				WHERE a.Relation = :relation;";
 			$stmt = $this->db->prepare($sql);
-			$stmt->bindParam(':mode', $newmode, PDO::PARAM_STR);
+			$stmt->bindParam(':relation', $newrelation, PDO::PARAM_STR);
 			if ($stmt->execute()) {	
             	if ($stmt->rowCount() > 0){
 	                $r = true;
@@ -118,11 +118,11 @@ use PDO;
 		}
 
 		/** 
-		 * Add new mode
+		 * Add new relation
 		 * @return result process in json encoded data
 		 */
 		public function add(){
-			if ($this->isModeExist() == false){
+			if ($this->isRelationExist() == false){
                 $data = $this->doAdd();
             } else {
                 $data = [
@@ -136,7 +136,7 @@ use PDO;
         }
         
         /** 
-         * Update mode
+         * Update relation
          *
          * @return json encoded data
          */
@@ -144,16 +144,16 @@ use PDO;
 			if (Auth::validToken($this->db,$this->token,$this->username)){
                 $roles = Auth::getRoleID($this->db,$this->token);
                 if ($roles < 3){
-                    $newmodeid = Validation::integerOnly($this->modeid);
-                    $newmode = ucwords($this->mode);
+                    $newrelationid = Validation::integerOnly($this->relationid);
+                    $newrelation = strtoupper($this->relation);
 		    		try{
                         $this->db->beginTransaction();
     
-                        $sql = "UPDATE mas_mode a SET a.Mode=:mode
-                            WHERE a.ModeID = :modeid;";
+                        $sql = "UPDATE mas_relation a SET a.Relation=:relation
+                            WHERE a.RelationID = :relationid;";
                         $stmt = $this->db->prepare($sql);
-                        $stmt->bindParam(':mode', $newmode, PDO::PARAM_STR);
-                        $stmt->bindParam(':modeid', $newmodeid, PDO::PARAM_STR);
+                        $stmt->bindParam(':relation', $newrelation, PDO::PARAM_STR);
+                        $stmt->bindParam(':relationid', $newrelationid, PDO::PARAM_STR);
                         $stmt->execute();
                     
                         $this->db->commit();
@@ -191,7 +191,7 @@ use PDO;
 		}
 
 		/** 
-         * Delete mode
+         * Delete relation
          *
          * @return json encoded data
          */
@@ -199,13 +199,13 @@ use PDO;
 			if (Auth::validToken($this->db,$this->token,$this->username)){
                 $roles = Auth::getRoleID($this->db,$this->token);
                 if ($roles == '1'){
-                    $newmodeid = Validation::integerOnly($this->modeid);
+                    $newrelationid = Validation::integerOnly($this->relationid);
     				try{
                         $this->db->beginTransaction();
     
-                        $sql = "DELETE FROM mas_mode WHERE ModeID = :modeid;";
+                        $sql = "DELETE FROM mas_relation WHERE RelationID = :relationid;";
                         $stmt = $this->db->prepare($sql);
-                        $stmt->bindParam(':modeid', $newmodeid, PDO::PARAM_STR);
+                        $stmt->bindParam(':relationid', $newrelationid, PDO::PARAM_STR);
                         
 						if ($stmt->execute()) {
     						$data = [
@@ -248,18 +248,18 @@ use PDO;
 		}
 
 		/** 
-		 * Search all data mode paginated
+		 * Search all data relation paginated
 		 * @return result process in json encoded data
 		 */
-		public function searchModeAsPagination() {
+		public function searchRelationAsPagination() {
 			if (Auth::validToken($this->db,$this->token)){
 				$search = "%$this->search%";
 				//count total row
-				$sqlcountrow = "SELECT count(a.ModeID) as TotalRow 
-					from mas_mode a
-					where a.ModeID like :search
-                    or a.Mode like :search
-                    order by a.Mode asc;";
+				$sqlcountrow = "SELECT count(a.RelationID) as TotalRow 
+					from mas_relation a
+					where a.RelationID like :search
+                    or a.Relation like :search
+                    order by a.Relation asc;";
 				$stmt = $this->db->prepare($sqlcountrow);		
 				$stmt->bindParam(':search', $search, PDO::PARAM_STR);
 				
@@ -275,11 +275,11 @@ use PDO;
 						$offsets = (($newitemsperpage <= 0)?0:$newitemsperpage);
 
 						// Query Data
-						$sql = "SELECT a.ModeID,a.Mode 
-							from mas_mode a
-							where a.ModeID like :search
-                            or a.Mode like :search
-                            order by a.Mode asc LIMIT :limpage , :offpage;";
+						$sql = "SELECT a.RelationID,a.Relation 
+							from mas_relation a
+							where a.RelationID like :search
+                            or a.Relation like :search
+                            order by a.Relation asc LIMIT :limpage , :offpage;";
 						$stmt2 = $this->db->prepare($sql);
 						$stmt2->bindParam(':search', $search, PDO::PARAM_STR);
 						$stmt2->bindValue(':limpage', (INT) $limits, PDO::PARAM_INT);
@@ -327,17 +327,17 @@ use PDO;
 		}
 
 		/** 
-		 * Search all data mode paginated public
+		 * Search all data relation paginated public
 		 * @return result process in json encoded data
 		 */
-		public function searchModeAsPaginationPublic() {
+		public function searchRelationAsPaginationPublic() {
 			$search = "%$this->search%";
 			//count total row
-			$sqlcountrow = "SELECT count(a.ModeID) as TotalRow 
-				from mas_mode a
-				where a.ModeID like :search
-                or a.Mode like :search
-                order by a.Mode asc;";
+			$sqlcountrow = "SELECT count(a.RelationID) as TotalRow 
+				from mas_relation a
+				where a.RelationID like :search
+                or a.Relation like :search
+                order by a.Relation asc;";
 			$stmt = $this->db->prepare($sqlcountrow);		
 			$stmt->bindParam(':search', $search, PDO::PARAM_STR);
 				
@@ -353,11 +353,11 @@ use PDO;
 					$offsets = (($newitemsperpage <= 0)?0:$newitemsperpage);
 
 					// Query Data
-					$sql = "SELECT a.ModeID,a.Mode 
-						from mas_mode a
-						where a.ModeID like :search
-                        or a.Mode like :search
-                        order by a.Mode asc LIMIT :limpage , :offpage;";
+					$sql = "SELECT a.RelationID,a.Relation 
+						from mas_relation a
+						where a.RelationID like :search
+                        or a.Relation like :search
+                        order by a.Relation asc LIMIT :limpage , :offpage;";
 					$stmt2 = $this->db->prepare($sql);
 					$stmt2->bindParam(':search', $search, PDO::PARAM_STR);
 					$stmt2->bindValue(':limpage', (INT) $limits, PDO::PARAM_INT);
@@ -401,14 +401,14 @@ use PDO;
 
 
         /** 
-		 * Get all data Mode as a list option
+		 * Get all data relation as a list option
 		 * @return result process in json encoded data
 		 */
-		public function showOptionMode() {
+		public function showOptionRelation() {
 			if (Auth::validToken($this->db,$this->token,$this->username)){
-				$sql = "SELECT a.ModeID,a.Mode
-					FROM mas_mode a
-					ORDER BY a.Mode ASC";
+				$sql = "SELECT a.RelationID,a.Relation
+					FROM mas_relation a
+					ORDER BY a.Relation ASC";
 				$stmt = $this->db->prepare($sql);
 				
 				if ($stmt->execute()) {	
@@ -447,13 +447,13 @@ use PDO;
         }
 
         /** 
-		 * Get all data Mode as a list option
+		 * Get all data Relation as a list option
 		 * @return result process in json encoded data
 		 */
-		public function showOptionModePublic() {
-			$sql = "SELECT a.ModeID,a.Mode
-				FROM mas_mode a
-				ORDER BY a.Mode ASC";
+		public function showOptionRelationPublic() {
+			$sql = "SELECT a.RelationID,a.Relation
+				FROM mas_relation a
+				ORDER BY a.Relation ASC";
 			$stmt = $this->db->prepare($sql);
 				
 			if ($stmt->execute()) {	

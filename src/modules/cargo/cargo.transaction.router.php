@@ -5,10 +5,11 @@ use \classes\middleware\ValidateParam as ValidateParam;
 use \classes\middleware\ValidateParamURL as ValidateParamURL;
 use \classes\middleware\ApiKey as ApiKey;
 use \classes\SimpleCache as SimpleCache;
+use \modules\cargo\Transaction as Transaction;
 
     // POST api to create new transaction
     $app->post('/cargo/transaction/data/new', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Transaction($this->db);
+        $cargo = new Transaction($this->db);
         $datapost = $request->getParsedBody();
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
@@ -87,7 +88,7 @@ use \classes\SimpleCache as SimpleCache;
 
     // POST api to update transaction
     $app->post('/cargo/transaction/data/update', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Transaction($this->db);
+        $cargo = new Transaction($this->db);
         $datapost = $request->getParsedBody();    
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
@@ -167,7 +168,7 @@ use \classes\SimpleCache as SimpleCache;
 
     // POST api to delete transaction
     $app->post('/cargo/transaction/data/delete', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Transaction($this->db);
+        $cargo = new Transaction($this->db);
         $datapost = $request->getParsedBody();    
         $cargo->waybill = $datapost['Waybill'];
         $cargo->username = $datapost['Username'];
@@ -181,7 +182,7 @@ use \classes\SimpleCache as SimpleCache;
 
     // POST api to void transaction
     $app->post('/cargo/transaction/data/void', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Transaction($this->db);
+        $cargo = new Transaction($this->db);
         $datapost = $request->getParsedBody();    
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
@@ -197,7 +198,7 @@ use \classes\SimpleCache as SimpleCache;
 
     // POST api to delivered transaction
     $app->post('/cargo/transaction/data/pod/delivered', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Transaction($this->db);
+        $cargo = new Transaction($this->db);
         $datapost = $request->getParsedBody();    
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
@@ -216,7 +217,7 @@ use \classes\SimpleCache as SimpleCache;
 
     // POST api to failed transaction
     $app->post('/cargo/transaction/data/pod/failed', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Transaction($this->db);
+        $cargo = new Transaction($this->db);
         $datapost = $request->getParsedBody();    
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
@@ -235,7 +236,7 @@ use \classes\SimpleCache as SimpleCache;
 
     // POST api to returned transaction
     $app->post('/cargo/transaction/data/pod/returned', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Transaction($this->db);
+        $cargo = new Transaction($this->db);
         $datapost = $request->getParsedBody();    
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
@@ -252,7 +253,7 @@ use \classes\SimpleCache as SimpleCache;
 
     // POST api to returned asked by consignor
     $app->post('/cargo/transaction/data/pod/returned/consignor', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Transaction($this->db);
+        $cargo = new Transaction($this->db);
         $datapost = $request->getParsedBody();    
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
@@ -269,7 +270,7 @@ use \classes\SimpleCache as SimpleCache;
 
     // POST api to returned asked by consignee
     $app->post('/cargo/transaction/data/pod/returned/consignee', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Transaction($this->db);
+        $cargo = new Transaction($this->db);
         $datapost = $request->getParsedBody();    
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
@@ -286,7 +287,7 @@ use \classes\SimpleCache as SimpleCache;
 
     // GET api to show data waybill registered user
     $app->get('/cargo/transaction/data/waybill/{username}/{token}/{waybill}', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Transaction($this->db);
+        $cargo = new Transaction($this->db);
         $cargo->username = $request->getAttribute('username');
         $cargo->token = $request->getAttribute('token');
         $cargo->waybill = $request->getAttribute('waybill');
@@ -297,7 +298,7 @@ use \classes\SimpleCache as SimpleCache;
 
     // GET api to show data trace waybill registered user
     $app->get('/cargo/transaction/data/trace/waybill/{username}/{token}/', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Transaction($this->db);
+        $cargo = new Transaction($this->db);
         $cargo->username = $request->getAttribute('username');
         $cargo->token = $request->getAttribute('token');
         $cargo->waybill = filter_var((empty($_GET['no'])?'':$_GET['no']),FILTER_SANITIZE_STRING);
@@ -308,7 +309,7 @@ use \classes\SimpleCache as SimpleCache;
 
     // GET api to show data trace waybill detail public
     $app->get('/cargo/transaction/data/public/trace/detail/waybill/', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Transaction($this->db);
+        $cargo = new Transaction($this->db);
         $cargo->waybill = filter_var((empty($_GET['no'])?'':$_GET['no']),FILTER_SANITIZE_STRING);
         $response = $this->cache->withEtag($response, $this->etag.'-'.trim($_SERVER['REQUEST_URI'],'/'));
         $body = $response->getBody();
@@ -318,7 +319,7 @@ use \classes\SimpleCache as SimpleCache;
 
     // GET api to show data trace waybill simple public
     $app->get('/cargo/transaction/data/public/trace/simple/waybill/', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Transaction($this->db);
+        $cargo = new Transaction($this->db);
         $cargo->waybill = filter_var((empty($_GET['no'])?'':$_GET['no']),FILTER_SANITIZE_STRING);
         $response = $this->cache->withEtag($response, $this->etag.'-'.trim($_SERVER['REQUEST_URI'],'/'));
         $body = $response->getBody();
@@ -328,7 +329,7 @@ use \classes\SimpleCache as SimpleCache;
 
     // GET api to show all data transaction pagination registered user
     $app->get('/cargo/transaction/data/search/{username}/{token}/{page}/{itemsperpage}/', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Transaction($this->db);
+        $cargo = new Transaction($this->db);
         $cargo->search = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);
         $cargo->branchid = filter_var((empty($_GET['branchid'])?'':$_GET['branchid']),FILTER_SANITIZE_STRING);
         $cargo->firstdate = filter_var((empty($_GET['firstdate'])?'':$_GET['firstdate']),FILTER_SANITIZE_STRING);
@@ -345,7 +346,7 @@ use \classes\SimpleCache as SimpleCache;
 
     // GET api to test generate waybill
     $app->get('/cargo/transaction/generate/waybill/{username}/{token}', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Transaction($this->db);
+        $cargo = new Transaction($this->db);
         $cargo->username = $request->getAttribute('username');;
         $cargo->token = $request->getAttribute('token');
         $body = $response->getBody();

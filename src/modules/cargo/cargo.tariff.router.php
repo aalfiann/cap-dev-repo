@@ -5,10 +5,11 @@ use \classes\middleware\ValidateParam as ValidateParam;
 use \classes\middleware\ValidateParamURL as ValidateParamURL;
 use \classes\middleware\ApiKey as ApiKey;
 use \classes\SimpleCache as SimpleCache;
+use \modules\cargo\Tariff as Tariff;
 
     // POST api to create new cargo tariff data
     $app->post('/cargo/tariff/data/new', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Tariff($this->db);
+        $cargo = new Tariff($this->db);
         $datapost = $request->getParsedBody();
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
@@ -31,7 +32,7 @@ use \classes\SimpleCache as SimpleCache;
 
     // POST api to update cargo tariff data
     $app->post('/cargo/tariff/data/update', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Tariff($this->db);
+        $cargo = new Tariff($this->db);
         $datapost = $request->getParsedBody();    
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
@@ -54,7 +55,7 @@ use \classes\SimpleCache as SimpleCache;
 
     // POST api to delete cargo tariff data
     $app->post('/cargo/tariff/data/delete', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Tariff($this->db);
+        $cargo = new Tariff($this->db);
         $datapost = $request->getParsedBody();    
         $cargo->branchid = $datapost['BranchID'];
         $cargo->kabupaten = $datapost['Kabupaten'];
@@ -72,7 +73,7 @@ use \classes\SimpleCache as SimpleCache;
 
     // GET api to show all tariff data pagination registered user
     $app->get('/cargo/tariff/data/search/{username}/{token}/{page}/{itemsperpage}/', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Tariff($this->db);
+        $cargo = new Tariff($this->db);
         $cargo->search = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);
         $cargo->username = $request->getAttribute('username');
         $cargo->token = $request->getAttribute('token');
@@ -85,7 +86,7 @@ use \classes\SimpleCache as SimpleCache;
 
     // GET api to show all auto list origin tariff
     $app->get('/cargo/tariff/data/list/origin/auto/search/{username}/{token}/', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Tariff($this->db);
+        $cargo = new Tariff($this->db);
         $cargo->search = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);
         $cargo->username = $request->getAttribute('username');
         $cargo->token = $request->getAttribute('token');
@@ -96,7 +97,7 @@ use \classes\SimpleCache as SimpleCache;
 
     // GET api to show all list origin tariff
     $app->get('/cargo/tariff/data/list/origin/search/{token}/', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Tariff($this->db);
+        $cargo = new Tariff($this->db);
         $cargo->search = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);
         $cargo->token = $request->getAttribute('token');
         $body = $response->getBody();
@@ -106,7 +107,7 @@ use \classes\SimpleCache as SimpleCache;
 
     // GET api to show all list destinasi tariff
     $app->get('/cargo/tariff/data/list/destination/search/{token}/', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Tariff($this->db);
+        $cargo = new Tariff($this->db);
         $cargo->search = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);
         $cargo->token = $request->getAttribute('token');
         $body = $response->getBody();
@@ -116,7 +117,7 @@ use \classes\SimpleCache as SimpleCache;
 
     // GET api to search tariff
     $app->get('/cargo/tariff/data/get/search/{token}/', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Tariff($this->db);
+        $cargo = new Tariff($this->db);
         $cargo->origin = filter_var((empty($_GET['origin'])?'':$_GET['origin']),FILTER_SANITIZE_STRING);
         $cargo->destination = filter_var((empty($_GET['destination'])?'':$_GET['destination']),FILTER_SANITIZE_STRING);
         $cargo->length = (empty($_GET['length'])?0:$_GET['length']);
@@ -133,7 +134,7 @@ use \classes\SimpleCache as SimpleCache;
 
     // GET api to search tariff public
     $app->get('/cargo/tariff/data/get/public/search/', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Tariff($this->db);
+        $cargo = new Tariff($this->db);
         $cargo->origin = filter_var((empty($_GET['origin'])?'':$_GET['origin']),FILTER_SANITIZE_STRING);
         $cargo->destination = filter_var((empty($_GET['destination'])?'':$_GET['destination']),FILTER_SANITIZE_STRING);
         $cargo->length = (empty($_GET['length'])?0:$_GET['length']);
@@ -155,7 +156,7 @@ use \classes\SimpleCache as SimpleCache;
 
     // GET api to show all list origin tariff public
     $app->get('/cargo/tariff/data/list/origin/public/search/', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Tariff($this->db);
+        $cargo = new Tariff($this->db);
         $cargo->search = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);
         $body = $response->getBody();
         $response = $this->cache->withEtag($response, $this->etag.'-'.trim($_SERVER['REQUEST_URI'],'/'));
@@ -170,7 +171,7 @@ use \classes\SimpleCache as SimpleCache;
 
     // GET api to show all list destinasi tariff public
     $app->get('/cargo/tariff/data/list/destination/public/search/', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Tariff($this->db);
+        $cargo = new Tariff($this->db);
         $cargo->search = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);
         $body = $response->getBody();
         $response = $this->cache->withEtag($response, $this->etag.'-'.trim($_SERVER['REQUEST_URI'],'/'));
@@ -185,7 +186,7 @@ use \classes\SimpleCache as SimpleCache;
 
     // POST api to create new cargo tariff handling
     $app->post('/cargo/tariff/handling/data/new', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Tariff($this->db);
+        $cargo = new Tariff($this->db);
         $datapost = $request->getParsedBody();
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
@@ -204,7 +205,7 @@ use \classes\SimpleCache as SimpleCache;
 
     // POST api to update cargo tariff handling
     $app->post('/cargo/tariff/handling/data/update', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Tariff($this->db);
+        $cargo = new Tariff($this->db);
         $datapost = $request->getParsedBody();    
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
@@ -223,7 +224,7 @@ use \classes\SimpleCache as SimpleCache;
 
     // POST api to delete cargo tariff handling
     $app->post('/cargo/tariff/handling/data/delete', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Tariff($this->db);
+        $cargo = new Tariff($this->db);
         $datapost = $request->getParsedBody();
         $cargo->kabupaten = $datapost['Kabupaten'];
         $cargo->modeid = $datapost['ModeID'];
@@ -238,7 +239,7 @@ use \classes\SimpleCache as SimpleCache;
 
     // GET api to show all tariff data pagination registered user
     $app->get('/cargo/tariff/handling/data/search/{username}/{token}/{page}/{itemsperpage}/', function (Request $request, Response $response) {
-        $cargo = new classes\system\cargo\Tariff($this->db);
+        $cargo = new Tariff($this->db);
         $cargo->search = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);
         $cargo->username = $request->getAttribute('username');
         $cargo->token = $request->getAttribute('token');

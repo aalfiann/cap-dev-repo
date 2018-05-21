@@ -6,13 +6,14 @@
  * Don't remove this class unless You know what to do
  *
  */
-namespace classes\system\cargo;
+namespace modules\cargo;
 use \classes\Auth as Auth;
 use \classes\Validation as Validation;
 use \classes\JSON as JSON;
 use \classes\CustomHandlers as CustomHandlers;
-use \classes\system\Util as Util;
-use \classes\system\cargo\Dictionary as Dictionary;
+use \modules\enterprise\Util as Util;
+use \modules\cargo\Dictionary as Dictionary;
+use \modules\cargo\TraceLog as TraceLog;
 use PDO;
 	/**
      * A class for transaction management cargo
@@ -70,7 +71,7 @@ use PDO;
         }
 
         private function logging($codeid,$description,$statusid,$username){
-            $log = new \classes\system\cargo\TraceLog($this->db);
+            $log = new TraceLog($this->db);
             $log->codeid = $codeid;
             $log->description = $description;
             $log->statusid = $statusid;
@@ -79,7 +80,7 @@ use PDO;
         }
 
         private function logVoid($codeid,$description,$statusid,$username){
-            $log = new \classes\system\cargo\TraceLog($this->db);
+            $log = new TraceLog($this->db);
             $log->codeid = $codeid;
             $log->description = $description;
             $log->statusid = $statusid;
@@ -88,7 +89,7 @@ use PDO;
         }
 
         private function logPod($branchid,$waybill,$description,$statusid,$username,$recipient='',$relation='',$deliveryid=''){
-            $log = new \classes\system\cargo\TraceLog($this->db);
+            $log = new TraceLog($this->db);
             $log->branchid = $branchid;
             $log->waybill = $waybill;
             $log->description = $description;
