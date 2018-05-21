@@ -2,7 +2,7 @@
 $datalogin = Core::checkSessions();
 if(Core::getUserGroup() > '2' && Core::getUserGroup() != '6') {Core::goToPage('modul-user-profile.php');exit;}
 // Data Company
-$urlcompany = Core::getInstance()->api.'/system/company/data/company/'.$datalogin['username'].'/'.$datalogin['token'];
+$urlcompany = Core::getInstance()->api.'/enterprise/company/data/company/'.$datalogin['username'].'/'.$datalogin['token'];
 $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
 <!DOCTYPE html>
 <html lang="<?php echo Core::getInstance()->setlang?>">

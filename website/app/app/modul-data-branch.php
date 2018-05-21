@@ -2,7 +2,7 @@
 $datalogin = Core::checkSessions();
 if(Core::getUserGroup() > '2') {Core::goToPage('modul-user-profile.php');exit;}
 // Data Status
-$urlstatus = Core::getInstance()->api.'/system/company/data/status/'.$datalogin['token'];
+$urlstatus = Core::getInstance()->api.'/enterprise/company/data/status/'.$datalogin['token'];
 $datastatus = json_decode(Core::execGetRequest($urlstatus));?>
 <!DOCTYPE html>
 <html lang="<?php echo Core::getInstance()->setlang?>">
@@ -394,7 +394,7 @@ $datastatus = json_decode(Core::execGetRequest($urlstatus));?>
                 var table = $(idtable).DataTable({
                     ajax: {
                         type: "GET",
-                        url: "<?php echo Core::getInstance()->api.'/system/company/data/search/'.$datalogin['username'].'/'.$datalogin['token'].'/"+page+"/"+itemperpage+"/?query="+encodeURIComponent(search)+"'?>",
+                        url: "<?php echo Core::getInstance()->api.'/enterprise/company/data/search/'.$datalogin['username'].'/'.$datalogin['token'].'/"+page+"/"+itemperpage+"/?query="+encodeURIComponent(search)+"'?>",
                         cache: false,
                         dataSrc: function (json) {  /* You can handle json response data here */
                             if (json.status == "success"){
@@ -638,7 +638,7 @@ $datastatus = json_decode(Core::execGetRequest($urlstatus));?>
             var div = document.getElementById("report-newdata");
 
                 $.ajax({
-                    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/system/company/data/new')?>"),
+                    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/enterprise/company/data/new')?>"),
                     data : {
                         Username: "<?php echo $datalogin['username']?>",
                         Token: "<?php echo $datalogin['token']?>",
@@ -698,7 +698,7 @@ $datastatus = json_decode(Core::execGetRequest($urlstatus));?>
                 }
 
                 $.ajax({
-                    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/system/company/data/update')?>"),
+                    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/enterprise/company/data/update')?>"),
                     data : {
                         Username: "<?php echo $datalogin['username']?>",
                         Token: "<?php echo $datalogin['token']?>",
@@ -740,7 +740,7 @@ $datastatus = json_decode(Core::execGetRequest($urlstatus));?>
                 var div = document.getElementById("report-updatedata");
 
                 $.ajax({
-                    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/system/company/data/delete')?>"),
+                    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/enterprise/company/data/delete')?>"),
                     data : {
                         Username: "<?php echo $datalogin['username']?>",
                         Token: "<?php echo $datalogin['token']?>",

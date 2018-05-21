@@ -2,10 +2,10 @@
 $datalogin = Core::checkSessions();
 if(Core::getUserGroup() > '2' && Core::getUserGroup() != '6') {Core::goToPage('modul-user-profile.php');exit;}
 // Data Status
-$urlstatus = Core::getInstance()->api.'/system/company/data/status/'.$datalogin['token'];
+$urlstatus = Core::getInstance()->api.'/enterprise/company/data/status/'.$datalogin['token'];
 $datastatus = json_decode(Core::execGetRequest($urlstatus));
 // Data Company
-$urlcompany = Core::getInstance()->api.'/system/company/data/company/'.$datalogin['username'].'/'.$datalogin['token'];
+$urlcompany = Core::getInstance()->api.'/enterprise/company/data/company/'.$datalogin['username'].'/'.$datalogin['token'];
 $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
 <!DOCTYPE html>
 <html lang="<?php echo Core::getInstance()->setlang?>">
@@ -339,7 +339,7 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                 var table = $(idtable).DataTable({
                     ajax: {
                         type: "GET",
-                        url: "<?php echo Core::getInstance()->api.'/system/user/data/search/'.$datalogin['username'].'/'.$datalogin['token'].'/"+page+"/"+itemperpage+"/?query="+encodeURIComponent(search)+"'?>",
+                        url: "<?php echo Core::getInstance()->api.'/enterprise/user/data/search/'.$datalogin['username'].'/'.$datalogin['token'].'/"+page+"/"+itemperpage+"/?query="+encodeURIComponent(search)+"'?>",
                         cache: false,
                         dataSrc: function (json) {  /* You can handle json response data here */
                             if (json.status == "success"){
@@ -541,7 +541,7 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
             var div = document.getElementById("report-newdata");
 
                 $.ajax({
-                    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/system/user/data/new')?>"),
+                    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/enterprise/user/data/new')?>"),
                     data : {
                         Adminname: "<?php echo $datalogin['username']?>",
                         Token: "<?php echo $datalogin['token']?>",
@@ -583,7 +583,7 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                 console.log("Process update data...");
                 var div = document.getElementById("report-updatedata");
                 $.ajax({
-                    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/system/user/data/update')?>"),
+                    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/enterprise/user/data/update')?>"),
                     data : {
                         Adminname: "<?php echo $datalogin['username']?>",
                         Token: "<?php echo $datalogin['token']?>",
@@ -618,7 +618,7 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                 var div = document.getElementById("report-updatedata");
 
                 $.ajax({
-                    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/system/user/data/delete')?>"),
+                    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/enterprise/user/data/delete')?>"),
                     data : {
                         Adminname: "<?php echo $datalogin['username']?>",
                         Token: "<?php echo $datalogin['token']?>",
@@ -658,7 +658,7 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                         clearTimeout(timer); // Clear the timer so we don't end up with dupes.
                         timer = setTimeout(function() { // assign timer a new timeout
                             x = $.ajax({
-                                url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/system/user/data/verify/register/')?>")+encodeURIComponent($('#username').val())+"?_="+randomText(1),
+                                url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/enterprise/user/data/verify/register/')?>")+encodeURIComponent($('#username').val())+"?_="+randomText(1),
                                 dataType: "json",
                                 type: "GET",
                                 success: function(data) {
@@ -666,7 +666,7 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                                         $("#usercheck").html('<span class="help-block text-danger name"><i class="mdi mdi-close"></i> <?php echo Core::lang('username_check_found')?></span>');
                                     } else {
                                         $.ajax({
-                                            url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/system/user/data/verify/exists/')?>")+encodeURIComponent($('#username').val())+"?_="+randomText(1),
+                                            url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/enterprise/user/data/verify/exists/')?>")+encodeURIComponent($('#username').val())+"?_="+randomText(1),
                                             dataType: "json",
                                             type: "GET",
                                             success: function(data) {
