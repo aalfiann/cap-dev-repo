@@ -71,6 +71,10 @@
                     {   
                         "title": "phpinfo",
                         "link": "modul-phpinfo.php"
+                    },
+                    {   
+                        "title": "backup",
+                        "link": "modul-backup-db.php"
                     }
                 ]
                 }
@@ -165,6 +169,60 @@
                     "title":"pages",
                     "icon_class":"mdi mdi-file",
                     "link":"modul-data-page.php"
+                },
+                {
+                    "id":"2",
+                    "title":"HO Agent",
+                    "icon_class":"mdi mdi-crown",
+                    "menus": [
+                        {   
+                            "title": "deposit",
+                            "link": "modul-ho-agent-deposit.php"
+                        },
+                        {   
+                            "title": "report",
+                            "link": "modul-ho-agent-report.php"
+                        }
+        		    ]
+                },
+                {
+                    "id":"3",
+                    "title":"agent",
+                    "icon_class":"mdi mdi-account-card-details",
+                    "menus": [
+                        {
+                            "title": "settings",
+                            "link": "modul-agent-settings.php"
+                        },
+                        {
+                            "title": "deposit",
+                            "link": "modul-agent-deposit.php"
+                        },
+                        {
+                            "title": "data",
+                            "submenus": [
+                                {   
+                                    "title": "> transaction",
+                                    "link": "modul-agent-transaction.php"
+                                },
+                                {   
+                                    "title": "> status pod",
+                                    "link": "modul-agent-pod.php"
+                                },{   
+                                    "title": "> report",
+                                    "link": "modul-agent-report.php"
+                                },
+                                {   
+                                    "title": "> check status",
+                                    "link": "modul-agent-check-status.php"
+                                }
+                            ]
+				        },
+                        {
+                            "title": "help",
+                            "link": "modul-agent-help.php"
+                        }
+        		    ]
                 }
             ]
 		}
