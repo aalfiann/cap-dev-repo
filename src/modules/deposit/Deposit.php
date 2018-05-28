@@ -17,29 +17,12 @@ use PDO;                                            //To connect with database
      * @license    https://github.com/aalfiann/reSlim-modules/tree/master/deposit/LICENSE.md  MIT License
      */
     class Deposit {
-        // modules information var
-        protected $information = [
-            'package' => [
-                'name' => 'Deposit',
-                'uri' => 'https://github.com/aalfiann/reSlim-modules/tree/master/deposit',
-                'description' => 'Deposit class',
-                'version' => '1.0',
-                'require' => [
-                    'reSlim' => '1.9.0'
-                ],
-                'license' => [
-                    'type' => 'MIT',
-                    'uri' => 'https://github.com/aalfiann/reSlim-modules/tree/master/deposit/LICENSE.md'
-                ],
-                'author' => [
-                    'name' => 'M ABD AZIZ ALFIAN',
-                    'uri' => 'https://github.com/aalfiann'
-                ],
-            ]
-        ];
 
         // database var
         protected $db;
+
+        // path var
+        var $baseurl,$basepath,$basemod;
 
         //master var
         var $username,$token;
@@ -55,12 +38,13 @@ use PDO;                                            //To connect with database
         
         //construct database object
         function __construct($db=null) {
-			if (!empty($db)) $this->db = $db;
+            if (!empty($db)) $this->db = $db;
+            $this->basemod = dirname(__FILE__);
         }
 
         //Get modules information
         public function viewInfo(){
-            return JSON::encode($this->information,true);
+            return file_get_contents($this->basemod.'/package.json');
         }
 
         /**
