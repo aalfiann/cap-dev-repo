@@ -53,29 +53,33 @@
                     "icon_class":"mdi mdi-settings",
                     "label_class":"",
                     "menus": [{
-                        "title": "settings",
-                        "link": "modul-settings.php"
-                    },
-                    {   
-                        "title": "error log",
-                        "link": "modul-error-log.php"
-                    },
-                    {   
-                        "title": "cache",
-                        "link": "modul-cache.php"
-                    },
-                    {   
-                        "title": "terminal",
-                        "link": "modul-terminal.php"
-                    },
-                    {   
-                        "title": "phpinfo",
-                        "link": "modul-phpinfo.php"
-                    },
-                    {   
-                        "title": "backup",
-                        "link": "modul-backup-db.php"
-                    }
+                            "title": "settings",
+                            "link": "modul-settings.php"
+                        },
+                        {   
+                            "title": "error log",
+                            "link": "modul-error-log.php"
+                        },
+                        {   
+                            "title": "cache",
+                            "link": "modul-cache.php"
+                        },
+                        {   
+                            "title": "terminal",
+                            "link": "modul-terminal.php"
+                        },
+                        {   
+                            "title": "phpinfo",
+                            "link": "modul-phpinfo.php"
+                        },
+                        {   
+                            "title": "backup",
+                            "link": "modul-backup-db.php"
+                        },
+                        {   
+                            "title": "packager",
+                            "link": "modul-packager.php"
+                        }
                 ]
                 }
             ]
