@@ -162,6 +162,11 @@ if(Core::getUserGroup() != '1') {Core::goToPage('modul-user-profile.php');exit;}
                     cache: false,
                     success: function (data, textstatus) {
                         if (data.status == "success"){
+                            /* clear form */
+                            $("#addnewdata")
+                            .find("input,textarea")
+                            .val("")
+                            .end();
                             writeMessage("#reportmsg","success",data.message);
                             $('#datamain').DataTable().ajax.reload();
                         } else {
