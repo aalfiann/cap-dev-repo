@@ -7,6 +7,7 @@ use \classes\middleware\ApiKey as ApiKey;
 use \classes\SimpleCache as SimpleCache;
 use \modules\pages\Pages as Pages;
 
+
     // Get module information
     $app->get('/page/get/info/', function (Request $request, Response $response) {
         $pages = new Pages($this->db);
