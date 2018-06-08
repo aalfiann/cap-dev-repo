@@ -29,7 +29,8 @@ namespace modules\deposit;
             'DP204' => 'No Deposit ID tujuan salah atau tidak ditemukan!',
             'DP205' => 'No Deposit ID Anda salah atau tidak ditemukan!',
             'DP206' => 'Anda tidak memiliki saldo!',
-            'DP207' => 'Saldo Anda tidak mencukupi!'
+            'DP207' => 'Saldo Anda tidak mencukupi!',
+            'DP301' => 'Generate ReferenceID berhasil!'
         ];
 
         /**
@@ -51,7 +52,8 @@ namespace modules\deposit;
             'DP204' => 'Deposit ID destination is incorrect or not found!',
             'DP205' => 'Your Deposit ID is incorrect or not found!',
             'DP206' => 'You have no balance!',
-            'DP207' => 'Your balance is not enough!'
+            'DP207' => 'Your balance is not enough!',
+            'DP301' => 'Generate ReferenceID successful!'
         ];
 
         /**
