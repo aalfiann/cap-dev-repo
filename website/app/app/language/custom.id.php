@@ -1,8 +1,33 @@
 <?php
 require_once realpath(__DIR__ . '/..').'/config.php';
-$customlang = [
+$vocabularies[] = [
     //your custom language variable
     'custom_test' => 'Test',
+    //deposit
+    'deposit' => 'Deposit',
+    'deposit_transaction_create' => 'Buat Transaksi',
+    'deposit_ho' => 'Deposit HO',
+    'deposit_id' => 'DepositID',
+    'deposit_refid' => 'ReferenceID',
+    'deposit_date' => 'Tanggal',
+    'deposit_desc' => 'Deskripsi',
+    'deposit_description' => 'Riwayat semua transaksi deposit ada disini.',
+    'deposit_credit' => 'Kredit',
+    'deposit_debit' => 'Debet',
+    'deposit_task' => 'Task',
+    'deposit_before' => 'Sebelum',
+    'deposit_mutation' => 'Mutasi',
+    'deposit_mutation_data' => 'Data Mutasi Saldo',
+    'deposit_balance' => 'Saldo',
+    'deposit_help_id' => 'DepositID adalah username penerima.',
+    'deposit_help_refid' => 'ReferenceID adalah kode unik transaksi.',
+    'deposit_help_desc' => 'Deskripsi tentang transaksi Anda.',
+    'deposit_help_mutation' => 'Masukkan nilai nominal transaksi.',
+    'deposit_transaction_do' => 'Akan melakukan transaksi',
+    'deposit_transaction_confirm' => 'Transaksi ini tidak dapat dibatalkan!',
+    'deposit_transaction_submit_yes' => 'Iya, Lanjutkan Saja!',
+    //livechat
+    'livechat' => 'Live Chat',
     //global
     'reason' => 'Sebab',
     'result' => 'Hasil',

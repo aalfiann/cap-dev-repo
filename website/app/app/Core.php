@@ -78,18 +78,20 @@
         var $pathcache = 'cache-files';
         var $minifycache = true;
 
-        var $version = '2.10.2';
+        var $version = '2.10.4';
 
         private static $instance;
         
         function __construct() {
             require 'config.php';
+            //Autoload languages
             $langs = glob(dirname(__FILE__) .'/language/*.'.$this->setlang.'.php');
-            foreach ($langs as $langname) {
-                require $langname;
-            }
-            $lang += $customlang;                   // append custom language
-            $this->datalang = $lang;                // set language
+            foreach ($langs as $langname) {require $langname;}
+            $lang = array();
+            foreach($vocabularies as $key=>$value){$lang = array_merge($lang,$vocabularies[$key]);}
+            // set language
+            $this->datalang = $lang;
+            // set variable
             $this->title = $config['title'];
             $this->keyword = $config['keyword'];
             $this->description = $config['description'];

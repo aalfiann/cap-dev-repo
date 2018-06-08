@@ -1,8 +1,33 @@
 <?php
 require_once realpath(__DIR__ . '/..').'/config.php';
-$customlang = [
+$vocabularies[] = [
     //your custom language variable
     'custom_test' => 'Test',
+    //deposit
+    'deposit' => 'Deposit',
+    'deposit_transaction_create' => 'Create Transaction',
+    'deposit_ho' => 'Deposit HO',
+    'deposit_id' => 'DepositID',
+    'deposit_refid' => 'ReferenceID',
+    'deposit_date' => 'Created',
+    'deposit_desc' => 'Description',
+    'deposit_description' => 'History of all deposit transaction is here.',
+    'deposit_credit' => 'Credit',
+    'deposit_debit' => 'Debit',
+    'deposit_task' => 'Task',
+    'deposit_before' => 'Before',
+    'deposit_mutation' => 'Mutation',
+    'deposit_mutation_data' => 'Data Mutation Balance',
+    'deposit_balance' => 'Balance',
+    'deposit_help_id' => 'DepositID is the username of recipient',
+    'deposit_help_refid' => 'ReferenceID is the transaction unique code.',
+    'deposit_help_desc' => 'Description about your transaction.',
+    'deposit_help_mutation' => 'Input the nominal value of transaction.',
+    'deposit_transaction_do' => 'Will submit transaction',
+    'deposit_transaction_confirm' => 'This transaction can not be canceled!',
+    'deposit_transaction_submit_yes' => 'Yes, Continue Now!',
+    //livechat
+    'livechat' => 'Live Chat',
     //global
     'reason' => 'Reason',
     'result' => 'Result',
