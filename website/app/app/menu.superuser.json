@@ -181,11 +181,11 @@
                     "menus": [
                         {   
                             "title": "deposit",
-                            "link": "modul-ho-agent-deposit.php"
+                            "link": "modul-agent-ho-deposit.php"
                         },
                         {   
                             "title": "report",
-                            "link": "modul-ho-agent-report.php"
+                            "link": "modul-agent-ho-report.php"
                         }
         		    ]
                 },
