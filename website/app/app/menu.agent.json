@@ -47,19 +47,22 @@
             ]
 		},
 		{
-			"header": "extension",
+			"header": "system",
             "subheader":[
                 {
                     "id":"1",
-                    "title":"pages",
-                    "icon_class":"mdi mdi-file",
-                    "link":"modul-data-page.php"
-                },
-                {
-                    "id":"2",
-                    "title":"live chat",
-                    "icon_class":"mdi mdi-file",
-                    "link":"modul-live-chat.php"
+                    "title":"agent",
+                    "icon_class":"mdi mdi-account-card-details",
+                    "menus": [
+        				{   
+	            			"title": "Profile",
+			                "link": "modul-agent-profile.php"
+                        },
+                        {   
+		        		    "title": "Transaction",
+    			    	    "link": "modul-agent-transaction.php"
+                        }
+        		    ]
                 }
             ]
 		}

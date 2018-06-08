@@ -9,7 +9,8 @@
                     "title":"dashboard",
                     "icon_class":"mdi mdi-gauge",
                     "label_class":"label label-rouded label-themecolor pull-right",
-                    "menus": [{
+                    "menus": [
+                        {
                             "title": "minimal",
     			        	"link": "index.html"
     				    },
@@ -32,7 +33,8 @@
                     "title":"apps",
                     "icon_class":"mdi mdi-bullseye",
                     "label_class":"",
-                    "menus": [{
+                    "menus": [
+                        {
                             "title": "calendar",
     			        	"link": "app-calendar.html"
     				    },
@@ -63,7 +65,8 @@
                     "title":"inbox",
                     "icon_class":"mdi mdi-email",
                     "label_class":"",
-                    "menus": [{
+                    "menus": [
+                        {
                             "title": "mailbox",
     			        	"link": "app-email.html"
     				    },
@@ -86,11 +89,13 @@
                     "id":"3",
                     "title":"forms",
                     "icon_class":"mdi mdi-file",
-                    "menus": [{
+                    "menus": [
+                        {
                             "title": "basic forms",
                             "link": "basic-forms/",
                             "label_class":"label label-rounded label-success",
-                            "submenus": [{
+                            "submenus": [
+                                {
                                     "title": "sub basic forms",
                                     "link": "sub-basic-forms/"
                                 },

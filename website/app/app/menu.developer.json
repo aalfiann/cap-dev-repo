@@ -27,6 +27,17 @@
                     "link":"modul-data-api.php"
                 }
             ]
+        },
+        {
+			"header": "extension",
+            "subheader":[
+                {
+                    "id":"1",
+                    "title":"live chat",
+                    "icon_class":"mdi mdi-file",
+                    "link":"modul-live-chat.php"
+                }
+            ]
 		}
 	]
 }

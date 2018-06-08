@@ -7,8 +7,9 @@
                     "id":"1",
                     "title":"dashboard",
                     "icon_class":"mdi mdi-gauge",
-                    "label_class":"label label-rouded label-themecolor pull-right",
-                    "menus": [{
+                    "label_class":"",
+                    "menus": [
+                        {
                             "title": "system",
     			        	"link": "modul-dashboard.php"
     				    }
@@ -19,7 +20,8 @@
                     "title":"user",
                     "icon_class":"mdi mdi-account",
                     "label_class":"",
-                    "menus": [{
+                    "menus": [
+                        {
                             "title": "data",
     			        	"link": "modul-data-user.php"
     				    },
@@ -138,6 +140,12 @@
                     "title":"pages",
                     "icon_class":"mdi mdi-file",
                     "link":"modul-data-page.php"
+                },
+                {
+                    "id":"2",
+                    "title":"live chat",
+                    "icon_class":"mdi mdi-file",
+                    "link":"modul-live-chat.php"
                 }
             ]
 		}
