@@ -13,7 +13,7 @@ use PDO;                                            //To connect with database
      * @package    modules/first_mod
      * @author     M ABD AZIZ ALFIAN <github.com/aalfiann>
      * @copyright  Copyright (c) 2018 M ABD AZIZ ALFIAN
-     * @license    https://github.com/aalfiann/reSlim-modules/tree/master/first_mod/LICENSE.md  MIT License
+     * @license    https://github.com/aalfiann/reSlim-modules-first_mod/blob/master/LICENSE.md  MIT License
      */
     class FirstMod {
 
