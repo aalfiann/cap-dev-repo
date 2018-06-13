@@ -364,6 +364,28 @@ use PDO;                                            //To connect with database
         
 			return JSON::safeEncode($data,true);
 	        $this->dbconfig = null;
-        }
+		}
+		
+		public function get($key){
+			$sql = "SELECT key,value,description,created_at,created_by,Updated_at,Updated_by
+					FROM config
+					WHERE key = :key LIMIT 1;";
+				
+			$stmt = $this->dbconfig->prepare($sql);		
+			$stmt->bindParam(':key', $key, PDO::PARAM_STR);
+
+			if ($stmt->execute()) {	
+				$result = $stmt->fetch();
+    	        if ($result && count($result)){
+					$data = $result['value'];
+		        } else {
+        			$data = "";
+	    	    }  	   	
+			} else {
+				$data = "";
+			}
+			return $data;
+			$this->dbconfig = null;
+		}
 
     }    

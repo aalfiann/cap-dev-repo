@@ -115,3 +115,12 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
         $body->write($datajson);
         return classes\Cors::modify($response,$body,200);
     })->add(new ApiKey);
+
+
+    // GET api to to test get value by key
+    $app->get('/flexibleconfig/test/{key}', function (Request $request, Response $response) {
+        $fc = new FlexibleConfig($this->db);
+        $body = $response->getBody();
+        $body->write('{"result":"'.$fc->get($request->getAttribute('key')).'"}');
+        return classes\Cors::modify($response,$body,200);
+    });
