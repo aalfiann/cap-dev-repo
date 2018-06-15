@@ -28,6 +28,13 @@ $vocabularies[] = [
     'deposit_transaction_submit_yes' => 'Yes, Continue Now!',
     //livechat
     'livechat' => 'Live Chat',
+    //flexible config
+    'flexibleconfig' => 'Flexible Config',
+    'flexibleconfig_description' => 'Save unlimited config for flexible use.',
+    'flexibleconfig_key' => 'Key',
+    'flexibleconfig_value' => 'Value',
+    'flexibleconfig_desc' => 'Description',
+    'flexibleconfig_delete_warning' => 'Be Careful! Deleting flexible config may broke your app.',
     //global
     'reason' => 'Reason',
     'result' => 'Result',
