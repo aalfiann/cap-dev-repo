@@ -48,7 +48,7 @@ if(Core::getUserGroup() == '5') {Core::goToPage('modul-user-profile.php');exit;}
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
                 <div id="embedded" class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item" src="https://tawk.to/chat/5b18f8b310b99c7b36d4b5fb/default/?$_tawk_popout=true" allowfullscreen></iframe>
+                    <iframe id="embed_tawk" class="embed-responsive-item" src="" allowfullscreen></iframe>
                     <div style="width: 20px; height: 20px; position: absolute; opacity: 100; right: 25px; top: 5px; font-size:20px;"><i onclick="setFullscreen('embedded')" class="ti-fullscreen"  data-toggle="tooltip" title="<?php echo Core::lang('fullscreen')?>"></i></div>
                 </div>
                 <!-- ============================================================== -->
@@ -81,6 +81,23 @@ if(Core::getUserGroup() == '5') {Core::goToPage('modul-user-profile.php');exit;}
 	    	){
 		    	$('#embedded').removeClass('embed-responsive-16by9').addClass('embed-responsive-1by1');
     		}
+            //Get embed_tawk
+            $.ajax({
+                url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/flexibleconfig/read/embed_tawk/'.$datalogin['username'].'/'.$datalogin['token'])?>")+"?_="+randomText(5),
+                dataType: "json",
+                type: "GET",
+                success: function(data) {
+                    if (data.status == "success"){
+                        if (!$.trim(data.result[0].value)){
+                            $("#embed_tawk").attr("src","");
+                        } else {
+                            $("#embed_tawk").attr("src",data.result[0].value);
+                        }
+                        $("iframe").attr("data-src", function() { return $(this).attr("src"); }).removeAttr("src").addClass("lazyload");
+                    }
+                },
+                error: function(x, e) {}
+            });
         });
     </script>
 </body>
