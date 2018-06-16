@@ -107,8 +107,8 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
         $fc = new FlexibleConfig($this->db);
         $fc->key = $request->getAttribute('key');
         $body = $response->getBody();
-        $response = $this->cache->withEtag($response, $this->etag2hour.'-'.trim($_SERVER['REQUEST_URI'],'/'));
-        if (SimpleCache::isCached(60,["apikey"])){
+        $response = $this->cache->withEtag($response, $this->etag.'-'.trim($_SERVER['REQUEST_URI'],'/'));
+        if (SimpleCache::isCached(300,["apikey"])){
             $datajson = SimpleCache::load(["apikey"]);
         } else {
             $datajson = SimpleCache::save($fc->readPublic(),["apikey"]);
@@ -116,16 +116,6 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
         $body->write($datajson);
         return classes\Cors::modify($response,$body,200);
     })->add(new ApiKey);
-
-
-    // GET api to get value by key (not cached because sqlite read is faster than filebased cache)
-    $app->get('/flexibleconfig/key/{key}', function (Request $request, Response $response) {
-        $fc = new FlexibleConfig($this->db);
-        $body = $response->getBody();
-        $key = $request->getAttribute('key');
-        $body->write('{"result":{"key":"'.$key.'","value":"'.$fc->get($key).'"}}');
-        return classes\Cors::modify($response,$body,200);
-    });
 
 
     // GET api to test get value by key
