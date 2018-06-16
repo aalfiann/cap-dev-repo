@@ -101,6 +101,7 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
         return classes\Cors::modify($response,$body,200);
     });
 
+    
     // GET api to read single data for public user (include cache)
     $app->get('/flexibleconfig/read/{key}/', function (Request $request, Response $response) {
         $fc = new FlexibleConfig($this->db);
@@ -117,7 +118,17 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
     })->add(new ApiKey);
 
 
-    // GET api to to test get value by key
+    // GET api to get value by key (not cached because sqlite read is faster than filebased cache)
+    $app->get('/flexibleconfig/key/{key}', function (Request $request, Response $response) {
+        $fc = new FlexibleConfig($this->db);
+        $body = $response->getBody();
+        $key = $request->getAttribute('key');
+        $body->write('{"result":{"key":"'.$key.'","value":"'.$fc->get($key).'"}}');
+        return classes\Cors::modify($response,$body,200);
+    });
+
+
+    // GET api to test get value by key
     $app->get('/flexibleconfig/test/{key}', function (Request $request, Response $response) {
         $fc = new FlexibleConfig($this->db);
         $body = $response->getBody();
