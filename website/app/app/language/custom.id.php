@@ -19,6 +19,7 @@ $vocabularies[] = [
     'deposit_mutation' => 'Mutasi',
     'deposit_mutation_data' => 'Data Mutasi Saldo',
     'deposit_balance' => 'Saldo',
+    'deposit_topup' => 'Topup',
     'deposit_help_id' => 'DepositID adalah username penerima.',
     'deposit_help_refid' => 'ReferenceID adalah kode unik transaksi.',
     'deposit_help_desc' => 'Deskripsi tentang transaksi Anda.',
