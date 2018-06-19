@@ -97,69 +97,21 @@ $s = (empty($_GET['s'])?'':$_GET['s']);?>
                                 <h3 class="text-themecolor m-b-0 m-t-0"><?php echo Core::lang('deposit_mutation_data')?></h3><hr>
                                 <h6 class="card-subtitle"><?php echo Core::lang('deposit_description')?></h6>
                                 <div class="table-responsive m-t-40">
-                                    <button type="button" class="btn btn-inverse" data-toggle="modal" data-target=".addnew"><i class="mdi mdi-credit-card-plus"></i> <?php echo Core::lang('deposit_transaction_create')?></button>
+                                    <button type="button" class="btn btn-inverse" data-toggle="modal" data-target=".addnew"><i class="mdi mdi-credit-card-plus"></i> <?php echo Core::lang('deposit_topup').' '.Core::lang('deposit_balance')?></button>
                                     <!-- terms modal content -->
                                     <div class="modal fade addnew" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title text-themecolor" id="myLargeModalLabel"><i class="mdi mdi-credit-card-plus"></i> <?php echo Core::lang('deposit_transaction_create')?></h4>
+                                                    <h4 class="modal-title text-themecolor" id="myLargeModalLabel"><i class="mdi mdi-credit-card-plus"></i> <?php echo Core::lang('deposit_topup').' '.Core::lang('deposit_balance')?></h4>
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                                 </div>
                                                 <form class="form-horizontal form-control-line" id="addnewdata" action="#">
                                                     <div class="modal-body">
-                                                        <div id="report-newdata"></div>
-                                                        <div class="form-group">
-                                                            <div class="col-md-12 text-center">
-                                                                <div class="radio-list">
-                                                                    <label class="custom-control custom-radio">
-                                                                        <input id="radio1" name="radio" type="radio" checked="" class="custom-control-input">
-                                                                        <span class="custom-control-indicator"></span>
-                                                                        <span class="custom-control-description"><?php echo Core::lang('deposit_debit')?></span>
-                                                                    </label>
-                                                                    <label class="custom-control custom-radio">
-                                                                        <input id="radio2" name="radio" type="radio" class="custom-control-input">
-                                                                        <span class="custom-control-indicator"></span>
-                                                                        <span class="custom-control-description"><?php echo Core::lang('deposit_credit')?></span>
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div id="has_deposit_id" class="form-group">
-                                                            <label class="col-md-12 form-control-label"><?php echo Core::lang('deposit_id')?></label>
-                                                             <div class="col-md-12">
-                                                                <input id="deposit_id" type="text" class="form-control form-control-danger" required>
-                                                                <div id="feed_deposit_id" class="form-control-feedback"></div>
-                                                                <span class="help-block text-muted"><small><?php echo Core::lang('deposit_help_id')?></small></span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="col-md-12"><?php echo Core::lang('deposit_refid')?></label>
-                                                             <div class="col-md-12">
-                                                                <input id="deposit_refid" type="text" class="form-control form-control-line">
-                                                                <span class="help-block text-muted"><small><?php echo Core::lang('deposit_help_refid')?></small></span>
-                                                            </div>
-                                                        </div>
-                                                        <div id="has_deposit_desc" class="form-group">
-                                                            <label class="col-md-12"><?php echo Core::lang('deposit_desc')?></label>
-                                                             <div class="col-md-12">
-                                                                <textarea id="deposit_desc" rows="3" class="form-control form-control-danger required" style="resize: vertical;"></textarea>
-                                                                <div id="feed_deposit_desc" class="form-control-feedback"></div>
-                                                                <span class="help-block text-muted"><small><?php echo Core::lang('deposit_help_desc')?></small></span>
-                                                            </div>
-                                                        </div>
-                                                        <div id="has_deposit_mutation" class="form-group">
-                                                            <label class="col-md-12"><?php echo Core::lang('deposit_mutation')?></label>
-                                                             <div class="col-md-12">
-                                                                <input id="deposit_mutation" type="text" class="form-control form-control-danger"  style="text-align: right;"  oninput="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" required>
-                                                                <div id="feed_deposit_mutation" class="form-control-feedback"></div>
-                                                                <span class="help-block text-muted"><small><?php echo Core::lang('deposit_help_mutation')?></small></span>
-                                                            </div>
-                                                        </div>
+                                                        <p id="topupbody"></p>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default waves-effect text-left" data-dismiss="modal"><?php echo Core::lang('cancel')?></button>
-                                                        <button type="button" class="btn btn-success" onclick="makeTransaction()"><?php echo Core::lang('submit')?></button>
+                                                        <button type="button" class="btn btn-default waves-effect text-left" data-dismiss="modal"><?php echo Core::lang('close')?></button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -537,35 +489,35 @@ $s = (empty($_GET['s'])?'':$_GET['s']);?>
                             text: "<i class=\"mdi mdi-content-copy\"></i> Copy",
                             className: "bg-theme",
                             exportOptions: {
-                                columns: selectCol
+                                columns: ':visible:not(.not-export-col)'
                             }
                         }, {
                             extend: "csv",
                             text: "<i class=\"mdi mdi-file-document\"></i> CSV",
                             className: "bg-theme",
                             exportOptions: {
-                                columns: selectCol
+                                columns: ':visible:not(.not-export-col)'
                             }
                         }, {
                             extend: "excel",
                             text: "<i class=\"mdi mdi-file-excel\"></i> Excel",
                             className: "bg-theme",
                             exportOptions: {
-                                columns: selectCol
+                                columns: ':visible:not(.not-export-col)'
                             }
                         }, {
                             extend: "pdf",
                             text: "<i class=\"mdi mdi-file-pdf\"></i> PDF",
                             className: "bg-theme",
                             exportOptions: {
-                                columns: selectCol
+                                columns: ':visible:not(.not-export-col)'
                             }
                         }, {
                             extend: "print",
                             text: "<i class=\"mdi mdi-printer\"></i> Print",
                             className: "bg-theme",
                             exportOptions: {
-                                columns: selectCol
+                                columns: ':visible:not(.not-export-col)'
                             }
                         }, {
                             extend: 'colvis',
@@ -636,12 +588,32 @@ $s = (empty($_GET['s'])?'':$_GET['s']);?>
     <script type="text/javascript">
         var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
         (function(){
-            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-            s1.async=true;
-            s1.src='https://embed.tawk.to/5b18f8b310b99c7b36d4b5fb/default';
-            s1.charset='UTF-8';
-            s1.setAttribute('crossorigin','*');
-            s0.parentNode.insertBefore(s1,s0);
+            //Get embed_tawk_deposit and info_deposit_topup_body
+            $.ajax({
+                url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/flexibleconfig/read/embed_tawk_deposit,info_deposit_topup_body/'.$datalogin['username'].'/'.$datalogin['token'])?>")+"?_="+randomText(5),
+                dataType: "json",
+                type: "GET",
+                success: function(data) {
+                    if (data.status == "success"){
+                        if (!$.trim(data.result[0].value)){
+                            console.log("Empty src tawk livechat");
+                        } else {
+                            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+                            s1.async=true;
+                            s1.src=data.result[0].value;
+                            s1.charset='UTF-8';
+                            s1.setAttribute('crossorigin','*');
+                            s0.parentNode.insertBefore(s1,s0);
+                        }
+                        if (!$.trim(data.result[1].value)){
+                            console.log("Empty topup body");
+                        } else {
+                            $('#topupbody').html(data.result[1].value);
+                        }
+                    }
+                },
+                error: function(x, e) {}
+            });
         })();
     </script>
     <!--End of Tawk.to Script-->
