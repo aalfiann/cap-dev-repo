@@ -30,7 +30,7 @@ $s = (empty($_GET['s'])?'':$_GET['s']);?>
             <!-- ============================================================== -->
             <div class="row page-titles">
                 <div class="col-md-5 align-self-center">
-                    <h3 class="text-themecolor"><?php echo Core::lang('deposit')?></h3>
+                    <h3 class="text-themecolor"><?php echo Core::lang('deposit')?> <b class="text-themecolor"><i class="mdi mdi-currency-usd"></i> <span id="mydeposit">0</span></b></h3>
                 </div>
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
@@ -94,7 +94,7 @@ $s = (empty($_GET['s'])?'':$_GET['s']);?>
                         <div id="reportmsg"></div>
                         <div class="card">
                             <div class="card-body">
-                                <h3 class="text-themecolor m-b-0 m-t-0"><?php echo Core::lang('deposit_mutation_data')?></h3><hr>
+                                <h3 class="text-themecolor m-b-0 m-t-0"><?php echo Core::lang('deposit_mutation_data')?><span class="pull-right hidden-md-down" id="mydeposit2">0</span></h3><hr>
                                 <h6 class="card-subtitle"><?php echo Core::lang('deposit_description')?></h6>
                                 <div class="table-responsive m-t-40">
                                     <button type="button" class="btn btn-inverse" data-toggle="modal" data-target=".addnew"><i class="mdi mdi-credit-card-plus"></i> <?php echo Core::lang('deposit_topup').' '.Core::lang('deposit_balance')?></button>
@@ -426,6 +426,8 @@ $s = (empty($_GET['s'])?'':$_GET['s']);?>
          */
         function loadData(idtable,page="1",itemperpage="10",firstdate="",lastdate="",search=""){
             $(function() {
+                if (firstdate == '') firstdate = document.getElementById('firstdate').value;
+                if (lastdate == '') lastdate = document.getElementById('lastdate').value;
                 /* Make sure there is no datatables with same id */
                 if ($.fn.DataTable.isDataTable(idtable)) {
                     $(idtable).DataTable().destroy();
@@ -569,6 +571,7 @@ $s = (empty($_GET['s'])?'':$_GET['s']);?>
         }
 
         generateReferenceID();
+        getBalance();
 
         <?php 
             if (empty($fd) && empty($ld)){
@@ -583,6 +586,29 @@ $s = (empty($_GET['s'])?'':$_GET['s']);?>
                 loadData("#datamain","1","10","'.$fd.'","'.$ld.'","'.$s.'");';
             }
         ?>
+
+        function getBalance(){
+            $(function(){
+                /* Get balance */
+                $.ajax({
+                    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/deposit/transaction/data/balance/'.$datalogin['username'].'/'.$datalogin['token'])?>"),
+                    dataType: "json",
+                    type: "GET",
+                    success: function(data) {
+                        if (data.status == "success"){
+                            if (!$.trim(data.result.Balance)){
+                                $("#mydeposit").html("0");
+                                $("#mydeposit2").html("<i class=\"mdi mdi-currency-usd\"></i> 0");
+                            } else {
+                                $("#mydeposit").html(addCommas(data.result.Balance));
+                                $("#mydeposit2").html(addCommas("<i class=\"mdi mdi-currency-usd\"></i> "+data.result.Balance));
+                            }
+                        }
+                    },
+                    error: function(x, e) {}
+                });
+            });
+        }
     </script>
     <!--Start of Tawk.to Script-->
     <script type="text/javascript">
