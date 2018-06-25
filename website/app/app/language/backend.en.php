@@ -72,6 +72,8 @@ $vocabularies[] = [
     'val_double_html' => 'Input with numeric chars!',
     'val_alphanumeric_html' => 'Input with alphanumeric chars only!',
     'val_email_html' => 'Input according to email address format!',
+    'val_asterisk_required' => 'Fields marked with an asterisk are required!',
+    'val_wrong_format' => 'Wrong Format!',
     //register
     'register' => 'Register',
     'form_register' => 'Form Register',

@@ -72,6 +72,8 @@ $vocabularies[] = [
     'val_double_html' => 'Input menggunakan karakter numerik!',
     'val_alphanumeric_html' => 'Input menggunakan karakter huruf dan angka!',
     'val_email_html' => 'Input sesuai dengan format alamat email!',
+    'val_asterisk_required' => 'Kolom yang diberi tanda bintang harus diisi!',
+    'val_wrong_format' => 'Format Salah!',
     //register
     'register' => 'Pendaftaran',
     'form_register' => 'Form Pendaftaran',
