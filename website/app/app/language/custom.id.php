@@ -35,7 +35,7 @@ $vocabularies[] = [
     'flexibleconfig_key' => 'Key',
     'flexibleconfig_value' => 'Value',
     'flexibleconfig_desc' => 'Deskripsi',
-    'flexibleconfig_delete_warning' => 'Hati - hati! Menghapus flexible config dapat merusak aplikasi Anda.',
+    'flexibleconfig_delete_warning' => 'Hati - hati! Menghapus Flexible Config mengakibatkan kerusakan pada aplikasi!',
     //agent
     'agent' => 'Agent',
     'agent_setting' => 'Pengaturan Agent',
