@@ -63,6 +63,9 @@ $vocabularies[] = [
     'agent_setting_bank_address' => 'Alamat Bank',
     'agent_setting_bank_account_name' => 'Nama Rekening',
     'agent_setting_bank_account_no' => 'No Rekening',
+    'agent_setting_other' => 'Lain - lain',
+    'agent_setting_origin_district' => 'Kota/Kabupaten',
+    'agent_setting_admin_cost' => 'Biaya Admin',
     //agent helper
     'agent_helper_logo' => 'Standarisasi ukuran logo untuk perusahaan harus 100x60 px.',
     'agent_helper_company_name' => 'Waybill akan otomatis menggunakan nama perusahaan jika tidak ada logo',
@@ -74,6 +77,8 @@ $vocabularies[] = [
     'agent_helper_company_tin' => 'Nomor legalitas perusahaan (NPWP/SIUP/AKTA).',
     'agent_helper_bank_account_name' => 'Nama Rekening Bank.',
     'agent_helper_bank_account_no' => 'No Rekening Bank.',
+    'agent_helper_origin_district' => 'Atur kota/kabupaten asal untuk digunakan di transaksi waybill.',
+    'agent_helper_admin_cost' => 'Atur default biaya admin untuk digunakan di transaksi waybill.',
     //agent placeholder
     'agent_placeholder_logo' => 'Contoh: http://domain.com/logo-anda.jpg',
     'agent_placeholder_company_facebook' => 'Contoh: http://facebook.com/username',

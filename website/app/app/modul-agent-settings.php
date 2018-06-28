@@ -58,6 +58,7 @@ if(Core::getUserGroup() != '1') {Core::goToPage('modul-user-profile.php');exit;}
                                 <ul class="nav nav-tabs customtab" role="tablist">
                                     <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab1" role="tab"><span class="hidden-sm-up"><i class="ti-home"></i></span> <span class="hidden-xs-down"><i class="ti-home"></i> <?php echo Core::lang('agent_setting_company')?></span></a> </li>
                                     <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab2" role="tab"><span class="hidden-sm-up"><i class="ti-wallet"></i></span> <span class="hidden-xs-down"><i class="ti-wallet"></i> <?php echo Core::lang('agent_setting_bank')?></span></a> </li>
+                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab3" role="tab"><span class="hidden-sm-up"><i class="ti-settings"></i></span> <span class="hidden-xs-down"><i class="ti-settings"></i> <?php echo Core::lang('agent_setting_other')?></span></a> </li>
                                 </ul>
                                 <!-- Tab panes -->
                                 <div class="tab-content">
@@ -180,7 +181,7 @@ if(Core::getUserGroup() != '1') {Core::goToPage('modul-user-profile.php');exit;}
 
                                         </div>
                                     </div>
-                                    <div class="tab-pane p-20" id="tab2" role="tabpanel">
+                                    <div class="tab-pane" id="tab2" role="tabpanel">
                                         <br>
                                         <div class="form-control-line">
 
@@ -203,6 +204,23 @@ if(Core::getUserGroup() != '1') {Core::goToPage('modul-user-profile.php');exit;}
                                                 <label class="form-control-label"><b><?php echo Core::lang('agent_setting_bank_account_no')?></b></label>
                                                 <input id="agent_setting_bank_account_no" type="text" placeholder="" class="form-control" maxlength="100">
                                                 <span class="help-block text-muted"><small><i class="ti-info-alt"></i> <?php echo Core::lang('agent_helper_bank_account_no')?></small></span>
+                                            </div>
+                                        
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="tab3" role="tabpanel">
+                                        <br>
+                                        <div class="form-control-line">
+
+                                            <div class="form-group">
+                                                <label class="form-control-label"><b><?php echo Core::lang('agent_setting_origin_district')?></b></label>
+                                                <input id="agent_setting_origin_district" placeholder="" class="form-control" maxlength="8">
+                                                <span class="help-block text-muted"><small><i class="ti-info-alt"></i> <?php echo Core::lang('agent_helper_origin_district')?></small></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-control-label"><b><?php echo Core::lang('agent_setting_admin_cost')?></b></label>
+                                                <input id="agent_setting_admin_cost" placeholder="" class="form-control" maxlength="8" oninput="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')">
+                                                <span class="help-block text-muted"><small><i class="ti-info-alt"></i> <?php echo Core::lang('agent_helper_admin_cost')?></small></span>
                                             </div>
                                         
                                         </div>
@@ -293,7 +311,7 @@ if(Core::getUserGroup() != '1') {Core::goToPage('modul-user-profile.php');exit;}
                         Username: "<?php echo $datalogin['username']?>",
                         Token: "<?php echo $datalogin['token']?>",
                         Key: "agent_config_<?php echo $datalogin['username']?>",
-                        Value: '{"logo":"'+$('#agent_setting_logo').val()+'","name":"'+$('#agent_setting_company_name').val()+'","slogan":"'+$('#agent_setting_company_slogan').val()+'","address":"'+$('#agent_setting_company_address').val()+'","phone":"'+$('#agent_setting_company_phone').val()+'","fax":"'+$('#agent_setting_company_fax').val()+'","email":"'+$('#agent_setting_company_email').val()+'","website":"'+$('#agent_setting_company_website').val()+'","coordinat":"'+$('#agent_setting_company_coordinat').val()+'","hotline":"'+$('#agent_setting_company_hotline').val()+'","facebook":"'+$('#agent_setting_company_facebook').val()+'","twitter":"'+$('#agent_setting_company_twitter').val()+'","gplus":"'+$('#agent_setting_company_gplus').val()+'","owner":"'+$('#agent_setting_company_owner').val()+'","signature":"'+$('#agent_setting_company_signature_name').val()+'","legality":"'+$('#agent_setting_company_tin').val()+'","bank_name":"'+$('#agent_setting_bank_name').val()+'","bank_address":"'+$('#agent_setting_bank_address').val()+'","bank_account_name":"'+$('#agent_setting_bank_account_name').val()+'","bank_account_no":"'+$('#agent_setting_bank_account_no').val()+'"}',
+                        Value: '{"logo":"'+$('#agent_setting_logo').val()+'","name":"'+$('#agent_setting_company_name').val()+'","slogan":"'+$('#agent_setting_company_slogan').val()+'","address":"'+$('#agent_setting_company_address').val()+'","phone":"'+$('#agent_setting_company_phone').val()+'","fax":"'+$('#agent_setting_company_fax').val()+'","email":"'+$('#agent_setting_company_email').val()+'","website":"'+$('#agent_setting_company_website').val()+'","coordinat":"'+$('#agent_setting_company_coordinat').val()+'","hotline":"'+$('#agent_setting_company_hotline').val()+'","facebook":"'+$('#agent_setting_company_facebook').val()+'","twitter":"'+$('#agent_setting_company_twitter').val()+'","gplus":"'+$('#agent_setting_company_gplus').val()+'","owner":"'+$('#agent_setting_company_owner').val()+'","signature":"'+$('#agent_setting_company_signature_name').val()+'","legality":"'+$('#agent_setting_company_tin').val()+'","bank_name":"'+$('#agent_setting_bank_name').val()+'","bank_address":"'+$('#agent_setting_bank_address').val()+'","bank_account_name":"'+$('#agent_setting_bank_account_name').val()+'","bank_account_no":"'+$('#agent_setting_bank_account_no').val()+'","origin_district":"'+$('#agent_setting_origin_district').val()+'","admin_cost":"'+$('#agent_setting_admin_cost').val()+'"}',
                         Description: "Agent Configuration"
                     },
                     success: function (data, textstatus) {
@@ -345,7 +363,7 @@ if(Core::getUserGroup() != '1') {Core::goToPage('modul-user-profile.php');exit;}
                         Username: "<?php echo $datalogin['username']?>",
                         Token: "<?php echo $datalogin['token']?>",
                         Key: "agent_config_<?php echo $datalogin['username']?>",
-                        Value: '{"logo":"'+$('#agent_setting_logo').val()+'","name":"'+$('#agent_setting_company_name').val()+'","slogan":"'+$('#agent_setting_company_slogan').val()+'","address":"'+$('#agent_setting_company_address').val()+'","phone":"'+$('#agent_setting_company_phone').val()+'","fax":"'+$('#agent_setting_company_fax').val()+'","email":"'+$('#agent_setting_company_email').val()+'","website":"'+$('#agent_setting_company_website').val()+'","coordinat":"'+$('#agent_setting_company_coordinat').val()+'","hotline":"'+$('#agent_setting_company_hotline').val()+'","facebook":"'+$('#agent_setting_company_facebook').val()+'","twitter":"'+$('#agent_setting_company_twitter').val()+'","gplus":"'+$('#agent_setting_company_gplus').val()+'","owner":"'+$('#agent_setting_company_owner').val()+'","signature":"'+$('#agent_setting_company_signature_name').val()+'","legality":"'+$('#agent_setting_company_tin').val()+'","bank_name":"'+$('#agent_setting_bank_name').val()+'","bank_address":"'+$('#agent_setting_bank_address').val()+'","bank_account_name":"'+$('#agent_setting_bank_account_name').val()+'","bank_account_no":"'+$('#agent_setting_bank_account_no').val()+'"}',
+                        Value: '{"logo":"'+$('#agent_setting_logo').val()+'","name":"'+$('#agent_setting_company_name').val()+'","slogan":"'+$('#agent_setting_company_slogan').val()+'","address":"'+$('#agent_setting_company_address').val()+'","phone":"'+$('#agent_setting_company_phone').val()+'","fax":"'+$('#agent_setting_company_fax').val()+'","email":"'+$('#agent_setting_company_email').val()+'","website":"'+$('#agent_setting_company_website').val()+'","coordinat":"'+$('#agent_setting_company_coordinat').val()+'","hotline":"'+$('#agent_setting_company_hotline').val()+'","facebook":"'+$('#agent_setting_company_facebook').val()+'","twitter":"'+$('#agent_setting_company_twitter').val()+'","gplus":"'+$('#agent_setting_company_gplus').val()+'","owner":"'+$('#agent_setting_company_owner').val()+'","signature":"'+$('#agent_setting_company_signature_name').val()+'","legality":"'+$('#agent_setting_company_tin').val()+'","bank_name":"'+$('#agent_setting_bank_name').val()+'","bank_address":"'+$('#agent_setting_bank_address').val()+'","bank_account_name":"'+$('#agent_setting_bank_account_name').val()+'","bank_account_no":"'+$('#agent_setting_bank_account_no').val()+'","origin_district":"'+$('#agent_setting_origin_district').val()+'","admin_cost":"'+$('#agent_setting_admin_cost').val()+'"}',
                         Description: "Agent Configuration"
                     },
                     success: function (data, textstatus) {
@@ -396,6 +414,8 @@ if(Core::getUserGroup() != '1') {Core::goToPage('modul-user-profile.php');exit;}
                                 if (!$.trim(obj.bank_address)) {} else {$("#agent_setting_bank_address").val(obj.bank_address)}
                                 if (!$.trim(obj.bank_account_name)) {} else {$("#agent_setting_bank_account_name").val(obj.bank_account_name)}
                                 if (!$.trim(obj.bank_account_no)) {} else {$("#agent_setting_bank_account_no").val(obj.bank_account_no)}
+                                if (!$.trim(obj.origin_district)) {} else {$("#agent_setting_origin_district").val(obj.origin_district)}
+                                if (!$.trim(obj.admin_cost)) {} else {$("#agent_setting_admin_cost").val(obj.admin_cost)}
                             }
                         }
                     },

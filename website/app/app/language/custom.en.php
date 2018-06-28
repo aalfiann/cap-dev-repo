@@ -63,6 +63,9 @@ $vocabularies[] = [
     'agent_setting_bank_address' => 'Bank Address',
     'agent_setting_bank_account_name' => 'Account Name',
     'agent_setting_bank_account_no' => 'Account No',
+    'agent_setting_other' => 'Other',
+    'agent_setting_origin_district' => 'Origin District',
+    'agent_setting_admin_cost' => 'Admin Cost',
     //agent helper
     'agent_helper_logo' => 'The size of the standard company logo must be 100x60 px.',
     'agent_helper_company_name' => 'Waybill will automatically use company name if there is no any logo.',
@@ -74,6 +77,8 @@ $vocabularies[] = [
     'agent_helper_company_tin' => 'The legality/tax number of the company.',
     'agent_helper_bank_account_name' => 'Your account name on Bank.',
     'agent_helper_bank_account_no' => 'Your account number on Bank.',
+    'agent_helper_origin_district' => 'Set your district origin to be use in transaction waybill.',
+    'agent_helper_admin_cost' => 'Set your default admin cost to be use in transaction waybill',
     //agent placeholder
     'agent_placeholder_logo' => 'Example: http://domain.com/your-logo.jpg',
     'agent_placeholder_company_facebook' => 'Example: http://facebook.com/username',
