@@ -328,7 +328,7 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
         $body = $response->getBody();
         $body->write($cargo->traceWaybillDetail());
         return classes\Cors::modify($response,$body,200);
-    })->add(new ValidateParamURL('no'));
+    })->add(new ValidateParamURL('no','1-20'));
 
     // GET api to show data trace waybill detail public
     $app->get('/cargoagent/transaction/data/public/trace/detail/waybill/', function (Request $request, Response $response) {
@@ -338,7 +338,7 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
         $body = $response->getBody();
         $body->write($cargo->traceWaybillDetailPublic());
         return classes\Cors::modify($response,$body,200);
-    })->add(new ValidateParamURL('no'))->add(new ApiKey);
+    })->add(new ValidateParamURL('no','1-20'))->add(new ApiKey);
 
     // GET api to show data trace waybill simple public
     $app->get('/cargoagent/transaction/data/public/trace/simple/waybill/', function (Request $request, Response $response) {
@@ -348,7 +348,7 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
         $body = $response->getBody();
         $body->write($cargo->traceWaybillSimplePublic());
         return classes\Cors::modify($response,$body,200);
-    })->add(new ValidateParamURL('no'))->add(new ApiKey);
+    })->add(new ValidateParamURL('no','1-20'))->add(new ApiKey);
 
     // GET api to show all data transaction pagination registered user
     $app->get('/cargoagent/transaction/data/search/{username}/{token}/{page}/{itemsperpage}/', function (Request $request, Response $response) {

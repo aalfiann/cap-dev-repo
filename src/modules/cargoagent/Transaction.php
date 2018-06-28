@@ -80,6 +80,7 @@ use PDO;
 
         public function add(){
             if (Auth::validToken($this->db,$this->token,$this->username)){
+                $roles = Auth::getRoleID($this->db,$this->token);
                 if ($roles < 3 || $roles == 9){
                     $newusername = strtolower($this->username);
 			        $newwaybill = $this->generateWaybill('AGT');
@@ -123,7 +124,7 @@ use PDO;
                                 Payment,Shipping_cost,Shipping_insurance,Shipping_packing,Shipping_forward,Shipping_handling,Shipping_surcharge,Shipping_admin,Shipping_discount,Shipping_cost_total,
                                 StatusID,Created_at,Created_by) 
         					VALUES 
-                                (:waybill,:company_name,:company_address,:company_phone,:company_fax,:company_tin,:signature,
+                                (:waybill,:company_name,:company_address,:company_phone,:company_fax,:company_email,:company_tin,:signature,
                                 :customerid,:consignor_name,:consignor_alias,:consignor_address,:consignor_phone,:consignor_fax,:consignor_email,
                                 :referenceid,:consignee_name,:consignee_attention,:consignee_address,:consignee_phone,:consignee_fax,
                                 :mode,:origin,:destination,:estimation,
@@ -509,14 +510,18 @@ use PDO;
                 $roles = Auth::getRoleID($this->db,$this->token);
                 if ($roles < 3 || $roles == 9){
                     $newusername = strtolower($this->username);
+                    $newrecipient = strtoupper($this->recipient);
+                    $newrelation = strtoupper($this->relation);
         			try{
                         $this->db->beginTransaction();
                         $sql = "UPDATE agent_transaction_waybill a 
-                            SET a.StatusID = '41',a.Updated_at=current_timestamp,a.Updated_by=:username 
-                            WHERE a.WayBill = :waybill AND a.StatusID<>'41' AND a.StatusID<>'53' AND a.Created_by=:username;";
+                            SET a.StatusID = '41',a.Updated_at=current_timestamp,a.Updated_by=:username,a.Recipient=:recipient,a.Relation=:relation
+                            WHERE a.WayBill = :waybill AND a.StatusID<>'41' AND a.StatusID<>'47' AND a.StatusID<>'53' AND a.Created_by=:username;";
                         $stmt = $this->db->prepare($sql);
                         $stmt->bindParam(':username', $newusername, PDO::PARAM_STR);
                         $stmt->bindParam(':waybill', $this->waybill, PDO::PARAM_STR);
+                        $stmt->bindParam(':recipient', $this->recipient, PDO::PARAM_STR);
+                        $stmt->bindParam(':relation', $this->relation, PDO::PARAM_STR);
 						
 			    		if ($stmt->execute()) {
                             if ($stmt->rowCount() > 0){
@@ -525,7 +530,7 @@ use PDO;
                                     'code' => 'RS103',
                                     'message' => CustomHandlers::getreSlimMessage('RS103')
                                 ];
-                                $this->logging($this->waybill,Dictionary::write('waybill_delivered').' '.strtoupper($this->recipient).' ('.strtoupper($this->relation).')','41',$newusername);
+                                $this->logging($this->waybill,Dictionary::write('waybill_delivered').' '.$newrecipient.' ('.$newrelation.')','41',$newusername);
                             } else {
                                 $data = [
                                     'status' => 'error',
@@ -577,7 +582,7 @@ use PDO;
                         $this->db->beginTransaction();
                         $sql = "UPDATE agent_transaction_waybill a 
                             SET a.StatusID = '19',a.Updated_at=current_timestamp,a.Updated_by=:username 
-                            WHERE a.WayBill = :waybill AND a.StatusID<>'41' AND a.StatusID<>'53' AND a.Created_by=:username;";
+                            WHERE a.WayBill = :waybill AND a.StatusID<>'41' AND a.StatusID<>'47' AND a.StatusID<>'53' AND a.Created_by=:username;";
                         $stmt = $this->db->prepare($sql);
                         $stmt->bindParam(':username', $newusername, PDO::PARAM_STR);
                         $stmt->bindParam(':waybill', $this->waybill, PDO::PARAM_STR);
