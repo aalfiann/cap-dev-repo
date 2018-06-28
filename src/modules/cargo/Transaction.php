@@ -1447,7 +1447,7 @@ use PDO;
                     INNER JOIN core_status d ON a.StatusID = d.StatusID
                     WHERE DATE(a.Created_at) BETWEEN :firstdate AND :lastdate AND a.BranchID = :branchid 
                     AND (
-                            a.Waybill like :search OR a.DestID like :search  OR a.Created_by like :search OR a.Consignee_phone like :search OR a.Consignor_phone like :search
+                            a.Waybill like :search OR a.DestID like :search  OR a.Created_by like :search OR a.Consignee_name like :search OR a.Consignor_phone like :search
                         )
                     ORDER BY a.Created_at DESC;";
 				$stmt = $this->db->prepare($sqlcountrow);		
@@ -1482,7 +1482,7 @@ use PDO;
                             INNER JOIN core_status d ON a.StatusID = d.StatusID
                             WHERE DATE(a.Created_at) BETWEEN :firstdate AND :lastdate AND a.BranchID = :branchid 
                             AND (
-                                    a.Waybill like :search OR a.DestID like :search  OR a.Created_by like :search OR a.Consignee_phone like :search OR a.Consignor_phone like :search
+                                    a.Waybill like :search OR a.DestID like :search  OR a.Created_by like :search OR a.Consignee_name like :search OR a.Consignor_phone like :search
                                 )
                             ORDER BY a.Created_at DESC LIMIT :limpage , :offpage;";
 						$stmt2 = $this->db->prepare($sql);
@@ -1534,60 +1534,4 @@ use PDO;
 	        $this->db= null;
         }
         
-        public function tester(){
-			if (Auth::validToken($this->db,$this->token,$this->username)){
-				$sql = "SELECT a.Waybill,a.BranchID,e.Address as 'Branch_address',e.Phone as 'Branch_phone',e.Fax as 'Branch_fax',e.Email as 'Branch_email',e.TIN as 'Branch_TIN',a.DestID,
-                    a.CustomerID,a.Consignor_name,a.Consignor_alias,a.Consignor_address,a.Consignor_phone,a.Consignor_fax,a.Consignor_email,
-                    a.ReferenceID,a.Consignee_name,a.Consignee_attention,a.Consignee_address,a.Consignee_phone,a.Consignee_fax,
-                    a.Instruction,a.Description,a.Goods_data,a.Goods_koli,a.Weight,a.Weight_real,
-                    a.ModeID,d.Mode,a.Origin,a.Destination,a.Estimation,
-                    a.Insurance_rate,a.Goods_value,
-                    a.Tariff_kgp,a.Tariff_kgs,a.Tariff_kgp_min,a.Tariff_hkgp,a.Tariff_hkgs,a.Tariff_hkgp_min,
-                    a.PaymentID,c.Payment,a.Shipping_cost,a.Shipping_insurance,a.Shipping_packing,a.Shipping_forward,a.Shipping_handling,a.Shipping_surcharge,a.Shipping_admin,a.Shipping_discount,a.Shipping_cost_total,
-                    a.StatusID,b.`Status`,f.Recipient,f.Relation,a.Created_at,a.Created_by,a.Updated_at,a.Updated_by,a.Updated_sys
-                FROM transaction_waybill a
-                INNER JOIN core_status b ON a.StatusID=b.StatusID
-                INNER JOIN mas_payment c ON a.PaymentID = c.PaymentID
-                INNER JOIN mas_mode d ON a.ModeID = d.ModeID
-                INNER JOIN sys_company e ON a.BranchID = e.BranchID
-                LEFT JOIN log_data_pod f ON a.Waybill = f.WayBill
-                WHERE a.Waybill = :waybill LIMIT 1;";
-				
-				$stmt = $this->db->prepare($sql);		
-				$stmt->bindParam(':waybill', $this->waybill, PDO::PARAM_STR);
-
-				if ($stmt->execute()) {	
-    	    	    if ($stmt->rowCount() > 0){
-                        $fetch = $stmt->fetchAll();
-						$data = [
-			   	            'result' => $fetch[0]['Waybill'], 
-    	    		        'status' => 'success', 
-			           	    'code' => 'RS501',
-        		        	'message' => CustomHandlers::getreSlimMessage('RS501')
-						];
-			        } else {
-        			    $data = [
-            		    	'status' => 'error',
-		        		    'code' => 'RS601',
-        		    	    'message' => CustomHandlers::getreSlimMessage('RS601')
-						];
-	    	        }          	   	
-				} else {
-					$data = [
-    	    			'status' => 'error',
-						'code' => 'RS202',
-	        		    'message' => CustomHandlers::getreSlimMessage('RS202')
-					];
-				}	
-			} else {
-                $data = [
-	    			'status' => 'error',
-					'code' => 'RS401',
-        	    	'message' => CustomHandlers::getreSlimMessage('RS401')
-				];
-			}
-			
-			return JSON::safeEncode($data,true);
-	        $this->db= null;
-        }
     }
