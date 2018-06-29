@@ -58,16 +58,13 @@ namespace modules\packager;
          * @param $key : input the key of dictionary
          * @return string dictionary language
          */
-        public static function write($key,$lang='id'){
+        public static function write($key,$lang=''){
             switch($lang){
                 case 'id':
                     return self::$id[$key];
                 break;
-                case 'en':
-                    return self::$en[$key];
-                break;
                 default:
-                    return self::$id[$key];
+                    return self::$en[$key];
             }
         }
     }
