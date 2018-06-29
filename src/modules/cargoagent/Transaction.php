@@ -13,6 +13,7 @@ use \classes\JSON as JSON;
 use \classes\CustomHandlers as CustomHandlers;
 use \modules\cargoagent\Dictionary as Dictionary;
 use \modules\cargoagent\TraceLog as TraceLog;
+use \modules\deposit\Deposit as Deposit;
 use PDO;
 	/**
      * A class for transaction management cargo
@@ -42,11 +43,17 @@ use PDO;
         //status
         $statusid,$created_at,$created_by,$updated_at,$updated_by;
 
-        // for pagination
+        //for mutation balance
+        var $creditbalance = '2000';
+
+        //for pagination
 		var $page,$itemsPerPage;
 
-		// for search
-		var $firstdate,$lastdate,$search;
+		//for search
+        var $firstdate,$lastdate,$search;
+        
+        //for multi language
+        var $lang;
 
 		protected $db;
         
@@ -83,7 +90,20 @@ use PDO;
                 $roles = Auth::getRoleID($this->db,$this->token);
                 if ($roles < 3 || $roles == 9){
                     $newusername = strtolower($this->username);
-			        $newwaybill = $this->generateWaybill('AGT');
+                    $newwaybill = $this->generateWaybill('AGT');
+                    
+                    //process mutation balance
+                    $dp = new Deposit($this->db);
+                    $dp->lang = $this->lang;
+                    $dp->depid = $newusername;
+                    $dp->refid = $dp->generateReferenceID();
+                    $dp->task = 'CR';
+                    $dp->mutation = $this->creditbalance;
+                    $dp->description = 'Pembayaran transaksi Waybill '.$newwaybill;
+                    $datasaldo = $dp->transactionCR();
+                    if ($datasaldo['status'] == 'error') {
+                        return JSON::encode($datasaldo,true);
+                    }
 
                     $newcompany_phone = Validation::integerOnly($this->company_phone);
                     $newcompany_fax = Validation::integerOnly($this->company_fax);
