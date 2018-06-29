@@ -27,6 +27,8 @@ $vocabularies[] = [
     'deposit_transaction_do' => 'Akan melakukan transaksi',
     'deposit_transaction_confirm' => 'Transaksi ini tidak dapat dibatalkan!',
     'deposit_transaction_submit_yes' => 'Iya, Lanjutkan Saja!',
+    'deposit_transaction_success' => 'Transaksi Berhasil!',
+    'deposit_transaction_failed' => 'Transaksi Gagal!',
     //livechat
     'livechat' => 'Live Chat',
     //flexible config

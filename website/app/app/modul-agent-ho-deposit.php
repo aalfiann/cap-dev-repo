@@ -311,14 +311,17 @@ $s = (empty($_GET['s'])?'':$_GET['s']);?>
                                 .val("")
                                 .end();
                                 writeMessage("#reportmsg","success",data.message);
+                                swal("<?php echo Core::lang('deposit_transaction_success')?>", "", "success");
                                 $('#datamain').DataTable().ajax.reload();
                                 generateReferenceID();
                             } else {
                                 writeMessage("#reportmsg","danger",data.message);
+                                swal("<?php echo Core::lang('deposit_transaction_failed')?>", data.message, "error");
                             }
                         },
                         error: function (data, textstatus) {
                             writeMessage("#reportmsg","danger",data.message);
+                            swal("<?php echo Core::lang('deposit_transaction_failed')?>", data.message, "error");
                         }
                     });
                 });
