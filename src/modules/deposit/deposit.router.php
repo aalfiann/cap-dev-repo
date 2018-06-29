@@ -29,6 +29,7 @@ use \classes\JSON as JSON;                                      //JSON class    
         $deposit = new Deposit($this->db);
         $deposit->username = $request->getAttribute('username');
         $deposit->token = $request->getAttribute('token');
+        $deposit->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $body = $response->getBody();
         $body->write($deposit->install());
         return classes\Cors::modify($response,$body,200);
@@ -39,6 +40,7 @@ use \classes\JSON as JSON;                                      //JSON class    
         $deposit = new Deposit($this->db);
         $deposit->username = $request->getAttribute('username');
         $deposit->token = $request->getAttribute('token');
+        $deposit->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $body = $response->getBody();
         $body->write($deposit->uninstall());
         return classes\Cors::modify($response,$body,200);
@@ -50,7 +52,7 @@ use \classes\JSON as JSON;                                      //JSON class    
 
     // GET api to generate random ReferenceID
     $app->get('/deposit/generate/referenceid/{username}/{token}', function (Request $request, Response $response) {
-        $lang = (empty($_GET['lang'])?'en':$_GET['lang']);
+        $lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $body = $response->getBody();
         $datajson = [
             'ReferenceID' => str_replace('.','-',uniqid('',true)),
@@ -67,6 +69,7 @@ use \classes\JSON as JSON;                                      //JSON class    
     $app->post('/deposit/transaction/new', function (Request $request, Response $response) {
         $deposit = new Deposit($this->db);
         $datapost = $request->getParsedBody();
+        $deposit->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $deposit->username = $datapost['Username'];
         $deposit->token = $datapost['Token'];
         $deposit->depid = $datapost['DepositID'];
@@ -87,6 +90,7 @@ use \classes\JSON as JSON;                                      //JSON class    
     $app->post('/deposit/transaction/debet', function (Request $request, Response $response) {
         $deposit = new Deposit($this->db);
         $datapost = $request->getParsedBody();
+        $deposit->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $deposit->username = $datapost['Username'];
         $deposit->token = $datapost['Token'];
         $deposit->depid = $datapost['DepositID'];
@@ -106,6 +110,7 @@ use \classes\JSON as JSON;                                      //JSON class    
     $app->post('/deposit/transaction/credit', function (Request $request, Response $response) {
         $deposit = new Deposit($this->db);
         $datapost = $request->getParsedBody();
+        $deposit->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $deposit->username = $datapost['Username'];
         $deposit->token = $datapost['Token'];
         $deposit->depid = $datapost['DepositID'];
@@ -125,6 +130,7 @@ use \classes\JSON as JSON;                                      //JSON class    
     $app->post('/deposit/transaction/topup', function (Request $request, Response $response) {
         $deposit = new Deposit($this->db);
         $datapost = $request->getParsedBody();
+        $deposit->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $deposit->username = $datapost['Username'];
         $deposit->token = $datapost['Token'];
         $deposit->depid = $datapost['DepositID'];
@@ -143,6 +149,7 @@ use \classes\JSON as JSON;                                      //JSON class    
     // GET api to show user balance total
     $app->get('/deposit/transaction/data/balance/{username}/{token}', function (Request $request, Response $response) {
         $deposit = new Deposit($this->db);
+        $deposit->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $deposit->depid = $request->getAttribute('username');
         $deposit->username = $request->getAttribute('username');
         $deposit->token = $request->getAttribute('token');
@@ -157,6 +164,7 @@ use \classes\JSON as JSON;                                      //JSON class    
     // GET api to show user balance total for admin
     $app->get('/deposit/transaction/admin/data/balance/{username}/{token}/{depid}', function (Request $request, Response $response) {
         $deposit = new Deposit($this->db);
+        $deposit->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $deposit->depid = $request->getAttribute('depid');
         $deposit->username = $request->getAttribute('username');
         $deposit->token = $request->getAttribute('token');
@@ -171,6 +179,7 @@ use \classes\JSON as JSON;                                      //JSON class    
     // GET api to show all data transaction pagination registered user
     $app->get('/deposit/transaction/data/mutation/{username}/{token}/{page}/{itemsperpage}/', function (Request $request, Response $response) {
         $deposit = new Deposit($this->db);
+        $deposit->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $deposit->depid = $request->getAttribute('username');
         $deposit->firstdate = filter_var((empty($_GET['firstdate'])?'':$_GET['firstdate']),FILTER_SANITIZE_STRING);
         $deposit->lastdate = filter_var((empty($_GET['lastdate'])?'':$_GET['lastdate']),FILTER_SANITIZE_STRING);
@@ -187,6 +196,7 @@ use \classes\JSON as JSON;                                      //JSON class    
     // GET api to show all data transaction pagination for admin
     $app->get('/deposit/transaction/admin/data/mutation/{username}/{token}/{page}/{itemsperpage}/', function (Request $request, Response $response) {
         $deposit = new Deposit($this->db);
+        $deposit->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $deposit->search = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);
         $deposit->firstdate = filter_var((empty($_GET['firstdate'])?'':$_GET['firstdate']),FILTER_SANITIZE_STRING);
         $deposit->lastdate = filter_var((empty($_GET['lastdate'])?'':$_GET['lastdate']),FILTER_SANITIZE_STRING);

@@ -23,6 +23,7 @@ namespace modules\deposit;
             'DP101' => 'Pengisian topup berhasil!',
             'DP102' => 'Penarikan dana deposit berhasil!',
             'DP103' => 'Transfer dana deposit berhasil!',
+            'DP104' => 'Transaksi berhasil!',
             'DP201' => 'Pengisian topup gagal!',
             'DP202' => 'Penarikan dana deposit gagal!',
             'DP203' => 'Transfer dana deposit gagal!',
@@ -46,6 +47,7 @@ namespace modules\deposit;
             'DP101' => 'Topup successful!',
             'DP102' => 'Withdrawal successful!',
             'DP103' => 'Transfer successful!',
+            'DP104' => 'Transaction successful!',
             'DP201' => 'Charging topup failed!',
             'DP202' => 'Withdrawal failed!',
             'DP203' => 'Transfer failed!',
@@ -60,16 +62,13 @@ namespace modules\deposit;
          * @param $key : input the key of dictionary
          * @return string dictionary language
          */
-        public static function write($key,$lang='id'){
+        public static function write($key,$lang=''){
             switch($lang){
                 case 'id':
                     return self::$id[$key];
                 break;
-                case 'en':
-                    return self::$en[$key];
-                break;
                 default:
-                    return self::$id[$key];
+                    return self::$en[$key];
             }
         }
     }
