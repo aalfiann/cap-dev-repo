@@ -591,7 +591,7 @@ $s = (empty($_GET['s'])?'':$_GET['s']);?>
             $(function(){
                 /* Get balance */
                 $.ajax({
-                    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/deposit/transaction/data/balance/'.$datalogin['username'].'/'.$datalogin['token'])?>"),
+                    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/deposit/transaction/data/balance/'.$datalogin['username'].'/'.$datalogin['token'])?>")+"?_="+randomText(1),
                     dataType: "json",
                     type: "GET",
                     success: function(data) {
