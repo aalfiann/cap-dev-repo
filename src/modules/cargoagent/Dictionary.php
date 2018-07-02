@@ -29,6 +29,7 @@ namespace modules\cargoagent;
             'waybill_delivered' => 'Barang telah diterima oleh:',
             'waybill_picked' => 'Barang akan diambil sendiri oleh penerima',
             'waybill_pickup' => 'Proses penjemputan barang oleh origin',
+            'waybill_mutation' => 'Pembayaran transaksi Waybill',
             //Transaction onhold
             'waybill_onhold_origin' => 'Barang sementara ditahan di origin',
             'waybill_onhold_destination' => 'Barang sementara ditahan di destinasi',
@@ -57,6 +58,7 @@ namespace modules\cargoagent;
             'waybill_delivered' => 'Goods have been received by:',
             'waybill_picked' => 'Goods will be picked up by the recipient',
             'waybill_pickup' => 'Pickup process by origin',
+            'waybill_mutation' => 'Payment transaction Waybill',
             //Transaction onhold
             'waybill_onhold_origin' => 'Goods temporarily held in origin',
             'waybill_onhold_destination' => 'Goods temporarily held in destination',
@@ -76,16 +78,13 @@ namespace modules\cargoagent;
          * @param $key : input the key of dictionary
          * @return string dictionary language
          */
-        public static function write($key,$lang='id'){
+        public static function write($key,$lang=''){
             switch($lang){
                 case 'id':
                     return self::$id[$key];
                 break;
-                case 'en':
-                    return self::$en[$key];
-                break;
                 default:
-                    return self::$id[$key];
+                    return self::$en[$key];
             }
         }
     }

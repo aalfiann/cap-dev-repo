@@ -99,7 +99,7 @@ use PDO;
                     $dp->refid = $dp->generateReferenceID();
                     $dp->task = 'CR';
                     $dp->mutation = $this->creditbalance;
-                    $dp->description = 'Pembayaran transaksi Waybill '.$newwaybill;
+                    $dp->description = Dictionary::write('waybill_mutation',$this->lang).' '.$newwaybill;
                     $datasaldo = $dp->transactionCR();
                     if ($datasaldo['status'] == 'error') {
                         return JSON::encode($datasaldo,true);
@@ -211,23 +211,23 @@ use PDO;
                                 $data = [
                                     'status' => 'success',
                                     'waybill' => $newwaybill,
-                                    'info' => Dictionary::write('waybill_created'),
+                                    'info' => Dictionary::write('waybill_created',$this->lang),
                                     'code' => 'RS101',
-                                    'message' => CustomHandlers::getreSlimMessage('RS101')
+                                    'message' => CustomHandlers::getreSlimMessage('RS101',$this->lang)
                                 ];
-                                $this->logging($newwaybill,Dictionary::write('waybill_created'),'29',$newusername);
+                                $this->logging($newwaybill,Dictionary::write('waybill_created',$this->lang),'29',$newusername);
                             } else {
                                 $data = [
                                     'status' => 'error',
                                     'code' => 'RS201',
-                                    'message' => CustomHandlers::getreSlimMessage('RS201')
+                                    'message' => CustomHandlers::getreSlimMessage('RS201',$this->lang)
                                 ];    
                             }
     					} else {
 	    					$data = [
 		    					'status' => 'error',
 			    				'code' => 'RS201',
-				    			'message' => CustomHandlers::getreSlimMessage('RS201')
+				    			'message' => CustomHandlers::getreSlimMessage('RS201',$this->lang)
 					    	];
     					}
 	    			    $this->db->commit();
@@ -243,14 +243,14 @@ use PDO;
                     $data = [
                         'status' => 'error',
                         'code' => 'RS404',
-                        'message' => CustomHandlers::getreSlimMessage('RS404')
+                        'message' => CustomHandlers::getreSlimMessage('RS404',$this->lang)
                     ];
                 }
             } else {
                 $data = [
                     'status' => 'error',
                     'code' => 'RS401',
-                    'message' => CustomHandlers::getreSlimMessage('RS401')
+                    'message' => CustomHandlers::getreSlimMessage('RS401',$this->lang)
                 ];
             }
 			
@@ -365,13 +365,13 @@ use PDO;
 	    					$data = [
                                 'status' => 'success',
 			    				'code' => 'RS103',
-				    			'message' => CustomHandlers::getreSlimMessage('RS103')
+				    			'message' => CustomHandlers::getreSlimMessage('RS103',$this->lang)
 					    	];	
     					} else {
 	    					$data = [
 		    					'status' => 'error',
 			    				'code' => 'RS203',
-				    			'message' => CustomHandlers::getreSlimMessage('RS203')
+				    			'message' => CustomHandlers::getreSlimMessage('RS203',$this->lang)
 					    	];
     					}
 	    			    $this->db->commit();
@@ -387,14 +387,14 @@ use PDO;
                     $data = [
                         'status' => 'error',
                         'code' => 'RS404',
-                        'message' => CustomHandlers::getreSlimMessage('RS404')
+                        'message' => CustomHandlers::getreSlimMessage('RS404',$this->lang)
                     ];
                 }
             } else {
                 $data = [
                     'status' => 'error',
                     'code' => 'RS401',
-                    'message' => CustomHandlers::getreSlimMessage('RS401')
+                    'message' => CustomHandlers::getreSlimMessage('RS401',$this->lang)
                 ];
             }
 			
@@ -417,13 +417,13 @@ use PDO;
     						$data = [
 	    						'status' => 'success',
 		    					'code' => 'RS104',
-			    				'message' => CustomHandlers::getreSlimMessage('RS104')
+			    				'message' => CustomHandlers::getreSlimMessage('RS104',$this->lang)
 				    		];	
 					    } else {
     						$data = [
 	    						'status' => 'error',
 		    					'code' => 'RS204',
-			    				'message' => CustomHandlers::getreSlimMessage('RS204')
+			    				'message' => CustomHandlers::getreSlimMessage('RS204',$this->lang)
 				    		];
 						}
 						
@@ -440,14 +440,14 @@ use PDO;
                     $data = [
                         'status' => 'error',
                         'code' => 'RS404',
-                        'message' => CustomHandlers::getreSlimMessage('RS404')
+                        'message' => CustomHandlers::getreSlimMessage('RS404',$this->lang)
                     ];
                 }
 			} else {
 				$data = [
 	    			'status' => 'error',
 				    'code' => 'RS401',
-					'message' => CustomHandlers::getreSlimMessage('RS401')
+					'message' => CustomHandlers::getreSlimMessage('RS401',$this->lang)
     			];
 			}
 		    return JSON::encode($data,true);
@@ -482,21 +482,21 @@ use PDO;
                                 $data = [
                                     'status' => 'success',
                                     'code' => 'RS103',
-                                    'message' => CustomHandlers::getreSlimMessage('RS103')
+                                    'message' => CustomHandlers::getreSlimMessage('RS103',$this->lang)
                                 ];
-                                $this->logging($this->waybill,Dictionary::write('waybill_void'),'47',$newusername);
+                                $this->logging($this->waybill,Dictionary::write('waybill_void',$this->lang),'47',$newusername);
                             } else {
                                 $data = [
                                     'status' => 'error',
                                     'code' => 'waybill_not_found_1',
-                                    'message' => Dictionary::write('waybill_not_found_1')
+                                    'message' => Dictionary::write('waybill_not_found_1',$this->lang)
                                 ];    
                             }
 					    } else {
     						$data = [
 	    						'status' => 'error',
 		    					'code' => 'RS203',
-			    				'message' => CustomHandlers::getreSlimMessage('RS203')
+			    				'message' => CustomHandlers::getreSlimMessage('RS203',$this->lang)
 				    		];
 						}
 						
@@ -513,14 +513,14 @@ use PDO;
                     $data = [
                         'status' => 'error',
                         'code' => 'RS404',
-                        'message' => CustomHandlers::getreSlimMessage('RS404')
+                        'message' => CustomHandlers::getreSlimMessage('RS404',$this->lang)
                     ];
                 }
 			} else {
 				$data = [
 	    			'status' => 'error',
 				    'code' => 'RS401',
-					'message' => CustomHandlers::getreSlimMessage('RS401')
+					'message' => CustomHandlers::getreSlimMessage('RS401',$this->lang)
     			];
 			}
 		    return JSON::encode($data,true);
@@ -550,21 +550,21 @@ use PDO;
                                 $data = [
                                     'status' => 'success',
                                     'code' => 'RS103',
-                                    'message' => CustomHandlers::getreSlimMessage('RS103')
+                                    'message' => CustomHandlers::getreSlimMessage('RS103',$this->lang)
                                 ];
-                                $this->logging($this->waybill,Dictionary::write('waybill_delivered').' '.$newrecipient.' ('.$newrelation.')','41',$newusername);
+                                $this->logging($this->waybill,Dictionary::write('waybill_delivered',$this->lang).' '.$newrecipient.' ('.$newrelation.')','41',$newusername);
                             } else {
                                 $data = [
                                     'status' => 'error',
                                     'code' => 'waybill_not_found_1',
-                                    'message' => Dictionary::write('waybill_not_found_1')
+                                    'message' => Dictionary::write('waybill_not_found_1',$this->lang)
                                 ];    
                             }
 	    				} else {
     	    				$data = [
 	    	    				'status' => 'error',
 				    			'code' => 'RS203',
-		    		    		'message' => CustomHandlers::getreSlimMessage('RS203')
+		    		    		'message' => CustomHandlers::getreSlimMessage('RS203',$this->lang)
 			    		    ];
     					}
 						
@@ -581,14 +581,14 @@ use PDO;
                     $data = [
                         'status' => 'error',
                         'code' => 'RS404',
-                        'message' => CustomHandlers::getreSlimMessage('RS404')
+                        'message' => CustomHandlers::getreSlimMessage('RS404',$this->lang)
                     ];
                 }         
 			} else {
 				$data = [
 	    			'status' => 'error',
 				    'code' => 'RS401',
-					'message' => CustomHandlers::getreSlimMessage('RS401')
+					'message' => CustomHandlers::getreSlimMessage('RS401',$this->lang)
     			];
 			}
 		    return JSON::encode($data,true);
@@ -614,21 +614,21 @@ use PDO;
                                 $data = [
                                     'status' => 'success',
                                     'code' => 'RS103',
-                                    'message' => CustomHandlers::getreSlimMessage('RS103')
+                                    'message' => CustomHandlers::getreSlimMessage('RS103',$this->lang)
                                 ];
                                 $this->logging($this->waybill,$this->description,'19',$newusername);
                             } else {
                                 $data = [
                                     'status' => 'error',
                                     'code' => 'waybill_not_found_1',
-                                    'message' => Dictionary::write('waybill_not_found_1')
+                                    'message' => Dictionary::write('waybill_not_found_1',$this->lang)
                                 ];    
                             }
 					    } else {
     						$data = [
 	    						'status' => 'error',
 		    					'code' => 'RS203',
-			    				'message' => CustomHandlers::getreSlimMessage('RS203')
+			    				'message' => CustomHandlers::getreSlimMessage('RS203',$this->lang)
 				    		];
 						}
 						
@@ -645,14 +645,14 @@ use PDO;
                     $data = [
                         'status' => 'error',
                         'code' => 'RS404',
-                        'message' => CustomHandlers::getreSlimMessage('RS404')
+                        'message' => CustomHandlers::getreSlimMessage('RS404',$this->lang)
                     ];
                 }
 			} else {
 				$data = [
 	    			'status' => 'error',
 				    'code' => 'RS401',
-					'message' => CustomHandlers::getreSlimMessage('RS401')
+					'message' => CustomHandlers::getreSlimMessage('RS401',$this->lang)
     			];
 			}
 		    return JSON::encode($data,true);
@@ -678,34 +678,34 @@ use PDO;
                                 $data = [
                                     'status' => 'success',
                                     'code' => 'RS103',
-                                    'message' => CustomHandlers::getreSlimMessage('RS103')
+                                    'message' => CustomHandlers::getreSlimMessage('RS103',$this->lang)
                                 ];
                                 switch($opt){
                                     case '1':
-                                        $msg = Dictionary::write('waybill_return');
+                                        $msg = Dictionary::write('waybill_return',$this->lang);
                                         break;
                                     case '2':
-                                        $msg = Dictionary::write('waybill_return_consignor');
+                                        $msg = Dictionary::write('waybill_return_consignor',$this->lang);
                                         break;
                                     case '3':
-                                        $msg = Dictionary::write('waybill_return_consignee');
+                                        $msg = Dictionary::write('waybill_return_consignee',$this->lang);
                                         break;
                                     default:
-                                        $msg = Dictionary::write('waybill_return');
+                                        $msg = Dictionary::write('waybill_return',$this->lang);
                                 }
                                 $this->logging($this->waybill,$msg,'53',$newusername);
                             } else {
                                 $data = [
                                     'status' => 'error',
                                     'code' => 'waybill_not_found_1',
-                                    'message' => Dictionary::write('waybill_not_found_1')
+                                    'message' => Dictionary::write('waybill_not_found_1',$this->lang)
                                 ];    
                             }
 					    } else {
     						$data = [
 	    						'status' => 'error',
 		    					'code' => 'RS203',
-			    				'message' => CustomHandlers::getreSlimMessage('RS203')
+			    				'message' => CustomHandlers::getreSlimMessage('RS203',$this->lang)
 				    		];
 						}
 						
@@ -722,14 +722,14 @@ use PDO;
                     $data = [
                         'status' => 'error',
                         'code' => 'RS906',
-                        'message' => CustomHandlers::getreSlimMessage('RS906')
+                        'message' => CustomHandlers::getreSlimMessage('RS906',$this->lang)
                     ];
                 }
 			} else {
 				$data = [
 	    			'status' => 'error',
 				    'code' => 'RS401',
-					'message' => CustomHandlers::getreSlimMessage('RS401')
+					'message' => CustomHandlers::getreSlimMessage('RS401',$this->lang)
     			];
 			}
 		    return JSON::encode($data,true);
@@ -742,13 +742,13 @@ use PDO;
                     'status' => 'success',
                     'code' => 'RS101',
                     'waybill' => $this->generateWaybill('AGT'),
-                    'message' => CustomHandlers::getreSlimMessage('RS101')
+                    'message' => CustomHandlers::getreSlimMessage('RS101',$this->lang)
                 ];
             } else {
                 $data = [
 	    			'status' => 'error',
 				    'code' => 'RS401',
-					'message' => CustomHandlers::getreSlimMessage('RS401')
+					'message' => CustomHandlers::getreSlimMessage('RS401',$this->lang)
     			];
             }
             
@@ -862,27 +862,27 @@ use PDO;
 			   	            'result' => json_decode($datares), 
     	    		        'status' => 'success', 
 			           	    'code' => 'RS501',
-        		        	'message' => CustomHandlers::getreSlimMessage('RS501')
+        		        	'message' => CustomHandlers::getreSlimMessage('RS501',$this->lang)
 						];
 			        } else {
         			    $data = [
             		    	'status' => 'error',
 		        		    'code' => 'RS601',
-        		    	    'message' => CustomHandlers::getreSlimMessage('RS601')
+        		    	    'message' => CustomHandlers::getreSlimMessage('RS601',$this->lang)
 						];
 	    	        }          	   	
 				} else {
 					$data = [
     	    			'status' => 'error',
 						'code' => 'RS202',
-	        		    'message' => CustomHandlers::getreSlimMessage('RS202')
+	        		    'message' => CustomHandlers::getreSlimMessage('RS202',$this->lang)
 					];
 				}	
 			} else {
                 $data = [
 	    			'status' => 'error',
 					'code' => 'RS401',
-        	    	'message' => CustomHandlers::getreSlimMessage('RS401')
+        	    	'message' => CustomHandlers::getreSlimMessage('RS401',$this->lang)
 				];
 			}
 			
@@ -1027,27 +1027,27 @@ use PDO;
 			   	            'result' => json_decode($datares), 
     	    		        'status' => 'success', 
 			           	    'code' => 'RS501',
-        		        	'message' => CustomHandlers::getreSlimMessage('RS501')
+        		        	'message' => CustomHandlers::getreSlimMessage('RS501',$this->lang)
 						];
 			        } else {
         			    $data = [
             		    	'status' => 'error',
 		        		    'code' => 'RS601',
-        		    	    'message' => CustomHandlers::getreSlimMessage('RS601')
+        		    	    'message' => CustomHandlers::getreSlimMessage('RS601',$this->lang)
 						];
 	    	        }          	   	
 				} else {
 					$data = [
     	    			'status' => 'error',
 						'code' => 'RS202',
-	        		    'message' => CustomHandlers::getreSlimMessage('RS202')
+	        		    'message' => CustomHandlers::getreSlimMessage('RS202',$this->lang)
 					];
 				}	
 			} else {
                 $data = [
 	    			'status' => 'error',
 					'code' => 'RS401',
-        	    	'message' => CustomHandlers::getreSlimMessage('RS401')
+        	    	'message' => CustomHandlers::getreSlimMessage('RS401',$this->lang)
 				];
 			}
 			
@@ -1191,20 +1191,20 @@ use PDO;
 			   	            'result' => json_decode($datares), 
     	    		        'status' => 'success', 
 			           	    'code' => 'RS501',
-        		        	'message' => CustomHandlers::getreSlimMessage('RS501')
+        		        	'message' => CustomHandlers::getreSlimMessage('RS501',$this->lang)
 						];
 			        } else {
         			    $data = [
             		    	'status' => 'error',
 		        		    'code' => 'RS601',
-        		    	    'message' => CustomHandlers::getreSlimMessage('RS601')
+        		    	    'message' => CustomHandlers::getreSlimMessage('RS601',$this->lang)
 						];
 	    	        }          	   	
 				} else {
 					$data = [
     	    			'status' => 'error',
 						'code' => 'RS202',
-	        		    'message' => CustomHandlers::getreSlimMessage('RS202')
+	        		    'message' => CustomHandlers::getreSlimMessage('RS202',$this->lang)
 					];
 				}	
 			
@@ -1311,20 +1311,20 @@ use PDO;
 			   	            'result' => json_decode($datares), 
     	    		        'status' => 'success', 
 			           	    'code' => 'RS501',
-        		        	'message' => CustomHandlers::getreSlimMessage('RS501')
+        		        	'message' => CustomHandlers::getreSlimMessage('RS501',$this->lang)
 						];
 			        } else {
         			    $data = [
             		    	'status' => 'error',
 		        		    'code' => 'RS601',
-        		    	    'message' => CustomHandlers::getreSlimMessage('RS601')
+        		    	    'message' => CustomHandlers::getreSlimMessage('RS601',$this->lang)
 						];
 	    	        }          	   	
 				} else {
 					$data = [
     	    			'status' => 'error',
 						'code' => 'RS202',
-	        		    'message' => CustomHandlers::getreSlimMessage('RS202')
+	        		    'message' => CustomHandlers::getreSlimMessage('RS202',$this->lang)
 					];
 				}	
 			
@@ -1401,21 +1401,21 @@ use PDO;
 							$data = [
         	    	    		'status' => 'error',
 		        		    	'code' => 'RS202',
-	    			    	    'message' => CustomHandlers::getreSlimMessage('RS202')
+	    			    	    'message' => CustomHandlers::getreSlimMessage('RS202',$this->lang)
 							];	
 						}			
 				    } else {
     	    			$data = [
         	    			'status' => 'error',
 		    	    		'code' => 'RS601',
-        			    	'message' => CustomHandlers::getreSlimMessage('RS601')
+        			    	'message' => CustomHandlers::getreSlimMessage('RS601',$this->lang)
 						];
 		    	    }          	   	
 				} else {
 					$data = [
     	    			'status' => 'error',
 						'code' => 'RS202',
-	        		    'message' => CustomHandlers::getreSlimMessage('RS202')
+	        		    'message' => CustomHandlers::getreSlimMessage('RS202',$this->lang)
 					];
 				}
 				
@@ -1423,7 +1423,7 @@ use PDO;
 				$data = [
 	    			'status' => 'error',
 					'code' => 'RS401',
-        	    	'message' => CustomHandlers::getreSlimMessage('RS401')
+        	    	'message' => CustomHandlers::getreSlimMessage('RS401',$this->lang)
 				];
 			}		
         

@@ -17,6 +17,7 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
     // Get module information
     $app->get('/cargoagent/get/info/', function (Request $request, Response $response) {
         $cm = new CargoAgent($this->db);
+        $cm->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $body = $response->getBody();
         $response = $this->cache->withEtag($response, $this->etag2hour.'-'.trim($_SERVER['REQUEST_URI'],'/'));
         $body->write($cm->viewInfo());
@@ -26,6 +27,7 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
     // Installation 
     $app->get('/cargoagent/install/{username}/{token}', function (Request $request, Response $response) {
         $cm = new CargoAgent($this->db);
+        $cm->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cm->username = $request->getAttribute('username');
         $cm->token = $request->getAttribute('token');
         $body = $response->getBody();
@@ -36,6 +38,7 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
     // Uninstall (This will clear all data) 
     $app->get('/cargoagent/uninstall/{username}/{token}', function (Request $request, Response $response) {
         $cm = new CargoAgent($this->db);
+        $cm->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cm->username = $request->getAttribute('username');
         $cm->token = $request->getAttribute('token');
         $body = $response->getBody();
@@ -51,6 +54,7 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
     $app->post('/cargoagent/transaction/data/new', function (Request $request, Response $response) {
         $cargo = new Transaction($this->db);
         $datapost = $request->getParsedBody();
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
         
@@ -127,7 +131,8 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
     // POST api to update transaction
     $app->post('/cargoagent/transaction/data/update', function (Request $request, Response $response) {
         $cargo = new Transaction($this->db);
-        $datapost = $request->getParsedBody();    
+        $datapost = $request->getParsedBody();
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
         $cargo->waybill = $datapost['Waybill'];
@@ -206,7 +211,8 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
     // POST api to delete transaction
     $app->post('/cargoagent/transaction/data/delete', function (Request $request, Response $response) {
         $cargo = new Transaction($this->db);
-        $datapost = $request->getParsedBody();    
+        $datapost = $request->getParsedBody();
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->waybill = $datapost['Waybill'];
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
@@ -220,7 +226,8 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
     // POST api to void transaction
     $app->post('/cargoagent/transaction/data/void', function (Request $request, Response $response) {
         $cargo = new Transaction($this->db);
-        $datapost = $request->getParsedBody();    
+        $datapost = $request->getParsedBody();
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
         $cargo->waybill = $datapost['Waybill'];
@@ -236,7 +243,8 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
     // POST api to delivered transaction
     $app->post('/cargoagent/transaction/data/pod/delivered', function (Request $request, Response $response) {
         $cargo = new Transaction($this->db);
-        $datapost = $request->getParsedBody();    
+        $datapost = $request->getParsedBody();
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
 
@@ -253,7 +261,8 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
     // POST api to failed transaction
     $app->post('/cargoagent/transaction/data/pod/failed', function (Request $request, Response $response) {
         $cargo = new Transaction($this->db);
-        $datapost = $request->getParsedBody();    
+        $datapost = $request->getParsedBody();
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
 
@@ -270,7 +279,8 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
     // POST api to returned transaction
     $app->post('/cargoagent/transaction/data/pod/returned', function (Request $request, Response $response) {
         $cargo = new Transaction($this->db);
-        $datapost = $request->getParsedBody();    
+        $datapost = $request->getParsedBody();
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
 
@@ -285,7 +295,8 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
     // POST api to returned asked by consignor
     $app->post('/cargoagent/transaction/data/pod/returned/consignor', function (Request $request, Response $response) {
         $cargo = new Transaction($this->db);
-        $datapost = $request->getParsedBody();    
+        $datapost = $request->getParsedBody();
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
         $cargo->waybill = $datapost['Waybill'];
@@ -299,7 +310,8 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
     // POST api to returned asked by consignee
     $app->post('/cargoagent/transaction/data/pod/returned/consignee', function (Request $request, Response $response) {
         $cargo = new Transaction($this->db);
-        $datapost = $request->getParsedBody();    
+        $datapost = $request->getParsedBody();
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
         $cargo->waybill = $datapost['Waybill'];
@@ -313,6 +325,7 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
     // GET api to show data waybill registered user
     $app->get('/cargoagent/transaction/data/waybill/{username}/{token}/{waybill}', function (Request $request, Response $response) {
         $cargo = new Transaction($this->db);
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->username = $request->getAttribute('username');
         $cargo->token = $request->getAttribute('token');
         $cargo->waybill = $request->getAttribute('waybill');
@@ -324,6 +337,7 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
     // GET api to show data trace waybill registered user
     $app->get('/cargoagent/transaction/data/trace/waybill/{username}/{token}/', function (Request $request, Response $response) {
         $cargo = new Transaction($this->db);
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->username = $request->getAttribute('username');
         $cargo->token = $request->getAttribute('token');
         $cargo->waybill = filter_var((empty($_GET['no'])?'':$_GET['no']),FILTER_SANITIZE_STRING);
@@ -335,6 +349,7 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
     // GET api to show data trace waybill detail public
     $app->get('/cargoagent/transaction/data/public/trace/detail/waybill/', function (Request $request, Response $response) {
         $cargo = new Transaction($this->db);
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->waybill = filter_var((empty($_GET['no'])?'':$_GET['no']),FILTER_SANITIZE_STRING);
         $response = $this->cache->withEtag($response, $this->etag.'-'.trim($_SERVER['REQUEST_URI'],'/'));
         $body = $response->getBody();
@@ -345,6 +360,7 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
     // GET api to show data trace waybill simple public
     $app->get('/cargoagent/transaction/data/public/trace/simple/waybill/', function (Request $request, Response $response) {
         $cargo = new Transaction($this->db);
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->waybill = filter_var((empty($_GET['no'])?'':$_GET['no']),FILTER_SANITIZE_STRING);
         $response = $this->cache->withEtag($response, $this->etag.'-'.trim($_SERVER['REQUEST_URI'],'/'));
         $body = $response->getBody();
@@ -355,6 +371,7 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
     // GET api to show all data transaction pagination registered user
     $app->get('/cargoagent/transaction/data/search/{username}/{token}/{page}/{itemsperpage}/', function (Request $request, Response $response) {
         $cargo = new Transaction($this->db);
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->search = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);
         $cargo->firstdate = filter_var((empty($_GET['firstdate'])?'':$_GET['firstdate']),FILTER_SANITIZE_STRING);
         $cargo->lastdate = filter_var((empty($_GET['lastdate'])?'':$_GET['lastdate']),FILTER_SANITIZE_STRING);
@@ -371,6 +388,7 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
     // GET api to test generate waybill
     $app->get('/cargoagent/transaction/generate/waybill/{username}/{token}', function (Request $request, Response $response) {
         $cargo = new Transaction($this->db);
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->username = $request->getAttribute('username');;
         $cargo->token = $request->getAttribute('token');
         $body = $response->getBody();
