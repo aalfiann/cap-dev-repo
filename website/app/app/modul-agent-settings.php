@@ -90,14 +90,14 @@ if(Core::getUserGroup() != '1') {Core::goToPage('modul-user-profile.php');exit;}
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="form-control-label"><b><?php echo Core::lang('agent_setting_company_phone')?> <span class="text-danger">*</span></b></label>
-                                                        <input id="agent_setting_company_phone" type="text" placeholder="" class="form-control" maxlength="15" required>
+                                                        <input id="agent_setting_company_phone" type="text" placeholder="" class="form-control" maxlength="15" oninput="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" required>
                                                         <span class="help-block text-muted"><small></small></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="form-control-label"><b><?php echo Core::lang('agent_setting_company_fax')?> </b></label>
-                                                        <input id="agent_setting_company_fax" type="text" placeholder="" class="form-control" maxlength="15">
+                                                        <input id="agent_setting_company_fax" type="text" placeholder="" class="form-control" maxlength="15" oninput="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')">
                                                         <span class="help-block text-muted"><small></small></span>
                                                     </div>
                                                 </div>
