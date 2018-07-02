@@ -54,6 +54,7 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
         
+        $cargo->company_logo = $datapost['Company_logo'];
         $cargo->company_name = $datapost['Company_name'];
         $cargo->company_address = $datapost['Company_address'];
         $cargo->company_phone = $datapost['Company_phone'];
@@ -109,7 +110,7 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
     })->add(new ValidateParam('Insurance_rate','0-7','decimal'))
         ->add(new ValidateParam('Goods_value','0-10','numeric'))
         ->add(new ValidateParam('Goods_data','0-1000'))
-        ->add(new ValidateParam('Instruction','0-250'))
+        ->add(new ValidateParam(['Company_logo','Instruction'],'0-250'))
         ->add(new ValidateParam(['CustomerID','ReferenceID'],'0-20'))
         ->add(new ValidateParam(['Company_fax','Consignor_fax','Consignee_fax'],'0-15','numeric'))
         ->add(new ValidateParam(['Company_email','Consignor_email'],'0-50','email'))
@@ -131,6 +132,7 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
         $cargo->token = $datapost['Token'];
         $cargo->waybill = $datapost['Waybill'];
         
+        $cargo->company_logo = $datapost['Company_logo'];
         $cargo->company_name = $datapost['Company_name'];
         $cargo->company_address = $datapost['Company_address'];
         $cargo->company_phone = $datapost['Company_phone'];
@@ -186,7 +188,7 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
     })->add(new ValidateParam('Insurance_rate','0-7','decimal'))
         ->add(new ValidateParam('Goods_value','0-10','numeric'))
         ->add(new ValidateParam('Goods_data','0-1000'))
-        ->add(new ValidateParam('Instruction','0-250'))
+        ->add(new ValidateParam(['Company_logo','Instruction'],'0-250'))
         ->add(new ValidateParam(['CustomerID','ReferenceID'],'0-20'))
         ->add(new ValidateParam(['Company_fax','Consignor_fax','Consignee_fax'],'0-15','numeric'))
         ->add(new ValidateParam(['Company_email','Consignor_email'],'0-50','email'))

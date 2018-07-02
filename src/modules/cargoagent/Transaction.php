@@ -27,7 +27,7 @@ use PDO;
         // model data transaction
         var $username,$waybill,$recipient,$relation,$deliveryid,
         //Company
-        $company_name,$company_address,$company_phone,$company_fax,$company_email,$company_tin,$signature,
+        $company_logo,$company_name,$company_address,$company_phone,$company_fax,$company_email,$company_tin,$signature,
         // consignor
         $customerid,$consignor_name,$consignor_alias,$consignor_address,$consignor_phone,$consignor_fax,$consignor_email,
         // consignee
@@ -135,7 +135,7 @@ use PDO;
                     try {
 		        		$this->db->beginTransaction();
 				        $sql = "INSERT INTO agent_transaction_waybill 
-                                (WayBill,Company_name,Company_address,Company_phone,Company_fax,Company_email,Company_tin,Signature,
+                                (WayBill,Company_logo,Company_name,Company_address,Company_phone,Company_fax,Company_email,Company_tin,Signature,
                                 CustomerID,Consignor_name,Consignor_alias,Consignor_address,Consignor_phone,Consignor_fax,Consignor_email,
                                 ReferenceID,Consignee_name,Consignee_attention,Consignee_address,Consignee_phone,Consignee_fax,
                                 Mode,Origin,Destination,Estimation,
@@ -144,7 +144,7 @@ use PDO;
                                 Payment,Shipping_cost,Shipping_insurance,Shipping_packing,Shipping_forward,Shipping_handling,Shipping_surcharge,Shipping_admin,Shipping_discount,Shipping_cost_total,
                                 StatusID,Created_at,Created_by) 
         					VALUES 
-                                (:waybill,:company_name,:company_address,:company_phone,:company_fax,:company_email,:company_tin,:signature,
+                                (:waybill,:company_logo,:company_name,:company_address,:company_phone,:company_fax,:company_email,:company_tin,:signature,
                                 :customerid,:consignor_name,:consignor_alias,:consignor_address,:consignor_phone,:consignor_fax,:consignor_email,
                                 :referenceid,:consignee_name,:consignee_attention,:consignee_address,:consignee_phone,:consignee_fax,
                                 :mode,:origin,:destination,:estimation,
@@ -156,6 +156,7 @@ use PDO;
                         $stmt->bindParam(':username', $newusername, PDO::PARAM_STR);
                         $stmt->bindParam(':waybill', $newwaybill, PDO::PARAM_STR);
 
+                        $stmt->bindParam(':company_logo', $this->company_logo, PDO::PARAM_STR);
                         $stmt->bindParam(':company_name', $this->company_name, PDO::PARAM_STR);
                         $stmt->bindParam(':company_address', $this->company_address, PDO::PARAM_STR);
                         $stmt->bindParam(':company_phone', $newcompany_phone, PDO::PARAM_STR);
@@ -293,7 +294,7 @@ use PDO;
         			try {
 		        		$this->db->beginTransaction();
 				        $sql = "UPDATE agent_transaction_waybill a 
-                            SET a.Company_name=:company_name,a.Company_address=:company_address,a.Company_phone=:company_phone,a.Company_fax=:company_fax,a.Company_email=:company_email,a.Company_TIN=:company_tin,a.Signature=:signature,
+                            SET a.Company_logo=:company_logo,a.Company_name=:company_name,a.Company_address=:company_address,a.Company_phone=:company_phone,a.Company_fax=:company_fax,a.Company_email=:company_email,a.Company_TIN=:company_tin,a.Signature=:signature,
                                 a.CustomerID=:customerid,a.Consignor_name=:consignor_name,a.Consignor_alias=:consignor_alias,a.Consignor_address=:consignor_address,
                                     a.Consignor_phone=:consignor_phone,a.Consignor_fax=:consignor_fax,a.Consignor_email=:consignor_email,
                                 a.ReferenceID=:referenceid,a.Consignee_name=:consignee_name,a.Consignee_attention=:consignee_attention,a.Consignee_address=:consignee_address,
@@ -310,6 +311,7 @@ use PDO;
     					$stmt->bindParam(':username', $newusername, PDO::PARAM_STR);
                         $stmt->bindParam(':waybill', $this->waybill, PDO::PARAM_STR);
 
+                        $stmt->bindParam(':company_logo', $this->company_logo, PDO::PARAM_STR);
                         $stmt->bindParam(':company_name', $this->company_name, PDO::PARAM_STR);
                         $stmt->bindParam(':company_address', $this->company_address, PDO::PARAM_STR);
                         $stmt->bindParam(':company_phone', $newcompany_phone, PDO::PARAM_STR);
@@ -759,7 +761,7 @@ use PDO;
 		 */
 		public function showWaybillDetail(){
 			if (Auth::validToken($this->db,$this->token,$this->username)){
-				$sql = "SELECT a.Waybill,a.Company_name as 'Company_name',a.Company_address as 'Company_address',a.Company_phone as 'Company_phone',a.Company_fax as 'Company_fax',a.Company_email as 'Company_email',a.Company_TIN as 'Company_TIN',
+				$sql = "SELECT a.Waybill,a.Company_logo as 'Company_logo',a.Company_name as 'Company_name',a.Company_address as 'Company_address',a.Company_phone as 'Company_phone',a.Company_fax as 'Company_fax',a.Company_email as 'Company_email',a.Company_TIN as 'Company_TIN',
                     a.CustomerID,a.Consignor_name,a.Consignor_alias,a.Consignor_address,a.Consignor_phone,a.Consignor_fax,a.Consignor_email,
                     a.ReferenceID,a.Consignee_name,a.Consignee_attention,a.Consignee_address,a.Consignee_phone,a.Consignee_fax,
                     a.Instruction,a.Description,a.Goods_data,a.Goods_koli,a.Weight,a.Weight_real,
@@ -781,6 +783,7 @@ use PDO;
 								{
 									$datares .= '{
                                         "Company":{
+                                            "Logo":'.JSON::safeEncode($redata['Company_logo']).',
                                             "Name":'.JSON::safeEncode($redata['Company_name']).',
                                             "Origin":'.JSON::safeEncode($redata['Origin']).',
                                             "Address":'.JSON::safeEncode($redata['Company_address']).',
@@ -893,7 +896,7 @@ use PDO;
 		 */
 		public function traceWaybillDetail(){
 			if (Auth::validToken($this->db,$this->token,$this->username)){
-				$sql = "SELECT a.Waybill,a.Company_name as 'Company_name',a.Company_address as 'Company_address',a.Company_Phone as 'Company_phone',a.Company_Fax as 'Company_fax',a.Company_Email as 'Company_email',a.Company_TIN as 'Company_TIN',
+				$sql = "SELECT a.Waybill,a.Company_logo as 'Company_logo',a.Company_name as 'Company_name',a.Company_address as 'Company_address',a.Company_Phone as 'Company_phone',a.Company_Fax as 'Company_fax',a.Company_Email as 'Company_email',a.Company_TIN as 'Company_TIN',
                     a.CustomerID,a.Consignor_name,a.Consignor_alias,a.Consignor_address,a.Consignor_phone,a.Consignor_fax,a.Consignor_email,
                     a.ReferenceID,a.Consignee_name,a.Consignee_attention,a.Consignee_address,a.Consignee_phone,a.Consignee_fax,
                     a.Instruction,a.Description,a.Goods_data,a.Goods_koli,a.Weight,a.Weight_real,
@@ -941,6 +944,7 @@ use PDO;
 								//{
 									$datares .= '{
                                         "Company":{
+                                            "Logo":'.JSON::safeEncode($redata[0]['Company_logo']).',
                                             "Name":'.JSON::safeEncode($redata[0]['Company_name']).',
                                             "Origin":'.JSON::safeEncode($redata[0]['Origin']).',
                                             "Address":'.JSON::safeEncode($redata[0]['Company_address']).',
@@ -1056,7 +1060,7 @@ use PDO;
 		 * @return result process in json encoded data
 		 */
 		public function traceWaybillDetailPublic(){
-			$sql = "SELECT a.Waybill,a.Company_name as 'Company_name',a.Company_address as 'Company_address',a.Company_Phone as 'Company_phone',a.Company_Fax as 'Company_fax',a.Company_Email as 'Company_email',a.Company_TIN as 'Company_TIN',
+			$sql = "SELECT a.Waybill,a.Company_logo as 'Company_logo',a.Company_name as 'Company_name',a.Company_address as 'Company_address',a.Company_Phone as 'Company_phone',a.Company_Fax as 'Company_fax',a.Company_Email as 'Company_email',a.Company_TIN as 'Company_TIN',
                 a.CustomerID,a.Consignor_name,a.Consignor_alias,a.Consignor_address,a.Consignor_phone,a.Consignor_fax,a.Consignor_email,
                 a.ReferenceID,a.Consignee_name,a.Consignee_attention,a.Consignee_address,a.Consignee_phone,a.Consignee_fax,
                 a.Instruction,a.Description,a.Goods_data,a.Goods_koli,a.Weight,a.Weight_real,
@@ -1104,6 +1108,7 @@ use PDO;
 						//{
 							$datares .= '{
                                 "Company":{
+                                    "Logo":'.JSON::safeEncode($redata[0]['Company_logo']).',
                                     "Name":'.JSON::safeEncode($redata[0]['Company_name']).',
                                     "Origin":'.JSON::safeEncode($redata[0]['Origin']).',
                                     "Address":'.JSON::safeEncode($redata[0]['Company_address']).',
@@ -1212,7 +1217,7 @@ use PDO;
 		 * @return result process in json encoded data
 		 */
 		public function traceWaybillSimplePublic(){
-			$sql = "SELECT a.Waybill,a.Company_name,
+			$sql = "SELECT a.Waybill,a.Company_logo,a.Company_name,
                 a.CustomerID,a.Consignor_name,a.Consignor_alias,a.Consignor_address,a.Consignor_phone,a.Consignor_fax,a.Consignor_email,
                 a.ReferenceID,a.Consignee_name,a.Consignee_attention,a.Consignee_address,a.Consignee_phone,a.Consignee_fax,
                 a.Mode,a.Origin,a.Destination,a.Estimation,
@@ -1258,6 +1263,7 @@ use PDO;
 							$datares .= '{
                                 "Data":{
                                     "Waybill":'.JSON::safeEncode($redata[0]['Waybill']).',
+                                    "Logo":'.JSON::safeEncode($redata[0]['Company_logo']).',
                                     "Company":'.JSON::safeEncode($redata[0]['Company_name']).',
                                     "Signature":'.JSON::safeEncode($redata[0]['Signature']).',
                                     "Created_at":'.JSON::safeEncode($redata[0]['Created_at']).',

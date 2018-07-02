@@ -68,6 +68,7 @@ CREATE TABLE `agent_transaction_waybill` (
   `Updated_at` datetime DEFAULT NULL,
   `Updated_by` varchar(20) DEFAULT NULL,
   `Updated_sys` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `Company_logo` varchar(255) DEFAULT NULL,
   `Company_name` varchar(50) DEFAULT NULL,
   `Company_address` varchar(255) DEFAULT NULL,
   `Company_phone` varchar(15) DEFAULT NULL,
