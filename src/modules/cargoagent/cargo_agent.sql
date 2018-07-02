@@ -95,8 +95,8 @@ CREATE TABLE `agent_transaction_waybill` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO user_role (RoleID, Role)
-SELECT * FROM (SELECT '9', 'Agent') AS tmp
+SELECT * FROM (SELECT '9', 'agent') AS tmp
 WHERE NOT EXISTS (
-    SELECT RoleID,Role FROM user_role WHERE RoleID ='9' AND Role = 'Agent'
+    SELECT RoleID,Role FROM user_role WHERE RoleID ='9' AND Role = 'agent'
 ) LIMIT 1;
 SET FOREIGN_KEY_CHECKS=1;
