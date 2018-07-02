@@ -35,6 +35,7 @@ $s = (empty($_GET['s'])?'':$_GET['s']);?>
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)"><?php echo Core::lang('extension')?></a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0)"><?php echo Core::lang('agent')?></a></li>
                         <li class="breadcrumb-item active"><?php echo Core::lang('deposit')?></li>
                     </ol>
                 </div>
