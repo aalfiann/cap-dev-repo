@@ -5,7 +5,9 @@ CAP Development
 ![API](https://img.shields.io/badge/api-100%25-green.svg) 
 ![Website](https://img.shields.io/badge/website-100%25-green.svg)<br><br>
 ![Timeline1](https://img.shields.io/badge/timeline1-100%25-green.svg)<br>
-![Timeline2](https://img.shields.io/badge/timeline2-10%25-red.svg)<br>
+![Timeline2](https://img.shields.io/badge/timeline2-100%25-green.svg)<br>
+![Timeline3](https://img.shields.io/badge/timeline3-100%25-green.svg)<br>
+![Timeline4](https://img.shields.io/badge/timeline4-10%25-red.svg)<br>
 
 
 Untuk melihat status proses development [klik disini](https://github.com/aalfiann/cap-dev-repo/commits/master).<br>
@@ -62,10 +64,32 @@ Pengisian status antaran dan retur barang kiriman
 9. Void System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
 Fitur pembatalan dokumen kiriman
 10. Inquiry Data >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
-Untuk mendapatkan info detail data dalam sistem<br>
-
+Untuk mendapatkan info detail data waybill<br>
 
 Timeline plan 3:
+---------------
+Proses pengembangan sekitar 2 bulan
+1. Packager Module System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
+Fitur modular untuk mempermudah pengembangan core sistem secara portable<br>
+2. Flexible Config Module >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
+Integrasi modul konfigurasi per user Agent<br>
+3. Deposit Module >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
+Integrasi modul Deposit System untuk Agent secara global<br>
+4. Cargo Agent System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
+Integrasi Core sistem untuk Agent secara global<br>
+5. Transaction Data Agent >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
+Transaksi Cargo untuk Agent<br>
+6. Reporting Data Agent >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
+Laporan data semua transaksi termasuk harian, mingguan, bulanan dan tahunan untuk Agent<br>
+7. Proof Of Delivery Agent >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
+Pengisian status antaran dan retur barang kiriman untuk Agent<br>
+8. Void System Agent >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
+Fitur pembatalan dokumen kiriman untuk Agent<br>
+9. Inquiry Data Agent >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
+Untuk mendapatkan info detail data waybill untuk Agent<br>
+
+
+Timeline plan 4:
 ---------------
 Proses pengembangan sekitar 3 bulan
 1. Corporate System >> ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) `on progress`<br>
@@ -85,7 +109,7 @@ Laporan terhadap customer dalam bentuk SMS<br>
 8. Blog System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
 Blog atau konten manajemen sistem berguna untuk pembuatan artikel, berita, promosi, dokumentasi dan lain-lain<br>
 
-Timeline plan 4:
+Timeline plan 5:
 ---------------
 Proses pengembangan sekitar 6 bulan
 1. Mobile App Android >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
