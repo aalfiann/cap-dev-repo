@@ -213,13 +213,16 @@
                                 {   
                                     "title": "> status pod",
                                     "link": "modul-agent-pod.php"
+                                },
+                                {
+                                    "title": "> void",
+                                    "link": "modul-agent-void.php"
                                 },{   
                                     "title": "> report",
-                                    "link": "modul-agent-report.php"
-                                },
-                                {   
-                                    "title": "> check status",
-                                    "link": "modul-agent-check-status.php"
+                                    "link": "modul-report-agent-transaction.php"
+                                },{
+                                    "title": "> info waybill",
+                                    "link": "modul-inquiry-agent-waybill.php"
                                 }
                             ]
 				        },
