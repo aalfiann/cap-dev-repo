@@ -68,8 +68,10 @@ $vocabularies[] = [
     'agent_setting_other' => 'Other',
     'agent_setting_origin_district' => 'Origin District',
     'agent_setting_admin_cost' => 'Admin Cost',
+    'agent_setting_warning_transaction_title' => 'Transaction Cancelled!',
+    'agent_setting_warning_transaction_setting' => 'You have not completed Agent data setting yet!',
     //agent helper
-    'agent_helper_logo' => 'The size of the standard company logo must be 100x60 px.',
+    'agent_helper_logo' => 'The size of the standard company logo must be 150x60 px.',
     'agent_helper_company_name' => 'Waybill will automatically use company name if there is no any logo.',
     'agent_helper_company_website' => 'Your website company.',
     'agent_helper_company_coordinat' => 'You can get the coordinat location from <a href="http://map.google.com" target="_blank">Google Map</a>',

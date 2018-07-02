@@ -68,8 +68,10 @@ $vocabularies[] = [
     'agent_setting_other' => 'Lain - lain',
     'agent_setting_origin_district' => 'Kota/Kabupaten',
     'agent_setting_admin_cost' => 'Biaya Admin',
+    'agent_setting_warning_transaction_title' => 'Transaki Ditunda!',
+    'agent_setting_warning_transaction_setting' => 'Anda belum melengkapi pengaturan data Agen!',
     //agent helper
-    'agent_helper_logo' => 'Standarisasi ukuran logo untuk perusahaan harus 100x60 px.',
+    'agent_helper_logo' => 'Standarisasi ukuran logo untuk perusahaan harus 150x60 px.',
     'agent_helper_company_name' => 'Waybill akan otomatis menggunakan nama perusahaan jika tidak ada logo',
     'agent_helper_company_website' => 'Website perusahaan Anda.',
     'agent_helper_company_coordinat' => 'Anda bisa mendapatkan lokasi koordinat dari <a href="http://map.google.com" target="_blank">Google Map</a>',
