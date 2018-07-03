@@ -353,7 +353,12 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
         $cargo->waybill = filter_var((empty($_GET['no'])?'':$_GET['no']),FILTER_SANITIZE_STRING);
         $response = $this->cache->withEtag($response, $this->etag.'-'.trim($_SERVER['REQUEST_URI'],'/'));
         $body = $response->getBody();
-        $body->write($cargo->traceWaybillDetailPublic());
+        if (SimpleCache::isCached(300,["apikey","lang","no"])){
+            $datajson = SimpleCache::load(["apikey","lang","no"]);
+        } else {
+            $datajson = SimpleCache::save($cargo->traceWaybillDetailPublic(),["apikey","lang","no"]);
+        }
+        $body->write($datajson);
         return classes\Cors::modify($response,$body,200);
     })->add(new ValidateParamURL('no','1-20'))->add(new ApiKey);
 
@@ -364,7 +369,12 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
         $cargo->waybill = filter_var((empty($_GET['no'])?'':$_GET['no']),FILTER_SANITIZE_STRING);
         $response = $this->cache->withEtag($response, $this->etag.'-'.trim($_SERVER['REQUEST_URI'],'/'));
         $body = $response->getBody();
-        $body->write($cargo->traceWaybillSimplePublic());
+        if (SimpleCache::isCached(300,["apikey","lang","no"])){
+            $datajson = SimpleCache::load(["apikey","lang","no"]);
+        } else {
+            $datajson = SimpleCache::save($cargo->traceWaybillSimplePublic(),["apikey","lang","no"]);
+        }
+        $body->write($datajson);
         return classes\Cors::modify($response,$body,200);
     })->add(new ValidateParamURL('no','1-20'))->add(new ApiKey);
 
@@ -393,5 +403,29 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
         $cargo->token = $request->getAttribute('token');
         $body = $response->getBody();
         $body->write($cargo->getWaybillID());
+        return classes\Cors::modify($response,$body,200);
+    });
+
+    // GET api to get all data page for statistic purpose
+    $app->get('/cargoagent/transaction/stats/data/summary/{year}/{username}/{token}', function (Request $request, Response $response) {
+        $cargo = new Transaction($this->db);
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $cargo->token = $request->getAttribute('token');
+        $cargo->username = $request->getAttribute('username');
+        $cargo->year = $request->getAttribute('year');
+        $body = $response->getBody();
+        $body->write($cargo->statSalesTransactionSummaryYear());
+        return classes\Cors::modify($response,$body,200);
+    });
+
+    // GET api to get all data page for statistic chart purpose
+    $app->get('/cargoagent/transaction/stats/data/chart/{year}/{username}/{token}', function (Request $request, Response $response) {
+        $cargo = new Transaction($this->db);
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $cargo->token = $request->getAttribute('token');
+        $cargo->username = $request->getAttribute('username');
+        $cargo->year = $request->getAttribute('year');
+        $body = $response->getBody();
+        $body->write($cargo->statSalesTransactionChartYear());
         return classes\Cors::modify($response,$body,200);
     });

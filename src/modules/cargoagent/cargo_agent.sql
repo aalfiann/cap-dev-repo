@@ -97,6 +97,12 @@ CREATE TABLE `agent_transaction_waybill` (
 INSERT INTO user_role (RoleID, Role)
 SELECT * FROM (SELECT '9', 'agent') AS tmp
 WHERE NOT EXISTS (
-    SELECT RoleID,Role FROM user_role WHERE RoleID ='9' AND Role = 'agent'
+    SELECT RoleID,Role FROM user_role WHERE RoleID ='9'
+) LIMIT 1;
+
+INSERT INTO core_status (StatusID, Status)
+SELECT * FROM (SELECT '53', 'return') AS tmp
+WHERE NOT EXISTS (
+    SELECT StatusID,Status FROM core_status WHERE StatusID ='53'
 ) LIMIT 1;
 SET FOREIGN_KEY_CHECKS=1;
