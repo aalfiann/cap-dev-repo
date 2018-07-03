@@ -227,8 +227,8 @@
                             ]
 				        },
                         {
-                            "title": "help",
-                            "link": "modul-agent-help.php"
+                            "title": "chart",
+                            "link": "modul-agent-chart.php"
                         }
         		    ]
                 },
