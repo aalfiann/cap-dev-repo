@@ -468,7 +468,7 @@ $s = (empty($_GET['s'])?'':$_GET['s']);
                         { data: "Updated_at" },
                         { data: "Updated_by" }
                     ],
-                    bFilter: false,
+                    bFilter: true,
                     paging:   false,
                     info: false,
                     processing: true,
