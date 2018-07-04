@@ -94,12 +94,6 @@ CREATE TABLE `agent_transaction_waybill` (
   KEY `Signature` (`Signature`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO user_role (RoleID, Role)
-SELECT * FROM (SELECT '9', 'agent') AS tmp
-WHERE NOT EXISTS (
-    SELECT RoleID,Role FROM user_role WHERE RoleID ='9'
-) LIMIT 1;
-
 INSERT INTO core_status (StatusID, Status)
 SELECT * FROM (SELECT '53', 'return') AS tmp
 WHERE NOT EXISTS (

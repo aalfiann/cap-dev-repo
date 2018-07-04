@@ -91,7 +91,7 @@ use PDO;
         public function add(){
             if (Auth::validToken($this->db,$this->token,$this->username)){
                 $roles = Auth::getRoleID($this->db,$this->token);
-                if ($roles < 3 || $roles == 9){
+                if ($roles != 5){
                     $newusername = strtolower($this->username);
                     $newwaybill = $this->generateWaybill('AGT');
                     
@@ -264,7 +264,7 @@ use PDO;
         public function update(){
             if (Auth::validToken($this->db,$this->token,$this->username)){
                 $roles = Auth::getRoleID($this->db,$this->token);
-                if ($roles < 3 || $roles == 9){
+                if ($roles != 5){
                     $newusername = strtolower($this->username);
                     
 			        $newcompany_phone = Validation::integerOnly($this->company_phone);
@@ -460,25 +460,17 @@ use PDO;
         public function void(){
             if (Auth::validToken($this->db,$this->token,$this->username)){
                 $roles = Auth::getRoleID($this->db,$this->token);
-                if ($roles < 3 || $roles == 9){
+                if ($roles != 5){
                     $newusername = strtolower($this->username);
     				try{
                         $this->db->beginTransaction();
-                        if ($roles < 3){
-                            $sql = "UPDATE agent_transaction_waybill a 
+
+                        $sql = "UPDATE agent_transaction_waybill a 
                                 SET a.StatusID = '47',a.Updated_at=current_timestamp,a.Updated_by=:username 
-                                WHERE a.WayBill = :waybill AND a.StatusID='29';";
-                            $stmt = $this->db->prepare($sql);
-                            $stmt->bindParam(':username', $newusername, PDO::PARAM_STR);
-                            $stmt->bindParam(':waybill', $this->waybill, PDO::PARAM_STR);
-                        } else if($roles == 9) {
-                            $sql = "UPDATE agent_transaction_waybill a 
-                                SET a.StatusID = '47',a.Updated_at=current_timestamp,a.Updated_by=:username 
-                                WHERE a.WayBill = :waybill  AND a.StatusID='29' AND a.Created_by = :username;";
-                            $stmt = $this->db->prepare($sql);
-                            $stmt->bindParam(':username', $newusername, PDO::PARAM_STR);
-                            $stmt->bindParam(':waybill', $this->waybill, PDO::PARAM_STR);
-                        }
+                                WHERE a.WayBill = :waybill AND a.StatusID='29' ".(($roles < 3)?"":"AND a.Created_by=:username").";";
+                        $stmt = $this->db->prepare($sql);
+                        $stmt->bindParam(':username', $newusername, PDO::PARAM_STR);
+                        $stmt->bindParam(':waybill', $this->waybill, PDO::PARAM_STR);
 						
 						if ($stmt->execute()) {
                             if ($stmt->rowCount() > 0){
@@ -533,7 +525,7 @@ use PDO;
         public function delivered(){
             if (Auth::validToken($this->db,$this->token,$this->username)){
                 $roles = Auth::getRoleID($this->db,$this->token);
-                if ($roles < 3 || $roles == 9){
+                if ($roles != 5){
                     $newusername = strtolower($this->username);
                     $newrecipient = strtoupper($this->recipient);
                     $newrelation = strtoupper($this->relation);
@@ -601,7 +593,7 @@ use PDO;
         public function failed(){
             if (Auth::validToken($this->db,$this->token,$this->username)){
                 $roles = Auth::getRoleID($this->db,$this->token);
-                if ($roles < 3 || $roles == 9){
+                if ($roles != 5){
                     $newusername = strtolower($this->username);
     				try{
                         $this->db->beginTransaction();
@@ -665,7 +657,7 @@ use PDO;
         public function returned($opt='1'){
             if (Auth::validToken($this->db,$this->token,$this->username)){
                 $roles = Auth::getRoleID($this->db,$this->token);
-                if ($roles < 3 || $roles == 9){
+                if ($roles != 5){
                     $newusername = strtolower($this->username);
     				try{
                         $this->db->beginTransaction();
@@ -1443,7 +1435,7 @@ use PDO;
 				$newyear = Validation::integerOnly($this->year);
 				$newusername = strtolower($this->username);
 				$roles = Auth::getRoleID($this->db,$this->token);
-				if($roles < '3' || $roles == '9'){
+				if($roles != 5){
 					$sql = "SELECT 
                         (SELECT count(x.Waybill) FROM agent_transaction_waybill x WHERE x.StatusID='41' AND x.Created_by=:username AND year(x.Created_at)=:newyear) AS 'success',
                         (SELECT count(x.Waybill) FROM agent_transaction_waybill x WHERE x.StatusID='29' AND x.Created_by=:username AND year(x.Created_at)=:newyear) AS 'on_process',
@@ -1509,7 +1501,7 @@ use PDO;
 				$newyear = Validation::integerOnly($this->year);
 				$newusername = strtolower($this->username);
 				$roles = Auth::getRoleID($this->db,$this->token);
-				if($roles < '3' || $roles == '9'){
+				if($roles != 5){
 					$sql = "SELECT 
                         (SELECT sum(a.Shipping_cost_total) AS Total FROM agent_transaction_waybill a WHERE a.Created_by=:username AND a.StatusID <> '47' AND YEAR(a.Created_at) = :newyear AND MONTH(a.Created_at) = 1 GROUP BY MONTH(a.Created_at)) AS 'Jan',
                         (SELECT sum(a.Shipping_cost_total) AS Total FROM agent_transaction_waybill a WHERE a.Created_by=:username AND a.StatusID <> '47' AND YEAR(a.Created_at) = :newyear AND MONTH(a.Created_at) = 2 GROUP BY MONTH(a.Created_at)) AS 'Feb',
