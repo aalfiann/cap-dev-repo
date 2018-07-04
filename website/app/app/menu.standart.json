@@ -80,6 +80,10 @@
                         {
                             "title": "transaction",
                             "link": "modul-report-transaction.php"
+                        },
+                        {
+                            "title": "chart",
+                            "link": "modul-chart.php"
                         }
                     ]
                 },
