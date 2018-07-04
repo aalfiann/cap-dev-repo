@@ -5,7 +5,7 @@
         "description": "Cargo Agent management system",
         "version": "1.0",
         "require": {
-            "reSlim": "1.10.3"
+            "reSlim": "1.9.0"
         },
         "dependency": ["modules/deposit"],
         "license": {

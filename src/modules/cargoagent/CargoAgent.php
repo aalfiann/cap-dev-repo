@@ -25,15 +25,6 @@ use PDO;                                            //To connect with database
 
         //master var
         var $username,$token;
-
-        //data var
-        var $id,$fullname,$address,$telp,$email,$website;
-
-        //search var
-        var $search;
-        
-        //pagination var
-		var $page,$itemsPerPage;
 		
 		//multi language
 		var $lang;
