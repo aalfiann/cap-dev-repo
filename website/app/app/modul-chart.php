@@ -35,8 +35,8 @@ if( $group > '2' && ($group != '6' || $group != '7') ) {Core::goToPage('modul-us
                 </div>
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)"><?php echo Core::lang('extension')?></a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0)"><?php echo Core::lang('agent')?></a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0)"><?php echo Core::lang('system')?></a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0)"><?php echo Core::lang('report')?></a></li>
                         <li class="breadcrumb-item active"><?php echo Core::lang('chart')?></li>
                     </ol>
                 </div>
@@ -208,9 +208,6 @@ if( $group > '2' && ($group != '6' || $group != '7') ) {Core::goToPage('modul-us
             });
             
         });
-        
-
-// line chart with area
     </script>
 </body>
 

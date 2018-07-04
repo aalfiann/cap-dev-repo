@@ -208,9 +208,6 @@ if( $group > '3' && $group < '9' ) {Core::goToPage('modul-user-profile.php');exi
             });
             
         });
-        
-
-// line chart with area
     </script>
 </body>
 
