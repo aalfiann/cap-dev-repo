@@ -11,6 +11,7 @@ use \modules\cargo\Payment as Payment;
     $app->post('/cargo/payment/data/new', function (Request $request, Response $response) {
         $cargo = new Payment($this->db);
         $datapost = $request->getParsedBody();
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
         $cargo->payment = $datapost['Payment'];
@@ -23,7 +24,8 @@ use \modules\cargo\Payment as Payment;
     // POST api to update payment
     $app->post('/cargo/payment/data/update', function (Request $request, Response $response) {
         $cargo = new Payment($this->db);
-        $datapost = $request->getParsedBody();    
+        $datapost = $request->getParsedBody();
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
         $cargo->paymentid = $datapost['PaymentID'];
@@ -38,7 +40,8 @@ use \modules\cargo\Payment as Payment;
     // POST api to delete payment
     $app->post('/cargo/payment/data/delete', function (Request $request, Response $response) {
         $cargo = new Payment($this->db);
-        $datapost = $request->getParsedBody();    
+        $datapost = $request->getParsedBody();
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->paymentid = $datapost['PaymentID'];
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
@@ -52,6 +55,7 @@ use \modules\cargo\Payment as Payment;
     // GET api to show all data payment pagination registered user
     $app->get('/cargo/payment/data/search/{username}/{token}/{page}/{itemsperpage}/', function (Request $request, Response $response) {
         $cargo = new Payment($this->db);
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->search = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);
         $cargo->username = $request->getAttribute('username');
         $cargo->token = $request->getAttribute('token');
@@ -65,15 +69,16 @@ use \modules\cargo\Payment as Payment;
     // GET api to show all data payment pagination public
     $app->map(['GET','OPTIONS'],'/cargo/payment/data/public/search/{page}/{itemsperpage}/', function (Request $request, Response $response) {
         $cargo = new Payment($this->db);
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->search = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);
         $cargo->page = $request->getAttribute('page');
         $cargo->itemsPerPage = $request->getAttribute('itemsperpage');
         $body = $response->getBody();
         $response = $this->cache->withEtag($response, $this->etag2hour.'-'.trim($_SERVER['REQUEST_URI'],'/'));
-        if (SimpleCache::isCached(3600,["apikey","query"])){
-            $datajson = SimpleCache::load(["apikey","query"]);
+        if (SimpleCache::isCached(3600,["apikey","query","lang"])){
+            $datajson = SimpleCache::load(["apikey","query","lang"]);
         } else {
-            $datajson = SimpleCache::save($cargo->searchPaymentAsPaginationPublic(),["apikey","query"]);
+            $datajson = SimpleCache::save($cargo->searchPaymentAsPaginationPublic(),["apikey","query","lang"]);
         }
         $body->write($datajson);
         return classes\Cors::modify($response,$body,200,$request);
@@ -82,6 +87,7 @@ use \modules\cargo\Payment as Payment;
     // GET api to show all data payment
     $app->get('/cargo/payment/data/list/{username}/{token}', function (Request $request, Response $response) {
         $cargo = new Payment($this->db);
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->username = $request->getAttribute('username');
         $cargo->token = $request->getAttribute('token');
         $body = $response->getBody();
@@ -92,12 +98,13 @@ use \modules\cargo\Payment as Payment;
     // GET api to show all data payment public
     $app->map(['GET','OPTIONS'],'/cargo/payment/data/list/public/', function (Request $request, Response $response) {
         $cargo = new Payment($this->db);
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $body = $response->getBody();
         $response = $this->cache->withEtag($response, $this->etag2hour.'-'.trim($_SERVER['REQUEST_URI'],'/'));
-        if (SimpleCache::isCached(3600,["apikey"])){
-            $datajson = SimpleCache::load(["apikey"]);
+        if (SimpleCache::isCached(3600,["apikey","lang"])){
+            $datajson = SimpleCache::load(["apikey","lang"]);
         } else {
-            $datajson = SimpleCache::save($cargo->showOptionPaymentPublic(),["apikey"]);
+            $datajson = SimpleCache::save($cargo->showOptionPaymentPublic(),["apikey","lang"]);
         }
         $body->write($datajson);
         return classes\Cors::modify($response,$body,200,$request);

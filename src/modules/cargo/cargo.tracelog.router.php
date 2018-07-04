@@ -8,6 +8,7 @@ use \modules\cargo\TraceLog as TraceLog;
     $app->post('/cargo/trace/data/new', function (Request $request, Response $response) {
         $cargo = new TraceLog($this->db);
         $datapost = $request->getParsedBody();
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
         $cargo->codeid = $datapost['CodeID'];
@@ -22,7 +23,8 @@ use \modules\cargo\TraceLog as TraceLog;
     $app->post('/cargo/trace/data/update', function (Request $request, Response $response) {
         /*
         $cargo = new TraceLog($this->db);
-        $datapost = $request->getParsedBody();    
+        $datapost = $request->getParsedBody();
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
         $cargo->modeid = $datapost['ModeID'];
@@ -37,7 +39,8 @@ use \modules\cargo\TraceLog as TraceLog;
     $app->post('/cargo/trace/data/delete/item', function (Request $request, Response $response) {
         /*
         $cargo = new TraceLog($this->db);
-        $datapost = $request->getParsedBody();    
+        $datapost = $request->getParsedBody();
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->modeid = $datapost['ModeID'];
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
@@ -51,7 +54,8 @@ use \modules\cargo\TraceLog as TraceLog;
     $app->post('/cargo/trace/data/delete/code', function (Request $request, Response $response) {
         /*
         $cargo = new TraceLog($this->db);
-        $datapost = $request->getParsedBody();    
+        $datapost = $request->getParsedBody();
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->modeid = $datapost['ModeID'];
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
@@ -65,6 +69,7 @@ use \modules\cargo\TraceLog as TraceLog;
     $app->get('/cargo/trace/data/search/{username}/{token}/{page}/{itemsperpage}/', function (Request $request, Response $response) {
         /*
         $cargo = new TraceLog($this->db);
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->search = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);
         $cargo->username = $request->getAttribute('username');
         $cargo->token = $request->getAttribute('token');
@@ -80,6 +85,7 @@ use \modules\cargo\TraceLog as TraceLog;
     $app->get('/cargo/trace/data/history/{username}/{token}/', function (Request $request, Response $response) {
         /*
         $cargo = new TraceLog($this->db);
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->codeid = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);
         $cargo->username = $request->getAttribute('username');
         $cargo->token = $request->getAttribute('token');

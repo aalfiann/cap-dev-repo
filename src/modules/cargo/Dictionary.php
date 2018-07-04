@@ -81,9 +81,6 @@ namespace modules\cargo;
                 case 'id':
                     return self::$id[$key];
                 break;
-                case 'en':
-                    return self::$en[$key];
-                break;
                 default:
                     return self::$id[$key];
             }

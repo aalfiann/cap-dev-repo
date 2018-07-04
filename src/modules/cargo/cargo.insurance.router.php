@@ -10,6 +10,7 @@ use \modules\cargo\Insurance as Insurance;
     $app->post('/cargo/insurance/data/new', function (Request $request, Response $response) {
         $cargo = new Insurance($this->db);
         $datapost = $request->getParsedBody();
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
         $cargo->insurance = $datapost['Insurance'];
@@ -25,7 +26,8 @@ use \modules\cargo\Insurance as Insurance;
     // POST api to update insurance
     $app->post('/cargo/insurance/data/update', function (Request $request, Response $response) {
         $cargo = new Insurance($this->db);
-        $datapost = $request->getParsedBody();    
+        $datapost = $request->getParsedBody();
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
         $cargo->insuranceid = $datapost['InsuranceID'];
@@ -43,7 +45,8 @@ use \modules\cargo\Insurance as Insurance;
     // POST api to delete insurance
     $app->post('/cargo/insurance/data/delete', function (Request $request, Response $response) {
         $cargo = new Insurance($this->db);
-        $datapost = $request->getParsedBody();    
+        $datapost = $request->getParsedBody();
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);    
         $cargo->insuranceid = $datapost['InsuranceID'];
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
@@ -57,6 +60,7 @@ use \modules\cargo\Insurance as Insurance;
     // GET api to show all data insurance pagination registered user
     $app->get('/cargo/insurance/data/search/{username}/{token}/{page}/{itemsperpage}/', function (Request $request, Response $response) {
         $cargo = new Insurance($this->db);
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->search = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);
         $cargo->username = $request->getAttribute('username');
         $cargo->token = $request->getAttribute('token');
@@ -70,15 +74,16 @@ use \modules\cargo\Insurance as Insurance;
     // GET api to show all data insurance pagination public
     $app->map(['GET','OPTIONS'],'/cargo/insurance/data/public/search/{page}/{itemsperpage}/', function (Request $request, Response $response) {
         $cargo = new Insurance($this->db);
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->search = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);
         $cargo->page = $request->getAttribute('page');
         $cargo->itemsPerPage = $request->getAttribute('itemsperpage');
         $body = $response->getBody();
         $response = $this->cache->withEtag($response, $this->etag2hour.'-'.trim($_SERVER['REQUEST_URI'],'/'));
-        if (SimpleCache::isCached(3600,["apikey","query"])){
-            $datajson = SimpleCache::load(["apikey","query"]);
+        if (SimpleCache::isCached(3600,["apikey","query","lang"])){
+            $datajson = SimpleCache::load(["apikey","query","lang"]);
         } else {
-            $datajson = SimpleCache::save($cargo->searchInsuranceAsPaginationPublic(),["apikey","query"]);
+            $datajson = SimpleCache::save($cargo->searchInsuranceAsPaginationPublic(),["apikey","query","lang"]);
         }
         $body->write($datajson);
         return classes\Cors::modify($response,$body,200,$request);
