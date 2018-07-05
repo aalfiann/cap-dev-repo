@@ -208,3 +208,17 @@ use \classes\JSON as JSON;                                      //JSON class    
         $body->write($deposit->showMutationAdmin());
         return classes\Cors::modify($response,$body,200);
     })->add(new ValidateParamURL('query'))->add(new ValidateParamURL(['firstdate','lastdate'],'','date'));
+
+    // GET api to show all data balance pagination for admin
+    $app->get('/deposit/transaction/admin/data/balance/{username}/{token}/{page}/{itemsperpage}/', function (Request $request, Response $response) {
+        $deposit = new Deposit($this->db);
+        $deposit->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $deposit->search = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);
+        $deposit->username = $request->getAttribute('username');
+        $deposit->token = $request->getAttribute('token');
+        $deposit->page = $request->getAttribute('page');
+        $deposit->itemsPerPage = $request->getAttribute('itemsperpage');
+        $body = $response->getBody();
+        $body->write($deposit->showBalanceAdmin());
+        return classes\Cors::modify($response,$body,200);
+    })->add(new ValidateParamURL('query'));

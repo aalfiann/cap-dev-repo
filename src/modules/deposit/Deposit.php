@@ -599,4 +599,89 @@ use PDO;                                            //To connect with database
 			return JSON::safeEncode($data,true);
 	        $this->db= null;
         }
+
+        /**
+         * Show balance as pagination for admin
+         */
+        public function showBalanceAdmin(){
+            if (Auth::validToken($this->db,$this->token,$this->username)){
+                $role = Auth::getRoleID($this->db,$this->token);
+                if ($role == '1' || $role == '2'){
+                    $search = "%$this->search%";
+				    //count total row
+    				$sqlcountrow = "SELECT count(a.DepositID) as 'TotalRow'
+                        from deposit_balance a
+                        where a.DepositID like :search
+                        order by a.DepositID asc;";
+                    $stmt = $this->db->prepare($sqlcountrow);
+                    $stmt->bindParam(':search', $search, PDO::PARAM_STR);
+                    
+    				if ($stmt->execute()) {	
+        	    		if ($stmt->rowCount() > 0){
+		    				$single = $stmt->fetch();
+						
+			    			// Paginate won't work if page and items per page is negative.
+				    		// So make sure that page and items per page is always return minimum zero number.
+					    	$newpage = Validation::integerOnly($this->page);
+						    $newitemsperpage = Validation::integerOnly($this->itemsPerPage);
+    						$limits = (((($newpage-1)*$newitemsperpage) <= 0)?0:(($newpage-1)*$newitemsperpage));
+	    					$offsets = (($newitemsperpage <= 0)?0:$newitemsperpage);
+
+		    				// Query Data
+			    			$sql = "SELECT a.DepositID,a.Balance 
+                                from deposit_balance a
+                                where a.DepositID like :search
+                                order by a.DepositID asc LIMIT :limpage , :offpage;";
+	    					$stmt2 = $this->db->prepare($sql);
+		    				$stmt2->bindParam(':search', $search, PDO::PARAM_STR);
+					    	$stmt2->bindValue(':limpage', (INT) $limits, PDO::PARAM_INT);
+    						$stmt2->bindValue(':offpage', (INT) $offsets, PDO::PARAM_INT);
+						
+	    					if ($stmt2->execute()){
+                                $pagination = new \classes\Pagination();
+                                $pagination->lang = $this->lang;
+			    				$pagination->totalRow = $single['TotalRow'];
+				    			$pagination->page = $this->page;
+					    		$pagination->itemsPerPage = $this->itemsPerPage;
+						    	$pagination->fetchAllAssoc = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+    							$data = $pagination->toDataArray();
+	    					} else {
+		    					$data = [
+        	        	    		'status' => 'error',
+		            		    	'code' => 'RS202',
+	    			        	    'message' => CustomHandlers::getreSlimMessage('RS202',$this->lang)
+						    	];	
+    						}			
+	    			    } else {
+    	        			$data = [
+        	        			'status' => 'error',
+		    	        		'code' => 'RS601',
+        			        	'message' => CustomHandlers::getreSlimMessage('RS601',$this->lang)
+						    ];
+    		    	    }          	   	
+	    			} else {
+		    			$data = [
+    	        			'status' => 'error',
+				    		'code' => 'RS202',
+	        		        'message' => CustomHandlers::getreSlimMessage('RS202',$this->lang)
+    					];
+	    			}
+                } else {
+                    $data = [
+                        'status' => 'error',
+                        'code' => 'RS404',
+                        'message' => CustomHandlers::getreSlimMessage('RS404',$this->lang)
+                    ];
+                }
+			} else {
+				$data = [
+	    			'status' => 'error',
+					'code' => 'RS401',
+        	    	'message' => CustomHandlers::getreSlimMessage('RS401',$this->lang)
+				];
+			}		
+        
+			return JSON::safeEncode($data,true);
+	        $this->db= null;
+        }
     }
