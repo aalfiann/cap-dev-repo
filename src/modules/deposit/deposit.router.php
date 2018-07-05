@@ -27,9 +27,9 @@ use \classes\JSON as JSON;                                      //JSON class    
     // Installation 
     $app->get('/deposit/install/{username}/{token}', function (Request $request, Response $response) {
         $deposit = new Deposit($this->db);
+        $deposit->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $deposit->username = $request->getAttribute('username');
         $deposit->token = $request->getAttribute('token');
-        $deposit->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $body = $response->getBody();
         $body->write($deposit->install());
         return classes\Cors::modify($response,$body,200);
@@ -38,9 +38,9 @@ use \classes\JSON as JSON;                                      //JSON class    
     // Uninstall (This will clear all data) 
     $app->get('/deposit/uninstall/{username}/{token}', function (Request $request, Response $response) {
         $deposit = new Deposit($this->db);
+        $deposit->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $deposit->username = $request->getAttribute('username');
         $deposit->token = $request->getAttribute('token');
-        $deposit->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $body = $response->getBody();
         $body->write($deposit->uninstall());
         return classes\Cors::modify($response,$body,200);
@@ -68,8 +68,8 @@ use \classes\JSON as JSON;                                      //JSON class    
     // POST api to create new transaction
     $app->post('/deposit/transaction/new', function (Request $request, Response $response) {
         $deposit = new Deposit($this->db);
-        $datapost = $request->getParsedBody();
         $deposit->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $datapost = $request->getParsedBody();
         $deposit->username = $datapost['Username'];
         $deposit->token = $datapost['Token'];
         $deposit->depid = $datapost['DepositID'];
@@ -89,8 +89,8 @@ use \classes\JSON as JSON;                                      //JSON class    
     // POST api to create new transaction debet
     $app->post('/deposit/transaction/debet', function (Request $request, Response $response) {
         $deposit = new Deposit($this->db);
-        $datapost = $request->getParsedBody();
         $deposit->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $datapost = $request->getParsedBody();
         $deposit->username = $datapost['Username'];
         $deposit->token = $datapost['Token'];
         $deposit->depid = $datapost['DepositID'];
@@ -109,8 +109,8 @@ use \classes\JSON as JSON;                                      //JSON class    
     // POST api to create new transaction credit
     $app->post('/deposit/transaction/credit', function (Request $request, Response $response) {
         $deposit = new Deposit($this->db);
-        $datapost = $request->getParsedBody();
         $deposit->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $datapost = $request->getParsedBody();
         $deposit->username = $datapost['Username'];
         $deposit->token = $datapost['Token'];
         $deposit->depid = $datapost['DepositID'];
@@ -129,8 +129,8 @@ use \classes\JSON as JSON;                                      //JSON class    
     // POST api to create new transaction topup
     $app->post('/deposit/transaction/topup', function (Request $request, Response $response) {
         $deposit = new Deposit($this->db);
-        $datapost = $request->getParsedBody();
         $deposit->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $datapost = $request->getParsedBody();
         $deposit->username = $datapost['Username'];
         $deposit->token = $datapost['Token'];
         $deposit->depid = $datapost['DepositID'];

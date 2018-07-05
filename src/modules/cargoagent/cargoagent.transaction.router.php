@@ -323,7 +323,7 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
         }
         $body->write($datajson);
         return classes\Cors::modify($response,$body,200);
-    })->add(new ValidateParamURL('no','1-20'))->add(new ApiKey);
+    })->add(new ValidateParamURL('lang','0-2'))->add(new ValidateParamURL('no','1-20'))->add(new ApiKey);
 
     // GET api to show data trace waybill simple public
     $app->get('/cargoagent/transaction/data/public/trace/simple/waybill/', function (Request $request, Response $response) {
@@ -339,7 +339,7 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
         }
         $body->write($datajson);
         return classes\Cors::modify($response,$body,200);
-    })->add(new ValidateParamURL('no','1-20'))->add(new ApiKey);
+    })->add(new ValidateParamURL('lang','0-2'))->add(new ValidateParamURL('no','1-20'))->add(new ApiKey);
 
     // GET api to show all data transaction pagination registered user
     $app->get('/cargoagent/transaction/data/search/{username}/{token}/{page}/{itemsperpage}/', function (Request $request, Response $response) {
