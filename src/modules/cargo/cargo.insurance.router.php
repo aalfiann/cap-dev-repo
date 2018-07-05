@@ -9,8 +9,8 @@ use \modules\cargo\Insurance as Insurance;
     // POST api to create new insurance
     $app->post('/cargo/insurance/data/new', function (Request $request, Response $response) {
         $cargo = new Insurance($this->db);
-        $datapost = $request->getParsedBody();
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $datapost = $request->getParsedBody();
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
         $cargo->insurance = $datapost['Insurance'];
@@ -26,8 +26,8 @@ use \modules\cargo\Insurance as Insurance;
     // POST api to update insurance
     $app->post('/cargo/insurance/data/update', function (Request $request, Response $response) {
         $cargo = new Insurance($this->db);
-        $datapost = $request->getParsedBody();
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $datapost = $request->getParsedBody();
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
         $cargo->insuranceid = $datapost['InsuranceID'];
@@ -45,8 +45,8 @@ use \modules\cargo\Insurance as Insurance;
     // POST api to delete insurance
     $app->post('/cargo/insurance/data/delete', function (Request $request, Response $response) {
         $cargo = new Insurance($this->db);
-        $datapost = $request->getParsedBody();
-        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);    
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $datapost = $request->getParsedBody();    
         $cargo->insuranceid = $datapost['InsuranceID'];
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
@@ -87,4 +87,6 @@ use \modules\cargo\Insurance as Insurance;
         }
         $body->write($datajson);
         return classes\Cors::modify($response,$body,200,$request);
-    })->add(new ValidateParamURL('query'))->add(new \classes\middleware\ApiKey());
+    })->add(new ValidateParamURL('lang','0-2'))
+        ->add(new ValidateParamURL('query'))
+        ->add(new \classes\middleware\ApiKey());

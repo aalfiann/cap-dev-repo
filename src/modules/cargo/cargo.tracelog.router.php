@@ -1,14 +1,13 @@
 <?php
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
-use \classes\SimpleCache as SimpleCache;
 use \modules\cargo\TraceLog as TraceLog;
 
     // POST api to create new trace log
     $app->post('/cargo/trace/data/new', function (Request $request, Response $response) {
         $cargo = new TraceLog($this->db);
-        $datapost = $request->getParsedBody();
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $datapost = $request->getParsedBody();
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
         $cargo->codeid = $datapost['CodeID'];
@@ -23,8 +22,8 @@ use \modules\cargo\TraceLog as TraceLog;
     $app->post('/cargo/trace/data/update', function (Request $request, Response $response) {
         /*
         $cargo = new TraceLog($this->db);
-        $datapost = $request->getParsedBody();
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $datapost = $request->getParsedBody();
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
         $cargo->modeid = $datapost['ModeID'];
@@ -39,8 +38,8 @@ use \modules\cargo\TraceLog as TraceLog;
     $app->post('/cargo/trace/data/delete/item', function (Request $request, Response $response) {
         /*
         $cargo = new TraceLog($this->db);
-        $datapost = $request->getParsedBody();
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $datapost = $request->getParsedBody();
         $cargo->modeid = $datapost['ModeID'];
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
@@ -54,8 +53,8 @@ use \modules\cargo\TraceLog as TraceLog;
     $app->post('/cargo/trace/data/delete/code', function (Request $request, Response $response) {
         /*
         $cargo = new TraceLog($this->db);
-        $datapost = $request->getParsedBody();
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $datapost = $request->getParsedBody();
         $cargo->modeid = $datapost['ModeID'];
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];

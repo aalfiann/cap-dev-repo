@@ -10,8 +10,8 @@ use \modules\cargo\Mode as Mode;
     // POST api to create new mode
     $app->post('/cargo/mode/data/new', function (Request $request, Response $response) {
         $cargo = new Mode($this->db);
-        $datapost = $request->getParsedBody();
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $datapost = $request->getParsedBody();
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
         $cargo->mode = $datapost['Mode'];
@@ -25,8 +25,8 @@ use \modules\cargo\Mode as Mode;
     // POST api to update mode
     $app->post('/cargo/mode/data/update', function (Request $request, Response $response) {
         $cargo = new Mode($this->db);
-        $datapost = $request->getParsedBody();
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $datapost = $request->getParsedBody();
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
         $cargo->modeid = $datapost['ModeID'];
@@ -42,8 +42,8 @@ use \modules\cargo\Mode as Mode;
     // POST api to delete mode
     $app->post('/cargo/mode/data/delete', function (Request $request, Response $response) {
         $cargo = new Mode($this->db);
-        $datapost = $request->getParsedBody();
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $datapost = $request->getParsedBody();
         $cargo->modeid = $datapost['ModeID'];
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
@@ -84,7 +84,9 @@ use \modules\cargo\Mode as Mode;
         }
         $body->write($datajson);
         return classes\Cors::modify($response,$body,200,$request);
-    })->add(new ValidateParamURL('query'))->add(new ApiKey);
+    })->add(new ValidateParamURL('lang','0-2'))
+        ->add(new ValidateParamURL('query'))
+        ->add(new ApiKey);
 
     // GET api to show all data mode
     $app->get('/cargo/mode/data/list/{username}/{token}', function (Request $request, Response $response) {
@@ -110,4 +112,4 @@ use \modules\cargo\Mode as Mode;
         }
         $body->write($datajson);
         return classes\Cors::modify($response,$body,200,$request);
-    })->add(new ApiKey);
+    })->add(new ValidateParamURL('lang','0-2'))->add(new ApiKey);

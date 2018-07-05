@@ -10,8 +10,8 @@ use \modules\cargo\Relation as Relation;
     // POST api to create new relation
     $app->post('/cargo/relation/data/new', function (Request $request, Response $response) {
         $cargo = new Relation($this->db);
-        $datapost = $request->getParsedBody();
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $datapost = $request->getParsedBody();
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
         $cargo->relation = $datapost['Relation'];
@@ -24,8 +24,8 @@ use \modules\cargo\Relation as Relation;
     // POST api to update relation
     $app->post('/cargo/relation/data/update', function (Request $request, Response $response) {
         $cargo = new Relation($this->db);
-        $datapost = $request->getParsedBody();
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $datapost = $request->getParsedBody();
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
         $cargo->relationid = $datapost['RelationID'];
@@ -40,8 +40,8 @@ use \modules\cargo\Relation as Relation;
     // POST api to delete relation
     $app->post('/cargo/relation/data/delete', function (Request $request, Response $response) {
         $cargo = new Relation($this->db);
-        $datapost = $request->getParsedBody();
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $datapost = $request->getParsedBody();
         $cargo->relationid = $datapost['RelationID'];
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
@@ -82,7 +82,9 @@ use \modules\cargo\Relation as Relation;
         }
         $body->write($datajson);
         return classes\Cors::modify($response,$body,200,$request);
-    })->add(new ValidateParamURL('query'))->add(new ApiKey);
+    })->add(new ValidateParamURL('lang','0-2'))
+        ->add(new ValidateParamURL('query'))
+        ->add(new ApiKey);
 
     // GET api to show all data relation
     $app->get('/cargo/relation/data/list/{username}/{token}', function (Request $request, Response $response) {
@@ -108,4 +110,4 @@ use \modules\cargo\Relation as Relation;
         }
         $body->write($datajson);
         return classes\Cors::modify($response,$body,200,$request);
-    })->add(new ApiKey);
+    })->add(new ValidateParamURL('lang','0-2'))->add(new ApiKey);

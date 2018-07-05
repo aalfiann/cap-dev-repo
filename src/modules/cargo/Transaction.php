@@ -1497,7 +1497,8 @@ use PDO;
 						$stmt2->bindValue(':offpage', (INT) $offsets, PDO::PARAM_INT);
 						
 						if ($stmt2->execute()){
-							$pagination = new \classes\Pagination();
+                            $pagination = new \classes\Pagination();
+                            $pagination->lang = $this->lang;
 							$pagination->totalRow = $single['TotalRow'];
 							$pagination->page = $this->page;
 							$pagination->itemsPerPage = $this->itemsPerPage;

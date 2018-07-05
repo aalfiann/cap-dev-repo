@@ -380,6 +380,7 @@ use PDO;
 						
 							if ($stmt2->execute()){
 								$pagination = new \classes\Pagination();
+								$pagination->lang = $this->lang;
 								$pagination->totalRow = $single['TotalRow'];
 								$pagination->page = $this->page;
 								$pagination->itemsPerPage = $this->itemsPerPage;
@@ -792,6 +793,7 @@ use PDO;
 								
 							if ($stmt2->execute()){
 								$pagination = new \classes\Pagination();
+								$pagination->lang = $this->lang;
 								$pagination->totalRow = $single['TotalRow'];
 								$pagination->page = $this->page;
 								$pagination->itemsPerPage = $this->itemsPerPage;

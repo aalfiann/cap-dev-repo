@@ -10,8 +10,8 @@ use \modules\cargo\Payment as Payment;
     // POST api to create new payment
     $app->post('/cargo/payment/data/new', function (Request $request, Response $response) {
         $cargo = new Payment($this->db);
-        $datapost = $request->getParsedBody();
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $datapost = $request->getParsedBody();
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
         $cargo->payment = $datapost['Payment'];
@@ -24,8 +24,8 @@ use \modules\cargo\Payment as Payment;
     // POST api to update payment
     $app->post('/cargo/payment/data/update', function (Request $request, Response $response) {
         $cargo = new Payment($this->db);
-        $datapost = $request->getParsedBody();
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $datapost = $request->getParsedBody();
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
         $cargo->paymentid = $datapost['PaymentID'];
@@ -40,8 +40,8 @@ use \modules\cargo\Payment as Payment;
     // POST api to delete payment
     $app->post('/cargo/payment/data/delete', function (Request $request, Response $response) {
         $cargo = new Payment($this->db);
-        $datapost = $request->getParsedBody();
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $datapost = $request->getParsedBody();
         $cargo->paymentid = $datapost['PaymentID'];
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
@@ -82,7 +82,9 @@ use \modules\cargo\Payment as Payment;
         }
         $body->write($datajson);
         return classes\Cors::modify($response,$body,200,$request);
-    })->add(new ValidateParamURL('query'))->add(new ApiKey);
+    })->add(new ValidateParamURL('lang','0-2'))
+        ->add(new ValidateParamURL('query'))
+        ->add(new ApiKey);
 
     // GET api to show all data payment
     $app->get('/cargo/payment/data/list/{username}/{token}', function (Request $request, Response $response) {
@@ -108,4 +110,4 @@ use \modules\cargo\Payment as Payment;
         }
         $body->write($datajson);
         return classes\Cors::modify($response,$body,200,$request);
-    })->add(new ApiKey);
+    })->add(new ValidateParamURL('lang','0-2'))->add(new ApiKey);

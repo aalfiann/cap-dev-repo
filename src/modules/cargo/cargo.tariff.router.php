@@ -10,8 +10,8 @@ use \modules\cargo\Tariff as Tariff;
     // POST api to create new cargo tariff data
     $app->post('/cargo/tariff/data/new', function (Request $request, Response $response) {
         $cargo = new Tariff($this->db);
-        $datapost = $request->getParsedBody();
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $datapost = $request->getParsedBody();
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
         $cargo->branchid = $datapost['BranchID'];
@@ -34,8 +34,8 @@ use \modules\cargo\Tariff as Tariff;
     // POST api to update cargo tariff data
     $app->post('/cargo/tariff/data/update', function (Request $request, Response $response) {
         $cargo = new Tariff($this->db);
-        $datapost = $request->getParsedBody();
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $datapost = $request->getParsedBody();
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
         $cargo->branchid = $datapost['BranchID'];
@@ -58,8 +58,8 @@ use \modules\cargo\Tariff as Tariff;
     // POST api to delete cargo tariff data
     $app->post('/cargo/tariff/data/delete', function (Request $request, Response $response) {
         $cargo = new Tariff($this->db);
-        $datapost = $request->getParsedBody();
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $datapost = $request->getParsedBody();
         $cargo->branchid = $datapost['BranchID'];
         $cargo->kabupaten = $datapost['Kabupaten'];
         $cargo->modeid = $datapost['ModeID'];
@@ -161,7 +161,7 @@ use \modules\cargo\Tariff as Tariff;
         }
         $body->write($datajson);
         return classes\Cors::modify($response,$body,200,$request);
-    })->add(new \classes\middleware\ApiKey());
+    })->add(new ValidateParamURL('lang','0-2'))->add(new ApiKey);
 
     // GET api to show all list origin tariff public
     $app->get('/cargo/tariff/data/list/origin/public/search/', function (Request $request, Response $response) {
@@ -177,7 +177,9 @@ use \modules\cargo\Tariff as Tariff;
         }
         $body->write($datajson);
         return classes\Cors::modify($response,$body,200,$request);
-    })->add(new ValidateParamURL('query'))->add(new ApiKey);
+    })->add(new ValidateParamURL('lang','0-2'))
+        ->add(new ValidateParamURL('query'))
+        ->add(new ApiKey);
 
     // GET api to show all list destinasi tariff public
     $app->get('/cargo/tariff/data/list/destination/public/search/', function (Request $request, Response $response) {
@@ -193,13 +195,15 @@ use \modules\cargo\Tariff as Tariff;
         }
         $body->write($datajson);
         return classes\Cors::modify($response,$body,200,$request);
-    })->add(new ValidateParamURL('query'))->add(new ApiKey);
+    })->add(new ValidateParamURL('lang','0-2'))
+        ->add(new ValidateParamURL('query'))
+        ->add(new ApiKey);
 
     // POST api to create new cargo tariff handling
     $app->post('/cargo/tariff/handling/data/new', function (Request $request, Response $response) {
         $cargo = new Tariff($this->db);
-        $datapost = $request->getParsedBody();
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $datapost = $request->getParsedBody();
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
         $cargo->kabupaten = $datapost['Kabupaten'];
@@ -218,8 +222,8 @@ use \modules\cargo\Tariff as Tariff;
     // POST api to update cargo tariff handling
     $app->post('/cargo/tariff/handling/data/update', function (Request $request, Response $response) {
         $cargo = new Tariff($this->db);
-        $datapost = $request->getParsedBody();
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $datapost = $request->getParsedBody();
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
         $cargo->kabupaten = $datapost['Kabupaten'];
@@ -238,8 +242,8 @@ use \modules\cargo\Tariff as Tariff;
     // POST api to delete cargo tariff handling
     $app->post('/cargo/tariff/handling/data/delete', function (Request $request, Response $response) {
         $cargo = new Tariff($this->db);
-        $datapost = $request->getParsedBody();
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $datapost = $request->getParsedBody();
         $cargo->kabupaten = $datapost['Kabupaten'];
         $cargo->modeid = $datapost['ModeID'];
         $cargo->username = $datapost['Username'];

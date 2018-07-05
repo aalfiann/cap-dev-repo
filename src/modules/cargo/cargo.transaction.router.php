@@ -4,14 +4,13 @@ use \Psr\Http\Message\ResponseInterface as Response;
 use \classes\middleware\ValidateParam as ValidateParam;
 use \classes\middleware\ValidateParamURL as ValidateParamURL;
 use \classes\middleware\ApiKey as ApiKey;
-use \classes\SimpleCache as SimpleCache;
 use \modules\cargo\Transaction as Transaction;
 
     // POST api to create new transaction
     $app->post('/cargo/transaction/data/new', function (Request $request, Response $response) {
         $cargo = new Transaction($this->db);
-        $datapost = $request->getParsedBody();
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $datapost = $request->getParsedBody();
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
         
@@ -90,8 +89,8 @@ use \modules\cargo\Transaction as Transaction;
     // POST api to update transaction
     $app->post('/cargo/transaction/data/update', function (Request $request, Response $response) {
         $cargo = new Transaction($this->db);
-        $datapost = $request->getParsedBody();
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $datapost = $request->getParsedBody();
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
         $cargo->waybill = $datapost['Waybill'];
@@ -171,8 +170,8 @@ use \modules\cargo\Transaction as Transaction;
     // POST api to delete transaction
     $app->post('/cargo/transaction/data/delete', function (Request $request, Response $response) {
         $cargo = new Transaction($this->db);
-        $datapost = $request->getParsedBody();
-        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);    
+        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $datapost = $request->getParsedBody();    
         $cargo->waybill = $datapost['Waybill'];
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
@@ -186,8 +185,8 @@ use \modules\cargo\Transaction as Transaction;
     // POST api to void transaction
     $app->post('/cargo/transaction/data/void', function (Request $request, Response $response) {
         $cargo = new Transaction($this->db);
-        $datapost = $request->getParsedBody();
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $datapost = $request->getParsedBody();
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
         $cargo->waybill = $datapost['Waybill'];
@@ -203,8 +202,8 @@ use \modules\cargo\Transaction as Transaction;
     // POST api to delivered transaction
     $app->post('/cargo/transaction/data/pod/delivered', function (Request $request, Response $response) {
         $cargo = new Transaction($this->db);
-        $datapost = $request->getParsedBody();
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $datapost = $request->getParsedBody();
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
 
@@ -223,8 +222,8 @@ use \modules\cargo\Transaction as Transaction;
     // POST api to failed transaction
     $app->post('/cargo/transaction/data/pod/failed', function (Request $request, Response $response) {
         $cargo = new Transaction($this->db);
-        $datapost = $request->getParsedBody();
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $datapost = $request->getParsedBody();
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
 
@@ -243,8 +242,8 @@ use \modules\cargo\Transaction as Transaction;
     // POST api to returned transaction
     $app->post('/cargo/transaction/data/pod/returned', function (Request $request, Response $response) {
         $cargo = new Transaction($this->db);
-        $datapost = $request->getParsedBody();
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $datapost = $request->getParsedBody();
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
 
@@ -261,8 +260,8 @@ use \modules\cargo\Transaction as Transaction;
     // POST api to returned asked by consignor
     $app->post('/cargo/transaction/data/pod/returned/consignor', function (Request $request, Response $response) {
         $cargo = new Transaction($this->db);
-        $datapost = $request->getParsedBody();
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $datapost = $request->getParsedBody();
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
 
@@ -279,8 +278,8 @@ use \modules\cargo\Transaction as Transaction;
     // POST api to returned asked by consignee
     $app->post('/cargo/transaction/data/pod/returned/consignee', function (Request $request, Response $response) {
         $cargo = new Transaction($this->db);
-        $datapost = $request->getParsedBody();
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $datapost = $request->getParsedBody();
         $cargo->username = $datapost['Username'];
         $cargo->token = $datapost['Token'];
 
