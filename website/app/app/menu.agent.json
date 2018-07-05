@@ -54,15 +54,48 @@
                     "title":"agent",
                     "icon_class":"mdi mdi-account-card-details",
                     "menus": [
-        				{   
-	            			"title": "Profile",
-			                "link": "modul-agent-profile.php"
+        				{
+                            "title": "settings",
+                            "link": "modul-agent-settings.php"
                         },
-                        {   
-		        		    "title": "Transaction",
-    			    	    "link": "modul-agent-transaction.php"
+                        {
+                            "title": "deposit",
+                            "link": "modul-agent-deposit.php"
+                        },
+                        {
+                            "title": "data",
+                            "submenus": [
+                                {   
+                                    "title": "> transaction",
+                                    "link": "modul-agent-transaction.php"
+                                },
+                                {   
+                                    "title": "> status pod",
+                                    "link": "modul-agent-pod.php"
+                                },
+                                {
+                                    "title": "> void",
+                                    "link": "modul-agent-void.php"
+                                },{   
+                                    "title": "> report",
+                                    "link": "modul-report-agent-transaction.php"
+                                },{
+                                    "title": "> info waybill",
+                                    "link": "modul-inquiry-agent-waybill.php"
+                                }
+                            ]
+				        },
+                        {
+                            "title": "chart",
+                            "link": "modul-agent-chart.php"
                         }
         		    ]
+                },
+                {
+                    "id":"2",
+                    "title":"live chat",
+                    "icon_class":"mdi mdi-message-text-outline",
+                    "link":"modul-live-chat.php"
                 }
             ]
 		}

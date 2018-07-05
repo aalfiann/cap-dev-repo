@@ -70,6 +70,8 @@ if (empty($datalogin)){
         $datamenu = file_get_contents('menu.master.json');
     } else if($usergroup == '7'){
         $datamenu = file_get_contents('menu.standart.json');
+    } else if($usergroup == '9'){
+        $datamenu = file_get_contents('menu.agent.json');
     } else {
         $datamenu = "";
     }
