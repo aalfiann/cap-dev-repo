@@ -302,11 +302,11 @@ use PDO;
 									SELECT x.BranchID,x.Kabupaten,x.ModeID,y.Mode,x.Estimasi,x.KGP,x.KGS,x.Min_Kg
 									FROM tariff_data x
 									INNER JOIN mas_mode y ON x.ModeID = y.ModeID
-									ORDER BY x.Kabupaten ASC
 								) as a
 						left join tariff_handling b on a.Kabupaten=b.Kabupaten and b.ModeID = a.ModeID
 						where a.BranchID like :search
-						or a.Kabupaten like :search;";
+						or a.Kabupaten like :search
+						order by a.Kabupaten asc;";
 					$stmt = $this->db->prepare($sqlcountrow);		
 					$stmt->bindParam(':search', $search, PDO::PARAM_STR);
 				} else {
@@ -320,10 +320,10 @@ use PDO;
 									FROM tariff_data x
 									INNER JOIN mas_mode y ON x.ModeID = y.ModeID
 									HAVING x.BranchID = UserBranch
-									ORDER BY x.Kabupaten ASC
 								) as a
 							left join tariff_handling b on a.Kabupaten=b.Kabupaten and b.ModeID = a.ModeID
 							where a.Kabupaten like :search
+							order by a.Kabupaten asc
 						) x;";
 					$stmt = $this->db->prepare($sqlcountrow);
 					$stmt->bindParam(':username', $newusername, PDO::PARAM_STR);
@@ -348,11 +348,11 @@ use PDO;
 									SELECT x.BranchID,x.Kabupaten,x.ModeID,y.Mode,x.Estimasi,x.KGP,x.KGS,x.Min_Kg
 									FROM tariff_data x
 									INNER JOIN mas_mode y ON x.ModeID = y.ModeID
-									ORDER BY x.Kabupaten ASC LIMIT :limpage,:offpage
 								) as a
 								left join tariff_handling b on a.Kabupaten=b.Kabupaten and b.ModeID = a.ModeID
 								where a.BranchID like :search
-								or a.Kabupaten like :search;";
+								or a.Kabupaten like :search
+								order by a.Kabupaten asc limit :limpage,:offpage;";
 							$stmt2 = $this->db->prepare($sql);
 							$stmt2->bindParam(':search', $search, PDO::PARAM_STR);
 							$stmt2->bindValue(':limpage', (INT) $limits, PDO::PARAM_INT);
@@ -365,11 +365,11 @@ use PDO;
 										(SELECT a.BranchID FROM sys_user a WHERE a.Username = :username) as UserBranch
 									FROM tariff_data x
 									INNER JOIN mas_mode y ON x.ModeID = y.ModeID
-									having x.BranchID = UserBranch
-									ORDER BY x.Kabupaten ASC LIMIT :limpage,:offpage
+									HAVING x.BranchID = UserBranch
 								) as a
 								left join tariff_handling b on a.Kabupaten=b.Kabupaten and b.ModeID = a.ModeID
-								where a.Kabupaten like :search;";
+								where a.Kabupaten like :search
+								order by a.Kabupaten asc limit :limpage,:offpage;";
 							$stmt2 = $this->db->prepare($sql);
 							$stmt2->bindParam(':username', $newusername, PDO::PARAM_STR);
 							$stmt2->bindParam(':search', $search, PDO::PARAM_STR);
