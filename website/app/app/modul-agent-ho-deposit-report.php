@@ -419,6 +419,38 @@ $datastatus = json_decode(Core::execGetRequest($urlstatus));?>
         /* Load data from datatables onload */
         loadData('#datamain','1','10');
 
+        $(document).on("focusin", "#agent_setting_bank_name", function() {
+            $(this).prop('readonly', true);  
+        });
+
+        $(document).on("focusin", "#agent_setting_bank_address", function() {
+            $(this).prop('readonly', true);  
+        });
+
+        $(document).on("focusin", "#agent_setting_bank_account_name", function() {
+            $(this).prop('readonly', true);  
+        });
+
+        $(document).on("focusin", "#agent_setting_bank_account_no", function() {
+            $(this).prop('readonly', true);  
+        });
+
+        $(document).on("focusout", "#agent_setting_bank_name", function() {
+            $(this).prop('readonly', false); 
+        });
+
+        $(document).on("focusout", "#agent_setting_bank_address", function() {
+            $(this).prop('readonly', false); 
+        });
+
+        $(document).on("focusout", "#agent_setting_bank_account_name", function() {
+            $(this).prop('readonly', false); 
+        });
+
+        $(document).on("focusout", "#agent_setting_bank_account_no", function() {
+            $(this).prop('readonly', false); 
+        });
+
         function getInfoDetail(depositid){
             $(function(){
                 /* Get balance */
@@ -428,6 +460,7 @@ $datastatus = json_decode(Core::execGetRequest($urlstatus));?>
                     type: "GET",
                     success: function(data) {
                         if (data.status == "success"){
+                            $("#report-newdata").html("");
                             if (!$.trim(data.result[0].value)) {} else {
                                 var obj = JSON.parse(data.result[0].value);
                                 $("#depositid").html(" | "+depositid);
