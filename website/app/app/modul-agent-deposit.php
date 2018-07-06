@@ -30,7 +30,7 @@ $s = (empty($_GET['s'])?'':$_GET['s']);?>
             <!-- ============================================================== -->
             <div class="row page-titles">
                 <div class="col-md-5 align-self-center">
-                    <h3 class="text-themecolor"><?php echo Core::lang('deposit')?> <b class="text-themecolor"><i class="mdi mdi-currency-usd"></i> <span id="mydeposit">0</span></b></h3>
+                    <h3 class="text-themecolor"><?php echo Core::lang('deposit')?> <b class="text-themecolor"><?php echo Core::lang('currency_format')?> <span id="mydeposit">0</span></b></h3>
                 </div>
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
@@ -502,10 +502,10 @@ $s = (empty($_GET['s'])?'':$_GET['s']);?>
                         if (data.status == "success"){
                             if (!$.trim(data.result.Balance)){
                                 $("#mydeposit").html("0");
-                                $("#mydeposit2").html("<i class=\"mdi mdi-currency-usd\"></i> 0");
+                                $("#mydeposit2").html("<?php echo Core::lang('currency_format')?> 0");
                             } else {
                                 $("#mydeposit").html(addCommas(data.result.Balance));
-                                $("#mydeposit2").html(addCommas("<i class=\"mdi mdi-currency-usd\"></i> "+data.result.Balance));
+                                $("#mydeposit2").html("<?php echo Core::lang('currency_format')?> "+addCommas(data.result.Balance));
                             }
                         }
                     },

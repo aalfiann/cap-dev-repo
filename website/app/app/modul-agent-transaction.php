@@ -30,7 +30,7 @@ $datalogin = Core::checkSessions();?>
             <!-- ============================================================== -->
             <div class="row page-titles">
                 <div class="col-md-5 align-self-center">
-                    <h3 class="text-themecolor"><?php echo Core::lang('transaction')?> <b class="text-themecolor"><i class="mdi mdi-currency-usd"></i> <span id="mydeposit">0</span></b></h3>
+                    <h3 class="text-themecolor"><?php echo Core::lang('transaction')?> <b class="text-themecolor"><?php echo Core::lang('currency_format')?> <span id="mydeposit">0</span></b></h3>
                 </div>
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
