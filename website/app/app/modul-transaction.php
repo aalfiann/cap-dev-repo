@@ -1126,6 +1126,14 @@ $datalogin = Core::checkSessions();?>
             $(document).on("focusout", "#custid", function() {
                 $(this).prop('readonly', false); 
             });
+
+            $(document).on("focusin", "#shipping_cost_total", function() {
+                $(this).prop('readonly', true);  
+            });
+
+            $(document).on("focusout", "#shipping_cost_total", function() {
+                $(this).prop('readonly', false); 
+            });
             
             $('#radio1').click(function() {
                 if($('#radio1').is(':checked')) {
