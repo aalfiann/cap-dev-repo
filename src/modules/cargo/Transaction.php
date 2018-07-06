@@ -823,7 +823,7 @@ use PDO;
                 INNER JOIN mas_payment c ON a.PaymentID = c.PaymentID
                 INNER JOIN mas_mode d ON a.ModeID = d.ModeID
                 INNER JOIN sys_company e ON a.BranchID = e.BranchID
-                WHERE a.Waybill = :waybill LIMIT 1;";
+                WHERE a.Waybill = :waybill OR (a.ReferenceID= :waybill AND a.ReferenceID<>'') LIMIT 1;";
 				
 				$stmt = $this->db->prepare($sql);		
 				$stmt->bindParam(':waybill', $this->waybill, PDO::PARAM_STR);
@@ -974,7 +974,7 @@ use PDO;
                 INNER JOIN mas_mode d ON a.ModeID = d.ModeID
                 INNER JOIN sys_company e ON a.BranchID = e.BranchID
                 LEFT JOIN log_data_pod f ON a.Waybill = f.WayBill
-                WHERE a.Waybill = :waybill OR a.ReferenceID= :waybill LIMIT 1;";
+                WHERE a.Waybill = :waybill OR (a.ReferenceID= :waybill AND a.ReferenceID<>'') LIMIT 1;";
 				
 				$stmt = $this->db->prepare($sql);		
 				$stmt->bindParam(':waybill', $this->waybill, PDO::PARAM_STR);
@@ -1154,7 +1154,7 @@ use PDO;
             INNER JOIN mas_mode d ON a.ModeID = d.ModeID
             INNER JOIN sys_company e ON a.BranchID = e.BranchID
             LEFT JOIN log_data_pod f ON a.Waybill = f.WayBill
-            WHERE a.Waybill = :waybill OR a.ReferenceID= :waybill LIMIT 1;";
+            WHERE a.Waybill = :waybill OR (a.ReferenceID= :waybill AND a.ReferenceID<>'') LIMIT 1;";
 				
 			$stmt = $this->db->prepare($sql);		
 			$stmt->bindParam(':waybill', $this->waybill, PDO::PARAM_STR);
@@ -1321,7 +1321,7 @@ use PDO;
             INNER JOIN core_status b ON a.StatusID=b.StatusID
             INNER JOIN mas_mode c ON a.ModeID = c.ModeID
             LEFT JOIN log_data_pod d ON a.Waybill = d.WayBill
-            WHERE a.Waybill = :waybill OR a.ReferenceID= :waybill LIMIT 1;";
+            WHERE a.Waybill = :waybill OR (a.ReferenceID= :waybill AND a.ReferenceID<>'') LIMIT 1;";
 				
 			$stmt = $this->db->prepare($sql);		
 			$stmt->bindParam(':waybill', $this->waybill, PDO::PARAM_STR);

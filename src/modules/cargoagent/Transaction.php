@@ -766,7 +766,7 @@ use PDO;
                     a.StatusID,b.`Status`,a.Recipient,a.Relation,a.Created_at,a.Created_by,a.Updated_at,a.Updated_by,a.Updated_sys,a.Signature
                 FROM agent_transaction_waybill a
                 INNER JOIN core_status b ON a.StatusID=b.StatusID
-                WHERE a.Waybill = :waybill LIMIT 1;";
+                WHERE a.Waybill = :waybill OR (a.ReferenceID= :waybill AND a.ReferenceID<>'') LIMIT 1;";
 				
 				$stmt = $this->db->prepare($sql);		
 				$stmt->bindParam(':waybill', $this->waybill, PDO::PARAM_STR);
@@ -901,7 +901,7 @@ use PDO;
                     a.StatusID,b.`Status`,a.Recipient,a.Relation,a.Created_at,a.Created_by,a.Updated_at,a.Updated_by,a.Updated_sys,a.Signature
                 FROM agent_transaction_waybill a
                 INNER JOIN core_status b ON a.StatusID=b.StatusID
-                WHERE a.Waybill = :waybill OR a.ReferenceID= :waybill LIMIT 1;";
+                WHERE a.Waybill = :waybill OR (a.ReferenceID= :waybill AND a.ReferenceID<>'') LIMIT 1;";
 				
 				$stmt = $this->db->prepare($sql);		
 				$stmt->bindParam(':waybill', $this->waybill, PDO::PARAM_STR);
@@ -1065,7 +1065,7 @@ use PDO;
                 a.StatusID,b.`Status`,a.Recipient,a.Relation,a.Created_at,a.Created_by,a.Updated_at,a.Updated_by,a.Updated_sys,a.Signature
             FROM agent_transaction_waybill a
             INNER JOIN core_status b ON a.StatusID=b.StatusID
-            WHERE a.Waybill = :waybill OR a.ReferenceID= :waybill LIMIT 1;";
+            WHERE a.Waybill = :waybill OR (a.ReferenceID= :waybill AND a.ReferenceID<>'') LIMIT 1;";
 				
 			$stmt = $this->db->prepare($sql);		
 			$stmt->bindParam(':waybill', $this->waybill, PDO::PARAM_STR);
@@ -1219,7 +1219,7 @@ use PDO;
                 a.StatusID,b.`Status`,a.Recipient,a.Relation,a.Created_at,a.Created_by,a.Updated_at,a.Updated_by,a.Updated_sys,a.Signature
             FROM agent_transaction_waybill a
             INNER JOIN core_status b ON a.StatusID=b.StatusID
-            WHERE a.Waybill = :waybill OR a.ReferenceID= :waybill LIMIT 1;";
+            WHERE a.Waybill = :waybill OR (a.ReferenceID= :waybill AND a.ReferenceID<>'') LIMIT 1;";
 				
 			$stmt = $this->db->prepare($sql);		
 			$stmt->bindParam(':waybill', $this->waybill, PDO::PARAM_STR);
