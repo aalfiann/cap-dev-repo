@@ -12,6 +12,7 @@ $vocabularies[] = [
     'deposit_date' => 'Created',
     'deposit_desc' => 'Description',
     'deposit_description' => 'History of all deposit transaction is here.',
+    'deposit_description_report' => 'Report total deposit balance all user is here.',
     'deposit_credit' => 'Credit',
     'deposit_debit' => 'Debit',
     'deposit_task' => 'Task',

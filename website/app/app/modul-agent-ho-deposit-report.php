@@ -70,6 +70,7 @@ $datastatus = json_decode(Core::execGetRequest($urlstatus));?>
                         <div class="card">
                             <div class="card-body">
                                 <h3 class="text-themecolor m-b-0 m-t-0"><?php echo Core::lang('data').' '.Core::lang('deposit').' '.Core::lang('deposit_balance')?></h3><hr>
+                                <h6 class="card-subtitle"><?php echo Core::lang('deposit_description_report')?></h6>
                                 <div class="table-responsive m-t-40">
                                     <!-- terms modal content -->
                                     <div class="modal fade infodetail" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">

@@ -29,7 +29,7 @@ use PDO;                                            //To connect with database
         var $username,$token;
         
         //data var
-        var $task,$refid,$depid,$destid,$description,$mutation;
+        var $task,$refid,$depid,$destid,$description,$mutation,$year,$topnumber;
 
         // for pagination
 		var $page,$itemsPerPage;
@@ -668,6 +668,214 @@ use PDO;                                            //To connect with database
 	        		        'message' => CustomHandlers::getreSlimMessage('RS202',$this->lang)
     					];
 	    			}
+                } else {
+                    $data = [
+                        'status' => 'error',
+                        'code' => 'RS404',
+                        'message' => CustomHandlers::getreSlimMessage('RS404',$this->lang)
+                    ];
+                }
+			} else {
+				$data = [
+	    			'status' => 'error',
+					'code' => 'RS401',
+        	    	'message' => CustomHandlers::getreSlimMessage('RS401',$this->lang)
+				];
+			}		
+        
+			return JSON::safeEncode($data,true);
+	        $this->db= null;
+        }
+
+        /**
+         * Show the most deposit
+         */
+        public function showMostDeposit(){
+            if (Auth::validToken($this->db,$this->token,$this->username)){
+                $role = Auth::getRoleID($this->db,$this->token);
+                if ($role == '1' || $role == '2'){
+                    $newyear = Validation::integerOnly($this->year);
+                    $newtopnumber = Validation::integerOnly($this->topnumber);
+                    if ($newtopnumber <= 1000){
+                        $sql = "SELECT a.DepositID,year(a.Created_at) as 'Year',count(a.ReferenceID) as 'Total'
+                            from deposit_mutation a 
+                            where a.Task='DB' 
+                            and year(a.Created_at) = :year
+                            group by a.DepositID
+                            order by Total desc
+                            limit :lim;";
+                        $stmt = $this->db->prepare($sql);
+                        $stmt->bindParam(':year', $newyear, PDO::PARAM_STR);
+                        $stmt->bindValue(':lim', (INT) $newtopnumber, PDO::PARAM_INT);
+                        
+				
+	        			if ($stmt->execute()) {	
+    	            	    if ($stmt->rowCount() > 0){
+        	           		   	$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+				        		$data = [
+			   	                    'results' => $results, 
+    	    		                'status' => 'success', 
+			           	            'code' => 'RS501',
+                		        	'message' => CustomHandlers::getreSlimMessage('RS501',$this->lang)
+	        					];
+		        	        } else {
+        	        		    $data = [
+            	        	    	'status' => 'error',
+		        	        	    'code' => 'RS601',
+        		    	            'message' => CustomHandlers::getreSlimMessage('RS601',$this->lang)
+    						    ];
+    	        	        }          	   	
+	    	    		} else {
+		    	    		$data = [
+    	        	    		'status' => 'error',
+				    	    	'code' => 'RS202',
+    	        	    	    'message' => CustomHandlers::getreSlimMessage('RS202',$this->lang)
+	    				    ];
+    		    		}
+                    } else {
+                        $data = [
+                            'status' => 'error',
+                            'code' => 'RS604',
+                            'message' => CustomHandlers::getreSlimMessage('RS604',$this->lang).' '.CustomHandlers::getreSlimMessage('RS605',$this->lang).'1000.'
+                        ];
+                    }
+                } else {
+                    $data = [
+                        'status' => 'error',
+                        'code' => 'RS404',
+                        'message' => CustomHandlers::getreSlimMessage('RS404',$this->lang)
+                    ];
+                }
+			} else {
+				$data = [
+	    			'status' => 'error',
+					'code' => 'RS401',
+        	    	'message' => CustomHandlers::getreSlimMessage('RS401',$this->lang)
+				];
+			}		
+        
+			return JSON::safeEncode($data,true);
+	        $this->db= null;
+        }
+
+        /**
+         * Show the most transaction
+         */
+        public function showMostTransaction(){
+            if (Auth::validToken($this->db,$this->token,$this->username)){
+                $role = Auth::getRoleID($this->db,$this->token);
+                if ($role == '1' || $role == '2'){
+                    $newyear = Validation::integerOnly($this->year);
+                    $newtopnumber = Validation::integerOnly($this->topnumber);
+                    if ($newtopnumber <= 1000){
+                        $sql = "SELECT a.DepositID,year(a.Created_at) as 'Year',count(a.ReferenceID) as 'Total'
+                            from deposit_mutation a 
+                            where a.Task='CR' 
+                            and year(a.Created_at) = :year
+                            group by a.DepositID
+                            order by Total desc
+                            limit :lim;";
+                        $stmt = $this->db->prepare($sql);
+                        $stmt->bindParam(':year', $newyear, PDO::PARAM_STR);
+                        $stmt->bindValue(':lim', (INT) $newtopnumber, PDO::PARAM_INT);
+                        
+				
+	        			if ($stmt->execute()) {	
+    	            	    if ($stmt->rowCount() > 0){
+        	           		   	$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+				        		$data = [
+			   	                    'results' => $results, 
+    	    		                'status' => 'success', 
+			           	            'code' => 'RS501',
+                		        	'message' => CustomHandlers::getreSlimMessage('RS501',$this->lang)
+	        					];
+		        	        } else {
+        	        		    $data = [
+            	        	    	'status' => 'error',
+		        	        	    'code' => 'RS601',
+        		    	            'message' => CustomHandlers::getreSlimMessage('RS601',$this->lang)
+    						    ];
+    	        	        }          	   	
+	    	    		} else {
+		    	    		$data = [
+    	        	    		'status' => 'error',
+				    	    	'code' => 'RS202',
+    	        	    	    'message' => CustomHandlers::getreSlimMessage('RS202',$this->lang)
+	    				    ];
+    		    		}
+                    } else {
+                        $data = [
+                            'status' => 'error',
+                            'code' => 'RS604',
+                            'message' => CustomHandlers::getreSlimMessage('RS604',$this->lang).' '.CustomHandlers::getreSlimMessage('RS605',$this->lang).'1000.'
+                        ];
+                    }
+                } else {
+                    $data = [
+                        'status' => 'error',
+                        'code' => 'RS404',
+                        'message' => CustomHandlers::getreSlimMessage('RS404',$this->lang)
+                    ];
+                }
+			} else {
+				$data = [
+	    			'status' => 'error',
+					'code' => 'RS401',
+        	    	'message' => CustomHandlers::getreSlimMessage('RS401',$this->lang)
+				];
+			}		
+        
+			return JSON::safeEncode($data,true);
+	        $this->db= null;
+        }
+
+        /**
+         * Show the most rich
+         */
+        public function showMostRich(){
+            if (Auth::validToken($this->db,$this->token,$this->username)){
+                $role = Auth::getRoleID($this->db,$this->token);
+                if ($role == '1' || $role == '2'){
+                    $newtopnumber = Validation::integerOnly($this->topnumber);
+                    if ($newtopnumber <= 1000){
+                        $sql = "SELECT a.DepositID,a.Balance
+                            from deposit_balance a 
+                            order by a.Balance desc
+                            limit :lim;";
+                        $stmt = $this->db->prepare($sql);
+                        $stmt->bindValue(':lim', (INT) $newtopnumber, PDO::PARAM_INT);
+                        
+				
+	        			if ($stmt->execute()) {	
+    	            	    if ($stmt->rowCount() > 0){
+        	           		   	$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+				        		$data = [
+			   	                    'results' => $results, 
+    	    		                'status' => 'success', 
+			           	            'code' => 'RS501',
+                		        	'message' => CustomHandlers::getreSlimMessage('RS501',$this->lang)
+	        					];
+		        	        } else {
+        	        		    $data = [
+            	        	    	'status' => 'error',
+		        	        	    'code' => 'RS601',
+        		    	            'message' => CustomHandlers::getreSlimMessage('RS601',$this->lang)
+    						    ];
+    	        	        }          	   	
+	    	    		} else {
+		    	    		$data = [
+    	        	    		'status' => 'error',
+				    	    	'code' => 'RS202',
+    	        	    	    'message' => CustomHandlers::getreSlimMessage('RS202',$this->lang)
+	    				    ];
+    		    		}
+                    } else {
+                        $data = [
+                            'status' => 'error',
+                            'code' => 'RS604',
+                            'message' => CustomHandlers::getreSlimMessage('RS604',$this->lang).' '.CustomHandlers::getreSlimMessage('RS605',$this->lang).'1000.'
+                        ];
+                    }
                 } else {
                     $data = [
                         'status' => 'error',

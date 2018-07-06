@@ -222,3 +222,41 @@ use \classes\JSON as JSON;                                      //JSON class    
         $body->write($deposit->showBalanceAdmin());
         return classes\Cors::modify($response,$body,200);
     })->add(new ValidateParamURL('query'));
+
+    // GET api to show the most deposit for admin
+    $app->get('/deposit/transaction/admin/data/mostdeposit/{year}/{topnumber}/{username}/{token}', function (Request $request, Response $response) {
+        $deposit = new Deposit($this->db);
+        $deposit->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $deposit->username = $request->getAttribute('username');
+        $deposit->token = $request->getAttribute('token');
+        $deposit->year = $request->getAttribute('year');
+        $deposit->topnumber = $request->getAttribute('topnumber');
+        $body = $response->getBody();
+        $body->write($deposit->showMostDeposit());
+        return classes\Cors::modify($response,$body,200);
+    });
+
+    // GET api to show the most transaction for admin
+    $app->get('/deposit/transaction/admin/data/mosttransaction/{year}/{topnumber}/{username}/{token}', function (Request $request, Response $response) {
+        $deposit = new Deposit($this->db);
+        $deposit->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $deposit->username = $request->getAttribute('username');
+        $deposit->token = $request->getAttribute('token');
+        $deposit->year = $request->getAttribute('year');
+        $deposit->topnumber = $request->getAttribute('topnumber');
+        $body = $response->getBody();
+        $body->write($deposit->showMostTransaction());
+        return classes\Cors::modify($response,$body,200);
+    });
+
+    // GET api to show the most rich for admin
+    $app->get('/deposit/transaction/admin/data/mostrich/{topnumber}/{username}/{token}', function (Request $request, Response $response) {
+        $deposit = new Deposit($this->db);
+        $deposit->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+        $deposit->username = $request->getAttribute('username');
+        $deposit->token = $request->getAttribute('token');
+        $deposit->topnumber = $request->getAttribute('topnumber');
+        $body = $response->getBody();
+        $body->write($deposit->showMostRich());
+        return classes\Cors::modify($response,$body,200);
+    });

@@ -12,6 +12,7 @@ $vocabularies[] = [
     'deposit_date' => 'Tanggal',
     'deposit_desc' => 'Deskripsi',
     'deposit_description' => 'Riwayat semua transaksi deposit ada disini.',
+    'deposit_description_report' => 'Laporan total deposit saldo semua pengguna ada disini.',
     'deposit_credit' => 'Kredit',
     'deposit_debit' => 'Debet',
     'deposit_task' => 'Task',
