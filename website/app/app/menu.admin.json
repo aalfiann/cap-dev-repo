@@ -141,12 +141,69 @@
             "subheader":[
                 {
                     "id":"1",
+                    "title":"HO Agent",
+                    "icon_class":"mdi mdi-crown",
+                    "menus": [
+                        {   
+                            "title": "deposit",
+                            "link": "modul-agent-ho-deposit.php"
+                        },
+                        {   
+                            "title": "report",
+                            "link": "modul-agent-ho-deposit-report.php"
+                        }
+        		    ]
+                },
+                {
+                    "id":"2",
+                    "title":"agent",
+                    "icon_class":"mdi mdi-account-card-details",
+                    "menus": [
+                        {
+                            "title": "settings",
+                            "link": "modul-agent-settings.php"
+                        },
+                        {
+                            "title": "deposit",
+                            "link": "modul-agent-deposit.php"
+                        },
+                        {
+                            "title": "data",
+                            "submenus": [
+                                {   
+                                    "title": "> transaction",
+                                    "link": "modul-agent-transaction.php"
+                                },
+                                {   
+                                    "title": "> status pod",
+                                    "link": "modul-agent-pod.php"
+                                },
+                                {
+                                    "title": "> void",
+                                    "link": "modul-agent-void.php"
+                                },{   
+                                    "title": "> report",
+                                    "link": "modul-report-agent-transaction.php"
+                                },{
+                                    "title": "> info waybill",
+                                    "link": "modul-inquiry-agent-waybill.php"
+                                }
+                            ]
+				        },
+                        {
+                            "title": "chart",
+                            "link": "modul-agent-chart.php"
+                        }
+        		    ]
+                },
+                {
+                    "id":"3",
                     "title":"pages",
                     "icon_class":"mdi mdi-file",
                     "link":"modul-data-page.php"
                 },
                 {
-                    "id":"2",
+                    "id":"4",
                     "title":"live chat",
                     "icon_class":"mdi mdi-file",
                     "link":"modul-live-chat.php"

@@ -190,7 +190,7 @@
                         },
                         {   
                             "title": "report",
-                            "link": "modul-agent-ho-report.php"
+                            "link": "modul-agent-ho-deposit-report.php"
                         }
         		    ]
                 },
