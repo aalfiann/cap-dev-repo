@@ -182,102 +182,6 @@ $s = (empty($_GET['s'])?'':$_GET['s']);?>
     <script src="../assets/plugins/sweetalert/sweetalert.min.js"></script>
     <script>$(function(){$('head').append('<link href="../assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">')});</script>
     <script>
-        function generateReferenceID(){
-            $(function(){
-                $.ajax({
-                    type: "GET",
-                    url: "<?php echo Core::getInstance()->api.'/deposit/generate/referenceid/'.$datalogin['username'].'/'.$datalogin['token']?>",
-                    dataType: "json",
-                    cache: false,
-                    success: function (data, textstatus) {
-                        if (data.status == "success"){
-                            $('#deposit_refid').val(data.ReferenceID);
-                        } else {
-                            writeMessage("#reportmsg","danger",data.message);
-                            $('#deposit_refid').val('');
-                        }
-                    },
-                    error: function (data, textstatus) {
-                        writeMessage("#reportmsg","danger",data.message);
-                        $('#deposit_refid').val('');
-                    }
-                });
-            });
-        }
-
-        function makeTransaction(){
-            $(function(){
-                if (!validationRegex("deposit_id","required",true)){
-                    $('#has_deposit_id').addClass('has-danger');
-                    $('#feed_deposit_id').html('<i class="ti-info-alt"></i> <?php echo Core::lang('input_required')?>');
-                    $('#deposit_id').select();
-                    return false;
-                } else if (!validationRegex("deposit_desc","required",true)){
-                    $('#has_deposit_desc').addClass('has-danger');
-                    $('#feed_deposit_desc').html('<i class="ti-info-alt"></i> <?php echo Core::lang('input_required')?>');
-                    $('#deposit_desc').select();
-                    return false;
-                } else if ($('#deposit_mutation').val() <= 0){
-                    $('#has_deposit_mutation').addClass('has-danger');
-                    $('#feed_deposit_mutation').html('<i class="ti-info-alt"></i> <?php echo Core::lang('input_required_not_zero')?>');
-                    $('#deposit_mutation').select();
-                    return false;
-                } else {
-                    $('[id^=has_deposit_]').removeClass('has-danger');
-                    $('[id^=feed_deposit_]').html('');
-                }
-                
-                var radioTask = '';
-                if($('#radio1').is(':checked')) {
-                    radioTask = 'DB';
-                } else {
-                    radioTask = 'CR';
-                }
-
-                swal({   
-                    title: "<?php echo Core::lang('are_u_sure')?>",   
-                    text: "<?php echo Core::lang('deposit_transaction_do')?> "+((radioTask == 'DB')?'<?php echo Core::lang('deposit_debit')?>':'<?php echo Core::lang('deposit_credit')?>')+", \n<?php echo Core::lang('deposit_transaction_confirm')?>",   
-                    type: "warning",   
-                    showCancelButton: true,   
-                    confirmButtonColor: "#DD6B55",   
-                    confirmButtonText: "<?php echo Core::lang('deposit_transaction_submit_yes')?>",   
-                    closeOnConfirm: false 
-                }, function(){    
-                    $.ajax({
-                        type: "POST",
-                        url: "<?php echo Core::getInstance()->api.'/deposit/transaction/new'?>",
-                        dataType: "json",
-                        data: {
-                            Username: "<?php echo $datalogin['username']?>",
-                            Token: "<?php echo $datalogin['token']?>",
-                            DepositID: $('#deposit_id').val(),
-                            ReferenceID: $('#deposit_refid').val(),
-                            Task: radioTask,
-                            Mutation: $('#deposit_mutation').val(),
-                            Description: $('#deposit_desc').val()
-                        },
-                        success: function (data, textstatus) {
-                            if (data.status == "success"){
-                                /* clear form */
-                                $("#addnewdata")
-                                .find("input,textarea")
-                                .val("")
-                                .end();
-                                writeMessage("#reportmsg","success",data.message);
-                                $('#datamain').DataTable().ajax.reload();
-                                generateReferenceID();
-                            } else {
-                                writeMessage("#reportmsg","danger",data.message);
-                            }
-                        },
-                        error: function (data, textstatus) {
-                            writeMessage("#reportmsg","danger",data.message);
-                        }
-                    });
-                });
-            });
-        }
-
         /** 
          * Create event enter key on search (Pure JS)
          * Usage: button id in search element must be set to submitsearchdt
@@ -571,7 +475,6 @@ $s = (empty($_GET['s'])?'':$_GET['s']);?>
             return yyyy + '-' + (mmChars[1]?mm:"0"+mmChars[0]) + '-' + (ddChars[1]?dd:"0"+ddChars[0]);
         }
 
-        generateReferenceID();
         getBalance();
 
         <?php 
