@@ -1,6 +1,6 @@
 <?php spl_autoload_register(function ($classname) {require ( $classname . ".php");});
 $datalogin = Core::checkSessions();
-if(Core::getUserGroup() != '1') {Core::goToPage('modul-user-profile.php');exit;}?>
+if(Core::getUserGroup() == '5') {Core::goToPage('modul-user-profile.php');exit;}?>
 <!DOCTYPE html>
 <html lang="<?php echo Core::getInstance()->setlang?>">
 <head>
@@ -214,7 +214,7 @@ if(Core::getUserGroup() != '1') {Core::goToPage('modul-user-profile.php');exit;}
 
                                             <div class="form-group">
                                                 <label class="form-control-label"><b><?php echo Core::lang('agent_setting_origin_district')?></b></label>
-                                                <input id="agent_setting_origin_district" placeholder="" class="form-control" maxlength="8">
+                                                <input id="agent_setting_origin_district" placeholder="" class="form-control" maxlength="50">
                                                 <span class="help-block text-muted"><small><i class="ti-info-alt"></i> <?php echo Core::lang('agent_helper_origin_district')?></small></span>
                                             </div>
                                             <div class="form-group">
@@ -393,7 +393,18 @@ if(Core::getUserGroup() != '1') {Core::goToPage('modul-user-profile.php');exit;}
                     success: function (data, textstatus) {
                         if (data.status == "success"){
                             if (!$.trim(data.result[0].value)) {} else {
-                                var obj = JSON.parse(data.result[0].value);
+                                /* cleanup to get valid JSON chars */
+                                s = data.result[0].value.replace(/\\n/g, "\\n")  
+                                    .replace(/\\'/g, "\\'")
+                                    .replace(/\\"/g, '\\"')
+                                    .replace(/\\&/g, "\\&")
+                                    .replace(/\\r/g, "\\r")
+                                    .replace(/\\t/g, "\\t")
+                                    .replace(/\\b/g, "\\b")
+                                    .replace(/\\f/g, "\\f");
+                                /* remove non-printable and other non-valid JSON chars */
+                                s = s.replace(/[\u0000-\u0019]+/g,""); 
+                                var obj = JSON.parse(s);
                                 if (!$.trim(obj.logo)) {} else {$("#agent_setting_logo").val(obj.logo)}
                                 if (!$.trim(obj.name)) {} else {$("#agent_setting_company_name").val(obj.name)}
                                 if (!$.trim(obj.slogan)) {} else {$("#agent_setting_company_slogan").val(obj.slogan)}

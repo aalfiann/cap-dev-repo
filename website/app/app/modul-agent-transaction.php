@@ -1,5 +1,6 @@
 <?php spl_autoload_register(function ($classname) {require ( $classname . ".php");});
-$datalogin = Core::checkSessions();?>
+$datalogin = Core::checkSessions();
+if(Core::getUserGroup() == '5') {Core::goToPage('modul-user-profile.php');exit;}?>
 <!DOCTYPE html>
 <html lang="<?php echo Core::getInstance()->setlang?>">
 <head>
@@ -1204,7 +1205,18 @@ $datalogin = Core::checkSessions();?>
                     success: function (data, textstatus) {
                         if (data.status == "success"){
                             if (!$.trim(data.result[0].value)) {} else {
-                                var obj = JSON.parse(data.result[0].value);
+                                /* cleanup to get valid JSON chars */
+                                s = data.result[0].value.replace(/\\n/g, "\\n")  
+                                    .replace(/\\'/g, "\\'")
+                                    .replace(/\\"/g, '\\"')
+                                    .replace(/\\&/g, "\\&")
+                                    .replace(/\\r/g, "\\r")
+                                    .replace(/\\t/g, "\\t")
+                                    .replace(/\\b/g, "\\b")
+                                    .replace(/\\f/g, "\\f");
+                                /* remove non-printable and other non-valid JSON chars */
+                                s = s.replace(/[\u0000-\u0019]+/g,""); 
+                                var obj = JSON.parse(s);
                                 if (!$.trim(obj.logo)) {} else {$("#company_logo").val(obj.logo)}
                                 if (!$.trim(obj.name)) {} else {$("#company_name").val(obj.name)}
                                 if (!$.trim(obj.address)) {} else {$("#company_address").val(obj.address)}

@@ -463,7 +463,18 @@ $datastatus = json_decode(Core::execGetRequest($urlstatus));?>
                         if (data.status == "success"){
                             $("#report-newdata").html("");
                             if (!$.trim(data.result[0].value)) {} else {
-                                var obj = JSON.parse(data.result[0].value);
+                                /* cleanup to get valid JSON chars */
+                                s = data.result[0].value.replace(/\\n/g, "\\n")  
+                                    .replace(/\\'/g, "\\'")
+                                    .replace(/\\"/g, '\\"')
+                                    .replace(/\\&/g, "\\&")
+                                    .replace(/\\r/g, "\\r")
+                                    .replace(/\\t/g, "\\t")
+                                    .replace(/\\b/g, "\\b")
+                                    .replace(/\\f/g, "\\f");
+                                /* remove non-printable and other non-valid JSON chars */
+                                s = s.replace(/[\u0000-\u0019]+/g,""); 
+                                var obj = JSON.parse(s);
                                 $("#depositid").html(" | "+depositid);
                                 if (!$.trim(obj.bank_name)) {$("#agent_setting_bank_name").val("")} else {$("#agent_setting_bank_name").val(obj.bank_name)}
                                 if (!$.trim(obj.bank_address)) {$("#agent_setting_bank_address").val("")} else {$("#agent_setting_bank_address").val(obj.bank_address)}
