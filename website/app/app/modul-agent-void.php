@@ -1,5 +1,6 @@
 <?php spl_autoload_register(function ($classname) {require ( $classname . ".php");});
 $datalogin = Core::checkSessions();
+if(Core::getUserGroup() == '5') {Core::goToPage('modul-user-profile.php');exit;}
 $codeid = (empty($_GET['no'])?'':$_GET['no']);
 $fd = (empty($_GET['fd'])?'':$_GET['fd']);
 $ld = (empty($_GET['ld'])?'':$_GET['ld']);
