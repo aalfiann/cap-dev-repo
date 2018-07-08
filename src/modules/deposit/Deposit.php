@@ -360,8 +360,8 @@ use PDO;                                            //To connect with database
             } else {
                 $data = [
                     'status' => 'error',
-                    'code' => 'RS201',
-                    'message' => CustomHandlers::getreSlimMessage('RS201',$this->lang)
+                    'code' => 'DP205',
+                    'message' => Dictionary::write('DP205',$this->lang)
                 ];
             }
             return $data;
@@ -383,8 +383,8 @@ use PDO;                                            //To connect with database
                 } else {
                     $data = [
                         'status' => 'error',
-                        'code' => 'RS601',
-                        'message' => CustomHandlers::getreSlimMessage('RS601',$this->lang)
+                        'code' => 'DP207',
+                        'message' => Dictionary::write('DP207',$this->lang)
                     ];
                 }
             } else {
