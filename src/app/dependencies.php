@@ -94,14 +94,52 @@ $container['logger'] = function($c) {
     return $logger;
 };
 
-// Register component database connection on container
+// Register component master database connection on container
 $container['db'] = function ($c) {
-    $db = $c['settings']['db'];
-    $pdo = new PDO("mysql:host=" . $db['host'] . ";dbname=" . $db['dbname'],
-        $db['user'], $db['pass']);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-    return $pdo;
+    if (isset($c['settings']['db'])) {
+        $db = $c['settings']['db'];
+        // Simmple Load Balancer
+        if(is_array($db['host'])){
+            $numserver = mt_rand(0,(count($db['host'])-1));
+            $dbhost = $db['host'][$numserver];
+            $dbname = $db['dbname'][$numserver];
+            $dbuser = $db['user'][$numserver];
+            $dbpass = $db['pass'][$numserver];
+            $pdo = new PDO("mysql:host=" . $dbhost . ";dbname=" . $dbname, $dbuser, $dbpass);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        } else {
+            $pdo = new PDO("mysql:host=" . $db['host'] . ";dbname=" . $db['dbname'], $db['user'], $db['pass']);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        }
+        return $pdo;
+    }
+    return null;
+};
+
+// Register component slave database connection on container
+$container['dbslave'] = function ($c) {
+    if (isset($c['settings']['dbslave'])) {
+        $db = $c['settings']['dbslave'];
+        // Simmple Load Balancer
+        if(is_array($db['host'])){
+            $numserver = mt_rand(0,(count($db['host'])-1));
+            $dbhost = $db['host'][$numserver];
+            $dbname = $db['dbname'][$numserver];
+            $dbuser = $db['user'][$numserver];
+            $dbpass = $db['pass'][$numserver];
+            $pdo = new PDO("mysql:host=" . $dbhost . ";dbname=" . $dbname, $dbuser, $dbpass);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        } else {
+            $pdo = new PDO("mysql:host=" . $db['host'] . ";dbname=" . $db['dbname'], $db['user'], $db['pass']);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        }
+        return $pdo;
+    }
+    return null;
 };
 
 // Register component phpmailer on container
