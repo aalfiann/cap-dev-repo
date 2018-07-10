@@ -101,6 +101,11 @@ $vocabularies[] = [
     'agent_placeholder_company_twitter' => 'Example: http://twitter.com/username',
     'agent_placeholder_company_gplus' => 'Example: http://plus.google.com/123456789',
     'agent_placeholder_bank_name' => 'Example: Bank BCA / Bank Mandiri / Bank BRI...',
+    //trace
+    'trace' => 'Trace',
+    'trace_go' => 'GO!',
+    //trace placeholder
+    'trace_placeholder_waybill' => 'Contoh: CGK12345xxxxx',
     //global
     'reason' => 'Reason',
     'result' => 'Result',
