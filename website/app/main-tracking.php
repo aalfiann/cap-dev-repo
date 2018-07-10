@@ -14,9 +14,9 @@
 				
 				<!-- === SUBSCRIBE FORM === -->
 				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 home-subscribe-form animated wow fadeInUp" data-wow-duration=".5s" data-wow-delay=".3s" data-wow-offset="100">
-					<form>
+					<form action="app/modul-trace.php" method="get">
 						<div class="home-subscribe-form-input">
-							<input type="text" name="resi" placeholder="No resi Anda..." />
+							<input type="text" name="no" placeholder="No resi Anda..." />
 						</div>
 						<div class="home-subscribe-form-button">
 							<button><span class="my-btn my-btn-primary">
