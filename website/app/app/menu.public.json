@@ -6,27 +6,32 @@
                 {
                     "id":"1",
                     "title":"home",
-                    "link": "modul-blank-public.php",
-                    "target" : "_blank",
+                    "link": "//cap-express.co.id",
                     "icon_class":"mdi mdi-home"
                 },
                 {
                     "id":"2",
-                    "title":"about",
-                    "link": "#",
-                    "icon_class":"mdi mdi-help-circle-outline"
+                    "title":"trace",
+                    "link": "modul-trace.php",
+                    "icon_class":"mdi mdi-magnify"
                 },
                 {
                     "id":"3",
                     "title":"blog",
-                    "link": "#",
+                    "link": "modul-blog.php",
                     "icon_class":"mdi mdi-rss"
                 },
                 {
                     "id":"4",
                     "title":"contact",
-                    "link": "#",
+                    "link": "//cap-express.co.id/hubungi-kami.php",
                     "icon_class":"mdi mdi-email"
+                },
+                {
+                    "id":"5",
+                    "title":"about",
+                    "link": "//cap-express.co.id/tentang-kami.php",
+                    "icon_class":"mdi mdi-help-circle-outline"
                 }
             ]
 		},
