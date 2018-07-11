@@ -191,6 +191,10 @@
                         {   
                             "title": "report",
                             "link": "modul-agent-ho-deposit-report.php"
+                        },
+                        {
+                            "title": "data settings",
+                            "link": "modul-agent-data-settings.php"
                         }
         		    ]
                 },
