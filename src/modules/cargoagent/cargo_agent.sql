@@ -1,6 +1,21 @@
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
+-- Table structure for agent_config
+-- ----------------------------
+DROP TABLE IF EXISTS `agent_config`;
+CREATE TABLE `agent_config` (
+  `KeyID` varchar(50) NOT NULL,
+  `Config` text,
+  `Description` varchar(255) DEFAULT NULL,
+  `Created_at` datetime DEFAULT NULL,
+  `Created_by` varchar(50) DEFAULT NULL,
+  `Updated_at` datetime DEFAULT NULL,
+  `Updated_by` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`KeyID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
 -- Table structure for agent_log_data
 -- ----------------------------
 DROP TABLE IF EXISTS `agent_log_data`;

@@ -123,7 +123,9 @@ use PDO;                                            //To connect with database
 				if ($role == 1){
 					try {
 						$this->db->beginTransaction();
-						$sql = "DROP TABLE IF EXISTS agent_log_data;DROP TABLE IF EXISTS agent_transaction_waybill;";
+						$sql = "DROP TABLE IF EXISTS agent_config;
+							DROP TABLE IF EXISTS agent_log_data;
+							DROP TABLE IF EXISTS agent_transaction_waybill;";
 						$stmt = $this->db->prepare($sql);
 						if ($stmt->execute()) {
 							$data = [
