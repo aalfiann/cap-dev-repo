@@ -44,6 +44,11 @@ $vocabularies[] = [
     //agent
     'agent' => 'Agent',
     'agent_setting' => 'Agent Settings',
+    'agent_setting_description' => 'All agent settings data is here.',
+    'agent_setting_key' => 'Key',
+    'agent_setting_value' => 'Value',
+    'agent_setting_desc' => 'Description',
+    'agent_setting_delete_warning' => 'Agent settings data is required to create a waybill transaction!',
     'agent_setting_logo' => 'URL Logo',
     'agent_setting_company' => 'Company',
     'agent_setting_company_name' => 'Name',

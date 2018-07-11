@@ -44,6 +44,11 @@ $vocabularies[] = [
     //agent
     'agent' => 'Agent',
     'agent_setting' => 'Pengaturan Agent',
+    'agent_setting_description' => 'Semua data pengaturan agent Anda ada disini.',
+    'agent_setting_key' => 'Key',
+    'agent_setting_value' => 'Value',
+    'agent_setting_desc' => 'Deskripsi',
+    'agent_setting_delete_warning' => 'Data pengaturan agent diperlukan untuk transaksi waybill!',
     'agent_setting_logo' => 'URL Logo',
     'agent_setting_company' => 'Perusahaan',
     'agent_setting_company_name' => 'Nama',
