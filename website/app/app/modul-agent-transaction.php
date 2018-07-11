@@ -1199,14 +1199,14 @@ if(Core::getUserGroup() == '5') {Core::goToPage('modul-user-profile.php');exit;}
             $(function(){
                 $.ajax({
                     type: "GET",
-                    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/flexibleconfig/read/agent_config_'.$datalogin['username'].'/'.$datalogin['username'].'/'.$datalogin['token'])?>"),
+                    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargoagent/config/read/agent_config_'.$datalogin['username'].'/'.$datalogin['username'].'/'.$datalogin['token'])?>"),
                     dataType: "json",
                     cache: false,
                     success: function (data, textstatus) {
                         if (data.status == "success"){
-                            if (!$.trim(data.result[0].value)) {} else {
+                            if (!$.trim(data.result[0].Config)) {} else {
                                 /* cleanup to get valid JSON chars */
-                                s = data.result[0].value.replace(/\\n/g, "\\n")  
+                                s = data.result[0].Config.replace(/\\n/g, "\\n")  
                                     .replace(/\\'/g, "\\'")
                                     .replace(/\\"/g, '\\"')
                                     .replace(/\\&/g, "\\&")

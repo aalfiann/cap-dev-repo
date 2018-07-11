@@ -456,15 +456,15 @@ $datastatus = json_decode(Core::execGetRequest($urlstatus));?>
             $(function(){
                 /* Get balance */
                 $.ajax({
-                    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/flexibleconfig/read/agent_config_')?>")+depositid+Crypto.decode("<?php echo base64_encode('/'.$datalogin['username'].'/'.$datalogin['token'])?>")+"?lang=id&_="+randomText(1),
+                    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargoagent/config/read/agent_config_')?>")+depositid+Crypto.decode("<?php echo base64_encode('/'.$datalogin['username'].'/'.$datalogin['token'])?>")+"?lang=id&_="+randomText(1),
                     dataType: "json",
                     type: "GET",
                     success: function(data) {
                         if (data.status == "success"){
                             $("#report-newdata").html("");
-                            if (!$.trim(data.result[0].value)) {} else {
+                            if (!$.trim(data.result[0].Config)) {} else {
                                 /* cleanup to get valid JSON chars */
-                                s = data.result[0].value.replace(/\\n/g, "\\n")  
+                                s = data.result[0].Config.replace(/\\n/g, "\\n")  
                                     .replace(/\\'/g, "\\'")
                                     .replace(/\\"/g, '\\"')
                                     .replace(/\\&/g, "\\&")
