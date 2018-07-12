@@ -1,7 +1,5 @@
 <?php spl_autoload_register(function ($classname) {require ( $classname . ".php");});
-$datalogin = Core::checkSessions();
-$group = Core::getUserGroup();
-if( $group == '5' ) {Core::goToPage('modul-user-profile.php');exit;}?>
+$datalogin = Core::checkSessions();?>
 <!DOCTYPE html>
 <html lang="<?php echo Core::getInstance()->setlang?>">
 <head>
@@ -99,11 +97,11 @@ if( $group == '5' ) {Core::goToPage('modul-user-profile.php');exit;}?>
                                     
                                     <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
                                         <div class="btn-group mr-2" role="group" aria-label="First group">
-                                            <button type="submit" class="btn btn-success"><?php echo Core::lang('update_page')?></button>
+                                            <button id="updatebtn" type="submit" class="btn btn-success"><?php echo Core::lang('update_page')?></button>
                                         </div>
                                         <div class="btn-group mr-2" role="group" aria-label="Second group">
                                             <?php if(Core::getUserGroup()<3){
-                                                echo '<button onclick="deletedata(\''.$_GET['pageid'].'\');return false;" type="submit" class="btn btn-danger">'.Core::lang('delete').' '.Core::lang('page').'</button>';
+                                                echo '<button id="deletebtn" onclick="deletedata(\''.$_GET['pageid'].'\');return false;" type="submit" class="btn btn-danger">'.Core::lang('delete').' '.Core::lang('page').'</button>';
                                             }?>
                                         </div>
                                     </div>
@@ -113,7 +111,7 @@ if( $group == '5' ) {Core::goToPage('modul-user-profile.php');exit;}?>
                     </div>
                 </div>
                 <!-- ============================================================== -->
-                <!-- End PAge Content -->
+                <!-- End Page Content -->
                 <!-- ============================================================== -->
                 <?php include_once 'sidebar-right.php';?>
             </div>
@@ -211,7 +209,8 @@ if( $group == '5' ) {Core::goToPage('modul-user-profile.php');exit;}?>
                 $(function() {
                     console.log("Process delete data...");
                     var div = document.getElementById("report-updatedata");
-
+                    var btn = "deletebtn";
+                    disableClickButton(btn);
                     $.ajax({
                         url: Crypto.decode("'.base64_encode(Core::getInstance()->api.'/page/data/delete').'"),
                         data : {
@@ -242,6 +241,9 @@ if( $group == '5' ) {Core::goToPage('modul-user-profile.php');exit;}?>
                                 div.innerHTML = messageHtml("danger","'.Core::lang('core_process_delete').' '.Core::lang('page').' '.Core::lang('status_failed').'",data.message);
                             }
                         },
+                        complete: function(){
+                            disableClickButton(btn,false);
+                        },
                         error: function(x, e) {}
                     });
                 });
@@ -257,7 +259,8 @@ if( $group == '5' ) {Core::goToPage('modul-user-profile.php');exit;}?>
             var that = $(this);
             that.off("submit"); /* remove handler */
             var div = document.getElementById("report-updatedata");
-
+            var btn = "updatebtn";
+            disableClickButton(btn);
                 $.ajax({
                     url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/page/data/update'.((Core::getUserGroup() >2)?'/draft':''))?>"),
                     data : {
@@ -283,6 +286,9 @@ if( $group == '5' ) {Core::goToPage('modul-user-profile.php');exit;}?>
                             div.innerHTML = messageHtml("danger","<?php echo Core::lang('core_process_update').' '.Core::lang('page').' '.Core::lang('status_failed')?>",data.message);
                             that.on("submit", sendnewdata); /* add handler back after ajax */
                         }
+                    },
+                    complete: function(){
+                        disableClickButton(btn,false);
                     },
                     error: function(x, e) {}
                 });

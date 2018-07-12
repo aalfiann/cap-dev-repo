@@ -1,7 +1,5 @@
 <?php spl_autoload_register(function ($classname) {require ( $classname . ".php");});
-$datalogin = Core::checkSessions();
-$group = Core::getUserGroup();
-if( $group == '5' ) {Core::goToPage('modul-user-profile.php');exit;}?>
+$datalogin = Core::checkSessions();?>
 <!DOCTYPE html>
 <html lang="<?php echo Core::getInstance()->setlang?>">
 <head>
@@ -90,7 +88,7 @@ if( $group == '5' ) {Core::goToPage('modul-user-profile.php');exit;}?>
                                         <textarea id="content" rows="5" style="resize: vertical;" class="form-control summernote" placeholder="<?php echo Core::lang('input_content_page')?>" maxlength="10000" required></textarea>
                                     </div>
                                     <div class="text-center">
-                                        <button type="submit" class="btn btn-success"><?php echo Core::lang('save_page')?></button>
+                                        <button id="submitbtn" type="submit" class="btn btn-success"><?php echo Core::lang('save_page')?></button>
                                     </div>
                                 </form>    
                             </div>
@@ -98,7 +96,7 @@ if( $group == '5' ) {Core::goToPage('modul-user-profile.php');exit;}?>
                     </div>
                 </div>
                 <!-- ============================================================== -->
-                <!-- End PAge Content -->
+                <!-- End Page Content -->
                 <!-- ============================================================== -->
                 <?php include_once 'sidebar-right.php';?>
             </div>
@@ -134,7 +132,8 @@ if( $group == '5' ) {Core::goToPage('modul-user-profile.php');exit;}?>
             var that = $(this);
             that.off("submit"); /* remove handler */
             var div = document.getElementById("report-newdata");
-
+            var btn = "submitbtn";
+            disableClickButton(btn);
                 $.ajax({
                     url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/page/data/new')?>"),
                     data : {
@@ -167,6 +166,9 @@ if( $group == '5' ) {Core::goToPage('modul-user-profile.php');exit;}?>
                             div.innerHTML = messageHtml("danger","<?php echo Core::lang('core_process_add').' '.Core::lang('page').' '.Core::lang('status_failed')?>",data.message);
                             that.on("submit", sendnewdata); /* add handler back after ajax */
                         }
+                    },
+                    complete: function() {
+                        disableClickButton(btn,false);
                     },
                     error: function(x, e) {}
                 });
