@@ -159,7 +159,7 @@ $s = (empty($_GET['s'])?'':$_GET['s']);?>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-default waves-effect text-left" data-dismiss="modal"><?php echo Core::lang('cancel')?></button>
-                                                        <button type="button" class="btn btn-success" onclick="makeTransaction()"><?php echo Core::lang('submit')?></button>
+                                                        <button id="submitbtn" type="button" class="btn btn-success" onclick="makeTransaction()"><?php echo Core::lang('submit')?></button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -205,7 +205,7 @@ $s = (empty($_GET['s'])?'':$_GET['s']);?>
                     </div>
                 </div>
                 <!-- ============================================================== -->
-                <!-- End PAge Content -->
+                <!-- End Page Content -->
                 <!-- ============================================================== -->
                 <?php include_once 'sidebar-right.php';?>
             </div>
@@ -289,7 +289,9 @@ $s = (empty($_GET['s'])?'':$_GET['s']);?>
                     confirmButtonColor: "#DD6B55",   
                     confirmButtonText: "<?php echo Core::lang('deposit_transaction_submit_yes')?>",   
                     closeOnConfirm: false 
-                }, function(){    
+                }, function(){
+                    var btn = "submitbtn";
+                    disableClickButton(btn);
                     $.ajax({
                         type: "POST",
                         url: "<?php echo Core::getInstance()->api.'/deposit/transaction/new'?>",
@@ -318,6 +320,9 @@ $s = (empty($_GET['s'])?'':$_GET['s']);?>
                                 writeMessage("#reportmsg","danger",data.message);
                                 swal("<?php echo Core::lang('deposit_transaction_failed')?>", data.message, "error");
                             }
+                        },
+                        complete: function(){
+                            disableClickButton(btn,false);
                         },
                         error: function (data, textstatus) {
                             writeMessage("#reportmsg","danger",data.message);

@@ -138,7 +138,7 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-default waves-effect text-left" data-dismiss="modal"><?php echo Core::lang('cancel')?></button>
-                                                        <button type="submit" class="btn btn-success"><?php echo Core::lang('submit')?></button>
+                                                        <button id="submitbtn" type="submit" class="btn btn-success"><?php echo Core::lang('submit')?></button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -193,7 +193,7 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                     </div>
                 </div>
                 <!-- ============================================================== -->
-                <!-- End PAge Content -->
+                <!-- End Page Content -->
                 <!-- ============================================================== -->
                 <?php include_once 'sidebar-right.php';?>
             </div>
@@ -523,11 +523,11 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                                                         <div class="col-sm-12">\
                                                         <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">\
                                                             <div class="btn-group mr-2" role="group" aria-label="First group">\
-                                                                <button type="submit" onclick="deletedata(\''+row.BranchID+row.Kabupaten.replace(' ','-')+row.ModeID+'\');return false;" class="btn btn-danger"><?php echo Core::lang('delete')?></button>\
+                                                                <button id="deletebtn'+row.BranchID+row.Kabupaten.replace(' ','-')+row.ModeID+'" type="submit" onclick="deletedata(\''+row.BranchID+row.Kabupaten.replace(' ','-')+row.ModeID+'\');return false;" class="btn btn-danger"><?php echo Core::lang('delete')?></button>\
                                                             </div>\
                                                             <div class="btn-group mr-2" role="group" aria-label="Second group">\
                                                                 <button type="button" class="btn btn-default waves-effect text-left mr-2" data-dismiss="modal"><?php echo Core::lang('cancel')?></button>\
-                                                                <button type="submit" onclick="updatedata(\''+row.BranchID+row.Kabupaten.replace(' ','-')+row.ModeID+'\');return false;" class="btn btn-success"><?php echo Core::lang('update')?></button>\
+                                                                <button id="updatebtn'+row.BranchID+row.Kabupaten.replace(' ','-')+row.ModeID+'" type="submit" onclick="updatedata(\''+row.BranchID+row.Kabupaten.replace(' ','-')+row.ModeID+'\');return false;" class="btn btn-success"><?php echo Core::lang('update')?></button>\
                                                             </div>\
                                                         </div>\
                                                         </div>\
@@ -622,7 +622,8 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
             var that = $(this);
             that.off("submit"); /* remove handler */
             var div = document.getElementById("report-newdata");
-
+            var btn = "submitbtn";
+            disableClickButton(btn);
                 $.ajax({
                     url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargo/tariff/data/new')?>"),
                     data : {
@@ -658,6 +659,9 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                             that.on("submit", sendnewdata); /* add handler back after ajax */
                         }
                     },
+                    complete: function(){
+                        disableClickButton(btn,false);
+                    },
                     error: function(x, e) {}
                 });   
             
@@ -691,6 +695,9 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                     return false;
                 }
 
+                var btn = "updatebtn"+dataid;
+                disableClickButton(btn);
+
                 $.ajax({
                     url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargo/tariff/data/update')?>"),
                     data : {
@@ -718,6 +725,9 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                             $('.'+dataid).modal('hide');
                         }
                     },
+                    complete: function(){
+                        disableClickButton(btn,false);
+                    },
                     error: function(x, e) {}
                 });
             });
@@ -738,6 +748,9 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                     $(".help-block.text-danger.district"+dataid).html("<br><small><?php echo Core::lang('input_required')?></small>");
                     return false;
                 }
+
+                var btn = "deletebtn"+dataid;
+                disableClickButton(btn);
 
                 $.ajax({
                     url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargo/tariff/data/delete')?>"),
@@ -761,6 +774,9 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                             div.innerHTML = messageHtml("danger","<?php echo Core::lang('core_process_delete').' '.Core::lang('tariff').' '.Core::lang('status_failed')?>",data.message);
                             $('.'+dataid).modal('hide');
                         }
+                    },
+                    complete: function(){
+                        disableClickButton(btn,false);
                     },
                     error: function(x, e) {}
                 });

@@ -136,7 +136,7 @@ $refpage = (empty($_GET['ref'])?Core::lang('pod'):'<a href="'.$_GET['ref'].$refd
                                     </div>
                                     <hr>
                                     <div class="form-group">
-                                        <button type="button" onclick="sendPOD()" class="btn btn-themecolor"><?php echo Core::lang('submit')?></button>
+                                        <button id="submitbtn" type="button" onclick="sendPOD()" class="btn btn-themecolor"><?php echo Core::lang('submit')?></button>
                                     </div>                                 
                                 </form>
                             </div>
@@ -144,7 +144,7 @@ $refpage = (empty($_GET['ref'])?Core::lang('pod'):'<a href="'.$_GET['ref'].$refd
                     </div>
                 </div>
                 <!-- ============================================================== -->
-                <!-- End PAge Content -->
+                <!-- End Page Content -->
                 <!-- ============================================================== -->
                 <?php include_once 'sidebar-right.php';?>
             </div>
@@ -189,6 +189,8 @@ $refpage = (empty($_GET['ref'])?Core::lang('pod'):'<a href="'.$_GET['ref'].$refd
 
         function sendPodSuccess(){
             $(function(){
+                var btn = "submitbtn";
+                disableClickButton(btn);
                 $.ajax({
                     url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargo/transaction/data/pod/delivered')?>"),
                     data : {
@@ -215,6 +217,9 @@ $refpage = (empty($_GET['ref'])?Core::lang('pod'):'<a href="'.$_GET['ref'].$refd
                             swal("<?php echo Core::lang('pod').' '.Core::lang('status_failed')?>", data.message,"error");
                         }
                     },
+                    complete: function(){
+                        disableClickButton(btn,false);
+                    },
                     error: function(x, e) {}
                 });
             });
@@ -222,6 +227,8 @@ $refpage = (empty($_GET['ref'])?Core::lang('pod'):'<a href="'.$_GET['ref'].$refd
 
         function sendPodFailed(){
             $(function(){
+                var btn = "submitbtn";
+                disableClickButton(btn);
                 $.ajax({
                     url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargo/transaction/data/pod/failed')?>"),
                     data : {
@@ -247,6 +254,9 @@ $refpage = (empty($_GET['ref'])?Core::lang('pod'):'<a href="'.$_GET['ref'].$refd
                             swal("<?php echo Core::lang('pod').' '.Core::lang('status_failed')?>", data.message,"error");
                         }
                     },
+                    complete: function(){
+                        disableClickButton(btn,false);
+                    },
                     error: function(x, e) {}
                 });
             });
@@ -254,6 +264,8 @@ $refpage = (empty($_GET['ref'])?Core::lang('pod'):'<a href="'.$_GET['ref'].$refd
 
         function sendPodReturn(opt='1'){
             $(function(){
+                var btn = "submitbtn";
+                disableClickButton(btn);
                 var urldata = '';
                 switch(opt){
                     case '1':
@@ -288,6 +300,9 @@ $refpage = (empty($_GET['ref'])?Core::lang('pod'):'<a href="'.$_GET['ref'].$refd
                             console.log("<?php echo Core::lang('submit').' '.Core::lang('pod').' '.Core::lang('status_failed')?>");
                             swal("<?php echo Core::lang('pod').' '.Core::lang('status_failed')?>", data.message,"error");
                         }
+                    },
+                    complete: function(){
+                        disableClickButton(btn,false);
                     },
                     error: function(x, e) {}
                 });

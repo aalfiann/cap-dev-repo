@@ -494,7 +494,8 @@ if(Core::getUserGroup() > '4') {Core::goToPage('modul-user-profile.php');exit;}?
             var that = $(this);
             that.off("submit"); /* remove handler */
             var div = document.getElementById("report-newdata");
-            disableClickButton("submitbtn");
+            var btn = "submitbtn";
+            disableClickButton(btn);
                 $.ajax({
                     url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargoagent/config/add')?>"),
                     data : {
@@ -527,7 +528,7 @@ if(Core::getUserGroup() > '4') {Core::goToPage('modul-user-profile.php');exit;}?
                         }
                     },
                     complete: function(){
-                        disableClickButton("submitbtn",false);
+                        disableClickButton(btn,false);
                     },
                     error: function(x, e) {}
                 });   
@@ -540,7 +541,8 @@ if(Core::getUserGroup() > '4') {Core::goToPage('modul-user-profile.php');exit;}?
             $(function() {
                 console.log("Process update data...");
                 var div = document.getElementById("report-updatedata");
-                disableClickButton("updatebtn"+dataid);
+                var btn = "updatebtn"+dataid;
+                disableClickButton(btn);
                 $.ajax({
                     url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargoagent/config/update')?>"),
                     data : {
@@ -565,7 +567,7 @@ if(Core::getUserGroup() > '4') {Core::goToPage('modul-user-profile.php');exit;}?
                         }
                     },
                     complete: function(){
-                        disableClickButton("updatebtn"+dataid,false);
+                        disableClickButton(btn,false);
                     },
                     error: function(x, e) {}
                 });
@@ -588,7 +590,8 @@ if(Core::getUserGroup() > '4') {Core::goToPage('modul-user-profile.php');exit;}?
                     cancelButtonText: "<?php echo Core::lang('cancel')?>",
                     closeOnConfirm: false 
                 }, function(){
-                    disableClickButton("deletebtn"+dataid);
+                    var btn = "deletebtn"+dataid;
+                    disableClickButton(btn);
                     $.ajax({
                         url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargoagent/config/delete')?>"),
                         data : {
@@ -613,7 +616,7 @@ if(Core::getUserGroup() > '4') {Core::goToPage('modul-user-profile.php');exit;}?
                             }
                         },
                         complete: function(){
-                            disableClickButton("deletebtn"+dataid,false);
+                            disableClickButton(btn,false);
                         },
                         error: function(x, e) {}
                     });

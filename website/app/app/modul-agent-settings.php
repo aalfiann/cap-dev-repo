@@ -229,7 +229,7 @@ if(Core::getUserGroup() == '5') {Core::goToPage('modul-user-profile.php');exit;}
                             
                                 <hr>
                                 <div class="form-group">
-                                    <button type="button" onclick="saveConfig()" class="btn btn-themecolor"><?php echo Core::lang('save')?> <?php echo Core::lang('settings')?></button>
+                                    <button id="submitbtn" type="button" onclick="saveConfig()" class="btn btn-themecolor"><?php echo Core::lang('save')?> <?php echo Core::lang('settings')?></button>
                                 </div>
 
                             </div>
@@ -237,7 +237,7 @@ if(Core::getUserGroup() == '5') {Core::goToPage('modul-user-profile.php');exit;}
                     </div>
                 </div>
                 <!-- ============================================================== -->
-                <!-- End PAge Content -->
+                <!-- End Page Content -->
                 <!-- ============================================================== -->
                 <?php include_once 'sidebar-right.php';?>
             </div>
@@ -303,6 +303,9 @@ if(Core::getUserGroup() == '5') {Core::goToPage('modul-user-profile.php');exit;}
                     }
                 }
 
+                var btn = "submitbtn";
+                disableClickButton(btn);
+
                 $.ajax({
                     type: "POST",
                     url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargoagent/config/add')?>"),
@@ -322,6 +325,9 @@ if(Core::getUserGroup() == '5') {Core::goToPage('modul-user-profile.php');exit;}
                             writeMessage("#reportmsg","danger",data.message);
                             swal("<?php echo Core::lang('core_update_failed')?>", data.message,"error");
                         }
+                    },
+                    complete: function(){
+                        disableClickButton(btn,false);
                     },
                     error: function (data, textstatus) {
                         writeMessage("#reportmsg","danger",data.message);
@@ -355,6 +361,9 @@ if(Core::getUserGroup() == '5') {Core::goToPage('modul-user-profile.php');exit;}
                     }
                 }
 
+                var btn = "submitbtn";
+                disableClickButton(btn);
+
                 $.ajax({
                     type: "POST",
                     url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargoagent/config/update')?>"),
@@ -374,6 +383,9 @@ if(Core::getUserGroup() == '5') {Core::goToPage('modul-user-profile.php');exit;}
                             writeMessage("#reportmsg","danger",data.message);
                             swal("<?php echo Core::lang('core_update_failed')?>", data.message,"error");
                         }
+                    },
+                    complete: function(){
+                        disableClickButton(btn,false);
                     },
                     error: function (data, textstatus) {
                         writeMessage("#reportmsg","danger",data.message);

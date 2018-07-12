@@ -77,7 +77,7 @@ $refpage = (empty($_GET['ref'])?Core::lang('void'):'<a href="'.$_GET['ref'].$ref
                                     </div>
                                     <hr>
                                     <div class="form-group">
-                                        <button type="button" onclick="sendVoid()" class="btn btn-themecolor"><?php echo Core::lang('submit')?></button>
+                                        <button id="submitbtn" type="button" onclick="sendVoid()" class="btn btn-themecolor"><?php echo Core::lang('submit')?></button>
                                     </div>                                        
                                 </form>
                             </div>
@@ -85,7 +85,7 @@ $refpage = (empty($_GET['ref'])?Core::lang('void'):'<a href="'.$_GET['ref'].$ref
                     </div>
                 </div>
                 <!-- ============================================================== -->
-                <!-- End PAge Content -->
+                <!-- End Page Content -->
                 <!-- ============================================================== -->
                 <?php include_once 'sidebar-right.php';?>
             </div>
@@ -108,6 +108,8 @@ $refpage = (empty($_GET['ref'])?Core::lang('void'):'<a href="'.$_GET['ref'].$ref
         function sendVoid(){
             $(function(){
                 if (validateCheck()) {
+                    var btn = "submitbtn";
+                    disableClickButton(btn);
                     $.ajax({
                         url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargo/transaction/data/void')?>"),
                         data : {
@@ -131,6 +133,9 @@ $refpage = (empty($_GET['ref'])?Core::lang('void'):'<a href="'.$_GET['ref'].$ref
                                 console.log("<?php echo Core::lang('submit').' '.Core::lang('void').' '.Core::lang('status_failed')?>");
                                 swal("<?php echo Core::lang('void').' '.Core::lang('status_failed')?>", data.message,"error");
                             }
+                        },
+                        complete: function(){
+                            disableClickButton(btn,false);
                         },
                         error: function(x, e) {}
                     });
