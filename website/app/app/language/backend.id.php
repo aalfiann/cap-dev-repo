@@ -279,7 +279,17 @@ $vocabularies[] = [
     'package_readme' => 'README.md',
     'module' => 'Modul',
     'namespace' => 'Namespace',
+    //pages
+    'pages_latest' => 'Terbaru',
+    'pages_readmore' => 'Baca selengkapnya...',
+    'pages_search_label' => 'Cari label',
+    'pages_not_found' => '<p><b>404 - Tidak Ditemukan!</b><br>Maaf, Halaman yang Anda cari tidak ada, telah dihapus atau mungkin telah di pindahkan.</p>',
+    'pages_not_available' => '<p><b>Data tidak tersedia!</b><br>Silahkan coba gunakan kata kunci pencarian lain nya.</p>',
+    'pages_show_comments' => 'Tampilkan Komentar',
+    'pages_placeholder_search' => 'Pencarian kata kunci...',
     //general
+    'post' => 'Post',
+    'blog' => 'Blog',
     'deleted' => 'Terhapus!',
     'delete_yes' => 'Iya, Hapus Saja!',
     'delete_ok' => 'Ok, Hapus Saja!',

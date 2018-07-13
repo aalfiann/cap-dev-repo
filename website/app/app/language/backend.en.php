@@ -279,7 +279,17 @@ $vocabularies[] = [
     'package_readme' => 'README.md',
     'module' => 'Module',
     'namespace' => 'Namespace',
+    //pages
+    'pages_latest' => 'Latest',
+    'pages_readmore' => 'Readmore...',
+    'pages_search_label' => 'Search label',
+    'pages_not_found' => '<p><b>404 - Not Found!</b><br>Sorry, The page you are looking for, does not exist, has been deleted or may have been moved.</p>',
+    'pages_not_available' => '<p><b>Data not available!</b><br>You can try to use another keyword.</p>',
+    'pages_show_comments' => 'Show Comments',
+    'pages_placeholder_search' => 'Search keywords...',
     //general
+    'post' => 'Post',
+    'blog' => 'Blog',
     'deleted' => 'Deleted!',
     'delete_yes' => 'Yes, Delete It!',
     'delete_ok' => 'OK, Delete It!',
