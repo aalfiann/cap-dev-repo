@@ -7,7 +7,7 @@ CAP Development
 ![Timeline1](https://img.shields.io/badge/timeline1-100%25-green.svg)<br>
 ![Timeline2](https://img.shields.io/badge/timeline2-100%25-green.svg)<br>
 ![Timeline3](https://img.shields.io/badge/timeline3-100%25-green.svg)<br>
-![Timeline4](https://img.shields.io/badge/timeline4-15%25-red.svg)<br>
+![Timeline4](https://img.shields.io/badge/timeline4-22%25-red.svg)<br>
 
 
 Untuk melihat status proses development [klik disini](https://github.com/aalfiann/cap-dev-repo/commits/master).<br>
@@ -94,10 +94,10 @@ Timeline plan 4:
 Proses pengembangan sekitar 3 bulan
 1. Public Tracking Info >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
 Untuk mendapatkan informasi riwayat perjalanan data customer<br>
-2. Public Tariff Info >> ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) `on progress`<br>
-Untuk mendapatkan informasi tariff semua cabang<br>
-3. Blog System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+2. Blog System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
 Blog atau konten manajemen sistem berguna untuk pembuatan artikel, berita, promosi, dokumentasi dan lain-lain<br>
+3. Public Tariff Info >> ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) `on progress`<br>
+Untuk mendapatkan informasi tariff semua cabang<br>
 4. Corporate System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
 Pendataan Corporate atau perusahaan yang bekerja sama<br>
 5. Invoice System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
