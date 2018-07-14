@@ -1,7 +1,7 @@
 <?php spl_autoload_register(function ($classname) {require ( $classname . ".php");});
 $datalogin = Core::checkSessions();
 $group = Core::getUserGroup();
-if( $group > '2' && ($group != '6' || $group != '7') ) {Core::goToPage('modul-user-profile.php');exit;}
+if( $group > '2' && ($group != '6' && $group != '7') ) {Core::goToPage('modul-user-profile.php');exit;}
 $fd = (empty($_GET['fd'])?'':$_GET['fd']);
 $ld = (empty($_GET['ld'])?'':$_GET['ld']);
 $s = (empty($_GET['s'])?'':$_GET['s']);

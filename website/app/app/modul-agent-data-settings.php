@@ -1,6 +1,6 @@
 <?php spl_autoload_register(function ($classname) {require ( $classname . ".php");});
 $datalogin = Core::checkSessions();
-if(Core::getUserGroup() > '4') {Core::goToPage('modul-user-profile.php');exit;}?>
+if(Core::getUserGroup() > 2) {Core::goToPage('modul-user-profile.php');exit;}?>
 <!DOCTYPE html>
 <html lang="<?php echo Core::getInstance()->setlang?>">
 <head>

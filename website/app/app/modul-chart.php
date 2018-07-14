@@ -2,7 +2,7 @@
 spl_autoload_register(function ($classname) {require ( $classname . ".php");});
 $datalogin = Core::checkSessions();
 $group = Core::getUserGroup();
-if( $group > '2' && ($group != '6' || $group != '7') ) {Core::goToPage('modul-user-profile.php');exit;}?>
+if( $group > '2' && ($group != '6' && $group != '7') ) {Core::goToPage('modul-user-profile.php');exit;}?>
 <!DOCTYPE html>
 <html lang="<?php echo Core::getInstance()->setlang?>">
 <head>
