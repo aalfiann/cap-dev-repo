@@ -78,7 +78,7 @@
         var $pathcache = 'cache-files';
         var $minifycache = true;
 
-        var $version = '2.11.1';
+        var $version = '2.11.2';
 
         private static $instance;
         
@@ -393,7 +393,7 @@
                 	}
             }
             unset($_SESSION['groupid']); //user group session menu
-        	header("Location: ".self::getInstance()->basepath."/modul-login.php");
+        	header("Location: ".self::getInstance()->basepath."/modul-blog.php");
         }
 
         /**
@@ -740,7 +740,7 @@
                     $out['username'] = null;
                     $out['token'] = null;
                     unset($_SESSION['groupid']); //user group session menu
-                    header("Location: ".self::getInstance()->basepath."/modul-login.php");
+                    header("Location: ".self::getInstance()->basepath."/modul-blog.php");
                 }
                 else
                 {
@@ -751,7 +751,7 @@
                         $out['username'] = null;
                         $out['token'] = null;
                         unset($_SESSION['groupid']); //user group session menu
-                        header("Location: ".self::getInstance()->basepath."/modul-login.php");
+                        header("Location: ".self::getInstance()->basepath."/modul-blog.php");
                     }                     
                 }
             }
@@ -764,7 +764,7 @@
                     $out['username'] = null;
                     $out['token'] = null;
                     unset($_SESSION['groupid']); //user group session menu
-                    header("Location: ".self::getInstance()->basepath."/modul-login.php");
+                    header("Location: ".self::getInstance()->basepath."/modul-blog.php");
                 }
     	    }
 	        return $out;
