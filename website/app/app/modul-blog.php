@@ -1,17 +1,35 @@
 <?php spl_autoload_register(function ($classname) {require ( $classname . ".php");});
 $search = filter_var((empty($_GET['search'])?'':$_GET['search']),FILTER_SANITIZE_STRING);
 $page = filter_var((empty($_GET['page'])?'1':$_GET['page']),FILTER_SANITIZE_STRING);
-$itemsperpage = filter_var((empty($_GET['itemsperpage'])?'20':$_GET['itemsperpage']),FILTER_SANITIZE_STRING);
+$itemsperpage = filter_var((empty($_GET['itemsperpage'])?'10':$_GET['itemsperpage']),FILTER_SANITIZE_STRING);
 
 //Get data pages
 $url = Core::getInstance()->api.'/page/data/public/search/'.$page.'/'.$itemsperpage.'/?query='.rawurlencode($search).'&lang='.Core::getInstance()->setlang.'&apikey='.Core::getInstance()->apikey;
 $data = json_decode(Core::execGetRequest($url));
+
+if (empty($search)){
+    $title = Core::getInstance()->description.(!empty($page) && ($page != 1)?' | '.Core::lang('page').' '.$page:'').' | '.Core::getInstance()->title;
+    $description = Core::getInstance()->description.(!empty($page)?' '.Core::lang('page').' '.$page:'').' | '.Core::getInstance()->title;
+    $keyword = Core::getInstance()->keyword;
+    $author = Core::getInstance()->title.' Team';
+    $image = ((!empty(Core::getInstance()->assetspath))?Core::getInstance()->assetspath.'/images/background/megamenubg.jpg':'');
+} else {
+    $title = Core::lang('pages_meta_search').' '.$search.(!empty($page)?' | '.Core::lang('page').' '.$page:'').' | '.Core::getInstance()->title;
+    $description = ''.Core::lang('pages_meta_search').' '.$search.(!empty($page)?' '.Core::lang('page').' '.$page:'');
+    $keyword = ''.Core::lang('pages_meta_search_keyword').', '.$search;
+    $author = Core::getInstance()->title.' Team';
+    $image = ((!empty(Core::getInstance()->assetspath))?Core::getInstance()->assetspath.'/images/background/megamenubg.jpg':'');
+}
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo Core::getInstance()->setlang?>">
 <head>
     <?php include_once 'global-meta.php';?>    
-    <title>Blog - <?php echo Core::getInstance()->title?></title>
+    <title><?php echo $title?></title>
+    <meta name="description" content="<?php echo $description?>">
+    <meta name="keyword" content="<?php echo $keyword?>">
+    <meta name="author" content="<?php echo $author?>">
+    <?php include 'global-opengraph.php';?>
 </head>
 
 <body class="fix-sidebar fix-header card-no-border">
