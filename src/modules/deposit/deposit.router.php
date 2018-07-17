@@ -16,12 +16,12 @@ use \classes\JSON as JSON;                                      //JSON class    
 
     
     // Get module information (for public user)
-    $app->get('/deposit/get/info/', function (Request $request, Response $response) {
+    $app->map(['GET','OPTIONS'],'/deposit/get/info/', function (Request $request, Response $response) {
         $deposit = new Deposit($this->db);
         $body = $response->getBody();
         $response = $this->cache->withEtag($response, $this->etag2hour.'-'.trim($_SERVER['REQUEST_URI'],'/'));
         $body->write($deposit->viewInfo());
-        return classes\Cors::modify($response,$body,200);
+        return classes\Cors::modify($response,$body,200,$request);
     })->add(new ApiKey);
     
     // Installation 

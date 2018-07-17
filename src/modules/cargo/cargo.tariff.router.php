@@ -141,7 +141,7 @@ use \modules\cargo\Tariff as Tariff;
     });
 
     // GET api to search tariff public
-    $app->get('/cargo/tariff/data/get/public/search/', function (Request $request, Response $response) {
+    $app->map(['GET','OPTIONS'],'/cargo/tariff/data/get/public/search/', function (Request $request, Response $response) {
         $cargo = new Tariff($this->db);
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->origin = filter_var((empty($_GET['origin'])?'':$_GET['origin']),FILTER_SANITIZE_STRING);
@@ -164,7 +164,7 @@ use \modules\cargo\Tariff as Tariff;
     })->add(new ValidateParamURL('lang','0-2'))->add(new ApiKey);
 
     // GET api to show all list origin tariff public
-    $app->get('/cargo/tariff/data/list/origin/public/search/', function (Request $request, Response $response) {
+    $app->map(['GET','OPTIONS'],'/cargo/tariff/data/list/origin/public/search/', function (Request $request, Response $response) {
         $cargo = new Tariff($this->db);
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->search = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);
@@ -182,7 +182,7 @@ use \modules\cargo\Tariff as Tariff;
         ->add(new ApiKey);
 
     // GET api to show all list destinasi tariff public
-    $app->get('/cargo/tariff/data/list/destination/public/search/', function (Request $request, Response $response) {
+    $app->map(['GET','OPTIONS'],'/cargo/tariff/data/list/destination/public/search/', function (Request $request, Response $response) {
         $cargo = new Tariff($this->db);
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->search = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);

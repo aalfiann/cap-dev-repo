@@ -98,7 +98,7 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
 
     
     // GET api to read single data for public user (include cache)
-    $app->get('/cargoagent/config/read/{key}/', function (Request $request, Response $response) {
+    $app->map(['GET','OPTIONS'],'/cargoagent/config/read/{key}/', function (Request $request, Response $response) {
         $cf = new Config($this->db);
         $cf->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cf->key = $request->getAttribute('key');
@@ -110,7 +110,7 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
             $datajson = SimpleCache::save($cf->readPublic(),["apikey","lang"]);
         }
         $body->write($datajson);
-        return classes\Cors::modify($response,$body,200);
+        return classes\Cors::modify($response,$body,200,$request);
     })->add(new ValidateParamURL('lang','0-2'))->add(new ApiKey);
 
 

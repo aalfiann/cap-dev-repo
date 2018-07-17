@@ -310,7 +310,7 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
     })->add(new ValidateParamURL('no','1-20'));
 
     // GET api to show data trace waybill detail public
-    $app->get('/cargoagent/transaction/data/public/trace/detail/waybill/', function (Request $request, Response $response) {
+    $app->map(['GET','OPTIONS'],'/cargoagent/transaction/data/public/trace/detail/waybill/', function (Request $request, Response $response) {
         $cargo = new Transaction($this->db);
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->waybill = filter_var((empty($_GET['no'])?'':$_GET['no']),FILTER_SANITIZE_STRING);
@@ -322,11 +322,11 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
             $datajson = SimpleCache::save($cargo->traceWaybillDetailPublic(),["apikey","lang","no"]);
         }
         $body->write($datajson);
-        return classes\Cors::modify($response,$body,200);
+        return classes\Cors::modify($response,$body,200,$request);
     })->add(new ValidateParamURL('lang','0-2'))->add(new ValidateParamURL('no','1-20'))->add(new ApiKey);
 
     // GET api to show data trace waybill simple public
-    $app->get('/cargoagent/transaction/data/public/trace/simple/waybill/', function (Request $request, Response $response) {
+    $app->map(['GET','OPTIONS'],'/cargoagent/transaction/data/public/trace/simple/waybill/', function (Request $request, Response $response) {
         $cargo = new Transaction($this->db);
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->waybill = filter_var((empty($_GET['no'])?'':$_GET['no']),FILTER_SANITIZE_STRING);
@@ -338,7 +338,7 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
             $datajson = SimpleCache::save($cargo->traceWaybillSimplePublic(),["apikey","lang","no"]);
         }
         $body->write($datajson);
-        return classes\Cors::modify($response,$body,200);
+        return classes\Cors::modify($response,$body,200,$request);
     })->add(new ValidateParamURL('lang','0-2'))->add(new ValidateParamURL('no','1-20'))->add(new ApiKey);
 
     // GET api to show all data transaction pagination registered user

@@ -11,13 +11,13 @@ use \classes\middleware\ApiKey as ApiKey;                       //ApiKey Middlew
 
 
     // Get module information
-    $app->get('/cargo/get/info/', function (Request $request, Response $response) {
+    $app->map(['GET','OPTIONS'],'/cargo/get/info/', function (Request $request, Response $response) {
         $cargo = new Cargo($this->db);
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $body = $response->getBody();
         $response = $this->cache->withEtag($response, $this->etag2hour.'-'.trim($_SERVER['REQUEST_URI'],'/'));
         $body->write($cargo->viewInfo());
-        return classes\Cors::modify($response,$body,200);
+        return classes\Cors::modify($response,$body,200,$request);
     })->add(new ApiKey);
 
     // Installation 

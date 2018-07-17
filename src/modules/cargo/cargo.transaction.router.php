@@ -318,14 +318,14 @@ use \modules\cargo\Transaction as Transaction;
     })->add(new ValidateParamURL('no'));
 
     // GET api to show data trace waybill detail public
-    $app->get('/cargo/transaction/data/public/trace/detail/waybill/', function (Request $request, Response $response) {
+    $app->map(['GET','OPTIONS'],'/cargo/transaction/data/public/trace/detail/waybill/', function (Request $request, Response $response) {
         $cargo = new Transaction($this->db);
         $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cargo->waybill = filter_var((empty($_GET['no'])?'':$_GET['no']),FILTER_SANITIZE_STRING);
         $response = $this->cache->withEtag($response, $this->etag.'-'.trim($_SERVER['REQUEST_URI'],'/'));
         $body = $response->getBody();
         $body->write($cargo->traceWaybillDetailPublic());
-        return classes\Cors::modify($response,$body,200);
+        return classes\Cors::modify($response,$body,200,$request);
     })->add(new ValidateParamURL('no'))->add(new ApiKey);
 
     // GET api to show data trace waybill simple public
