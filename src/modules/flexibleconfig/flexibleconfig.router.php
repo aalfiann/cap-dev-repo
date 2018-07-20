@@ -40,7 +40,7 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
         $body->write($fc->add());
         return classes\Cors::modify($response,$body,200);
     })->add(new ValidateParam('Description','0-250'))
-        ->add(new ValidateParam('Value','1-10000','required'))
+        ->add(new ValidateParam('Value','0-10000'))
         ->add(new ValidateParam('Token','1-250','required'))
         ->add(new ValidateParam(['Username','Key'],'1-50','required'));
 
@@ -59,7 +59,7 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
         $body->write($fc->update());
         return classes\Cors::modify($response,$body,200);
     })->add(new ValidateParam('Description','0-250'))
-        ->add(new ValidateParam('Value','1-10000','required'))
+        ->add(new ValidateParam('Value','0-10000'))
         ->add(new ValidateParam('Token','1-250','required'))
         ->add(new ValidateParam(['Username','Key'],'1-50','required'));
 
@@ -128,6 +128,6 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
     $app->get('/flexibleconfig/test/{key}', function (Request $request, Response $response) {
         $fc = new FlexibleConfig($this->db);
         $body = $response->getBody();
-        $body->write('{"result":"'.$fc->get($request->getAttribute('key')).'"}');
+        $body->write('{"result":"'.$fc->readConfig($request->getAttribute('key')).'"}');
         return classes\Cors::modify($response,$body,200);
     });
