@@ -86,8 +86,8 @@ use \classes\JSON as JSON;                                      //JSON class    
         ->add(new ValidateParam(['Username','DepositID','ReferenceID'],'1-50','required'));
 
 
-    // POST api to create new transaction debet
-    $app->post('/deposit/transaction/debet', function (Request $request, Response $response) {
+    // POST api to create new debit transaction
+    $app->post('/deposit/transaction/debit', function (Request $request, Response $response) {
         $deposit = new Deposit($this->db);
         $deposit->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $datapost = $request->getParsedBody();
@@ -106,7 +106,7 @@ use \classes\JSON as JSON;                                      //JSON class    
         ->add(new ValidateParam(['Username','DepositID','ReferenceID'],'1-50','required'));
 
 
-    // POST api to create new transaction credit
+    // POST api to create new credit transaction
     $app->post('/deposit/transaction/credit', function (Request $request, Response $response) {
         $deposit = new Deposit($this->db);
         $deposit->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
@@ -134,7 +134,7 @@ use \classes\JSON as JSON;                                      //JSON class    
         $deposit->username = $datapost['Username'];
         $deposit->token = $datapost['Token'];
         $deposit->depid = $datapost['DepositID'];
-        $deposit->refid = uniqid();
+        $deposit->refid = str_replace('.','-',uniqid('',true));
         $deposit->task = 'DB';
         $deposit->mutation = $datapost['Mutation'];
         $deposit->description = Dictionary::write('default_desc_topup');

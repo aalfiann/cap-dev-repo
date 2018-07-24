@@ -2,7 +2,7 @@
     "package": {
         "name": "Deposit",
         "url": "https://github.com/aalfiann/reSlim-modules/tree/master/deposit",
-        "description": "Deposit class",
+        "description": "Deposit Management System",
         "version": "1.0",
         "require": {
             "reSlim": "1.9.0"

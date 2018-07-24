@@ -1,18 +1,3 @@
-/*
-Navicat MariaDB Data Transfer
-
-Source Server         : CAP-EXPRESS
-Source Server Version : 100131
-Source Host           : server.cap-express.co.id:3306
-Source Database       : cap_dev
-
-Target Server Type    : MariaDB
-Target Server Version : 100131
-File Encoding         : 65001
-
-Date: 2018-05-18 14:30:14
-*/
-
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
