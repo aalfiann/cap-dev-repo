@@ -1,3 +1,8 @@
+### Description
+- Cargo Agent management system is an app for cargo services.  
+- Cargo Agent concept is **Join Personal Agent** means this app is for other cargo company who doesnt have online system to deliver their service to customer. So they can join to use our system to create online waybill and charges them for each waybill.  
+- This module is free, if this module is not fit to your business and you need to create custom cargo application you can contact me [aalfiann on Github](https://github.com/aalfiann).
+
 ### Detail module information
 
 1. Namespace >> **modules/cargoagent**
@@ -15,3 +20,16 @@
 
 1. Make AJAX GET request to >>
     http://**{yourdomain.com}**/api/packager/install/zip/safely/**{yourusername}**/**{yourtoken}**/?lang=en&source=**{zip archive source}**&namespace=**{modul namespace}**
+
+### How to integrate this module into database?
+This module is require integration to the current database.
+
+1. Make AJAX GET request to >>
+    http://**{yourdomain.com}**/api/cargoagent/install/**{yourusername}**/**{yourtoken}**
+
+### Security Tips
+After successful integration database, you must remove the **install** and **uninstall** router.  
+Just make some edit in the **cargoagent.router.php** file manually.
+
+### Requirement
+- This module is require module [Deposit](https://github.com/aalfiann/reslim-modules-deposit) installed on reSlim.
