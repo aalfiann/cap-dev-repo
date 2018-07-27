@@ -96,19 +96,21 @@ Proses pengembangan sekitar 3 bulan
 Untuk mendapatkan informasi riwayat perjalanan data customer<br>
 2. Blog System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
 Blog atau konten manajemen sistem berguna untuk pembuatan artikel, berita, promosi, dokumentasi dan lain-lain<br>
-3. Public Tariff Info >> ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) `on progress`<br>
+3. Social User Profile >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
+Setiap user mempunya halaman profil yang dapat dilihat oleh pengunjung, sebagai kontribusi, sosial/perkenalan, promosi dan lain-lain.<br>
+4. Public Tariff Info >> ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) `on progress`<br>
 Untuk mendapatkan informasi tariff semua cabang<br>
-4. Corporate System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+5. Corporate System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
 Pendataan Corporate atau perusahaan yang bekerja sama<br>
-5. Invoice System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+6. Invoice System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
 Manajemen tagihan atau invoice secara sistem agar memudahkan untuk di kontrol<br>
-6. Operasional System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+7. Operasional System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
 Sistem operasional CARGO<br>
-7. Customer App System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+8. Customer App System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
 Aplikasi untuk customer yang terdaftar dengan fitur login<br>
-8. Customer Reporting System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+9. Customer Reporting System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
 Aplikasi laporan data untuk customer khususnya perusahaan atau corporate<br>
-9. SMS Reporting >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+10. SMS Reporting >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
 Laporan terhadap customer dalam bentuk SMS<br>
 
 Timeline plan 5:
