@@ -100,19 +100,23 @@ Blog atau konten manajemen sistem berguna untuk pembuatan artikel, berita, promo
 Setiap user mempunyai halaman profil yang dapat dilihat oleh pengunjung, sebagai kontribusi, sosial/perkenalan, promosi dan lain-lain.<br>
 4. Implementasi SEO System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
 SEO adalah search engine optimization untuk meningkatkan traffic pengunjung ke dalam website.<br>
-5. Public Tariff Info >> ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) `on progress`<br>
+5. reCaptcha Security >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
+reCaptcha adalah sebuah security system untuk perlindungan terhadap spam dari internet bots.<br>
+6. Built-in Contact >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
+Built-in Contact adalah fitur untuk menghubungi Customer Service via email secara langsung dari aplikasi.<br>
+7. Public Tariff Info >> ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) `on progress`<br>
 Untuk mendapatkan informasi tariff semua cabang<br>
-6. Corporate System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+8. Corporate System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
 Pendataan Corporate atau perusahaan yang bekerja sama<br>
-7. Invoice System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+9. Invoice System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
 Manajemen tagihan atau invoice secara sistem agar memudahkan untuk di kontrol<br>
-8. Operasional System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+10. Operasional System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
 Sistem operasional CARGO<br>
-9. Customer App System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+11. Customer App System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
 Aplikasi untuk customer yang terdaftar dengan fitur login<br>
-10. Customer Reporting System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+12. Customer Reporting System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
 Aplikasi laporan data untuk customer khususnya perusahaan atau corporate<br>
-11. SMS Reporting >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+13. SMS Reporting >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
 Laporan terhadap customer dalam bentuk SMS<br>
 
 Timeline plan 5:
