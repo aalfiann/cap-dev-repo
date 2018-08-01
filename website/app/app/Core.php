@@ -2,10 +2,10 @@
     /**
      * A class for core example reSlim project
      *
-     * @package    Core reSlim
+     * @package    Core reSlim-ui-boilerplate
      * @author     M ABD AZIZ ALFIAN <github.com/aalfiann>
-     * @copyright  Copyright (c) 2016 M ABD AZIZ ALFIAN
-     * @license    https://github.com/aalfiann/reSlim/blob/master/license.md  MIT License
+     * @copyright  Copyright (c) 2018 M ABD AZIZ ALFIAN
+     * @license    https://github.com/aalfiann/reSlim-ui-boilerplate/blob/master/license.md  MIT License
      */
     class Core {
 
@@ -72,6 +72,9 @@
         // Set Keyword Competitor Site
         var $seosite;
 
+        // reCaptcha Keys
+        var $recaptcha_sitekey,$recaptcha_secretkey;
+
         // Set language
         var $setlang = 'id';
         var $datalang;
@@ -87,7 +90,7 @@
         
         function __construct() {
             require 'config.php';
-            //Autoload languages
+            // autoload languages
             $langs = glob(dirname(__FILE__) .'/language/*.'.$this->setlang.'.php');
             foreach ($langs as $langname) {require $langname;}
             $lang = array();
@@ -116,6 +119,8 @@
             $this->yandexwebmaster = $config['yandexwebmaster'];
             $this->seopage = $config['seopage'];
             $this->seosite = $config['seosite'];
+            $this->recaptcha_sitekey = $config['recaptcha_sitekey'];
+            $this->recaptcha_secretkey = $config['recaptcha_secretkey'];
 		}
 
         public static function getInstance()
@@ -879,7 +884,9 @@
             $config[\'bingwebmaster\'] = \''.$post_array['Bingwebmaster'].'\'; //Your bing webmaster, you can leave this blank and fill this later
             $config[\'yandexwebmaster\'] = \''.$post_array['Yandexwebmaster'].'\'; //Your yandex webmaster, you can leave this blank and fill this later
             $config[\'seopage\'] = \''.$post_array['Seopage'].'\'; //Keyword for dynamic page, you can leave this blank and fill this later
-            $config[\'seosite\'] = \''.$post_array['Seosite'].'\'; //Keyword for competitor site, you can leave this blank and fill this later';
+            $config[\'seosite\'] = \''.$post_array['Seosite'].'\'; //Keyword for competitor site, you can leave this blank and fill this later
+            $config[\'recaptcha_sitekey\'] = \''.$post_array['Recaptcha_sitekey'].'\'; //This is for get response reCaptcha on html, you can leave this blank and fill this later
+            $config[\'recaptcha_secretkey\'] = \''.$post_array['Recaptcha_secretkey'].'\'; //This is for verify request reCaptcha on server side, you can leave this blank and fill this later';
             $handle = fopen('config.php','w+'); 
 				fwrite($handle,$newcontent); 
 				fclose($handle); 
