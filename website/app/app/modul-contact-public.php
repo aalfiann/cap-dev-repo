@@ -4,6 +4,8 @@
 <head>
     <?php include_once 'global-meta.php';?>    
     <title><?php echo Core::lang('contact_us')?> - <?php echo Core::getInstance()->title?></title>
+    <!-- summernotes CSS -->
+    <link href="../assets/plugins/summernote/dist/summernote.css" rel="stylesheet"/>
 </head>
 
 <body class="fix-sidebar fix-header card-no-border">
@@ -91,13 +93,13 @@
                                             
                                             <div class="form-group">
                                                 <label class="form-control-label"><b><?php echo Core::lang('subject')?></b></label>
-                                                <input id="subject" type="text" placeholder="" class="form-control" maxlength="50" value="">
+                                                <input id="subject" type="text" placeholder="" class="form-control" maxlength="50" required>
                                                 <span class="help-block text-muted"><small><i class="ti-info-alt"></i> <?php echo Core::lang('input_subject')?></small></span>
                                             </div>
                                             <div class="form-group">
                                                 <label class="form-control-label"><b><?php echo Core::lang('message')?></b></label>
-                                                <textarea id="message" type="text" style="resize: vertical;" rows="5" placeholder="" class="form-control" maxlength="500" required></textarea>
-                                                <span class="help-block text-muted"><small><i class="ti-info-alt"></i> <?php echo Core::lang('input_message')?></small></span>
+                                                <textarea id="message" type="text" style="resize: vertical;" rows="5" placeholder="<?php echo Core::lang('input_message')?>" class="form-control summernote" maxlength="10000"></textarea>
+                                                <span id="summernote_validate" class="help-block text-danger"></span>
                                             </div>
                                             <div id="g-recaptcha" class="g-recaptcha" style="transform:scale(0.77);-webkit-transform:scale(0.77);transform-origin:0 0;-webkit-transform-origin:0 0;"></div>
                                             <hr>
@@ -150,6 +152,19 @@
     <!-- End Wrapper -->
     <!-- ============================================================== -->
     <?php include_once 'global-js.php';?>
+    <!-- Summernote -->
+    <script src="../assets/plugins/summernote/dist/summernote.min.js"></script>
+    <?php 
+        $codelang = "";
+        switch(Core::getInstance()->setlang){
+            case 'id':
+                $codelang = 'id-ID';
+                break;
+            default:
+                $codelang = "";
+        }
+        if (!empty($codelang)) echo '<script src="../assets/plugins/summernote/dist/lang/summernote-'.$codelang.'.min.js"></script>';
+    ?>
     <!-- Sweet-Alert  -->
     <script src="../assets/plugins/sweetalert/sweetalert.min.js"></script>
     <script>$(function(){$('head').append('<link href="../assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">')});</script>
@@ -164,7 +179,13 @@
                         $("#reportmsg").html("");
                         e.preventDefault();
 
-                        /* Render the reCaptcha */
+                        /* Validate summernote */
+                        if ($(".summernote").summernote("isEmpty")) {
+                            $("#summernote_validate").append(\'<small><i class="ti-info-alt"></i> '.Core::lang('input_message').'</small>\');
+                            return false;
+                        }
+
+                        /* Render reCaptcha */
                         var sourceapi = "https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit";
                         var len = $(\'script[src*="\'+sourceapi+\'"]\').length; 
                         if (len === 0) {
@@ -193,6 +214,7 @@
                                 if (data.status == "success"){
                                     /* clear form */
                                     contactForm.find("input,textarea").val("").end();
+                                    $(".summernote").summernote("reset");
                                     writeMessage("#reportmsg","success",data.message);
                                     swal(data.message, "","success");
                                 } else {
@@ -208,6 +230,15 @@
                     });';
                 }
             ?>
+
+            /* Load Summernote */
+            $('.summernote').summernote({
+                height: 150, // set editor height
+                minHeight: null, // set minimum height of editor
+                maxHeight: null, // set maximum height of editor
+                focus: false // set focus to editable area after initializing summernote
+                <?php echo (empty($codelang)?'':',lang: "'.$codelang.'"')."\n";?>
+            });
             
             /* This is for the sticky sidebar */
             $(".stickyside").stick_in_parent({
@@ -217,14 +248,14 @@
         
         <?php 
             if(!empty(Core::getInstance()->recaptcha_sitekey) && !empty(Core::getInstance()->recaptcha_secretkey)){
-                echo '/* Execute render recaptcha */
+                echo '/* Render reCaptcha */
                 function renderRecaptcha(url){
                     var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true; dsq.defer = true;
                     dsq.src = url;
                     (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
                 }
         
-                /* render reCaptcha */
+                /* Callback reCaptcha */
                 var onloadCallback = function() {
                     grecaptcha.render("g-recaptcha", {
                         "sitekey" : "'.Core::getInstance()->recaptcha_sitekey.'",
