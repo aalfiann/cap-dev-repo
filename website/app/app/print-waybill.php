@@ -416,9 +416,9 @@ if (!empty($datawaybill)){
     <!-- ============================================================== -->
     <?php include_once 'global-js.php';?>
     <!-- JS Barcode -->
-    <script src="../assets/plugins/jsbarcode/JsBarcode.all.min.js"></script>
+    <script src="<?php echo Core::getInstance()->assetspath?>/plugins/jsbarcode/JsBarcode.all.min.js"></script>
     <!-- QR Barcode -->
-    <script src="../assets/plugins/jsqrcode/qrcode.min.js"></script>
+    <script src="<?php echo Core::getInstance()->assetspath?>/plugins/jsqrcode/qrcode.min.js"></script>
     <!-- Print Area -->
     <script src="js/jquery.PrintArea.js" type="text/JavaScript"></script>
     <script>

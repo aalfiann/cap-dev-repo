@@ -8,7 +8,7 @@ if( $group > '2' && ($group != '6' && $group != '7') ) {Core::goToPage('modul-us
     <?php include_once 'global-meta.php';?>    
     <title><?php echo Core::lang('info').' '.Core::lang('tariff')?> - <?php echo Core::getInstance()->title?></title>
     <!-- Typehead CSS -->
-    <link href="../assets/plugins/typeahead.js-master/dist/typehead-min.css" rel="stylesheet">
+    <link href="<?php echo Core::getInstance()->assetspath?>/plugins/typeahead.js-master/dist/typehead-min.css" rel="stylesheet">
 </head>
 
 <body class="fix-sidebar fix-header card-no-border">
@@ -161,7 +161,7 @@ if( $group > '2' && ($group != '6' && $group != '7') ) {Core::goToPage('modul-us
     <!-- ============================================================== -->
     <?php include_once 'global-js.php';?>
     <!-- Typehead Plugin JavaScript -->
-    <script src="../assets/plugins/typeahead.js-master/dist/typeahead.bundle.min.js"></script>
+    <script src="<?php echo Core::getInstance()->assetspath?>/plugins/typeahead.js-master/dist/typeahead.bundle.min.js"></script>
     <script>
         /* Get origin and destination option start */
         $(function(){

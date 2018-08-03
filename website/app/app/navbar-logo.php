@@ -11,9 +11,9 @@
                         <!--End Logo icon -->
                         <!-- Logo text --><span>
                          <!-- dark Logo text -->
-                         <img src="../assets/images/logo-text.png" class="dark-logo" alt="<?php echo Core::getInstance()->title?>" />
+                         <img src="<?php echo Core::getInstance()->assetspath?>/images/logo-text.png" class="dark-logo" alt="<?php echo Core::getInstance()->title?>" />
                          <!-- Light Logo text -->    
-                         <img src="../assets/images/logo-light-text.png" class="light-logo" alt="<?php echo Core::getInstance()->title?>" /></span> </a>
+                         <img src="<?php echo Core::getInstance()->assetspath?>/images/logo-light-text.png" class="light-logo" alt="<?php echo Core::getInstance()->title?>" /></span> </a>
                 </div>
                 <!-- ============================================================== -->
                 <!-- End Logo -->

@@ -13,7 +13,7 @@ $refpage = (empty($_GET['ref'])?Core::lang('pod'):'<a href="'.$_GET['ref'].$refd
     <?php include_once 'global-meta.php';?>    
     <title><?php echo Core::lang('pod')?> - <?php echo Core::getInstance()->title?></title>
     <!--alerts CSS -->
-    <link href="../assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo Core::getInstance()->assetspath?>/plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
 </head>
 
 <body class="fix-sidebar fix-header card-no-border">
@@ -162,7 +162,7 @@ $refpage = (empty($_GET['ref'])?Core::lang('pod'):'<a href="'.$_GET['ref'].$refd
     <!-- ============================================================== -->
     <?php include_once 'global-js.php';?>
     <!-- Sweet-Alert  -->
-    <script src="../assets/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="<?php echo Core::getInstance()->assetspath?>/plugins/sweetalert/sweetalert.min.js"></script>
     <script>
         /* Get relation option start */
         function loadRelationOption(){

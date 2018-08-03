@@ -10,7 +10,7 @@ $s = (empty($_GET['s'])?'':$_GET['s']);?>
     <?php include_once 'global-meta.php';?>    
     <title><?php echo Core::lang('deposit_ho')?> - <?php echo Core::getInstance()->title?></title>
     <!-- Date picker plugins css -->
-    <link href="../assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo Core::getInstance()->assetspath?>/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body class="fix-sidebar fix-header card-no-border">
@@ -224,10 +224,10 @@ $s = (empty($_GET['s'])?'':$_GET['s']);?>
     <?php include_once 'global-js.php';?>
     <?php include_once 'global-datatables.php';?>
     <!-- Date Picker Plugin JavaScript -->
-    <script src="../assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <script src="<?php echo Core::getInstance()->assetspath?>/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
     <!-- Sweet-Alert  -->
-    <script src="../assets/plugins/sweetalert/sweetalert.min.js"></script>
-    <script>$(function(){$('head').append('<link href="../assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">')});</script>
+    <script src="<?php echo Core::getInstance()->assetspath?>/plugins/sweetalert/sweetalert.min.js"></script>
+    <script>$(function(){$('head').append('<link href="<?php echo Core::getInstance()->assetspath?>/plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">')});</script>
     <script>
         function generateReferenceID(){
             $(function(){

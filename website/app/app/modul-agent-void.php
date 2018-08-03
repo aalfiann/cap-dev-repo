@@ -13,7 +13,7 @@ $refpage = (empty($_GET['ref'])?Core::lang('void'):'<a href="'.$_GET['ref'].$ref
     <?php include_once 'global-meta.php';?>    
     <title><?php echo Core::lang('void')?> - <?php echo Core::getInstance()->title?></title>
     <!--alerts CSS -->
-    <link href="../assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo Core::getInstance()->assetspath?>/plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
 </head>
 
 <body class="fix-sidebar fix-header card-no-border">
@@ -103,7 +103,7 @@ $refpage = (empty($_GET['ref'])?Core::lang('void'):'<a href="'.$_GET['ref'].$ref
     <!-- ============================================================== -->
     <?php include_once 'global-js.php';?>
     <!-- Sweet-Alert  -->
-    <script src="../assets/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="<?php echo Core::getInstance()->assetspath?>/plugins/sweetalert/sweetalert.min.js"></script>
     <script>
         function sendVoid(){
             $(function(){

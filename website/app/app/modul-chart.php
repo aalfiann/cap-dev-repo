@@ -8,9 +8,9 @@ if( $group > '2' && ($group != '6' && $group != '7') ) {Core::goToPage('modul-us
 <head>
     <?php include_once 'global-meta.php';?>
     <!-- chartist CSS -->
-    <link href="../assets/plugins/chartist-js/dist/chartist.min.css" rel="stylesheet">
-    <link href="../assets/plugins/chartist-js/dist/chartist-init.css" rel="stylesheet">
-    <link href="../assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css" rel="stylesheet">
+    <link href="<?php echo Core::getInstance()->assetspath?>/plugins/chartist-js/dist/chartist.min.css" rel="stylesheet">
+    <link href="<?php echo Core::getInstance()->assetspath?>/plugins/chartist-js/dist/chartist-init.css" rel="stylesheet">
+    <link href="<?php echo Core::getInstance()->assetspath?>/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css" rel="stylesheet">
     <title><?php echo Core::lang('chart').' '.Core::lang('transaction')?> - <?php echo Core::getInstance()->title?></title>
 </head>
 
@@ -129,8 +129,8 @@ if( $group > '2' && ($group != '6' && $group != '7') ) {Core::goToPage('modul-us
     <!-- ============================================================== -->
     <?php include_once 'global-js.php';?>
     <!-- chartist chart -->
-    <script src="../assets/plugins/chartist-js/dist/chartist.min.js"></script>
-    <script src="../assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
+    <script src="<?php echo Core::getInstance()->assetspath?>/plugins/chartist-js/dist/chartist.min.js"></script>
+    <script src="<?php echo Core::getInstance()->assetspath?>/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
     <script>
         $.when(
             $.ajax({ /* Get file statistic start */

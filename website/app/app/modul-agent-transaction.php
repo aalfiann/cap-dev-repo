@@ -7,11 +7,11 @@ if(Core::getUserGroup() == '5') {Core::goToPage('modul-user-profile.php');exit;}
     <?php include_once 'global-meta.php';?>    
     <title><?php echo Core::lang('agent').' '.Core::lang('transaction')?> - <?php echo Core::getInstance()->title?></title>
     <!--wizard CSS -->
-    <link href="../assets/plugins/wizard/steps.css" rel="stylesheet">
+    <link href="<?php echo Core::getInstance()->assetspath?>/plugins/wizard/steps.css" rel="stylesheet">
     <!--alerts CSS -->
-    <link href="../assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo Core::getInstance()->assetspath?>/plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
     <!-- Typehead CSS -->
-    <link href="../assets/plugins/typeahead.js-master/dist/typehead-min.css" rel="stylesheet">
+    <link href="<?php echo Core::getInstance()->assetspath?>/plugins/typeahead.js-master/dist/typehead-min.css" rel="stylesheet">
 </head>
 
 <body class="fix-sidebar fix-header card-no-border">
@@ -491,14 +491,14 @@ if(Core::getUserGroup() == '5') {Core::goToPage('modul-user-profile.php');exit;}
     <!-- ============================================================== -->
     <?php include_once 'global-js.php';?>
     <!-- Wizard  -->
-    <script src="../assets/plugins/wizard/jquery.steps.min.js"></script>
-    <script src="../assets/plugins/wizard/jquery.validate.min.js"></script>
+    <script src="<?php echo Core::getInstance()->assetspath?>/plugins/wizard/jquery.steps.min.js"></script>
+    <script src="<?php echo Core::getInstance()->assetspath?>/plugins/wizard/jquery.validate.min.js"></script>
     <!-- Sweet-Alert  -->
-    <script src="../assets/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="<?php echo Core::getInstance()->assetspath?>/plugins/sweetalert/sweetalert.min.js"></script>
     <!-- Table To Json  -->
-    <script src="../assets/plugins/table-to-json/lib/jquery.tabletojson.min.js"></script>
+    <script src="<?php echo Core::getInstance()->assetspath?>/plugins/table-to-json/lib/jquery.tabletojson.min.js"></script>
     <!-- Typehead Plugin JavaScript -->
-    <script src="../assets/plugins/typeahead.js-master/dist/typeahead.bundle.min.js"></script>
+    <script src="<?php echo Core::getInstance()->assetspath?>/plugins/typeahead.js-master/dist/typeahead.bundle.min.js"></script>
     <script>
         var count = 1;
         var admincost = 0;

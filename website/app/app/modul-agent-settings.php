@@ -255,8 +255,8 @@ if(Core::getUserGroup() == '5') {Core::goToPage('modul-user-profile.php');exit;}
     <!-- ============================================================== -->
     <?php include_once 'global-js.php';?>
     <!-- Sweet-Alert  -->
-    <script src="../assets/plugins/sweetalert/sweetalert.min.js"></script>
-    <script>$(function(){$('head').append('<link href="../assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">')});</script>
+    <script src="<?php echo Core::getInstance()->assetspath?>/plugins/sweetalert/sweetalert.min.js"></script>
+    <script>$(function(){$('head').append('<link href="<?php echo Core::getInstance()->assetspath?>/plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">')});</script>
     <script>
         function saveConfig(){
             $(function(){

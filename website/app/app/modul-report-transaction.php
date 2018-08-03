@@ -12,7 +12,7 @@ $s = (empty($_GET['s'])?'':$_GET['s']);
     <?php include_once 'global-meta.php';?>    
     <title><?php echo Core::lang('report').' '.Core::lang('transaction')?> - <?php echo Core::getInstance()->title?></title>
     <!-- Date picker plugins css -->
-    <link href="../assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo Core::getInstance()->assetspath?>/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body class="fix-sidebar fix-header card-no-border">
@@ -203,20 +203,8 @@ $s = (empty($_GET['s'])?'':$_GET['s']);
     <!-- ============================================================== -->
     <?php include_once 'global-js.php';?>
     <!-- Date Picker Plugin JavaScript -->
-    <script src="../assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
-    <!-- This is data table -->
-    <script src="../assets/plugins/datatables/jquery.dataTables.min.js"></script>
-    <!-- start - This is for export functionality only -->
-    <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
-    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
-    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.colVis.min.js"></script>
-    <script>$(function(){$("head").append('<link href="css/datatables.css" rel="stylesheet" type="text/css" />')});</script>
-    <!-- end - This is for export functionality only -->
+    <script src="<?php echo Core::getInstance()->assetspath?>/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <?php include_once 'global-datatables.php';?>
     <script>
         /** 
          * Create event enter key on search (Pure JS)

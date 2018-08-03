@@ -7,7 +7,7 @@
                                 <ul class="dropdown-user">
                                     <li>
                                         <div class="dw-user-box">
-                                            <div class="u-img"><img id="my_image_navbar" src="../assets/images/users/no-pic.jpg" alt="<?php echo $datalogin['username']?> profile pic"></div>
+                                            <div class="u-img"><img id="my_image_navbar" src="<?php echo Core::getInstance()->assetspath?>/images/users/no-pic.jpg" alt="<?php echo $datalogin['username']?> profile pic"></div>
                                             <div class="u-text">
                                                 <h4><?php echo $datalogin['username']?></h4>
                                                 <p id="my_email_navbar" class="text-muted"></p><a href="modul-user-profile.php" class="btn btn-rounded btn-themecolor btn-sm"><?php echo Core::lang('my_profile')?></a></div>
