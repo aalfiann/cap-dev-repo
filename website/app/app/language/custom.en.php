@@ -247,6 +247,8 @@ $vocabularies[] = [
     //print report
     'sheet_for_shipper' => 'Sheet 1 for shipper.',
     'sheet_for_goods' => 'Sheet 2 for POD/Goods.',
+    'sheet_for_goods_only' => 'Sheet 2 for Goods/Recipient.',
+    'sheet_for_pod' => 'Sheet 3 for POD.',
     'tel' => 'Tel.',
     'route_shipment' => 'Route of Shipment',
     'date_transaction' => 'Date Transaction',

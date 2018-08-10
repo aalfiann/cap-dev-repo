@@ -247,6 +247,8 @@ $vocabularies[] = [
     //print report
     'sheet_for_shipper' => 'Lembar 1 untuk pengirim.',
     'sheet_for_goods' => 'Lembar 2 POD/Barang.',
+    'sheet_for_goods_only' => 'Lembar 2 Barang/Penerima.',
+    'sheet_for_pod' => 'Lembar 3 untuk POD.',
     'tel' => 'Telp',
     'route_shipment' => 'Rute Kiriman',
     'date_transaction' => 'Tanggal Transaksi',
