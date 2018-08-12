@@ -96,7 +96,7 @@ if (!empty($datawaybill)){
                                         <h3><b class="text-primary">'.Core::getInstance()->title.'</b></h3>
                                         <span style="font-size: 7px !important;">'.$datawaybill->result[0]->Branch->Address.'
                                         <br>
-                                        <i class="mdi mdi-phone-classic"></i> : '.$datawaybill->result[0]->Branch->Phone.(empty($datawaybill->result[0]->Branch->Fax)?'':' | <i class="mdi mdi-fax"></i> : '.$datawaybill->result[0]->Branch->Fax).' | <i class="mdi mdi-email-outline"></i> : '.(empty($datawaybill->result[0]->Branch->Email)?Core::getInstance()->email:$datawaybill->result[0]->Branch->Email).'</span>
+                                        <i class="mdi mdi-phone-classic"></i> : '.$datawaybill->result[0]->Branch->Phone.(empty($datawaybill->result[0]->Branch->Fax)?'':' | <i class="mdi mdi-fax"></i> : '.$datawaybill->result[0]->Branch->Fax).' | <i class="mdi mdi-email-outline"></i> : '.(empty($datawaybill->result[0]->Branch->Email)?Core::getInstance()->email:$datawaybill->result[0]->Branch->Email).' | <i class="mdi mdi-web"></i> '.$_SERVER['SERVER_NAME'].'</span>
                                     </div>
                                     <div class="pull-right text-right">
                                         <h3><b>['.strtoupper($datawaybill->result[0]->Data->DestID).']</b></h3>
@@ -259,7 +259,7 @@ if (!empty($datawaybill)){
                                         <h3><b class="text-primary">'.Core::getInstance()->title.'</b></h3>
                                         <span style="font-size: 7px !important;">'.$datawaybill->result[0]->Branch->Address.'
                                         <br>
-                                        <i class="mdi mdi-phone-classic"></i> : '.$datawaybill->result[0]->Branch->Phone.(empty($datawaybill->result[0]->Branch->Fax)?'':' | <i class="mdi mdi-fax"></i> : '.$datawaybill->result[0]->Branch->Fax).' | <i class="mdi mdi-email-outline"></i> : '.(empty($datawaybill->result[0]->Branch->Email)?Core::getInstance()->email:$datawaybill->result[0]->Branch->Email).'</span>
+                                        <i class="mdi mdi-phone-classic"></i> : '.$datawaybill->result[0]->Branch->Phone.(empty($datawaybill->result[0]->Branch->Fax)?'':' | <i class="mdi mdi-fax"></i> : '.$datawaybill->result[0]->Branch->Fax).' | <i class="mdi mdi-email-outline"></i> : '.(empty($datawaybill->result[0]->Branch->Email)?Core::getInstance()->email:$datawaybill->result[0]->Branch->Email).' | <i class="mdi mdi-web"></i> '.$_SERVER['SERVER_NAME'].'</span>
                                     </div>
                                     <div class="pull-right text-right">
                                         <h3><b>['.strtoupper($datawaybill->result[0]->Data->DestID).']</b></h3>
@@ -392,7 +392,7 @@ if (!empty($datawaybill)){
                                         <h3><b class="text-primary">'.Core::getInstance()->title.'</b></h3>
                                         <span style="font-size: 7px !important;">'.$datawaybill->result[0]->Branch->Address.'
                                         <br>
-                                        <i class="mdi mdi-phone-classic"></i> : '.$datawaybill->result[0]->Branch->Phone.(empty($datawaybill->result[0]->Branch->Fax)?'':' | <i class="mdi mdi-fax"></i> : '.$datawaybill->result[0]->Branch->Fax).' | <i class="mdi mdi-email-outline"></i> : '.(empty($datawaybill->result[0]->Branch->Email)?Core::getInstance()->email:$datawaybill->result[0]->Branch->Email).'</span>
+                                        <i class="mdi mdi-phone-classic"></i> : '.$datawaybill->result[0]->Branch->Phone.(empty($datawaybill->result[0]->Branch->Fax)?'':' | <i class="mdi mdi-fax"></i> : '.$datawaybill->result[0]->Branch->Fax).' | <i class="mdi mdi-email-outline"></i> : '.(empty($datawaybill->result[0]->Branch->Email)?Core::getInstance()->email:$datawaybill->result[0]->Branch->Email).' | <i class="mdi mdi-web"></i> '.$_SERVER['SERVER_NAME'].'</span>
                                     </div>
                                     <div class="pull-right text-right">
                                         <h3><b>['.strtoupper($datawaybill->result[0]->Data->DestID).']</b></h3>
