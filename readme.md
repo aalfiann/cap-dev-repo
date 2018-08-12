@@ -7,7 +7,7 @@ CAP Development
 ![Timeline1](https://img.shields.io/badge/timeline1-100%25-green.svg)<br>
 ![Timeline2](https://img.shields.io/badge/timeline2-100%25-green.svg)<br>
 ![Timeline3](https://img.shields.io/badge/timeline3-100%25-green.svg)<br>
-![Timeline4](https://img.shields.io/badge/timeline4-22%25-red.svg)<br>
+![Timeline4](https://img.shields.io/badge/timeline4-48%25-yellow.svg)<br>
 
 
 Untuk melihat status proses development [klik disini](https://github.com/aalfiann/cap-dev-repo/commits/master).<br>

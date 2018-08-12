@@ -13,11 +13,11 @@
  * @var $config['determineRouteBeforeAppMiddleware'] When true, the route is calculated before any middleware is executed. This means that you can inspect route parameters in middleware if you need to. Default is false.
  * 
  */
-$config['displayErrorDetails']                  = true;
-$config['addContentLengthHeader']               = false;
-$config['limitLoadData']                        = 1000;
-$config['enableApiKeys']                        = true;
-$config['language']                             = 'en';
+$config['displayErrorDetails']      			= true;
+$config['addContentLengthHeader']   			= false;
+$config['limitLoadData'] 						= 1000;
+$config['enableApiKeys'] 						= true;
+$config['language'] 							= 'id';
 $config['httpVersion']                          = '1.1';
 $config['responseChunkSize']                    = 4096;
 $config['outputBuffering']                      = 'append';
@@ -31,9 +31,9 @@ $config['determineRouteBeforeAppMiddleware']    = false;
  * @var $config['router']['fileCache'] To set the filename of router cache. Don't leave this blank.
  * 
  */
-$config['router']['enableCache']    = false;
-$config['router']['folderCache']    = 'cache-router';
-$config['router']['fileCache']      = 'routes.cache.php';
+$config['router']['enableCache'] 	= false;
+$config['router']['folderCache'] 	= 'cache-router';
+$config['router']['fileCache'] 		= 'routes.cache.php';
 
 /** 
  * Configuration PDO MySQL Database MASTER
@@ -101,15 +101,26 @@ $config['dbslave']['dbname'] = '';
  *                               To work using rest api, You should set debug 1,
  *                               because other than 1, there is special characters that will broke json format. 
  */
-$config['smtp']['host'] = 'server.cap-express.co.id';
-$config['smtp']['autotls'] = false;
-$config['smtp']['auth'] = true;
-$config['smtp']['secure'] = 'tls';
-$config['smtp']['port'] = 587;
-$config['smtp']['defaultnamefrom'] = 'CAP Express admin';
-$config['smtp']['username'] = 'noreply@cap-express.co.id';
-$config['smtp']['password'] = 'noreply1234';
-$config['smtp']['debug'] = 1;
+$config['smtp']['host'] 			= 'server.cap-express.co.id';
+$config['smtp']['autotls'] 			= false;
+$config['smtp']['auth'] 			= true;
+$config['smtp']['secure'] 			= 'tls';
+$config['smtp']['port'] 			= 587;
+$config['smtp']['defaultnamefrom'] 	= 'CAP Express admin';
+$config['smtp']['username'] 		= 'noreply@cap-express.co.id';
+$config['smtp']['password'] 		= 'noreply1234';
+$config['smtp']['debug'] 			= 0;
+
+/**
+ * Configuration built-in cache
+ * 
+ * @var $config['reslim']['authcache'] is used to reduce the api key validation for every request. Not really matter for multi server purpose. Default is true.
+ * @var $config['reslim']['simplecache'] is used to cache the output json from reslim api. This is recommended to set false if you run the reslim api only for multiserver purpose. Default is true.
+ * @var $config['reslim']['universalcache'] is used to cache for internal process. This is recommended to set false if you run the reslim api only for multiserver purpose. Default is true.
+ */
+$config['reslim']['authcache']      = true;
+$config['reslim']['simplecache']    = true;
+$config['reslim']['universalcache'] = true;
 
 // Configuration timezone
-$config['reslim']['timezone'] = 'Asia/Jakarta';
+$config['reslim']['timezone']       = 'Asia/Jakarta';
