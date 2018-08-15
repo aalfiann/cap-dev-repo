@@ -7,7 +7,7 @@ use \classes\CustomHandlers as CustomHandlers;      //To get default response me
 use PDO;                                            //To connect with database
 
 	/**
-     * Customer management system for enterprise
+     * Customer management for enterprise system
      *
      * @package    modules/enterprise_customer
      * @author     M ABD AZIZ ALFIAN <github.com/aalfiann>

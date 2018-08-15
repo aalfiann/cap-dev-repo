@@ -2,7 +2,7 @@
     "package": {
         "name": "EnterpriseCustomer",
         "url": "https://github.com/aalfiann/reslim-modules-enterprise_customer",
-        "description": "Modul Customer Management for Enterprise.",
+        "description": "Customer Management for Enterprise System.",
         "version": "1.0",
         "require": {
             "reSlim": "1.9.0"
