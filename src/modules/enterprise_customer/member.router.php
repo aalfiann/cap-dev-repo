@@ -32,14 +32,13 @@ use \classes\middleware\ApiKey as ApiKey;                       //ApiKey Middlew
         $body->write($c->add());
         return classes\Cors::modify($response,$body,200);
     })->add(New ValidateParam('Alias','0-50'))
-        ->add(New ValidateParam('Address','0-250'))
         ->add(New ValidateParam('Email','0-50','email'))
         ->add(New ValidateParam('Fax','0-15','numeric'))
         ->add(New ValidateParam('Discount','1-7','decimal'))
         ->add(New ValidateParam('Admin_cost','1-10','decimal'))
         ->add(New ValidateParam('Phone','1-15','numeric'))
         ->add(new ValidateParam(['Name','Username'],'1-50','required'))
-        ->add(new ValidateParam(['Token'],'1-250','required'));
+        ->add(new ValidateParam(['Address','Token'],'1-250','required'));
 
     // Update data member
     $app->post('/enterprise_customer/member/data/update', function (Request $request, Response $response) {
@@ -63,16 +62,15 @@ use \classes\middleware\ApiKey as ApiKey;                       //ApiKey Middlew
         $body->write($c->update());
         return classes\Cors::modify($response,$body,200);
     })->add(New ValidateParam('Alias','0-50'))
-        ->add(New ValidateParam('Address','0-250'))
         ->add(New ValidateParam('Email','0-50','email'))
         ->add(New ValidateParam('Fax','0-15','numeric'))
         ->add(New ValidateParam('Discount','1-7','decimal'))
         ->add(New ValidateParam('Admin_cost','1-10','decimal'))
-        ->add(New ValidateParam('StatusID','1-2','numeric'))
+        ->add(New ValidateParam('StatusID','1-11','numeric'))
         ->add(New ValidateParam('Phone','1-15','numeric'))
         ->add(New ValidateParam('MemberID','1-20','alphanumeric'))
         ->add(new ValidateParam(['Name','Username'],'1-50','required'))
-        ->add(new ValidateParam(['Token'],'1-250','required'));
+        ->add(new ValidateParam(['Address','Token'],'1-250','required'));
 
     // Delete data member
     $app->post('/enterprise_customer/member/data/delete', function (Request $request, Response $response) {

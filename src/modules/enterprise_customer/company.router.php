@@ -38,16 +38,15 @@ use \classes\middleware\ApiKey as ApiKey;                       //ApiKey Middlew
         return classes\Cors::modify($response,$body,200);
     })->add(New ValidateParam('SalesID','0-20','alphanumeric'))
         ->add(New ValidateParam(['Alias','PIC','TIN'],'0-50'))
-        ->add(New ValidateParam('Address','0-250'))
         ->add(New ValidateParam('Email','0-50','email'))
         ->add(New ValidateParam('Fax','0-15','numeric'))
         ->add(New ValidateParam('Discount','1-7','decimal'))
         ->add(New ValidateParam('Tax','1-7','decimal'))
         ->add(New ValidateParam('Admin_cost','1-10','decimal'))
-        ->add(New ValidateParam('IndustryID','1-2','numeric'))
+        ->add(New ValidateParam('IndustryID','1-11','numeric'))
         ->add(New ValidateParam('Phone','1-15','numeric'))
         ->add(new ValidateParam(['Name','Username'],'1-50','required'))
-        ->add(new ValidateParam(['Token'],'1-250','required'));
+        ->add(new ValidateParam(['Address','Token'],'1-250','required'));
 
     // Update data company
     $app->post('/enterprise_customer/company/data/update', function (Request $request, Response $response) {
@@ -77,17 +76,16 @@ use \classes\middleware\ApiKey as ApiKey;                       //ApiKey Middlew
         return classes\Cors::modify($response,$body,200);
     })->add(New ValidateParam('SalesID','0-20','alphanumeric'))
         ->add(New ValidateParam(['Alias','PIC','TIN'],'0-50'))
-        ->add(New ValidateParam('Address','0-250'))
         ->add(New ValidateParam('Email','0-50','email'))
         ->add(New ValidateParam('Fax','0-15','numeric'))
         ->add(New ValidateParam('Discount','1-7','decimal'))
         ->add(New ValidateParam('Tax','1-7','decimal'))
         ->add(New ValidateParam('Admin_cost','1-10','decimal'))
-        ->add(New ValidateParam(['IndustryID','StatusID'],'1-2','numeric'))
+        ->add(New ValidateParam(['IndustryID','StatusID'],'1-11','numeric'))
         ->add(New ValidateParam('Phone','1-15','numeric'))
         ->add(New ValidateParam('CompanyID','1-20','alphanumeric'))
         ->add(new ValidateParam(['Name','Username'],'1-50','required'))
-        ->add(new ValidateParam(['Token'],'1-250','required'));
+        ->add(new ValidateParam(['Address','Token'],'1-250','required'));
 
     // Delete data company
     $app->post('/enterprise_customer/company/data/delete', function (Request $request, Response $response) {
