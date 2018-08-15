@@ -108,7 +108,7 @@ use \modules\enterprise_customer\Industry as Industry;
         if (SimpleCache::isCached(3600,["apikey","lang"])){
             $datajson = SimpleCache::load(["apikey","lang"]);
         } else {
-            $datajson = SimpleCache::save($cargo->showOptionIndustryPublic(),["apikey","lang"]);
+            $datajson = SimpleCache::save($i->showOptionIndustryPublic(),["apikey","lang"]);
         }
         $body->write($datajson);
         return classes\Cors::modify($response,$body,200,$request);
