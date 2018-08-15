@@ -104,7 +104,7 @@ use \classes\middleware\ApiKey as ApiKey;                   //ApiKey Middleware 
         ->add(new ValidateParam('Username','1-50','required'));
 
     // Show data company for registered user
-    $app->get('/enterprise_customer/company/data/show/{username}/{token}/{companyid}', function (Request $request, Response $response) {
+    $app->get('/enterprise_customer/company/data/detail/{username}/{token}/{companyid}', function (Request $request, Response $response) {
         $c = new Company($this->db);
         $c->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $c->username = $request->getAttribute('username');
