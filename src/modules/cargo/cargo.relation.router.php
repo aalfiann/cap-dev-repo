@@ -78,7 +78,7 @@ use \modules\cargo\Relation as Relation;
         if (SimpleCache::isCached(3600,["apikey","query","lang"])){
             $datajson = SimpleCache::load(["apikey","query","lang"]);
         } else {
-            $datajson = SimpleCache::save($cargo->searchRelationAsPaginationPublic(),["apikey","query","lang"]);
+            $datajson = SimpleCache::save($cargo->searchRelationAsPaginationPublic(),["apikey","query","lang"],null,3600);
         }
         $body->write($datajson);
         return classes\Cors::modify($response,$body,200,$request);
@@ -106,7 +106,7 @@ use \modules\cargo\Relation as Relation;
         if (SimpleCache::isCached(3600,["apikey","lang"])){
             $datajson = SimpleCache::load(["apikey","lang"]);
         } else {
-            $datajson = SimpleCache::save($cargo->showOptionRelationPublic(),["apikey","lang"]);
+            $datajson = SimpleCache::save($cargo->showOptionRelationPublic(),["apikey","lang"],null,3600);
         }
         $body->write($datajson);
         return classes\Cors::modify($response,$body,200,$request);

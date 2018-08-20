@@ -157,7 +157,7 @@ use \modules\cargo\Tariff as Tariff;
         if (SimpleCache::isCached(600,["apikey","origin","destination","mode","cubic","weight","length","width","height","lang"])){
             $datajson = SimpleCache::load(["apikey","origin","destination","mode","cubic","weight","length","width","height","lang"]);
         } else {
-            $datajson = SimpleCache::save($cargo->searchTariffPublic(),["apikey","origin","destination","mode","cubic","weight","length","width","height","lang"]);
+            $datajson = SimpleCache::save($cargo->searchTariffPublic(),["apikey","origin","destination","mode","cubic","weight","length","width","height","lang"],null,600);
         }
         $body->write($datajson);
         return classes\Cors::modify($response,$body,200,$request);
@@ -173,7 +173,7 @@ use \modules\cargo\Tariff as Tariff;
         if (SimpleCache::isCached(600,["apikey","lang"])){
             $datajson = SimpleCache::load(["apikey","lang"]);
         } else {
-            $datajson = SimpleCache::save($cargo->listOriginPublic(),["apikey","lang"]);
+            $datajson = SimpleCache::save($cargo->listOriginPublic(),["apikey","lang"],null,600);
         }
         $body->write($datajson);
         return classes\Cors::modify($response,$body,200,$request);
@@ -191,7 +191,7 @@ use \modules\cargo\Tariff as Tariff;
         if (SimpleCache::isCached(600,["apikey","lang"])){
             $datajson = SimpleCache::load(["apikey","lang"]);
         } else {
-            $datajson = SimpleCache::save($cargo->listDestinationPublic(),["apikey","lang"]);
+            $datajson = SimpleCache::save($cargo->listDestinationPublic(),["apikey","lang"],null,600);
         }
         $body->write($datajson);
         return classes\Cors::modify($response,$body,200,$request);
