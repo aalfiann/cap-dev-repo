@@ -84,29 +84,33 @@ $datastatus = json_decode(Core::execGetRequest($urlstatus));?>
                                                     <div class="modal-body">
                                                         <div id="report-newdata"></div>
                                                         <div class="form-group">
-                                                            <label class="col-md-12"><?php echo Core::lang('branchid')?></label>
+                                                            <label class="col-md-12"><?php echo Core::lang('branchid')?> <span class="text-danger">*</span></label>
                                                              <div class="col-md-12">
                                                                 <input id="branchid" type="text" class="form-control form-control-line" required>
+                                                                <span class="help-block text-danger branchid"></span>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label class="col-md-12"><?php echo Core::lang('name')?></label>
+                                                            <label class="col-md-12"><?php echo Core::lang('name')?> <span class="text-danger">*</span></label>
                                                              <div class="col-md-12">
                                                                 <input id="name" type="text" class="form-control form-control-line" required>
+                                                                <span class="help-block text-danger name"></span>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label class="col-md-12"><?php echo Core::lang('address')?></label>
+                                                            <label class="col-md-12"><?php echo Core::lang('address')?> <span class="text-danger">*</span></label>
                                                              <div class="col-md-12">
                                                                 <textarea id="address" type="text" rows="3" style="resize: vertical;" class="form-control form-control-line" required></textarea>
+                                                                <span class="help-block text-danger address"></span>
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
-                                                                    <label class="col-md-12"><?php echo Core::lang('phone')?></label>
+                                                                    <label class="col-md-12"><?php echo Core::lang('phone')?> <span class="text-danger">*</span></label>
                                                                      <div class="col-md-12">
-                                                                        <input id="phone" type="text" class="form-control form-control-line" required>
+                                                                        <input id="phone" type="text" class="form-control form-control-line" oninput="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" required>
+                                                                        <span class="help-block text-danger phone"></span>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -114,7 +118,7 @@ $datastatus = json_decode(Core::execGetRequest($urlstatus));?>
                                                                 <div class="form-group">
                                                                     <label class="col-md-12"><?php echo Core::lang('fax')?></label>
                                                                         <div class="col-md-12">
-                                                                            <input id="fax" type="text" class="form-control form-control-line">
+                                                                            <input id="fax" type="text" class="form-control form-control-line" oninput="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')">
                                                                         </div>
                                                                 </div>
                                                             </div>
@@ -462,30 +466,30 @@ $datastatus = json_decode(Core::execGetRequest($urlstatus));?>
                                                                     <label class="col-md-12"><?php echo Core::lang('status')?></label>\
                                                                     <div class="col-md-12">';
                                     a += b;
-                                    a += '</div>\
+                                    a +=                            '</div>\
                                                                 </div>\
                                                             </div>\
                                                         </div>\
                                                         <div class="form-group">\
-                                                            <label class="col-md-12"><?php echo Core::lang('name')?></label>\
+                                                            <label class="col-md-12"><?php echo Core::lang('name')?> <span class="text-danger">*</span></label>\
                                                              <div class="col-md-12">\
-                                                                <input id="name'+row.BranchID+'" type="text" class="form-control form-control-line" value="'+row.Name+'">\
+                                                                <input id="name'+row.BranchID+'" type="text" class="form-control form-control-line" value="'+row.Name+'" required>\
                                                                 <span class="help-block text-danger name'+row.BranchID+'"></span>\
                                                             </div>\
                                                         </div>\
                                                         <div class="form-group">\
-                                                            <label class="col-md-12"><?php echo Core::lang('address')?></label>\
+                                                            <label class="col-md-12"><?php echo Core::lang('address')?> <span class="text-danger">*</span></label>\
                                                              <div class="col-md-12">\
-                                                                <textarea id="address'+row.BranchID+'" type="text" rows="3" style="resize: vertical;" class="form-control form-control-line">'+row.Address+'</textarea>\
+                                                                <textarea id="address'+row.BranchID+'" type="text" rows="3" style="resize: vertical;" class="form-control form-control-line" required>'+row.Address+'</textarea>\
                                                                 <span class="help-block text-danger address'+row.BranchID+'"></span>\
                                                             </div>\
                                                         </div>\
                                                         <div class="row">\
                                                             <div class="col-md-4">\
                                                                 <div class="form-group">\
-                                                                    <label class="col-md-12"><?php echo Core::lang('phone')?></label>\
+                                                                    <label class="col-md-12"><?php echo Core::lang('phone')?> <span class="text-danger">*</span></label>\
                                                                      <div class="col-md-12">\
-                                                                        <input id="phone'+row.BranchID+'" type="text" class="form-control form-control-line" value="'+row.Phone+'" required>\
+                                                                        <input id="phone'+row.BranchID+'" type="text" class="form-control form-control-line" value="'+row.Phone+'" oninput="if (/\\D/g.test(this.value)) this.value = this.value.replace(/\\D/g,\'\')" required>\
                                                                         <span class="help-block text-danger phone'+row.BranchID+'"></span>\
                                                                     </div>\
                                                                 </div>\
@@ -494,7 +498,7 @@ $datastatus = json_decode(Core::execGetRequest($urlstatus));?>
                                                                 <div class="form-group">\
                                                                     <label class="col-md-12"><?php echo Core::lang('fax')?></label>\
                                                                         <div class="col-md-12">\
-                                                                            <input id="fax'+row.BranchID+'" type="text" class="form-control form-control-line" value="'+row.Fax+'">\
+                                                                            <input id="fax'+row.BranchID+'" type="text" class="form-control form-control-line" value="'+row.Fax+'" oninput="if (/\\D/g.test(this.value)) this.value = this.value.replace(/\\D/g,\'\')">\
                                                                         </div>\
                                                                 </div>\
                                                             </div>\
@@ -633,6 +637,18 @@ $datastatus = json_decode(Core::execGetRequest($urlstatus));?>
         function sendnewdata(e){
             console.log("Process add new data...");
             e.preventDefault();
+
+            if (!$.trim($("#name").val())){
+                $(".help-block.text-danger.name").html("<br><small><?php echo Core::lang('input_required')?></small>");
+                return false;
+            } else if (!$.trim($("#address").val())){
+                $(".help-block.text-danger.address").html("<br><small><?php echo Core::lang('input_required')?></small>");
+                return false;
+            } else if (validationRegex($("#phone").val(),"numeric") == false){
+                $(".help-block.text-danger.phone").html("<br><small><?php echo Core::lang('val_numeric_html')?></small>");
+                return false;
+            }
+
             var that = $(this);
             that.off("submit"); /* remove handler */
             var div = document.getElementById("report-newdata");
@@ -690,14 +706,14 @@ $datastatus = json_decode(Core::execGetRequest($urlstatus));?>
                 console.log("Process update data...");
                 var div = document.getElementById("report-updatedata");
 
-                if ($("#name"+dataid).val() == ""){
+                if (!$.trim($("#name"+dataid).val())){
                     $(".help-block.text-danger.name"+dataid).html("<br><small><?php echo Core::lang('input_required')?></small>");
                     return false;
-                } else if ($("#address"+dataid).val() == ""){
+                } else if (!$.trim($("#address"+dataid).val())){
                     $(".help-block.text-danger.address"+dataid).html("<br><small><?php echo Core::lang('input_required')?></small>");
                     return false;
-                } else if ($("#phone"+dataid).val() == ""){
-                    $(".help-block.text-danger.phone"+dataid).html("<br><small><?php echo Core::lang('input_required')?></small>");
+                } else if (validationRegex($("#phone"+dataid).val(),"numeric") == false){
+                    $(".help-block.text-danger.phone"+dataid).html("<br><small><?php echo Core::lang('val_numeric_html')?></small>");
                     return false;
                 }
 

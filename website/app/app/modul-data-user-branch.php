@@ -99,7 +99,7 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                                                             <select id="branchlist" onfocus="this.size=5;" onblur="this.size=1;" onchange="this.size=1; this.blur();" class="form-control form-control-line" required>
                                                             <?php if (!empty($datacompany)) {
                                                                 foreach ($datacompany->results as $name => $valuecompany) {
-                                                                    echo '<option value="'.$valuecompany->{'BranchID'}.'">'.$valuecompany->{'BranchID'}.'</option>';
+                                                                    echo '<option value="'.$valuecompany->{'BranchID'}.'">'.strtoupper($valuecompany->{'BranchID'}).'</option>';
                                                                 }
                                                             }?>
                                                             </select>
@@ -373,7 +373,7 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                         { "render": function(data,type,row,meta) { /* render event defines the markup of the cell text */ 
                                 var $select1 = $('<select id="branch'+row.Username+'" type="text" onfocus="this.size=5;" onblur="this.size=1;" onchange="this.size=1; this.blur();" class="form-control form-control-line"><?php if (!empty($datacompany)) {
                                         foreach ($datacompany->results as $name => $valuecompany) {
-                                            echo '<option value="'.$valuecompany->{'BranchID'}.'">'.$valuecompany->{'BranchID'}.'</option>';
+                                            echo '<option value="'.$valuecompany->{'BranchID'}.'">'.strtoupper($valuecompany->{'BranchID'}).'</option>';
                                         }
                                     }?></select>');
                                 $select1.find('option[value="'+row.BranchID+'"]').attr('selected', 'selected');
