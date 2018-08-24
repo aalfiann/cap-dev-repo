@@ -87,7 +87,7 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label><?php echo Core::lang('branchid')?></label>
-                                                                        <select id="branchid" style="max-height:200px; overflow-y:scroll; overflow-x:hidden;" class="form-control form-control-line" required>
+                                                                        <select id="branchid" onfocus="this.size=5;" onblur="this.size=1;" onchange="this.size=1; this.blur();" class="form-control form-control-line" required>
                                                                         <?php if (!empty($datacompany)) {
                                                                             foreach ($datacompany->results as $name => $valuecompany) {
                                                                                 echo '<option value="'.$valuecompany->{'BranchID'}.'">'.$valuecompany->{'BranchID'}.'</option>';
@@ -99,7 +99,7 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label><?php echo Core::lang('mode')?></label>
-                                                                        <select id="mode" style="max-height:200px; overflow-y:scroll; overflow-x:hidden;" class="form-control form-control-line" required>
+                                                                        <select id="mode" onfocus="this.size=5;" onblur="this.size=1;" onchange="this.size=1; this.blur();" class="form-control form-control-line" required>
                                                                         </select>
                                                                     </div>
                                                                 </div>

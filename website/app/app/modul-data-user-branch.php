@@ -96,7 +96,7 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                                                         <div class="form-group">
                                                             <label class="col-md-12"><?php echo Core::lang('branchid')?></label>
                                                             <div class="col-md-12">
-                                                            <select id="branchlist" style="max-height:200px; overflow-y:scroll; overflow-x:hidden;" class="form-control form-control-line" required>
+                                                            <select id="branchlist" onfocus="this.size=5;" onblur="this.size=1;" onchange="this.size=1; this.blur();" class="form-control form-control-line" required>
                                                             <?php if (!empty($datacompany)) {
                                                                 foreach ($datacompany->results as $name => $valuecompany) {
                                                                     echo '<option value="'.$valuecompany->{'BranchID'}.'">'.$valuecompany->{'BranchID'}.'</option>';
@@ -371,7 +371,7 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                         { data: "Updated_at" },
                         { data: "Updated_by" },
                         { "render": function(data,type,row,meta) { /* render event defines the markup of the cell text */ 
-                                var $select1 = $('<select id="branch'+row.Username+'" type="text" style="max-height:200px; overflow-y:scroll; overflow-x:hidden;" class="form-control form-control-line"><?php if (!empty($datacompany)) {
+                                var $select1 = $('<select id="branch'+row.Username+'" type="text" onfocus="this.size=5;" onblur="this.size=1;" onchange="this.size=1; this.blur();" class="form-control form-control-line"><?php if (!empty($datacompany)) {
                                         foreach ($datacompany->results as $name => $valuecompany) {
                                             echo '<option value="'.$valuecompany->{'BranchID'}.'">'.$valuecompany->{'BranchID'}.'</option>';
                                         }
@@ -379,7 +379,7 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                                 $select1.find('option[value="'+row.BranchID+'"]').attr('selected', 'selected');
                                 var b = $select1[0].outerHTML;
 
-                                var $select2 = $('<select id="status'+row.Username+'" type="text" style="max-height:200px; overflow-y:scroll; overflow-x:hidden;" class="form-control form-control-line"><?php if (!empty($datastatus)) {
+                                var $select2 = $('<select id="status'+row.Username+'" type="text" onfocus="this.size=5;" onblur="this.size=1;" onchange="this.size=1; this.blur();" class="form-control form-control-line"><?php if (!empty($datastatus)) {
                                         foreach ($datastatus->results as $name => $valuestatus) {
                                             echo '<option value="'.$valuestatus->{'StatusID'}.'">'.$valuestatus->{'Status'}.'</option>';
                                         }
