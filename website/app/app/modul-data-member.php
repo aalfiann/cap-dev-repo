@@ -2,9 +2,6 @@
 $datalogin = Core::checkSessions();
 $group = Core::getUserGroup();
 if($group > '2' && ($group != '6' && $group != '7')) {Core::goToPage('modul-user-profile.php');exit;}
-// Data Industry
-$urlindustry = Core::getInstance()->api.'/enterprise_customer/industry/data/list/'.$datalogin['username'].'/'.$datalogin['token'];
-$dataindustry = json_decode(Core::execGetRequest($urlindustry));
 // Data Status
 $urlstatus = Core::getInstance()->api.'/enterprise_customer/option/data/status/'.$datalogin['token'];
 $datastatus = json_decode(Core::execGetRequest($urlstatus));?>
