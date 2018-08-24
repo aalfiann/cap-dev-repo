@@ -32,7 +32,8 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                 </div>
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)"><?php echo Core::lang('app')?></a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0)"><?php echo Core::lang('system')?></a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0)"><?php echo Core::lang('master')?></a></li>
                         <li class="breadcrumb-item active"><?php echo Core::lang('data')?> <?php echo Core::lang('tariff')?></li>
                     </ol>
                 </div>
