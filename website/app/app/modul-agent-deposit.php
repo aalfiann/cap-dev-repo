@@ -234,7 +234,7 @@ $s = (empty($_GET['s'])?'':$_GET['s']);?>
          * - Because this is called from function loadData(idtable,page="1",itemperpage="10",search=""), so you have to take a look how loadData function works before modifying this
          * - Language inside is using Core::lang PHP class
          */
-        function paginateDatatables(selector,idtable,itemperpage,pagenow,pagetotal,frstdate,lastdate,search){
+        function paginateDatatables(selector,idtable,itemperpage,pagenow,pagetotal,firstdate,lastdate,search){
             var div = document.getElementById(selector);
             var data = '<div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">\
                     <div class="btn-group mr-2" role="group" aria-label="First group"><p><?php echo Core::lang('dt_shows_page')?> '+pagenow+' <?php echo Core::lang('dt_of')?> '+pagetotal+'</p></div>\
