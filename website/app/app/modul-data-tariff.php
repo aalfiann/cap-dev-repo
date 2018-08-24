@@ -91,7 +91,7 @@ $datacompany = json_decode(Core::execGetRequest($urlcompany));?>
                                                                         <select id="branchid" onfocus="this.size=5;" onblur="this.size=1;" onchange="this.size=1; this.blur();" class="form-control form-control-line" required>
                                                                         <?php if (!empty($datacompany)) {
                                                                             foreach ($datacompany->results as $name => $valuecompany) {
-                                                                                echo '<option value="'.$valuecompany->{'BranchID'}.'">'.$valuecompany->{'BranchID'}.'</option>';
+                                                                                echo '<option value="'.$valuecompany->{'BranchID'}.'">'.strtoupper($valuecompany->{'BranchID'}).'</option>';
                                                                             }
                                                                         }?>
                                                                         </select>
