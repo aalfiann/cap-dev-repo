@@ -92,6 +92,19 @@
                             "link": "modul-void.php"
                         },
                         {
+                            "title": "customer",
+                            "submenus": [
+                                {
+                                    "title": "> data corporate",
+                                    "link": "modul-data-corporate.php"
+                                },
+                                {
+                                    "title": "> data member",
+                                    "link": "modul-data-member.php"
+                                }
+                            ]
+				        },
+                        {
                             "title": "invoice",
                             "link": "modul-invoice.php"
                         }
