@@ -17,18 +17,24 @@
                 },
                 {
                     "id":"3",
+                    "title":"tariff",
+                    "link": "modul-list-tariff.php",
+                    "icon_class":"mdi mdi-magnify"
+                },
+                {
+                    "id":"4",
                     "title":"blog",
                     "link": "blog",
                     "icon_class":"mdi mdi-rss"
                 },
                 {
-                    "id":"4",
+                    "id":"5",
                     "title":"contact",
                     "link": "contact",
                     "icon_class":"mdi mdi-email"
                 },
                 {
-                    "id":"5",
+                    "id":"6",
                     "title":"about",
                     "link": "//cap-express.co.id/tentang-kami.php",
                     "icon_class":"mdi mdi-help-circle-outline"
