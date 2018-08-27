@@ -127,7 +127,7 @@ if( $group > '2' && ($group != '6' && $group != '7') ) {Core::goToPage('modul-us
                         <div class="col-md-6">
                             <div id="floatcard" class="card">
                                 <div class="card-header">
-                                    <b><?php echo Core::lang('result')?></b>
+                                    <b><?php echo Core::lang('tariff').' '.Core::lang('via')?> <span id="servicemode"></span></b>
                                     <div class="card-actions">
                                         <a class="" data-action="collapse"><i class="ti-minus"></i></a>
                                         <a class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
@@ -270,6 +270,7 @@ if( $group > '2' && ($group != '6' && $group != '7') ) {Core::goToPage('modul-us
                         div.innerHTML = '<h3>'+data.results[0].Origin+' <i class="mdi mdi-chevron-right"></i> '+data.results[0].Destination+'</h3>\
                                 <h4><b>'+data.results[0].Kg+' Kg</b></h4>\
                                 <h1 class="text-themecolor"><b><?php echo Core::lang('currency_format')?> '+addCommas(data.results[0].Tariff)+'</b></h1><p><?php echo Core::lang('estimation')?>: '+data.results[0].Estimasi+' <?php echo Core::lang('days')?></p>';
+                        $('#servicemode').text(data.results[0].Mode);
                         console.log(data.message);
                         that.on("submit", searchdata); /* add handler back after ajax */
                     } else {
