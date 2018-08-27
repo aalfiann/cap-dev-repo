@@ -123,6 +123,11 @@
 						<li class="main-menu-separator"></li>
 						<!-- === top menu item === -->
 						<li>
+							<a href="app/modul-list-tariff.php">Tariff</a>
+						</li>
+						<li class="main-menu-separator"></li>
+						<!-- === top menu item === -->
+						<li>
 							<a class="latest" href="hubungi-kami.php">Hubungi Kami</a>
 						</li>
 					</ul>

@@ -68,13 +68,16 @@
 						<li class="active">
 							<a href="index.php">Beranda</a>
 						</li> 
-						
 						<li class="main-menu-separator"></li>
 						<!-- === top menu item === -->
 						<li>
 							<a href="tentang-kami.php">Tentang Kami</a>
-						</li> 
-						
+						</li>
+						<li class="main-menu-separator"></li>
+						<!-- === top menu item === -->
+						<li>
+							<a href="app/modul-list-tariff.php">Tariff</a>
+						</li>
 						<li class="main-menu-separator"></li>
 						<!-- === top menu item === -->
 						<li >
