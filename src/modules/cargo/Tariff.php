@@ -589,6 +589,138 @@ use PDO;
 	        $this->db= null;
 		}
 
+		public function searchTariffList(){
+			if (Auth::validToken($this->db,$this->token)){
+				$origin = "$this->origin";
+				$destination = "$this->destination";
+		
+				$iweight = ($this->is_decimal($this->weight)?$this->weight:0);
+				$volumekg = $this->calculateVolKg();
+				if ($iweight >= $volumekg){
+					$weight = $iweight;
+				} else {
+					$weight = $volumekg;
+				}
+
+				if (!empty($weight) || $weight==0){
+					$realkg = $weight;
+					$weight = $this->limitRound($weight,0.3);
+					$sql = "SELECT b.`Name` as 'Origin', a.Kabupaten as 'Destination', a.KGP, a.KGS,a.Min_Kg,a.Estimasi,
+							($weight) as Kg,($volumekg) as VolKg,($realkg) as RealKg,
+							if($weight <= a.Min_Kg,a.KGP, (($weight - a.Min_Kg) * a.KGS) + a.KGP) as 'Tariff',
+							REPLACE((select x.Mode from mas_mode x where x.ModeID=a.ModeID),' Freight','') as Mode				
+						FROM tariff_data a
+						INNER JOIN sys_company b ON a.BranchID = b.BranchID
+						LEFT JOIN tariff_handling c ON a.Kabupaten = c.Kabupaten and c.ModeID = a.ModeID
+						WHERE b.`Name` = :origin and a.Kabupaten = :destination;";
+					$stmt = $this->db->prepare($sql);
+					$stmt->bindParam(':origin', $origin, PDO::PARAM_STR);
+					$stmt->bindParam(':destination', $destination, PDO::PARAM_STR);
+
+					if ($stmt->execute()) {	
+    				    if ($stmt->rowCount() > 0){
+    		   			   	$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+							$data = [
+				   		        'results' => $results, 
+    		    	    	    'status' => 'success', 
+			           	    	'code' => 'RS501',
+	    			        	'message' => CustomHandlers::getreSlimMessage('RS501',$this->lang)
+							];
+				    	} else {
+        			    	$data = [
+        			    		'status' => 'error',
+		        			    'code' => 'RS601',
+    			    	    	'message' => CustomHandlers::getreSlimMessage('RS601',$this->lang)
+							];
+		    		    }          	   	
+					} else {
+						$data = [
+        					'status' => 'error',
+							'code' => 'RS202',
+			        		'message' => CustomHandlers::getreSlimMessage('RS202',$this->lang)
+						];
+					}	
+				} else {
+					$data = [
+						'status' => 'error',
+						'code' => 'RS801',
+						'message' => CustomHandlers::getreSlimMessage('RS801',$this->lang)
+					];
+				} 
+			} else {
+				$data = [
+					'status' => 'error',
+					'code' => 'RS401',
+					'message' => CustomHandlers::getreSlimMessage('RS401',$this->lang)
+				];
+			}
+        
+			return JSON::safeEncode($data,true);
+	        $this->db= null;
+		}
+
+		public function searchTariffListPublic(){
+			$origin = "$this->origin";
+			$destination = "$this->destination";
+		
+			$iweight = ($this->is_decimal($this->weight)?$this->weight:0);
+			$volumekg = $this->calculateVolKg();
+			if ($iweight >= $volumekg){
+				$weight = $iweight;
+			} else {
+				$weight = $volumekg;
+			}
+
+			if (!empty($weight) || $weight==0){
+				$realkg = $weight;
+				$weight = $this->limitRound($weight,0.3);
+				$sql = "SELECT b.`Name` as 'Origin', a.Kabupaten as 'Destination', a.KGP, a.KGS,a.Min_Kg,a.Estimasi,
+						($weight) as Kg,($volumekg) as VolKg,($realkg) as RealKg,
+						if($weight <= a.Min_Kg,a.KGP, (($weight - a.Min_Kg) * a.KGS) + a.KGP) as 'Tariff',
+						REPLACE((select x.Mode from mas_mode x where x.ModeID=a.ModeID),' Freight','') as Mode				
+					FROM tariff_data a
+					INNER JOIN sys_company b ON a.BranchID = b.BranchID
+					LEFT JOIN tariff_handling c ON a.Kabupaten = c.Kabupaten and c.ModeID = a.ModeID
+					WHERE b.`Name` = :origin and a.Kabupaten = :destination;";
+				$stmt = $this->db->prepare($sql);
+				$stmt->bindParam(':origin', $origin, PDO::PARAM_STR);
+				$stmt->bindParam(':destination', $destination, PDO::PARAM_STR);
+
+				if ($stmt->execute()) {	
+    			    if ($stmt->rowCount() > 0){
+    		   		   	$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+						$data = [
+			   		        'results' => $results, 
+    	    	    	    'status' => 'success', 
+		           	    	'code' => 'RS501',
+	    		        	'message' => CustomHandlers::getreSlimMessage('RS501',$this->lang)
+						];
+				    } else {
+        			    $data = [
+        			    	'status' => 'error',
+	        			    'code' => 'RS601',
+    		    	    	'message' => CustomHandlers::getreSlimMessage('RS601',$this->lang)
+						];
+		    	    }          	   	
+				} else {
+					$data = [
+        				'status' => 'error',
+						'code' => 'RS202',
+		        		'message' => CustomHandlers::getreSlimMessage('RS202',$this->lang)
+					];
+				}	
+			} else {
+				$data = [
+					'status' => 'error',
+					'code' => 'RS801',
+					'message' => CustomHandlers::getreSlimMessage('RS801',$this->lang)
+				];
+			}
+        
+			return JSON::safeEncode($data,true);
+	        $this->db= null;
+		}
+
         //HANDLING=================================
 
         public function addHandling(){
