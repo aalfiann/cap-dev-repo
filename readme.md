@@ -7,7 +7,7 @@ CAP Development
 ![Timeline1](https://img.shields.io/badge/timeline1-100%25-green.svg)<br>
 ![Timeline2](https://img.shields.io/badge/timeline2-100%25-green.svg)<br>
 ![Timeline3](https://img.shields.io/badge/timeline3-100%25-green.svg)<br>
-![Timeline4](https://img.shields.io/badge/timeline4-62%25-yellow.svg)<br>
+![Timeline4](https://img.shields.io/badge/timeline4-68%25-yellow.svg)<br>
 
 
 Untuk melihat status proses development [klik disini](https://github.com/aalfiann/cap-dev-repo/commits/master).<br>
@@ -108,9 +108,9 @@ Built-in Contact adalah fitur untuk menghubungi Customer Service via email secar
 Pendataan Corporate atau perusahaan yang bekerja sama<br>
 8. Membership System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
 Pendataan member yang menjadi langganan tetap<br>
-9. Public Tariff Info >> ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) `on progress`<br>
+9. Public Tariff Info >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
 Untuk mendapatkan informasi tariff semua cabang<br>
-10. Invoice System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+10. Invoice System >> ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) `on progress`<br>
 Manajemen tagihan atau invoice secara sistem agar memudahkan untuk di kontrol<br>
 11. Operasional System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
 Sistem operasional CARGO<br>
