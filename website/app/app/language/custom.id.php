@@ -112,6 +112,8 @@ $vocabularies[] = [
     //trace placeholder
     'trace_placeholder_waybill' => 'Contoh: CGK12345xxxxx',
     //global
+    'via' => 'Via',
+    'service' => 'Layanan',
     'reason' => 'Sebab',
     'result' => 'Hasil',
     'clear' => 'Hapus',
@@ -239,6 +241,7 @@ $vocabularies[] = [
     'inquiry' => 'Inquiry',
     'check_tariff' => 'Cek Tarif',
     'calculate_tariff' => 'Hitung Tarif',
+    'tariff_cubic_info' => 'Kubikasi hanya berlaku pada tariff via laut (Sea) saja.',
     //placeholder
     'city_district' => 'Kota / Kabupaten',
     //print

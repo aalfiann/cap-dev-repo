@@ -112,6 +112,8 @@ $vocabularies[] = [
     //trace placeholder
     'trace_placeholder_waybill' => 'Contoh: CGK12345xxxxx',
     //global
+    'via' => 'Via',
+    'service' => 'Service',
     'reason' => 'Reason',
     'result' => 'Result',
     'clear' => 'Clear',
@@ -239,6 +241,7 @@ $vocabularies[] = [
     'inquiry' => 'Inquiry',
     'check_tariff' => 'Check Tariff',
     'calculate_tariff' => 'Calculate Tariff',
+    'tariff_cubic_info' => 'Cubication only applies to tariff via sea only.',
     //placeholder
     'city_district' => 'City / District',
     //print
