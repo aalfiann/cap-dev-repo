@@ -132,6 +132,8 @@ $vocabularies[] = [
     //nominal
     'currency_format' => 'Rp.',
     //cargo
+    'minimum_kg' => 'Minimal Kg',
+    'minimum_weight' => 'Minimal Berat',
     'tariff' => 'Tarif',
     'handling' => 'Handling',
     'district' => 'Kabupaten',

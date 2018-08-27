@@ -220,6 +220,7 @@
         function searchdata(){
             console.log("Process search data...");
             $('#report-msg').html('');
+            $("[id^=floatcard]").remove();
             $.ajax({
                 url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/cargo/tariff/data/list/public/search/?apikey='.Core::getInstance()->apikey.'&lang='.Core::getInstance()->setlang)?>")+"&origin="+encodeURIComponent($("#origin").val())+"&destination="+encodeURIComponent($("#destination").val())+"&cubic="+encodeURIComponent($("#kubik").is(':checked'))+"&weight="+encodeURIComponent($("#weight").val())+"&length="+encodeURIComponent($("#length").val())+"&width="+encodeURIComponent($("#width").val())+"&height="+encodeURIComponent($("#height").val())+"&_="+randomText(60),
                 dataType: "json",
@@ -244,7 +245,7 @@
                             $('#'+divrc).addClass('card-body collapse show');
                             $('#'+divrc).html('<h3>'+value.Origin+' <i class="mdi mdi-chevron-right"></i> '+value.Destination+'</h3>\
                                 <h4><b>'+value.Kg+' Kg</b></h4>\
-                                <h1 class="text-themecolor"><b><?php echo Core::lang('currency_format')?> '+addCommas(value.Tariff)+'</b></h1><p><?php echo Core::lang('estimation')?>: '+value.Estimasi+' <?php echo Core::lang('days')?></p>');
+                                <h1 class="text-themecolor"><b><?php echo Core::lang('currency_format')?> '+addCommas(value.Tariff)+'</b></h1><p><?php echo Core::lang('estimation')?>: '+value.Estimasi+' <?php echo Core::lang('days')?><br><?php echo Core::lang('minimum_weight')?>: '+value.Min_Kg+' Kg</p>');
                         });
                         if($("#kubik").is(':checked')) writeMessage('#report-msg','info','Info: <br>- <?php echo Core::lang('tariff_cubic_info')?>');
                         console.log(data.message);
