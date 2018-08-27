@@ -92,7 +92,8 @@ if( $group > '2' && ($group != '6' && $group != '7') ) {Core::goToPage('modul-us
                                                     <div class="input-group">
                                                         <input type="text" id="custid" name="custid" class="form-control" placeholder="<?php echo Core::lang('input_browse_customer')?>">
                                                         <span class="input-group-btn">
-                                                            <button class="btn btn-themecolor" type="button"><?php echo Core::lang('browse')?>!</button>
+                                                            <button class="btn btn-themecolor" type="button" data-toggle="modal" data-target=".browse"><?php echo Core::lang('browse')?>!</button>
+                                                            <button class="btn btn-default" type="button" onclick="consigneeReset()"><?php echo Core::lang('delete')?>!</button>
                                                         </span>
                                                     </div>
                                                     <small id="custidHelp" class="form-text text-muted"><?php echo Core::lang('help_browse_customer')?></small>
@@ -448,6 +449,61 @@ if( $group > '2' && ($group != '6' && $group != '7') ) {Core::goToPage('modul-us
                             </div>
                         </div>
                     </div>
+                    <!-- terms modal content -->
+                    <div class="modal fade browse" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title text-themecolor" id="myLargeModalLabel"><i class="mdi mdi-magnify"></i> <?php echo Core::lang('browse').' '.Core::lang('data')?></h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                </div>
+                                <form class="form-horizontal" id="browsedata" action="#">
+                                    <div class="modal-body">
+                                        <div id="report-modal"></div>
+                                        <div class="col-md-12 col-12 align-self-center">
+                                            <div class="input-group">
+                                                <input id="searchdt" type="text" class="form-control" placeholder="<?php echo Core::lang('input_search')?>">
+                                                <span class="input-group-btn">
+                                                    <button id="submitsearchdt" onclick="loadData('#databrowse',document.getElementById('searchdt').value);" class="btn btn-themecolor" type="button"><?php echo Core::lang('search')?></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive m-t-40">
+                                            <table id="databrowse" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th><?php echo Core::lang('tb_no')?></th>
+                                                        <th>ID</th>
+                                                        <th><?php echo Core::lang('name')?></th>
+                                                        <th><?php echo Core::lang('name_alias')?></th>
+                                                        <th><?php echo Core::lang('address')?></th>
+                                                        <th><?php echo Core::lang('phone')?></th>
+                                                        <th><?php echo Core::lang('fax')?></th>
+                                                        <th><?php echo Core::lang('email')?></th>
+                                                    </tr>
+                                                </thead>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th><?php echo Core::lang('tb_no')?></th>
+                                                        <th>ID</th>
+                                                        <th><?php echo Core::lang('name')?></th>
+                                                        <th><?php echo Core::lang('name_alias')?></th>
+                                                        <th><?php echo Core::lang('address')?></th>
+                                                        <th><?php echo Core::lang('phone')?></th>
+                                                        <th><?php echo Core::lang('fax')?></th>
+                                                        <th><?php echo Core::lang('email')?></th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>    
+                                </form>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal -->
                 </div>
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
@@ -467,6 +523,7 @@ if( $group > '2' && ($group != '6' && $group != '7') ) {Core::goToPage('modul-us
     <!-- End Wrapper -->
     <!-- ============================================================== -->
     <?php include_once 'global-js.php';?>
+    <?php include_once 'global-datatables.php';?>
     <!-- Wizard  -->
     <script src="<?php echo Core::getInstance()->assetspath?>/plugins/wizard/jquery.steps.min.js"></script>
     <script src="<?php echo Core::getInstance()->assetspath?>/plugins/wizard/jquery.validate.min.js"></script>
@@ -476,6 +533,112 @@ if( $group > '2' && ($group != '6' && $group != '7') ) {Core::goToPage('modul-us
     <script src="<?php echo Core::getInstance()->assetspath?>/plugins/table-to-json/lib/jquery.tabletojson.min.js"></script>
     <!-- Typehead Plugin JavaScript -->
     <script src="<?php echo Core::getInstance()->assetspath?>/plugins/typeahead.js-master/dist/typeahead.bundle.min.js"></script>
+    <script>
+        /** 
+         * Create event enter key on search (Pure JS)
+         * Usage: button id in search element must be set to submitsearchdt
+         */
+        document.getElementById("searchdt").addEventListener("keypress", function(event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                document.getElementById("submitsearchdt").click();
+            }
+        });
+
+        function loadData(idtable,search=""){
+            $(function() {
+                var browsetype = '';
+                var colid = '';
+                var colname = '';
+                var colnamealias = '';
+                /* detect data member or forporate*/
+                if($('#radio2').is(':checked')) {
+                    browsetype = 'member';
+                    colid = 'MemberID';
+                    colname = 'Member_name';
+                    colnamealias = 'Member_name_alias';
+                } else if ($('#radio3').is(':checked')){
+                    browsetype = 'company';
+                    colid = 'CompanyID';
+                    colname = 'Company_name';
+                    colnamealias = 'Company_name_alias';
+                }
+
+                /* Make sure there is no datatables with same id */
+                if ($.fn.DataTable.isDataTable(idtable)) {
+                    $(idtable).DataTable().destroy();
+                }
+                /* Choose columns index for printing purpose */
+                var selectCol = [ 0, 1, 2, 3, 4, 5, 6, 7 ];
+                /* Built table is here */
+                var table = $(idtable).DataTable({
+                    ajax: {
+                        type: "GET",
+                        url: "<?php echo Core::getInstance()->api.'/enterprise_customer/"+browsetype+"/data/search/'.$datalogin['username'].'/'.$datalogin['token'].'/1/1000/?query="+encodeURIComponent(search)+"&_="+randomText(5)+"'?>",
+                        cache: true,
+                        dataSrc: function (json) {  /* You can handle json response data here */
+                            if (json.status == "success"){
+                                return json.results;
+                            } else {
+                                return [];
+                            }
+                        }
+                    },
+                    columns: [
+                        { "render": function(data,type,row,meta) { /* render event defines the markup of the cell text */
+                                var a =  meta.row + meta.settings._iDisplayStart + 1 + ((meta.settings.json.metadata.page_now-1)*meta.settings.json.metadata.items_per_page); /* row object contains the row data */
+                                return a;
+                            } 
+                        },
+                        { "render": function(data,type,row,meta) {
+                                if (colid == 'MemberID'){
+                                    return '<a href="#" onclick="moveData(\''+row.MemberID+'\',\''+row.Member_name+'\',\''+row.Member_name_alias+'\',\''+row.Address+'\',\''+row.Phone+'\',\''+row.Fax+'\',\''+row.Email+'\')">'+row.MemberID+'</a>';
+                                } else {
+                                    return '<a href="#" onclick="moveData(\''+row.CompanyID+'\',\''+row.Company_name+'\',\''+row.Company_name_alias+'\',\''+row.Address+'\',\''+row.Phone+'\',\''+row.Fax+'\',\''+row.Email+'\')">'+row.CompanyID+'</a>';
+                                }
+                            }
+                        },
+                        { data: colname },
+                        { data: colnamealias },
+                        { data: "Address" },
+                        { data: "Phone" },
+                        { data: "Fax" },
+                        { data: "Email" }
+                    ],
+                    bFilter: false,
+                    paging: true,
+                    info: false,
+                    processing: true,
+                    language: {
+                        lengthMenu: "<?php echo Core::lang('dt_display')?>",
+                        zeroRecords: "<?php echo Core::lang('dt_not_found')?>",
+                        info: "<?php echo Core::lang('dt_info')?>",
+                        infoEmpty: "<?php echo Core::lang('dt_info_empty')?>",
+                        infoFiltered: "<?php echo Core::lang('dt_filtered')?>",
+                        decimal: "",
+                        emptyTable: "<?php echo Core::lang('dt_table_empty')?>",
+                        infoPostFix: "",
+                        thousands: "<?php echo Core::lang('dt_thousands')?>",
+                        loadingRecords: "<?php echo Core::lang('dt_loading')?>",
+                        processing: "<?php echo Core::lang('dt_process')?>",
+                        search: "<?php echo Core::lang('dt_search')?>"
+                    }
+                });
+                return false;
+            });
+        }
+
+        function moveData(id,name,alias="",address="",phone="",fax="",email=""){
+            $('#custid').val(id);
+            $('#shippername').val(name);
+            $('#aliasname').val(alias);
+            $('#address').val(address);
+            $('#phone').val(phone);
+            $('#fax').val(fax);
+            $('#email').val(email);
+            $('.browse').modal('hide');
+        }
+    </script>
     <script>
         var count = 1;
         /* Get mode option start */
@@ -1149,7 +1312,7 @@ if( $group > '2' && ($group != '6' && $group != '7') ) {Core::goToPage('modul-us
             $('#radio2').click(function() {
                 if($('#radio2').is(':checked')) {
                     consigneeReset();
-                    inputConsignee(); 
+                    inputConsignee(false); 
                     $("#payment_method").val('1');
                     $("#dobrowse").show();
                 }
@@ -1158,7 +1321,7 @@ if( $group > '2' && ($group != '6' && $group != '7') ) {Core::goToPage('modul-us
             $('#radio3').click(function() {
                 if($('#radio3').is(':checked')) {
                     consigneeReset();
-                    inputConsignee(); 
+                    inputConsignee(false); 
                     $("#payment_method").val('4');
                     $("#dobrowse").show();
                 }
