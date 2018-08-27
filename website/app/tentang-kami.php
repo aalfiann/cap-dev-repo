@@ -123,7 +123,7 @@
 						<li class="main-menu-separator"></li>
 						<!-- === top menu item === -->
 						<li>
-							<a href="app/modul-list-tariff.php">Tariff</a>
+							<a href="app/modul-info-tariff.php">Info Tariff</a>
 						</li>
 						<li class="main-menu-separator"></li>
 						<!-- === top menu item === -->

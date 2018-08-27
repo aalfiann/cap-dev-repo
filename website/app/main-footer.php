@@ -34,7 +34,7 @@
 							<ul>
 								<li><a href="index.php">Beranda</a></li>
 								<li><a href="tentang-kami.php">Tentang Kami</a></li>
-								<li><a href="app/modul-list-tariff.php">Tariff</a></li>
+								<li><a href="app/modul-info-tariff.php">Info Tariff</a></li>
 								<li><a href="hubungi-kami.php">Hubungi Kami</a></li>
 							</ul>
 						</div>
