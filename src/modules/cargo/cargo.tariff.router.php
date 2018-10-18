@@ -142,21 +142,21 @@ use \modules\cargo\Tariff as Tariff;
 
     // GET api to search tariff public
     $app->map(['GET','OPTIONS'],'/cargo/tariff/data/get/public/search/', function (Request $request, Response $response) {
-        $cargo = new Tariff($this->db);
-        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
-        $cargo->origin = filter_var((empty($_GET['origin'])?'':$_GET['origin']),FILTER_SANITIZE_STRING);
-        $cargo->destination = filter_var((empty($_GET['destination'])?'':$_GET['destination']),FILTER_SANITIZE_STRING);
-        $cargo->length = (empty($_GET['length'])?0:$_GET['length']);
-        $cargo->width = (empty($_GET['width'])?0:$_GET['width']);
-        $cargo->height = (empty($_GET['height'])?0:$_GET['height']);
-        $cargo->weight = ((empty($_GET['weight']) || $_GET['weight'] == 0)?1:$_GET['weight']);
-        $cargo->mode = filter_var((empty($_GET['mode'])?'road':$_GET['mode']),FILTER_SANITIZE_STRING);
-        $cargo->cubic = filter_var((empty($_GET['cubic'])?'false':$_GET['cubic']),FILTER_SANITIZE_STRING);
         $body = $response->getBody();
         $response = $this->cache->withEtag($response, $this->etag.'-'.trim($_SERVER['REQUEST_URI'],'/'));
         if (SimpleCache::isCached(600,["apikey","origin","destination","mode","cubic","weight","length","width","height","lang"])){
             $datajson = SimpleCache::load(["apikey","origin","destination","mode","cubic","weight","length","width","height","lang"]);
         } else {
+            $cargo = new Tariff($this->db);
+            $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+            $cargo->origin = filter_var((empty($_GET['origin'])?'':$_GET['origin']),FILTER_SANITIZE_STRING);
+            $cargo->destination = filter_var((empty($_GET['destination'])?'':$_GET['destination']),FILTER_SANITIZE_STRING);
+            $cargo->length = (empty($_GET['length'])?0:$_GET['length']);
+            $cargo->width = (empty($_GET['width'])?0:$_GET['width']);
+            $cargo->height = (empty($_GET['height'])?0:$_GET['height']);
+            $cargo->weight = ((empty($_GET['weight']) || $_GET['weight'] == 0)?1:$_GET['weight']);
+            $cargo->mode = filter_var((empty($_GET['mode'])?'road':$_GET['mode']),FILTER_SANITIZE_STRING);
+            $cargo->cubic = filter_var((empty($_GET['cubic'])?'false':$_GET['cubic']),FILTER_SANITIZE_STRING);
             $datajson = SimpleCache::save($cargo->searchTariffPublic(),["apikey","origin","destination","mode","cubic","weight","length","width","height","lang"],null,600);
         }
         $body->write($datajson);
@@ -182,20 +182,20 @@ use \modules\cargo\Tariff as Tariff;
 
     // GET api to search tariff list public
     $app->map(['GET','OPTIONS'],'/cargo/tariff/data/list/public/search/', function (Request $request, Response $response) {
-        $cargo = new Tariff($this->db);
-        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
-        $cargo->origin = filter_var((empty($_GET['origin'])?'':$_GET['origin']),FILTER_SANITIZE_STRING);
-        $cargo->destination = filter_var((empty($_GET['destination'])?'':$_GET['destination']),FILTER_SANITIZE_STRING);
-        $cargo->length = (empty($_GET['length'])?0:$_GET['length']);
-        $cargo->width = (empty($_GET['width'])?0:$_GET['width']);
-        $cargo->height = (empty($_GET['height'])?0:$_GET['height']);
-        $cargo->weight = ((empty($_GET['weight']) || $_GET['weight'] == 0)?1:$_GET['weight']);
-        $cargo->cubic = filter_var((empty($_GET['cubic'])?'false':$_GET['cubic']),FILTER_SANITIZE_STRING);
         $body = $response->getBody();
         $response = $this->cache->withEtag($response, $this->etag.'-'.trim($_SERVER['REQUEST_URI'],'/'));
         if (SimpleCache::isCached(600,["apikey","origin","destination","cubic","weight","length","width","height","lang"])){
             $datajson = SimpleCache::load(["apikey","origin","destination","cubic","weight","length","width","height","lang"]);
         } else {
+            $cargo = new Tariff($this->db);
+            $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+            $cargo->origin = filter_var((empty($_GET['origin'])?'':$_GET['origin']),FILTER_SANITIZE_STRING);
+            $cargo->destination = filter_var((empty($_GET['destination'])?'':$_GET['destination']),FILTER_SANITIZE_STRING);
+            $cargo->length = (empty($_GET['length'])?0:$_GET['length']);
+            $cargo->width = (empty($_GET['width'])?0:$_GET['width']);
+            $cargo->height = (empty($_GET['height'])?0:$_GET['height']);
+            $cargo->weight = ((empty($_GET['weight']) || $_GET['weight'] == 0)?1:$_GET['weight']);
+            $cargo->cubic = filter_var((empty($_GET['cubic'])?'false':$_GET['cubic']),FILTER_SANITIZE_STRING);
             $datajson = SimpleCache::save($cargo->searchTariffListPublic(),["apikey","origin","destination","cubic","weight","length","width","height","lang"],null,600);
         }
         $body->write($datajson);
@@ -204,14 +204,14 @@ use \modules\cargo\Tariff as Tariff;
 
     // GET api to show all list origin tariff public
     $app->map(['GET','OPTIONS'],'/cargo/tariff/data/list/origin/public/search/', function (Request $request, Response $response) {
-        $cargo = new Tariff($this->db);
-        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
-        $cargo->search = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);
         $body = $response->getBody();
         $response = $this->cache->withEtag($response, $this->etag.'-'.trim($_SERVER['REQUEST_URI'],'/'));
         if (SimpleCache::isCached(600,["apikey","lang"])){
             $datajson = SimpleCache::load(["apikey","lang"]);
         } else {
+            $cargo = new Tariff($this->db);
+            $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+            $cargo->search = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);
             $datajson = SimpleCache::save($cargo->listOriginPublic(),["apikey","lang"],null,600);
         }
         $body->write($datajson);
@@ -222,14 +222,14 @@ use \modules\cargo\Tariff as Tariff;
 
     // GET api to show all list destinasi tariff public
     $app->map(['GET','OPTIONS'],'/cargo/tariff/data/list/destination/public/search/', function (Request $request, Response $response) {
-        $cargo = new Tariff($this->db);
-        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
-        $cargo->search = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);
         $body = $response->getBody();
         $response = $this->cache->withEtag($response, $this->etag.'-'.trim($_SERVER['REQUEST_URI'],'/'));
         if (SimpleCache::isCached(600,["apikey","lang"])){
             $datajson = SimpleCache::load(["apikey","lang"]);
         } else {
+            $cargo = new Tariff($this->db);
+            $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+            $cargo->search = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);
             $datajson = SimpleCache::save($cargo->listDestinationPublic(),["apikey","lang"],null,600);
         }
         $body->write($datajson);

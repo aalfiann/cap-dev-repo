@@ -68,16 +68,16 @@ use \modules\cargo\Relation as Relation;
 
     // GET api to show all data relation pagination public
     $app->map(['GET','OPTIONS'],'/cargo/relation/data/public/search/{page}/{itemsperpage}/', function (Request $request, Response $response) {
-        $cargo = new Relation($this->db);
-        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
-        $cargo->search = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);
-        $cargo->page = $request->getAttribute('page');
-        $cargo->itemsPerPage = $request->getAttribute('itemsperpage');
         $body = $response->getBody();
         $response = $this->cache->withEtag($response, $this->etag2hour.'-'.trim($_SERVER['REQUEST_URI'],'/'));
         if (SimpleCache::isCached(3600,["apikey","query","lang"])){
             $datajson = SimpleCache::load(["apikey","query","lang"]);
         } else {
+            $cargo = new Relation($this->db);
+            $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+            $cargo->search = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);
+            $cargo->page = $request->getAttribute('page');
+            $cargo->itemsPerPage = $request->getAttribute('itemsperpage');
             $datajson = SimpleCache::save($cargo->searchRelationAsPaginationPublic(),["apikey","query","lang"],null,3600);
         }
         $body->write($datajson);
@@ -99,13 +99,13 @@ use \modules\cargo\Relation as Relation;
 
     // GET api to show all data relation public
     $app->map(['GET','OPTIONS'],'/cargo/relation/data/list/public/', function (Request $request, Response $response) {
-        $cargo = new Relation($this->db);
-        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $body = $response->getBody();
         $response = $this->cache->withEtag($response, $this->etag2hour.'-'.trim($_SERVER['REQUEST_URI'],'/'));
         if (SimpleCache::isCached(3600,["apikey","lang"])){
             $datajson = SimpleCache::load(["apikey","lang"]);
         } else {
+            $cargo = new Relation($this->db);
+            $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
             $datajson = SimpleCache::save($cargo->showOptionRelationPublic(),["apikey","lang"],null,3600);
         }
         $body->write($datajson);

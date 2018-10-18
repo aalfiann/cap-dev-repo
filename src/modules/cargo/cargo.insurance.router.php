@@ -73,16 +73,16 @@ use \modules\cargo\Insurance as Insurance;
 
     // GET api to show all data insurance pagination public
     $app->map(['GET','OPTIONS'],'/cargo/insurance/data/public/search/{page}/{itemsperpage}/', function (Request $request, Response $response) {
-        $cargo = new Insurance($this->db);
-        $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
-        $cargo->search = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);
-        $cargo->page = $request->getAttribute('page');
-        $cargo->itemsPerPage = $request->getAttribute('itemsperpage');
         $body = $response->getBody();
         $response = $this->cache->withEtag($response, $this->etag2hour.'-'.trim($_SERVER['REQUEST_URI'],'/'));
         if (SimpleCache::isCached(3600,["apikey","query","lang"])){
             $datajson = SimpleCache::load(["apikey","query","lang"]);
         } else {
+            $cargo = new Insurance($this->db);
+            $cargo->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+            $cargo->search = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);
+            $cargo->page = $request->getAttribute('page');
+            $cargo->itemsPerPage = $request->getAttribute('itemsperpage');
             $datajson = SimpleCache::save($cargo->searchInsuranceAsPaginationPublic(),["apikey","query","lang"],null,3600);
         }
         $body->write($datajson);
