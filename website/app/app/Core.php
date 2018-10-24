@@ -87,7 +87,7 @@
         var $pathcache = 'cache-files';
         var $minifycache = true;
 
-        var $version = '2.19.0';
+        var $version = '2.20.0';
 
         private static $instance;
         
@@ -1229,7 +1229,7 @@
         /**
          * Determine is server list already cached
          * 
-         * @var $cachetime = set the expiry time. Default is 60 seconds.
+         * @param $cachetime = set the expiry time. Default is 60 seconds.
          * 
          * @return boolean
          */
@@ -1264,7 +1264,7 @@
         /**
          * Write cache the result from cURL
          * 
-         * @var $value = This is the value from cURL
+         * @param $value = This is the value from cURL
          */
         public function writeServerCache($value) {
             $file = $this->fileServerCache();
@@ -1282,7 +1282,7 @@
         /**
          * Get the valid multiserver list
          * 
-         * @var $api = This is the url of rest api
+         * @param $api = This is the url of rest api
          * 
          * @return string
          */
@@ -1318,9 +1318,9 @@
         /**
          * CURL multi request (Support for GET and POST)
          * 
-         * @var $data = an array for target url
-         * @var $showhttpstatus = if set to true then will only display http status code. Default is false
-         * @var $options = an array to add extra options curl
+         * @param $data = an array for target url
+         * @param $showhttpstatus = if set to true then will only display http status code. Default is false
+         * @param $options = an array to add extra options curl
          * 
          * @return array
          */
