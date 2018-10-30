@@ -296,13 +296,20 @@ $refpage = (empty($_GET['ref'])?Core::lang('invoice_edit'):'<a href="'.$_GET['re
                                     </div>
                                 </div>
                                 <hr>
-                                <div class="row justify-content-start">
-                                    <div class="col-md-4">
-                                        <select id="selectoptstatus" class="form-control custom-select"></select>
+                                <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+                                    <div class="btn-group mr-2" role="group" aria-label="First group">
+                                        <div class="col-md-6">
+                                            <select id="selectoptstatus" class="form-control custom-select"></select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button id="submitbtn" type="submit" class="btn btn-success"><?php echo Core::lang('update').' '.Core::lang('invoice')?></button>
+                                        </div>
                                     </div>
-                                    <div class="col-md-2">
-                                        <button id="submitbtn" type="submit" class="btn btn-themecolor"><?php echo Core::lang('update').' '.Core::lang('invoice')?></button>
-                                    </div>                                    
+                                    <div class="btn-group mr-2" role="group" aria-label="Second group">
+                                        <?php if(Core::getUserGroup()<3){
+                                            echo '<button id="deletebtn" onclick="deletedata(\''.$codeid.'\');return false;" type="submit" class="btn btn-danger">'.Core::lang('delete').' '.Core::lang('invoice').'</button>';
+                                        }?>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -798,6 +805,9 @@ $refpage = (empty($_GET['ref'])?Core::lang('invoice_edit'):'<a href="'.$_GET['re
                                 title: "<?php echo Core::lang('not_found')?>",
                                 text: data.message,
                                 type: "error"
+                            },
+                            function(){
+                                window.location.href = "modul-invoice.php";
                             });
                         }
                     },
@@ -824,6 +834,76 @@ $refpage = (empty($_GET['ref'])?Core::lang('invoice_edit'):'<a href="'.$_GET['re
 	    		    },
                 	error: function(x, e) {}
     	    	});
+            });
+        }
+
+        function processdeletedata(dataid){
+            $(function() {
+                console.log("Process delete data...");
+                var div = document.getElementById("report-msg");
+                var btn = "deletebtn";
+                disableClickButton(btn);
+                $.ajax({
+                    url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/invoice/data/delete')?>"),
+                    data : {
+                        Username: "<?php echo $datalogin['username']?>",
+                        Token: "<?php echo $datalogin['token']?>",
+                        InvoiceID: dataid
+                    },
+                    dataType: "json",
+                    type: "POST",
+                    success: function(data) {
+                        div.innerHTML = "";
+                        if (data.status == "success"){
+                            div.innerHTML = messageHtml("success","<?php echo Core::lang('core_process_delete').' '.Core::lang('invoice').' '.Core::lang('status_success')?>");
+                            console.log("<?php echo Core::lang('core_process_delete').' '.Core::lang('invoice').' '.Core::lang('status_success')?>");
+                            swal({
+                                title: "<?php echo Core::lang('invoice').' '.Core::lang('deleted')?>",
+                                text: data.message,
+                                type: "success"
+                            },
+                            function(){
+                                window.location.href = "modul-invoice.php";
+                            });
+                        } else {
+                            div.innerHTML = messageHtml("danger","<?php echo Core::lang('core_process_delete').' '.Core::lang('invoice').' '.Core::lang('status_failed')?>",data.message);
+                            swal({
+                                title: "<?php echo Core::lang('delete').' '.Core::lang('invoice').' '.Core::lang('status_failed')?>",
+                                text: data.message,
+                                type: "error"
+                            });
+                        }
+                    },
+                    complete: function(){
+                        disableClickButton(btn,false);
+                    },
+                    error: function(x, e) {
+                        var obj = JSON.parse(x.responseText);
+                        div.innerHTML = messageHtml("danger","<?php echo Core::lang('core_process_delete').' '.Core::lang('invoice').' '.Core::lang('status_failed')?>",obj.message);
+                        swal({
+                            title: "<?php echo Core::lang('delete').' '.Core::lang('invoice').' '.Core::lang('status_failed')?>",
+                            text: obj.message,
+                            type: "error"
+                        });
+                    }
+                });
+            });
+        }
+
+        function deletedata(dataid){
+            $(function() {
+                swal({   
+                    title: "<?php echo Core::lang('are_u_sure')?>",   
+                    text: "<?php echo Core::lang('deleted_file_warning')?>",
+                    type: "warning",   
+                    showCancelButton: true,   
+                    confirmButtonColor: "#DD6B55",   
+                    confirmButtonText: "<?php echo Core::lang('delete_yes')?>",
+                    cancelButtonText: "<?php echo Core::lang('cancel')?>",
+                    closeOnConfirm: false 
+                }, function(){
+                    processdeletedata(dataid);
+                });
             });
         }
         
