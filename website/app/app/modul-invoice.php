@@ -106,6 +106,7 @@ $s = (empty($_GET['s'])?'':$_GET['s']);?>
                                         <thead>
                                             <tr>
                                                 <th><?php echo Core::lang('tb_no')?></th>
+                                                <th class="not-export-col"><?php echo Core::lang('manage')?></th>
                                                 <th><?php echo Core::lang('invoice_id')?></th>
                                                 <th><?php echo Core::lang('customer_id')?></th>
                                                 <th><?php echo Core::lang('invoice_name')?></th>
@@ -121,12 +122,13 @@ $s = (empty($_GET['s'])?'':$_GET['s']);?>
                                                 <th><?php echo Core::lang('tb_username')?></th>
                                                 <th><?php echo Core::lang('tb_updated_at')?></th>
                                                 <th><?php echo Core::lang('tb_updated_by')?></th>
-                                                <th class="not-export-col"><?php echo Core::lang('manage')?></th>
+                                                
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
                                             <th><?php echo Core::lang('tb_no')?></th>
+                                                <th class="not-export-col"><?php echo Core::lang('manage')?></th>
                                                 <th><?php echo Core::lang('invoice_id')?></th>
                                                 <th><?php echo Core::lang('customer_id')?></th>
                                                 <th><?php echo Core::lang('invoice_name')?></th>
@@ -142,7 +144,6 @@ $s = (empty($_GET['s'])?'':$_GET['s']);?>
                                                 <th><?php echo Core::lang('tb_username')?></th>
                                                 <th><?php echo Core::lang('tb_updated_at')?></th>
                                                 <th><?php echo Core::lang('tb_updated_by')?></th>
-                                                <th class="not-export-col"><?php echo Core::lang('manage')?></th>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -360,6 +361,11 @@ $s = (empty($_GET['s'])?'':$_GET['s']);?>
                                 return a;
                             } 
                         },
+                        { "render": function(data,type,row,meta) { /* render event defines the markup of the cell text */ 
+                                var a = '<a href="modul-invoice-edit.php?no='+row.InvoiceID+'&ref=modul-invoice.php&fd='+firstdate+'&ld='+lastdate+'&s='+search+'"><i class="mdi mdi-pencil-box-outline"></i> <?php echo Core::lang('edit')?></a> | <a href="print-invoice.php?no='+row.InvoiceID+'&ref=modul-invoice.php&fd='+firstdate+'&ld='+lastdate+'&s='+search+'"><i class="mdi mdi-printer"></i> <?php echo Core::lang('print')?></a>'; /* row object contains the row data */
+                                return a;
+                            } 
+                        },
                         { data: "InvoiceID" },
                         { data: "Custom_id.CustomerID" },
                         { data: "To_name" },
@@ -374,12 +380,7 @@ $s = (empty($_GET['s'])?'':$_GET['s']);?>
                         { data: "Created_at" },
                         { data: "Created_by" },
                         { data: "Updated_at" },
-                        { data: "Updated_by" },
-                        { "render": function(data,type,row,meta) { /* render event defines the markup of the cell text */ 
-                                var a = '<a href="modul-invoice-edit.php?no='+row.InvoiceID+'&ref=modul-invoice.php&fd='+firstdate+'&ld='+lastdate+'&s='+search+'"><i class="mdi mdi-pencil-box-outline"></i> <?php echo Core::lang('edit')?></a>'; /* row object contains the row data */
-                                return a;
-                            } 
-                        }
+                        { data: "Updated_by" }
                     ],
                     bFilter: true,
                     paging:   false,

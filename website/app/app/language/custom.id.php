@@ -35,7 +35,11 @@ $vocabularies[] = [
     'invoice_bank_address' => 'Alamat Bank',
     'invoice_bank_account_name' => 'Nama Rekening',
     'invoice_bank_account_no' => 'No Rekening',
-    'invoice_val_row_empty' => 'Data invoice masih kosong!', 
+    'invoice_val_row_empty' => 'Data invoice masih kosong!',
+    'invoice_recipient_signature' => 'Penerima',
+    'invoice_recipient_signature_info' => '(Tanggal, Nama dan Tanda tangan)',
+    'invoice_authorized_signature' => 'Tanda Tangan Resmi',
+    'invoice_amount_in_word' => 'Terbilang',
     //deposit
     'deposit' => 'Deposit',
     'deposit_transaction_create' => 'Buat Transaksi',

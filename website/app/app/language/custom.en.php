@@ -36,6 +36,10 @@ $vocabularies[] = [
     'invoice_bank_account_name' => 'Account Name',
     'invoice_bank_account_no' => 'Account No',
     'invoice_val_row_empty' => 'Invoice data still empty!',
+    'invoice_recipient_signature' => 'Recipient Signature',
+    'invoice_recipient_signature_info' => '(Date, Name and Signature)',
+    'invoice_authorized_signature' => 'Authorized Signature',
+    'invoice_amount_in_word' => 'Amount in words',
     //deposit
     'deposit' => 'Deposit',
     'deposit_transaction_create' => 'Create Transaction',
