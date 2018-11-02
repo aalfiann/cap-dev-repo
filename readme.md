@@ -117,17 +117,19 @@ Manajemen tagihan atau invoice secara sistem agar memudahkan untuk di kontrol<br
 Timeline plan 5:
 ---------------
 Proses pengembangan sekitar 3 bulan
-1. Bank Management System >> ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) `on progress`<br>
+1. Unlimited Image Galery >> ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) `on progress`<br>
+Galeri gambar tanpa batas untuk berbagi atau akses secara publik<br>
+2. Bank Management System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
 Pendataan data informasi bank untuk memudahkan pembuatan invoice<br>
-2. Manifest System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+3. Manifest System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
 Sistem operasional untuk proses perjalanan barang<br>
-3. Delivery System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+4. Delivery System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
 Sistem manajamenen untuk pengantaran barang di destinasi<br>
-4. Customer App System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+5. Customer App System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
 Aplikasi untuk customer yang terdaftar dengan fitur login<br>
-5. Customer Reporting System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+6. Customer Reporting System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
 Aplikasi laporan data untuk customer khususnya perusahaan atau corporate<br>
-6. SMS Reporting >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+7. SMS Reporting >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
 Laporan terhadap customer dalam bentuk SMS<br>
 
 Timeline plan 6:
