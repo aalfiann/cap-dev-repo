@@ -7,7 +7,8 @@ CAP Development
 ![Timeline1](https://img.shields.io/badge/timeline1-100%25-green.svg)<br>
 ![Timeline2](https://img.shields.io/badge/timeline2-100%25-green.svg)<br>
 ![Timeline3](https://img.shields.io/badge/timeline3-100%25-green.svg)<br>
-![Timeline4](https://img.shields.io/badge/timeline4-74%25-yellow.svg)<br>
+![Timeline4](https://img.shields.io/badge/timeline4-100%25-green.svg)<br>
+![Timeline5](https://img.shields.io/badge/timeline4-7%25-red.svg)<br>
 
 
 Untuk melihat status proses development [klik disini](https://github.com/aalfiann/cap-dev-repo/commits/master).<br>
@@ -112,16 +113,24 @@ Pendataan member yang menjadi langganan tetap<br>
 Untuk mendapatkan informasi tariff semua cabang<br>
 10. Invoice System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
 Manajemen tagihan atau invoice secara sistem agar memudahkan untuk di kontrol<br>
-11. Operasional System >> ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) `on progress`<br>
-Sistem operasional CARGO<br>
-12. Customer App System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
-Aplikasi untuk customer yang terdaftar dengan fitur login<br>
-13. Customer Reporting System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
-Aplikasi laporan data untuk customer khususnya perusahaan atau corporate<br>
-14. SMS Reporting >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
-Laporan terhadap customer dalam bentuk SMS<br>
 
 Timeline plan 5:
+---------------
+Proses pengembangan sekitar 3 bulan
+1. Bank Management System >> ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) `on progress`<br>
+Pendataan data informasi bank untuk memudahkan pembuatan invoice<br>
+2. Manifest System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+Sistem operasional untuk proses perjalanan barang<br>
+3. Delivery System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+Sistem manajamenen untuk pengantaran barang di destinasi<br>
+4. Customer App System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+Aplikasi untuk customer yang terdaftar dengan fitur login<br>
+5. Customer Reporting System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+Aplikasi laporan data untuk customer khususnya perusahaan atau corporate<br>
+6. SMS Reporting >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+Laporan terhadap customer dalam bentuk SMS<br>
+
+Timeline plan 6:
 ---------------
 Proses pengembangan sekitar 6 bulan
 1. Mobile App Android >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
