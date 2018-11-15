@@ -271,7 +271,10 @@ $datalogin = Core::checkSessions();?>
 
         /* Load Post */
         loadPost();
-        writeMessage('#infomsg','success','<?php echo Core::lang('gallery_image_about')?>','<?php echo Core::lang('gallery_image_about_2')?>');
+        writeMessage('#infomsg','secondary','<?php echo Core::lang('gallery_image_about')?>','<?php echo Core::lang('gallery_image_about_2')?>');
+        setTimeout(function(){
+            $('#infomsg').hide('slow');
+        },10000)
     </script>
 </body>
 
