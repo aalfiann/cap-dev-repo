@@ -5,6 +5,8 @@ $datalogin = Core::checkSessions();?>
 <head>
     <?php include_once 'global-meta.php';?>    
     <title><?php echo Core::lang('gallery_image_me')?> - <?php echo Core::getInstance()->title?></title>
+    <!--alerts CSS -->
+    <link href="<?php echo Core::getInstance()->assetspath?>/plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
 </head>
 
 <body class="fix-sidebar fix-header card-no-border">
@@ -134,6 +136,8 @@ $datalogin = Core::checkSessions();?>
     <!-- End Wrapper -->
     <!-- ============================================================== -->
     <?php include_once 'global-js.php';?>
+    <!-- Sweet-Alert  -->
+    <script src="<?php echo Core::getInstance()->assetspath?>/plugins/sweetalert/sweetalert.min.js"></script>
     <script>
         /** 
          * Create event enter key on search (Pure JS)
@@ -173,7 +177,7 @@ $datalogin = Core::checkSessions();?>
                                                 </div>\
                                                 <div class="el-card-content text-left">\
                                                     <div class="col-md-12">\
-                                                        <small class="pull-right"><a class="text-danger" href="javascript:void(0)" onclick="deletePost(\''+value.ID+'\')" title="<?php echo Core::lang('delete').' '.Core::lang('image')?>"><?php echo Core::lang('delete')?></a></small>\
+                                                        <small class="pull-right"><a class="text-danger" href="javascript:void(0)" onclick="deleteConfirmation(\''+value.ID+'\')" title="<?php echo Core::lang('delete').' '.Core::lang('image')?>"><?php echo Core::lang('delete')?></a></small>\
                                                         <h3 class="box-title">'+((value.Title == '' || value.Title == null)?value.ID:value.Title)+'</h3> <small><a href="'+value.Link+'" target="_blank">'+value.Link+'</a></small>\
                                                     </div>\
                                                 </div>\
@@ -213,12 +217,40 @@ $datalogin = Core::checkSessions();?>
                     success: function(data) {
                         if (data.status == "success"){
                             writeMessage('#reportmsg','success',data.message);
-                            $('#'+id).remove();                 
+                            $('#'+id).remove();
+                            swal({
+                                title: "<?php echo Core::lang('image').' '.Core::lang('deleted')?>",
+                                text: data.message,
+                                type: "success"
+                            });
                         } else {
                             writeMessage('#reportmsg','danger',data.message);
+                            swal({
+                                title: "<?php echo Core::lang('image').' '.Core::lang('deleted')?>",
+                                text: data.message,
+                                type: "error"
+                            });
                         }
                     },
                     error: function(x, e) {}
+                });
+            });
+        }
+
+
+        function deleteConfirmation(dataid){
+            $(function() {
+                swal({   
+                    title: "<?php echo Core::lang('are_u_sure')?>",   
+                    text: "<?php echo Core::lang('deleted_file_warning')?>",
+                    type: "warning",   
+                    showCancelButton: true,   
+                    confirmButtonColor: "#DD6B55",   
+                    confirmButtonText: "<?php echo Core::lang('delete_yes')?>",
+                    cancelButtonText: "<?php echo Core::lang('cancel')?>",
+                    closeOnConfirm: false 
+                }, function(){
+                    deletePost(dataid);
                 });
             });
         }
