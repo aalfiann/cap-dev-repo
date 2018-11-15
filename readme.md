@@ -117,9 +117,9 @@ Manajemen tagihan atau invoice secara sistem agar memudahkan untuk di kontrol<br
 Timeline plan 5:
 ---------------
 Proses pengembangan sekitar 3 bulan
-1. Unlimited Image Galery >> ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) `on progress`<br>
+1. Unlimited Image Galery >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
 Galeri gambar tanpa batas untuk berbagi atau akses secara publik<br>
-2. Bank Management System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+2. Bank Management System >> ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) `on progress`<br>
 Pendataan data informasi bank untuk memudahkan pembuatan invoice<br>
 3. Manifest System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
 Sistem operasional untuk proses perjalanan barang<br>
