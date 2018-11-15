@@ -49,6 +49,12 @@
                     "title":"contact",
                     "link": "modul-contact.php",
                     "icon_class":"mdi mdi-email"
+                },
+                {
+                    "id":"6",
+                    "title":"gallery me",
+                    "link": "modul-gallery-me.php",
+                    "icon_class":"mdi mdi-image-filter-center-focus-weak"
                 }
             ]
 		},
