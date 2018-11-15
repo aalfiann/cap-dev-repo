@@ -3,6 +3,16 @@ require_once realpath(__DIR__ . '/..').'/config.php';
 $vocabularies[] = [
     //your custom language variable
     'custom_test' => 'Test',
+    //Image Gallery 
+    'gallery_image_me' => 'Galeri ku',
+    'gallery_image_remote_upload' => 'Remote Upload',
+    'gallery_image_url' => 'URL Gambar',
+    'gallery_image_url_placehold' => 'Contoh: http://the-image.com/abc.jpg',
+    'gallery_image_title' => 'Judul Gambar',
+    'gallery_image_title_placehold' => 'Input judul gambar disini...',
+    'gallery_image_desc_placehold' => 'Input deskripsi gambar disini...',
+    'gallery_image_about' => 'Galeri ku ini berfungsi untuk berbagi, menduplikasi dan publikasi gambar Anda secara publik.',
+    'gallery_image_about_2' => '<br><br><b>Catatan:</b><br>- Kami tidak mengunggah dan menyimpan gambar Anda ke dalam server kami.',
     //invoice
     'invoice' => 'Invoice',
     'invoice_id' => 'Invoice ID',

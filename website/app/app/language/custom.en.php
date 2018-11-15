@@ -3,6 +3,16 @@ require_once realpath(__DIR__ . '/..').'/config.php';
 $vocabularies[] = [
     //your custom language variable
     'custom_test' => 'Test',
+    //Image Gallery 
+    'gallery_image_me' => 'Gallery me',
+    'gallery_image_remote_upload' => 'Remote Upload',
+    'gallery_image_url' => 'URL Image',
+    'gallery_image_url_placehold' => 'Ex: http://the-image.com/abc.jpg',
+    'gallery_image_title' => 'Title Image',
+    'gallery_image_title_placehold' => 'Input the image title here...',
+    'gallery_image_desc_placehold' => 'Input the image description here...',
+    'gallery_image_about' => 'This Gallery Me is for sharing, mirroring and publishing your image into public service.',
+    'gallery_image_about_2' => '<br><br><b>Note:</b><br>- We don\'t upload and keep your image into our server.',
     //invoice
     'invoice' => 'Invoice',
     'invoice_id' => 'Invoice ID',
