@@ -255,8 +255,8 @@ if(Core::getUserGroup() != '1') {Core::goToPage('modul-user-profile.php');exit;}
                     }
                 },
                 columns: [
-                    { "render": function(data,type,row,meta) { 
-                            var a = meta.row + meta.settings._iDisplayStart + 1;
+                    { "render": function(data,type,row,meta) {
+                            var a = meta.row + 1;                    
                             return a;
                         } 
                     },

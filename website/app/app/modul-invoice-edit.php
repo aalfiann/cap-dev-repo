@@ -506,7 +506,7 @@ $refpage = (empty($_GET['ref'])?Core::lang('invoice_edit'):'<a href="'.$_GET['re
                     },
                     columns: [
                         { "render": function(data,type,row,meta) { /* render event defines the markup of the cell text */
-                                var a =  meta.row + meta.settings._iDisplayStart + 1 + ((meta.settings.json.metadata.page_now-1)*meta.settings.json.metadata.items_per_page); /* row object contains the row data */
+                                var a =  meta.row + 1 + ((meta.settings.json.metadata.page_now-1)*meta.settings.json.metadata.items_per_page); /* row object contains the row data */
                                 return a;
                             } 
                         },
