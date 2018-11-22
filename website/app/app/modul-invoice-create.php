@@ -184,6 +184,7 @@ if( $group > '2' && ($group != '6' && $group != '7') ) {Core::goToPage('modul-us
                             <div id="form-bank" class="card-body">
                                 <h3 class="text-themecolor m-b-0 m-t-0"><?php echo Core::lang('invoice_bank')?>
                                     <span class="pull-right">
+                                        <button class="btn btn-themecolor" type="button" data-toggle="modal" data-target=".browsebank"><i class="mdi mdi-magnify"></i> <?php echo Core::lang('browse')?></button>
                                         <button class="btn btn-secondary" type="button" onclick="clearBank()"><?php echo Core::lang('clear')?></button>
                                     </span>
                                 </h3><hr>
@@ -410,6 +411,58 @@ if( $group > '2' && ($group != '6' && $group != '7') ) {Core::goToPage('modul-us
                         <!-- /.modal-dialog -->
                     </div>
                     <!-- /.modal -->
+
+                    <!-- modal browse -->
+                    <div class="modal fade browsebank" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title text-themecolor" id="myLargeModalLabel"><i class="mdi mdi-magnify"></i> <?php echo Core::lang('browse').' '.Core::lang('databank')?></h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                </div>
+                                <form class="form-horizontal" id="browsedatabank" action="#">
+                                    <div class="modal-body">
+                                        <div id="report-modal"></div>
+                                        <div class="col-md-12 col-12 align-self-center">
+                                            <div class="input-group">
+                                                <input id="searchdtbank" type="text" class="form-control" placeholder="<?php echo Core::lang('input_search')?>">
+                                                <span class="input-group-btn">
+                                                    <button id="submitsearchdtbank" onclick="loadDataBank('#databrowsebank',document.getElementById('searchdtbank').value);" class="btn btn-themecolor" type="button"><?php echo Core::lang('search')?></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive m-t-40">
+                                            <table id="databrowsebank" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th><?php echo Core::lang('tb_no')?></th>
+                                                        <th><?php echo Core::lang('databank_name')?></th>
+                                                        <th><?php echo Core::lang('databank_fullname')?></th>
+                                                        <th><?php echo Core::lang('databank_address')?></th>
+                                                        <th><?php echo Core::lang('databank_account_name')?></th>
+                                                        <th><?php echo Core::lang('databank_account_no')?></th>
+                                                    </tr>
+                                                </thead>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th><?php echo Core::lang('tb_no')?></th>
+                                                        <th><?php echo Core::lang('databank_name')?></th>
+                                                        <th><?php echo Core::lang('databank_fullname')?></th>
+                                                        <th><?php echo Core::lang('databank_address')?></th>
+                                                        <th><?php echo Core::lang('databank_account_name')?></th>
+                                                        <th><?php echo Core::lang('databank_account_no')?></th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>    
+                                </form>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal -->
                     
                 </div>
                 <!-- ============================================================== -->
@@ -474,9 +527,9 @@ if( $group > '2' && ($group != '6' && $group != '7') ) {Core::goToPage('modul-us
                     },
                     columns: [
                         { "render": function(data,type,row,meta) { /* render event defines the markup of the cell text */
-                                var a =  meta.row + meta.settings._iDisplayStart + 1 + ((meta.settings.json.metadata.page_now-1)*meta.settings.json.metadata.items_per_page); /* row object contains the row data */
+                                var a =  meta.row + 1 + ((meta.settings.json.metadata.page_now-1)*meta.settings.json.metadata.items_per_page); /* row object contains the row data */
                                 return a;
-                            } 
+                            }
                         },
                         { "render": function(data,type,row,meta) {
                             return '<a href="#" onclick="moveData(\''+row.CompanyID+'\',\''+row.Company_name+'\',\''+row.PIC+'\',\''+row.Address+'\',\''+row.Phone+'\',\''+row.Fax+'\',\''+row.Email+'\');return false;">'+row.CompanyID+'</a>';
@@ -512,6 +565,66 @@ if( $group > '2' && ($group != '6' && $group != '7') ) {Core::goToPage('modul-us
             });
         }
 
+        function loadDataBank(idtable,search=""){
+            $(function() {
+                /* Make sure there is no datatables with same id */
+                if ($.fn.DataTable.isDataTable(idtable)) {
+                    $(idtable).DataTable().destroy();
+                }
+                /* Choose columns index for printing purpose */
+                var selectCol = [ 0, 1, 2, 3, 4, 5, 6, 7 ];
+                /* Built table is here */
+                var table = $(idtable).DataTable({
+                    ajax: {
+                        type: "GET",
+                        url: "<?php echo Core::getInstance()->api.'/databank/index/keywords/'.$datalogin['username'].'/'.$datalogin['token'].'/1/1000/?keywords=\"BranchID\":\""+$("#from_id").val()+"\"&query="+encodeURIComponent(search)+"&_="+randomText(5)+"'?>",
+                        cache: true,
+                        dataSrc: function (json) {  /* You can handle json response data here */
+                            if (json.status == "success"){
+                                return json.results;
+                            } else {
+                                return [];
+                            }
+                        }
+                    },
+                    columns: [
+                        { "render": function(data,type,row,meta) { /* render event defines the markup of the cell text */
+                                var a =  meta.row + 1 + ((meta.settings.json.metadata.page_now-1)*meta.settings.json.metadata.items_per_page); /* row object contains the row data */
+                                return a;
+                            }
+                        },
+                        { "render": function(data,type,row,meta) {
+                            return '<a href="#" onclick="moveDataBank(\''+row.Bank_name+'\',\''+row.Bank_fullname+'\',\''+row.Bank_address+'\',\''+row.Account_name+'\',\''+row.Account_no+'\');return false;">'+row.Bank_name+'</a>';
+                            }
+                        },
+                        { data: "Bank_fullname" },
+                        { data: "Bank_address" },
+                        { data: "Account_name" },
+                        { data: "Account_no" }
+                    ],
+                    bFilter: false,
+                    paging: true,
+                    info: false,
+                    processing: true,
+                    language: {
+                        lengthMenu: "<?php echo Core::lang('dt_display')?>",
+                        zeroRecords: "<?php echo Core::lang('dt_not_found')?>",
+                        info: "<?php echo Core::lang('dt_info')?>",
+                        infoEmpty: "<?php echo Core::lang('dt_info_empty')?>",
+                        infoFiltered: "<?php echo Core::lang('dt_filtered')?>",
+                        decimal: "",
+                        emptyTable: "<?php echo Core::lang('dt_table_empty')?>",
+                        infoPostFix: "",
+                        thousands: "<?php echo Core::lang('dt_thousands')?>",
+                        loadingRecords: "<?php echo Core::lang('dt_loading')?>",
+                        processing: "<?php echo Core::lang('dt_process')?>",
+                        search: "<?php echo Core::lang('dt_search')?>"
+                    }
+                });
+                return false;
+            });
+        }
+
         function moveData(id,company,pic="",address="",phone="",fax="",email=""){
             $('#to_id').val(id);
             $('#to_name').val(pic);
@@ -521,6 +634,14 @@ if( $group > '2' && ($group != '6' && $group != '7') ) {Core::goToPage('modul-us
             $('#to_fax').val(fax);
             $('#to_email').val(email);
             $('.browse').modal('hide');
+        }
+
+        function moveDataBank(name,fullname="",address="",acc_name="",acc_no=""){
+            $('#invoice_bank_name').val(name);
+            $('#invoice_bank_account_name').val(acc_name);
+            $('#invoice_bank_account_no').val(acc_no);
+            $('#invoice_bank_address').val(address);
+            $('.browsebank').modal('hide');
         }
     
         function scrollToBottom() {
