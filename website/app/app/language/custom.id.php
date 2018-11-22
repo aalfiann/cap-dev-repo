@@ -3,6 +3,13 @@ require_once realpath(__DIR__ . '/..').'/config.php';
 $vocabularies[] = [
     //your custom language variable
     'custom_test' => 'Test',
+    //DataBank
+    'databank' => 'Data Bank',
+    'databank_name' => 'Nama Bank',
+    'databank_fullname' => 'Nama Bank Lengkap',
+    'databank_address' => 'Alamat Bank',
+    'databank_account_name' => 'Nama Rekening',
+    'databank_account_no' => 'No. Rekening',
     //Image Gallery 
     'gallery_image_me' => 'Galeri ku',
     'gallery_image_remote_upload' => 'Remote Upload',

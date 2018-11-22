@@ -72,6 +72,10 @@
                     "icon_class":"mdi mdi-key-variant",
                     "menus": [
                         {
+                            "title": "data bank",
+                            "link": "modul-data-bank.php"
+                        },
+                        {
                             "title": "data branch",
                             "link": "modul-data-branch.php"
                         },
