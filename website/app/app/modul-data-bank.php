@@ -72,13 +72,13 @@ $databranchid = json_decode(Core::execGetRequest($urlbranchid));?>
                             <div class="card-body">
                                 <h3 class="text-themecolor m-b-0 m-t-0"><?php echo Core::lang('databank')?></h3><hr>
                                 <div class="table-responsive m-t-40">
-                                    <a href="#" data-toggle="modal" data-target=".addnew" class="btn btn-inverse"><i class="mdi mdi-key-plus"></i> <?php echo Core::lang('add').' '.Core::lang('databank')?></a>
+                                    <a href="#" data-toggle="modal" data-target=".addnew" class="btn btn-inverse"><i class="mdi mdi-bank"></i> <?php echo Core::lang('add').' '.Core::lang('databank')?></a>
                                     <!-- terms modal content -->
                                     <div class="modal fade addnew" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title text-themecolor" id="myLargeModalLabel"><i class="mdi mdi-key-plus"></i> <?php echo Core::lang('add').' '.Core::lang('databank')?></h4>
+                                                    <h4 class="modal-title text-themecolor" id="myLargeModalLabel"><i class="mdi mdi-bank"></i> <?php echo Core::lang('add').' '.Core::lang('databank')?></h4>
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                                 </div>
                                                 <form class="form-horizontal form-material" id="addnewdata" action="#">
@@ -88,6 +88,7 @@ $databranchid = json_decode(Core::execGetRequest($urlbranchid));?>
                                                             <label class="col-md-12"><?php echo Core::lang('databank_name')?> <span class="text-danger">*</span></label>
                                                              <div class="col-md-12">
                                                                 <input id="databank_name" type="text" class="form-control form-control-line" required>
+                                                                <span class="help-block text-danger"><small id="databank_name_error"></small></span>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
@@ -106,12 +107,14 @@ $databranchid = json_decode(Core::execGetRequest($urlbranchid));?>
                                                             <label class="col-md-12"><?php echo Core::lang('databank_account_name')?> <span class="text-danger">*</span></label>
                                                              <div class="col-md-12">
                                                                 <input id="databank_account_name" type="text" class="form-control form-control-line" required>
+                                                                <span class="help-block text-danger"><small id="databank_account_name_error"></small></span>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="col-md-12"><?php echo Core::lang('databank_account_no')?> <span class="text-danger">*</span></label>
                                                              <div class="col-md-12">
                                                                 <input id="databank_account_no" type="text" class="form-control form-control-line" required>
+                                                                <span class="help-block text-danger"><small id="databank_account_no_error"></small></span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -401,7 +404,7 @@ $databranchid = json_decode(Core::execGetRequest($urlbranchid));?>
                                                                 <div class="form-group">\
                                                                     <label class="col-md-12"><?php echo Core::lang('branchid')?></label>\
                                                                     <div class="col-md-12">\
-                                                                        <input id="branch_id'+row.ID+'" type="text" class="form-control form-control-line" value="'+row.Custom_id.BranchID+'" required>\
+                                                                        <input id="branch_id'+row.ID+'" type="text" class="form-control form-control-line" value="'+row.Custom_id.BranchID+'" readonly>\
                                                                     </div>\
                                                                 </div>\
                                                             </div>\
@@ -409,8 +412,9 @@ $databranchid = json_decode(Core::execGetRequest($urlbranchid));?>
                                                         <div class="form-group">\
                                                             <label class="col-md-12"><?php echo Core::lang('databank_name')?> <span class="text-danger">*</span></label>\
                                                              <div class="col-md-12">\
-                                                                <input id="databank_name'+row.ID+'" type="text" class="form-control form-control-line" value="'+row.Bank_name+'" required>\
+                                                                <input id="databank_name'+row.ID+'" type="text" class="form-control" value="'+row.Bank_name+'" required>\
                                                             </div>\
+                                                            <span class="help-block col-md-12 text-danger"><small id="databank_name_error'+row.ID+'"></small></span>\
                                                         </div>\
                                                         <div class="form-group">\
                                                             <label class="col-md-12"><?php echo Core::lang('databank_fullname')?></label>\
@@ -429,12 +433,14 @@ $databranchid = json_decode(Core::execGetRequest($urlbranchid));?>
                                                              <div class="col-md-12">\
                                                                 <input id="databank_account_name'+row.ID+'" type="text" class="form-control form-control-line" value="'+row.Account_name+'">\
                                                             </div>\
+                                                            <span class="help-block col-md-12 text-danger"><small id="databank_account_name_error'+row.ID+'"></small></span>\
                                                         </div>\
                                                         <div class="form-group">\
                                                             <label class="col-md-12"><?php echo Core::lang('databank_account_no')?> <span class="text-danger">*</span></label>\
                                                              <div class="col-md-12">\
                                                                 <input id="databank_account_no'+row.ID+'" type="text" class="form-control form-control-line" value="'+row.Account_no+'">\
                                                             </div>\
+                                                            <span class="help-block col-md-12 text-danger"><small id="databank_account_no_error'+row.ID+'"></small></span>\
                                                         </div>\
                                                     </div>\
                                                     <div class="modal-footer">\
@@ -534,10 +540,42 @@ $databranchid = json_decode(Core::execGetRequest($urlbranchid));?>
         /* Add new data start */
         $("#addnewdata").on("submit",sendnewdata);
         function sendnewdata(e){
-            console.log("Process add new data...");
             e.preventDefault();
             var that = $(this);
             that.off("submit"); /* remove handler */
+
+            /* Validate */
+            console.log("Validating data...");
+            var errors = false;
+            
+            if (!validationRegex("databank_name","required",true)){
+                $('#databank_name_error').html('<?php echo Core::lang('input_required')?>');
+                errors = true;
+            } else {
+                $('#databank_name_error').html('');
+            }
+
+            if (!validationRegex("databank_account_name","required",true)){
+                $('#databank_account_name_error').html('<?php echo Core::lang('input_required')?>');
+                errors = true;
+            } else {
+                $('#databank_account_name_error').html('');
+            }
+
+            if (!validationRegex("databank_account_no","required",true)){
+                $('#databank_account_no_error').html('<?php echo Core::lang('input_required')?>');
+                errors = true;
+            } else {
+                $('#databank_account_no_error').html('');
+            }
+
+            if(errors) {
+                that.on("submit", sendnewdata); /* add handler back after ajax */
+                console.log("Invalid parameter...");
+                return false;
+            }
+
+            console.log("Process add new data...");
             var div = document.getElementById("report-newdata");
             var btn = "submitbtn";
             disableClickButton(btn);
@@ -588,6 +626,37 @@ $databranchid = json_decode(Core::execGetRequest($urlbranchid));?>
         /* Update data start */
         function updatedata(dataid){
             $(function() {
+
+                /* Validate */
+                console.log("Validating data...");
+                var errors = false;
+            
+                if (!validationRegex("databank_name"+dataid,"required",true)){
+                    $('#databank_name_error'+dataid).html('<?php echo Core::lang('input_required')?>');
+                    errors = true;
+                } else {
+                    $('#databank_name_error'+dataid).html('');
+                }
+
+                if (!validationRegex("databank_account_name"+dataid,"required",true)){
+                    $('#databank_account_name_error'+dataid).html('<?php echo Core::lang('input_required')?>');
+                    errors = true;
+                } else {
+                    $('#databank_account_name_error'+dataid).html('');
+                }
+
+                if (!validationRegex("databank_account_no"+dataid,"required",true)){
+                    $('#databank_account_no_error'+dataid).html('<?php echo Core::lang('input_required')?>');
+                    errors = true;
+                } else {
+                    $('#databank_account_no_error'+dataid).html('');
+                }
+
+                if(errors) {
+                    console.log("Invalid parameter...");
+                    return false;
+                }
+
                 console.log("Process update data...");
                 var div = document.getElementById("report-updatedata");
                 var btn = "updatebtn"+dataid;
