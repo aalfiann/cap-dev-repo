@@ -13,7 +13,7 @@ require '../vendor/autoload.php';
 require '../config.php';
 
 // Declare reSlim Version
-define('RESLIM_VERSION','1.21.1');
+define('RESLIM_VERSION','1.22.0');
 // Declare reSlim built-in cache
 define('AUTH_CACHE',$config['reslim']['authcache']);
 define('SIMPLE_CACHE',$config['reslim']['simplecache']);
@@ -29,7 +29,7 @@ define('REDIS_OPTION',json_encode($config['redis']['option']));
 
 // Autoload all external classes
 spl_autoload_register(function ($classname) {
-    require (realpath(__DIR__ . '/..'). '/'.str_replace('\\', DIRECTORY_SEPARATOR, $classname) . '.php');
+    require (realpath(__DIR__ . '/..').DIRECTORY_SEPARATOR.str_replace('\\', DIRECTORY_SEPARATOR, $classname) . '.php');
 });
 
 // Set time zone
@@ -38,10 +38,10 @@ date_default_timezone_set($config['reslim']['timezone']);
 // Set up router cache if enabled in config
 if ($config['router']['enableCache'] == true) {
     if (!is_dir($config['router']['folderCache'])) mkdir($config['router']['folderCache'],0775,true);
-    $config['routerCacheFile'] = $config['router']['folderCache'].'/'.$config['router']['fileCache'];
+    $config['routerCacheFile'] = $config['router']['folderCache'].DIRECTORY_SEPARATOR.$config['router']['fileCache'];
 } else {
-    if (file_exists($config['router']['folderCache'].'/'.$config['router']['fileCache'])) {
-        unlink($config['router']['folderCache'].'/'.$config['router']['fileCache']);
+    if (file_exists($config['router']['folderCache'].DIRECTORY_SEPARATOR.$config['router']['fileCache'])) {
+        unlink($config['router']['folderCache'].DIRECTORY_SEPARATOR.$config['router']['fileCache']);
     }
 }
 
@@ -51,25 +51,14 @@ require __DIR__.'/dependencies.php';
 // Set up middleware
 require __DIR__.'/middleware.php';
 
-// Set up scanner files
-if (!function_exists('glob_recursive')) {
-    function glob_recursive($pattern, $flags = 0){
-        $files = glob($pattern, $flags);
-        foreach (glob(dirname($pattern).'/*', GLOB_ONLYDIR|GLOB_NOSORT) as $dir){
-            $files = array_merge($files, glob_recursive($dir.'/'.basename($pattern), $flags));
-        }
-        return $files;
-    }    
-}
-
 // Load all router files before run
-$routers = glob('../routers/*.router.php',GLOB_NOSORT);
+$routers = \classes\helper\Scanner::fileSearch('../routers/','router.php');
 foreach ($routers as $router) {
     require $router;
 }
 
 // Load all modules router files before run
-$modrouters = glob_recursive('../modules/*.router.php',GLOB_NOSORT);
+$modrouters = \classes\helper\Scanner::fileSearch('../modules/','router.php');
 foreach ($modrouters as $modrouter) {
     require $modrouter;
 }
