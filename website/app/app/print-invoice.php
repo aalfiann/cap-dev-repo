@@ -2,6 +2,7 @@
 $fd = (empty($_GET['fd'])?'':$_GET['fd']);
 $ld = (empty($_GET['ld'])?'':$_GET['ld']);
 $s = (empty($_GET['s'])?'':$_GET['s']);
+$type = (empty($_GET['item_id'])?Core::lang('invoice_item_id'):$_GET['item_id']);
 $refdate = ((!empty($_GET['fd']) && !empty($_GET['ld']))?'?fd='.$fd.'&ld='.$ld.'&s='.$s:'');
 $refpage = (empty($_GET['ref'])?'modul-invoice.php':$_GET['ref'].$refdate);
 $codeid = (empty($_GET['no'])?'000000000000000':$_GET['no']);
@@ -126,12 +127,12 @@ function terbilang($nilai) {
                         <div class="col-md-12">
                             <div class="card card-body printableArea">
                                 <!-- Sheet 1 start -->
-                                <h3><b>INVOICE</b> <span class="pull-right">#'.$datainvoice->result[0]->InvoiceID.' <b class="text-danger">[PENDING]</b></span></h3>
+                                <h3><b>'.strtoupper(Core::lang('invoice')).'</b> <span class="pull-right">#'.$datainvoice->result[0]->InvoiceID.'</span></h3>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="pull-left">
                                             <address>
-                                                <h3> &nbsp;<b class="text-danger">'.(!empty($datainvoice->result[0]->From_name_company)?$datainvoice->result[0]->From_name_company:$datainvoice->result[0]->From_name).'</b></h3>
+                                                <h3> &nbsp;<b class="text-primary">'.(!empty($datainvoice->result[0]->From_name_company)?$datainvoice->result[0]->From_name_company:$datainvoice->result[0]->From_name).'</b></h3>
                                                 <p class="text-muted m-l-5">
                                                     '.preg_replace("/[\r\n]+/", "<br>", $datainvoice->result[0]->From_address).'
                                                     '.(!empty($datainvoice->result[0]->From_email)?'<br>'.$datainvoice->result[0]->From_email:'').'
@@ -168,7 +169,7 @@ function terbilang($nilai) {
                                                     <tr>
                                                         <th width="5%">#</th>
                                                         <th width="10%">'.Core::lang('invoice_date').'</th>
-                                                        <th width="10%" nowrap>'.Core::lang('invoice_po').'</th>
+                                                        <th width="10%" nowrap>'.$type.'</th>
                                                         <th>'.Core::lang('invoice_description').'</th>
                                                         <th width="5%" class="text-right">'.Core::lang('invoice_qty').'</th>
                                                         <th width="10%" class="text-right">'.Core::lang('invoice_amount').'</th>
@@ -178,14 +179,14 @@ function terbilang($nilai) {
                                                 <tbody>
                                                     ';
                                                     foreach($datainvoice->result[0]->Data_table as $key => $value){
-                                                        echo '<tr style="font-size: 11px !important;">
+                                                        echo '<tr style="font-size: 11px !important;line-height:5px;">
                                                             <td>'.($key+1).'</td>
                                                             <td>'.$value->date.'</td>
                                                             <td>'.$value->po.'</td>
                                                             <td>'.$value->desc.'</td>
                                                             <td class="text-right">'.$value->qty.'</td>
-                                                            <td class="text-right">'.number_format($value->amount,2,",",".").'</td>
-                                                            <td class="text-right">'.number_format($value->total,2,",",".").'</td>
+                                                            <td class="text-right">'.number_format($value->amount,0,",",".").'</td>
+                                                            <td class="text-right">'.number_format($value->total,0,",",".").'</td>
                                                         </tr>';
                                                     }
                                                 echo '
@@ -195,10 +196,10 @@ function terbilang($nilai) {
                                     </div>
                                     <div class="col-md-12">
                                         <div class="pull-right m-t-5 text-right">
-                                            <p>Sub Total: '.number_format($datainvoice->result[0]->Total_sub,2,",",".").'</p>
-                                            <p>Tax '.$datainvoice->result[0]->Custom_field->Tax_rate.'% : '.number_format($datainvoice->result[0]->Custom_field->Tax_total,2,",",".").'</p>
+                                            <p>Sub Total: '.number_format($datainvoice->result[0]->Total_sub,0,",",".").'</p>
+                                            <p>Tax '.$datainvoice->result[0]->Custom_field->Tax_rate.'% : '.number_format($datainvoice->result[0]->Custom_field->Tax_total,0,",",".").'</p>
                                             <hr>
-                                            <h3><b>Total :</b> Rp. '.number_format($datainvoice->result[0]->Total,2,",",".").'</h3>
+                                            <h3><b>Total :</b> Rp. '.number_format($datainvoice->result[0]->Total,0,",",".").'</h3>
                                         </div>
                                         <div class="clearfix"></div>
                                         <hr>
