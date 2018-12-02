@@ -59,7 +59,7 @@ $s = (empty($_GET['s'])?'':$_GET['s']);?>
                                 <label for="firstdate" class="hidden-md-up"><?php echo Core::lang('firstdate')?> :</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="firstdate" placeholder="<?php echo Core::lang('firstdate')?>. Format: yyyy-mm-dd" value="<?php echo $fd?>">
-                                    <span class="input-group-addon"><i class="icon-calender"></i></span>
+                                    <span class="input-group-addon"><i class="icon-calender" id="fdcall"></i></span>
                                 </div>
                             </div>
                             
@@ -69,7 +69,7 @@ $s = (empty($_GET['s'])?'':$_GET['s']);?>
                                 <label for="lastdate" class="hidden-md-up"><?php echo Core::lang('lastdate')?> :</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="lastdate" placeholder="<?php echo Core::lang('lastdate')?>. Format: yyyy-mm-dd" value="<?php echo $ld?>">
-                                    <span class="input-group-addon"><i class="icon-calender"></i></span>
+                                    <span class="input-group-addon"><i class="icon-calender" id="ldcall"></i></span>
                                 </div>
                             </div>
 
@@ -598,13 +598,31 @@ $s = (empty($_GET['s'])?'':$_GET['s']);?>
         $('#firstdate').datepicker({
             format: 'yyyy-mm-dd',
             autoclose: true,
-            todayHighlight: true
+            todayHighlight: true,
+            ignoreReadonly: true,
+            allowInputToggle: true
+        }).on('hide', function(e) {
+            $(this).prop('readonly', false);
         });
 
         $('#lastdate').datepicker({
             format: 'yyyy-mm-dd',
             autoclose: true,
-            todayHighlight: true
+            todayHighlight: true,
+            ignoreReadonly: true,
+            allowInputToggle: true
+        }).on('hide', function(e) {
+            $(this).prop('readonly', false);
+        });
+
+        $('#fdcall').on('click',function(){
+            $('#firstdate').prop('readonly', true); 
+            $('#firstdate').trigger('focus');
+        });
+
+        $('#ldcall').on('click',function(){
+            $('#lastdate').prop('readonly', true); 
+            $('#lastdate').trigger('focus');
         });
 
         /**
