@@ -338,7 +338,7 @@ $s = (empty($_GET['s'])?'':$_GET['s']);?>
                     $(idtable).DataTable().destroy();
                 }
                 /* Choose columns index for printing purpose */
-                var selectCol = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 ];
+                var selectCol = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ];
                 /* Built table is here */
                 var table = $(idtable).DataTable({
                     ajax: {
