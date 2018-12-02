@@ -1,7 +1,8 @@
 <?php spl_autoload_register(function ($classname) {require ( $classname . ".php");});
 $datalogin = Core::checkSessions();
 $group = Core::getUserGroup();
-if( $group > '2' && ($group != '6' && $group != '7') ) {Core::goToPage('modul-user-profile.php');exit;}?>
+if( $group > '2' && ($group != '6' && $group != '7') ) {Core::goToPage('modul-user-profile.php');exit;}
+$type = (empty($_GET['item_id'])?Core::lang('invoice_item_id'):$_GET['item_id']);?>
 <!DOCTYPE html>
 <html lang="<?php echo Core::getInstance()->setlang?>">
 <head>
@@ -252,7 +253,7 @@ if( $group > '2' && ($group != '6' && $group != '7') ) {Core::goToPage('modul-us
                                                 <tr>
                                                     <th width="5%">#</th>
                                                     <th width="10%"><?php echo Core::lang('invoice_date')?></th>
-                                                    <th width="10%"><?php echo Core::lang('invoice_po')?></th>
+                                                    <th width="10%"><?php echo $type?></th>
                                                     <th><?php echo Core::lang('invoice_description')?></th>
                                                     <th width="5%"><?php echo Core::lang('invoice_qty')?></th>
                                                     <th width="10%"><?php echo Core::lang('invoice_amount')?></th>
@@ -318,7 +319,7 @@ if( $group > '2' && ($group != '6' && $group != '7') ) {Core::goToPage('modul-us
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="form-control-label"><b><?php echo Core::lang('invoice_po')?></b></label>
+                                            <label class="form-control-label"><b><?php echo $type?></b></label>
                                             <input type="text" id="invoice_po" class="form-control" placeholder="" maxlength="20">
                                         </div>
                                 
@@ -532,7 +533,7 @@ if( $group > '2' && ($group != '6' && $group != '7') ) {Core::goToPage('modul-us
                             }
                         },
                         { "render": function(data,type,row,meta) {
-                            return '<a href="#" onclick="moveData(\''+row.CompanyID+'\',\''+row.Company_name+'\',\''+row.PIC+'\',\''+row.Address+'\',\''+row.Phone+'\',\''+row.Fax+'\',\''+row.Email+'\');return false;">'+row.CompanyID+'</a>';
+                            return '<a href="#" onclick="moveData(\''+row.CompanyID+'\',\''+row.Company_name+'\',\''+row.PIC+'\',\''+row.Address.replace(/\n/g, '\\n')+'\',\''+row.Phone+'\',\''+row.Fax+'\',\''+row.Email+'\');return false;">'+row.CompanyID+'</a>';
                             }
                         },
                         { data: "Company_name" },
@@ -594,7 +595,7 @@ if( $group > '2' && ($group != '6' && $group != '7') ) {Core::goToPage('modul-us
                             }
                         },
                         { "render": function(data,type,row,meta) {
-                            return '<a href="#" onclick="moveDataBank(\''+row.Bank_name+'\',\''+row.Bank_fullname+'\',\''+row.Bank_address+'\',\''+row.Account_name+'\',\''+row.Account_no+'\');return false;">'+row.Bank_name+'</a>';
+                            return '<a href="#" onclick="moveDataBank(\''+row.Bank_name+'\',\''+row.Bank_fullname+'\',\''+row.Bank_address.replace(/\n/g, '\\n')+'\',\''+row.Account_name+'\',\''+row.Account_no+'\');return false;">'+row.Bank_name+'</a>';
                             }
                         },
                         { data: "Bank_fullname" },
@@ -792,7 +793,7 @@ if( $group > '2' && ($group != '6' && $group != '7') ) {Core::goToPage('modul-us
             $(function(){
                 var jsons = JSON.stringify($('#tableinvoice').tableToJSON({ignoreColumns:[0]}));
                 jsons = jsons.replace(/<?php echo Core::lang('invoice_date')?>/g,'date')
-                    .replace(/<?php echo Core::lang('invoice_po')?>/g,'po')
+                    .replace(/<?php echo $type?>/g,'po')
                     .replace(/<?php echo Core::lang('invoice_description')?>/g,'desc')
                     .replace(/<?php echo Core::lang('invoice_qty')?>/g,'qty')
                     .replace(/<?php echo Core::lang('invoice_amount')?>/g,'amount')

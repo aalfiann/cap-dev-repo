@@ -6,6 +6,7 @@ $codeid = (empty($_GET['no'])?'':$_GET['no']);
 $fd = (empty($_GET['fd'])?'':$_GET['fd']);
 $ld = (empty($_GET['ld'])?'':$_GET['ld']);
 $s = (empty($_GET['s'])?'':$_GET['s']);
+$type = (empty($_GET['item_id'])?Core::lang('invoice_item_id'):$_GET['item_id']);
 $refdate = ((!empty($_GET['fd']) && !empty($_GET['ld']))?'?fd='.$fd.'&ld='.$ld.'&s='.$s:'');
 $refpage = (empty($_GET['ref'])?Core::lang('invoice_edit'):'<a href="'.$_GET['ref'].$refdate.'"><i class="mdi mdi-arrow-left"></i> '.Core::lang('go_back').'</a>');?>
 <!DOCTYPE html>
@@ -257,7 +258,7 @@ $refpage = (empty($_GET['ref'])?Core::lang('invoice_edit'):'<a href="'.$_GET['re
                                                 <tr>
                                                     <th width="5%">#</th>
                                                     <th width="10%"><?php echo Core::lang('invoice_date')?></th>
-                                                    <th width="10%"><?php echo Core::lang('invoice_po')?></th>
+                                                    <th width="10%"><?php echo $type?></th>
                                                     <th><?php echo Core::lang('invoice_description')?></th>
                                                     <th width="5%"><?php echo Core::lang('invoice_qty')?></th>
                                                     <th width="10%"><?php echo Core::lang('invoice_amount')?></th>
@@ -335,7 +336,7 @@ $refpage = (empty($_GET['ref'])?Core::lang('invoice_edit'):'<a href="'.$_GET['re
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="form-control-label"><b><?php echo Core::lang('invoice_po')?></b></label>
+                                            <label class="form-control-label"><b><?php echo $type?></b></label>
                                             <input type="text" id="invoice_po" class="form-control" placeholder="" maxlength="20">
                                         </div>
                                 
@@ -511,7 +512,7 @@ $refpage = (empty($_GET['ref'])?Core::lang('invoice_edit'):'<a href="'.$_GET['re
                             } 
                         },
                         { "render": function(data,type,row,meta) {
-                            return '<a href="#" onclick="moveData(\''+row.CompanyID+'\',\''+row.Company_name+'\',\''+row.PIC+'\',\''+row.Address+'\',\''+row.Phone+'\',\''+row.Fax+'\',\''+row.Email+'\');return false;">'+row.CompanyID+'</a>';
+                            return '<a href="#" onclick="moveData(\''+row.CompanyID+'\',\''+row.Company_name+'\',\''+row.PIC+'\',\''+row.Address.replace(/\n/g, '\\n')+'\',\''+row.Phone+'\',\''+row.Fax+'\',\''+row.Email+'\');return false;">'+row.CompanyID+'</a>';
                             }
                         },
                         { data: "Company_name" },
@@ -703,7 +704,7 @@ $refpage = (empty($_GET['ref'])?Core::lang('invoice_edit'):'<a href="'.$_GET['re
             $(function(){
                 var jsons = JSON.stringify($('#tableinvoice').tableToJSON({ignoreColumns:[0]}));
                 jsons = jsons.replace(/<?php echo Core::lang('invoice_date')?>/g,'date')
-                    .replace(/<?php echo Core::lang('invoice_po')?>/g,'po')
+                    .replace(/<?php echo $type?>/g,'po')
                     .replace(/<?php echo Core::lang('invoice_description')?>/g,'desc')
                     .replace(/<?php echo Core::lang('invoice_qty')?>/g,'qty')
                     .replace(/<?php echo Core::lang('invoice_amount')?>/g,'amount')

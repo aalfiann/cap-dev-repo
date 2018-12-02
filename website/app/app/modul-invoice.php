@@ -362,7 +362,7 @@ $s = (empty($_GET['s'])?'':$_GET['s']);?>
                             } 
                         },
                         { "render": function(data,type,row,meta) { /* render event defines the markup of the cell text */ 
-                                var a = '<a href="modul-invoice-edit.php?no='+row.InvoiceID+'&ref=modul-invoice.php&fd='+firstdate+'&ld='+lastdate+'&s='+search+'"><i class="mdi mdi-pencil-box-outline"></i> <?php echo Core::lang('edit')?></a> | <a href="print-invoice.php?no='+row.InvoiceID+'&ref=modul-invoice.php&fd='+firstdate+'&ld='+lastdate+'&s='+search+'"><i class="mdi mdi-printer"></i> <?php echo Core::lang('print')?></a>'; /* row object contains the row data */
+                                var a = '<a href="modul-invoice-edit.php?no='+row.InvoiceID+'&ref=modul-invoice.php&fd='+firstdate+'&ld='+lastdate+'&s='+search+'"><i class="mdi mdi-pencil-box-outline"></i> <?php echo Core::lang('edit')?></a> | <a href="print-invoice.php?no='+row.InvoiceID+'&ref=modul-invoice.php&fd='+firstdate+'&ld='+lastdate+'&s='+search+'"><i class="mdi mdi-printer"></i> <?php echo Core::lang('print')?></a> | <a href="print-invoice.php?no='+row.InvoiceID+'&ref=modul-invoice.php&fd='+firstdate+'&ld='+lastdate+'&s='+search+'&item_id=<?php echo Core::lang('invoice_po')?>"><i class="mdi mdi-printer"></i> <?php echo Core::lang('print').' '.Core::lang('invoice_id_po')?></a>'; /* row object contains the row data */
                                 return a;
                             } 
                         },
