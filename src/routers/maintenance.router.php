@@ -129,10 +129,10 @@ use \classes\JSON as JSON;
     $app->post('/maintenance/cache/data/listen/delete', function (Request $request, Response $response) {
         $datapost = $request->getParsedBody();
         $secretkey = (empty($datapost['secretkey'])?'':$datapost['secretkey']);
-        $wildcard = (empty($datapost['wildcard'])?'':$datapost['wildcard']);
+        $pattern = (empty($datapost['pattern'])?'':$datapost['pattern']);
         $agecache = (empty($datapost['agecache'])?'':$datapost['agecache']);
         $body = $response->getBody();
-        $body->write(JSON::encode(SimpleCache::listenToDelete($secretkey,$wildcard,$agecache),true));
+        $body->write(JSON::encode(SimpleCache::listenToDelete($secretkey,$pattern,$agecache),true));
         return classes\Cors::modify($response,$body,200);
     });
 
@@ -151,10 +151,10 @@ use \classes\JSON as JSON;
     $app->post('/maintenance/cache/apikey/listen/delete', function (Request $request, Response $response) {
         $datapost = $request->getParsedBody();
         $secretkey = (empty($datapost['secretkey'])?'':$datapost['secretkey']);
-        $wildcard = (empty($datapost['wildcard'])?'':$datapost['wildcard']);
+        $pattern = (empty($datapost['pattern'])?'':$datapost['pattern']);
         $agecache = (empty($datapost['agecache'])?'':$datapost['agecache']);
         $body = $response->getBody();
-        $body->write(JSON::encode(Auth::listenToDelete($secretkey,$wildcard,$agecache),true));
+        $body->write(JSON::encode(Auth::listenToDelete($secretkey,$pattern,$agecache),true));
         return classes\Cors::modify($response,$body,200);
     });
 
@@ -184,10 +184,10 @@ use \classes\JSON as JSON;
     $app->post('/maintenance/cache/universal/listen/delete', function (Request $request, Response $response) {
         $datapost = $request->getParsedBody();
         $secretkey = (empty($datapost['secretkey'])?'':$datapost['secretkey']);
-        $wildcard = (empty($datapost['wildcard'])?'':$datapost['wildcard']);
+        $pattern = (empty($datapost['pattern'])?'':$datapost['pattern']);
         $agecache = (empty($datapost['agecache'])?'':$datapost['agecache']);
         $body = $response->getBody();
-        $body->write(JSON::encode(UniversalCache::listenToDelete($secretkey,$wildcard,$agecache),true));
+        $body->write(JSON::encode(UniversalCache::listenToDelete($secretkey,$pattern,$agecache),true));
         return classes\Cors::modify($response,$body,200);
     });
 
@@ -199,5 +199,33 @@ use \classes\JSON as JSON;
         $agecache = (empty($datapost['agecache'])?'':$datapost['agecache']);
         $body = $response->getBody();
         $body->write(JSON::encode(UniversalCache::listenToDeleteSingleKey($secretkey,$keycache,$agecache),true));
+        return classes\Cors::modify($response,$body,200);
+    });
+
+    // Filebased cache data test
+    $app->get('/maintenance/cache/data/transfer/test', function (Request $request, Response $response) {
+        $body = $response->getBody();
+        $content = 'Now check the data cache file inside folder cache!';
+        SimpleCache::save('{"data":"'.$content.'"}');
+        $body->write(JSON::encode(['send' =>$content],true));
+        return classes\Cors::modify($response,$body,200);
+    });
+
+    // Filebased cache apikey test
+    $app->get('/maintenance/cache/apikey/transfer/test', function (Request $request, Response $response) {
+        $body = $response->getBody();
+        $content = 'Now check the data cache file inside folder cache-keys!';
+        Auth::writeCache(str_replace([' ','!'],'-',$content));
+        $body->write(JSON::encode(['send' =>$content],true));
+        return classes\Cors::modify($response,$body,200);
+    });
+
+    // Filebased cache universal test
+    $app->get('/maintenance/cache/universal/transfer/test', function (Request $request, Response $response) {
+        $body = $response->getBody();
+        $key = 'test_universal_cache_transfer';
+        $content = 'Now check the data cache file inside folder cache-universal! Filename is encoded.';
+        UniversalCache::writeCache($key,$content);
+        $body->write(JSON::encode(['send' =>$content],true));
         return classes\Cors::modify($response,$body,200);
     });
