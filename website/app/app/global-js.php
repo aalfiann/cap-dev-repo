@@ -28,7 +28,8 @@
     <script>
         /* Init theme style */
         var getTheme = "blue";
-        function loadTheme(themestyle="blue"){
+        function loadTheme(themestyle){
+            themestyle=(themestyle===undefined)?"blue":themestyle;
             link=document.createElement("link");
             link.id="theme";
             link.href="css/colors/"+themestyle+".css";
@@ -71,27 +72,27 @@
         /* Format text to ucwords */
         function ucwords(a){return a=a.toLowerCase().replace(/^[\u00C0-\u1FFF\u2C00-\uD7FF\w]|\s[\u00C0-\u1FFF\u2C00-\uD7FF\w]/g,function(b){return b.toUpperCase()}),a}
         /* Format date to human readable */
-        function formatDate(a='',b=!1){a=''==a||null==a?new Date:new Date(a);var c=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],d=a.getDate().toString(),e=a.getMonth(),f=a.getFullYear(),g=a.getHours().toString(),h=a.getMinutes().toString(),i=a.getSeconds().toString(),j=d.split(''),k=g.split(''),l=h.split(''),m=i.split('');return!1==b?(j[1]?d:'0'+j[0])+'-'+c[e]+'-'+f:(j[1]?d:'0'+j[0])+'-'+c[e]+'-'+f+' '+(k[1]?g:'0'+k[0])+':'+(l[1]?h:'0'+l[0])+':'+(m[1]?i:'0'+m[0])}
+        function formatDate(t,e){e=void 0!==e&&e;var n=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],i=(t=""==(t=void 0===t?"":t)||null==t?new Date:new Date(t)).getDate().toString(),o=t.getMonth(),r=t.getFullYear(),g=t.getHours().toString(),a=t.getMinutes().toString(),l=t.getSeconds().toString(),u=i.split(""),s=g.split(""),p=a.split(""),S=l.split("");return 0==e?(u[1]?i:"0"+u[0])+"-"+n[o]+"-"+r:(u[1]?i:"0"+u[0])+"-"+n[o]+"-"+r+" "+(s[1]?g:"0"+s[0])+":"+(p[1]?a:"0"+p[0])+":"+(S[1]?l:"0"+S[0])}
         /* Format number add commas */
 		function addCommas(a){a+='',x=a.split('.'),x1=x[0],x2=1<x.length?'.'+x[1]:'';for(var b=/(\d+)(\d{3})/;b.test(x1);)x1=x1.replace(b,'$1,$2');return x1+x2}
         /* Limit round decimal with nearest point */
-        function limitRound(a,b=0.5){var c=0;return c=a-Math.floor(a)>=b?1:0,Math.floor(a+c)}
+        function limitRound(o,r){r=void 0===r?.5:r;var t=0;return t=o-Math.floor(o)>=r?1:0,Math.floor(o+t)}
         /* Convert bytes size to human readable */
-        function humanFileSize(a,b='true'){var c=b?1e3:1024;if(Math.abs(a)<c)return a+' B';var d=b?['KB','MB','GB','TB','PB','EB','ZB','YB']:['KiB','MiB','GiB','TiB','PiB','EiB','ZiB','YiB'],e=-1;do a/=c,++e;while(Math.abs(a)>=c&&e<d.length-1);return a.toFixed(2)+' '+d[e]}
+        function humanFileSize(B,i){var a=(i=void 0===i||i)?1e3:1024;if(Math.abs(B)<a)return B+" B";for(var e=i?["KB","MB","GB","TB","PB","EB","ZB","YB"]:["KiB","MiB","GiB","TiB","PiB","EiB","ZiB","YiB"],r=-1;B/=a,++r,Math.abs(B)>=a&&r<e.length-1;);return B.toFixed(1)+" "+e[r]}
         /* Get url parameter value by name */
         function getURLParameter(name){return decodeURIComponent((new RegExp('[?|&]'+name+'=([^&;]+?)(&|#|;|$)').exec(location.search)||[null,''])[1].replace(/\+/g,'%20'))||null}
         /* Write message jQuery */
-        function writeMessage(selector,type,message1,message2=""){$(function() { return $(selector).html('<div class="col-lg-12"><div class="alert alert-'+type+' alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button><strong>'+message1+'</strong> '+message2+'</div></div>'); });}
+        function writeMessage(selector,type,message1,message2){message2=(message2===undefined)?"":message2;$(function(){return $(selector).html('<div class="col-lg-12"><div class="alert alert-'+type+' alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button><strong>'+message1+'</strong> '+message2+'</div></div>');});}
         /* Message html string */
-        function messageHtml(type,message1,message2=""){return '<div class="col-lg-12"><div class="alert alert-'+type+' alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button><strong>'+message1+'</strong> '+message2+'</div></div>'; }
+        function messageHtml(type,message1,message2){message2=(message2===undefined)?"":message2;return '<div class="col-lg-12"><div class="alert alert-'+type+' alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button><strong>'+message1+'</strong> '+message2+'</div></div>'; }
         /* Validation Regex. Default is alphanumeric. */
-        function validationRegex(a,b="alphanumeric",c=!1){b="required"===b?/.*\S.*/:"date"===b?/([123456789]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/:"timestamp"===b?/^\d\d\d\d-(0?[1-9]|1[0-2])-(0?[1-9]|[12][0-9]|3[01]) (00|[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9])$/:"alphanumeric"===b?/^[a-zA-Z0-9]+$/:"alphabet"===b?/^[a-zA-Z]+$/:"notzero"===b?/^[1-9][0-9]*$/:"decimal"===b?/^[+-]?[0-9]+(?:\.[0-9]+)?$/:"numeric"===b?/^[0-9]+$/:"double"===b?/^[+-]?[0-9]+(?:,[0-9]+)*(?:\.[0-9]+)?$/:"username"===b?/^[a-zA-Z0-9]{3,20}$/:"domain"===b?/^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+$/:"email"===b?/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/:b;var d="";return d=c?document.getElementById(a).value:a,!1!=b.test(d)}
+        function validationRegex(a,e,r){switch(r=void 0!==r&&r,e=void 0===e?"alphanumeric":e){case"required":e=/.*\S.*/;break;case"date":e=/([123456789]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;break;case"timestamp":e=/^\d\d\d\d-(0?[1-9]|1[0-2])-(0?[1-9]|[12][0-9]|3[01]) (00|[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9])$/;break;case"alphanumeric":e=/^[a-zA-Z0-9]+$/;break;case"alphabet":e=/^[a-zA-Z]+$/;break;case"decimal":e=/^[+-]?[0-9]+(?:\.[0-9]+)?$/;break;case"notzero":e=/^[1-9][0-9]*$/;break;case"numeric":e=/^[0-9]+$/;break;case"double":e=/^[+-]?[0-9]+(?:,[0-9]+)*(?:\.[0-9]+)?$/;break;case"username":e=/^[a-zA-Z0-9]{3,20}$/;break;case"domain":e=/^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+$/;break;case"email":e=/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;break;default:e=e}var c="";return c=r?document.getElementById(a).value:a,0!=e.test(c)}
         /* Slugify */
         function slugify(a){a=a.replace(/^\s+|\s+$/g,""),a=a.toLowerCase();for(var b="\xC1\xC4\xC2\xC0\xC3\xC5\u010C\xC7\u0106\u010E\xC9\u011A\xCB\xC8\xCA\u1EBC\u0114\u0206\xCD\xCC\xCE\xCF\u0147\xD1\xD3\xD6\xD2\xD4\xD5\xD8\u0158\u0154\u0160\u0164\xDA\u016E\xDC\xD9\xDB\xDD\u0178\u017D\xE1\xE4\xE2\xE0\xE3\xE5\u010D\xE7\u0107\u010F\xE9\u011B\xEB\xE8\xEA\u1EBD\u0115\u0207\xED\xEC\xEE\xEF\u0148\xF1\xF3\xF6\xF2\xF4\xF5\xF8\xF0\u0159\u0155\u0161\u0165\xFA\u016F\xFC\xF9\xFB\xFD\xFF\u017E\xFE\xDE\u0110\u0111\xDF\xC6a\xB7/_,:;",d=0,e=b.length;d<e;d++)a=a.replace(new RegExp(b.charAt(d),"g"),"AAAAAACCCDEEEEEEEEIIIINNOOOOOORRSTUUUUUYYZaaaaaacccdeeeeeeeeiiiinnooooooorrstuuuuuyyzbBDdBAa------".charAt(d));return a=a.replace(/[^a-z0-9 -]/g,"").replace(/\s+/g,"-").replace(/-+/g,"-"),a}
         /* Disable button by id */
-        function disableClickButton(selectorid,todo=!0,buttontext=''){btn=document.getElementById(selectorid),btn.disabled=todo,''!=buttontext&&(btn.innerHTML=buttontext)}
+        function disableClickButton(selectorid,todo,buttontext){todo=(todo===undefined)?true:todo;buttontext=(buttontext===undefined)?"":buttontext;btn=document.getElementById(selectorid),btn.disabled=todo,''!=buttontext&&(btn.innerHTML=buttontext)}
         /* Change meta */
-        function changeMeta(type="name",name,content){for(var a=document.getElementsByTagName("meta"),b=0;b<a.length;b++)a[b].getAttribute(type)&&a[b].getAttribute(type)===name&&a[b].setAttribute("content",content)}
+        function changeMeta(type,name,content){type=(type===undefined)?"name":type;for(var a=document.getElementsByTagName("meta"),b=0;b<a.length;b++)a[b].getAttribute(type)&&a[b].getAttribute(type)===name&&a[b].setAttribute("content",content)}
         /* Request Fullscreen Global */
         function toggleFullScreen() {
             if ((document.fullScreenElement && document.fullScreenElement !== null) || (!document.mozFullScreen && !document.webkitIsFullScreen)) {

@@ -305,7 +305,8 @@
             }
         }
 
-        function closeCard(selectorid,todo=true){
+        function closeCard(selectorid,todo){
+            todo = (todo === undefined) ? true : todo;
             if (todo){
                 var div = document.getElementById(selectorid);
                 div.style.display = "none";

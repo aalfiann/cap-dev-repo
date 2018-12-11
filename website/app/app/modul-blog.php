@@ -159,7 +159,8 @@ if (empty($search)){
     <?php include_once 'global-js.php';?>
     <script src="<?php echo Core::getInstance()->assetspath?>/plugins/tagcloud/jquery.tagcloud.js"></script>
     <script>
-        function getTrendingPosts(limits,show='all'){
+        function getTrendingPosts(limits,show){
+            show=(show===undefined)?"all":show;
             if(show != 'all') show = 'seasonal';
             $.ajax({
                 url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/page/taxonomy/page/')?>")+show+'/'+limits+Crypto.decode("<?php echo base64_encode('/?lang='.Core::getInstance()->setlang.'&apikey='.Core::getInstance()->apikey)?>")+"&_="+randomText(60),
@@ -179,7 +180,8 @@ if (empty($search)){
             });  
         }
 
-        function getTrendingTags(limits,show='all'){
+        function getTrendingTags(limits,show){
+            show=(show===undefined)?"all":show;
             if(show != 'all') show = 'seasonal';
             $.ajax({
                 url: Crypto.decode("<?php echo base64_encode(Core::getInstance()->api.'/page/taxonomy/tags/')?>")+show+'/'+limits+Crypto.decode("<?php echo base64_encode('/?lang='.Core::getInstance()->setlang.'&apikey='.Core::getInstance()->apikey)?>")+"&_="+randomText(60),
