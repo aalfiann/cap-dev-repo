@@ -8,7 +8,7 @@ CAP Development
 ![Timeline2](https://img.shields.io/badge/timeline2-100%25-green.svg)<br>
 ![Timeline3](https://img.shields.io/badge/timeline3-100%25-green.svg)<br>
 ![Timeline4](https://img.shields.io/badge/timeline4-100%25-green.svg)<br>
-![Timeline5](https://img.shields.io/badge/timeline5-42%25-red.svg)<br>
+![Timeline5](https://img.shields.io/badge/timeline5-62%25-yellow.svg)<br>
 
 
 Untuk melihat status proses development [klik disini](https://github.com/aalfiann/cap-dev-repo/commits/master).<br>
@@ -121,7 +121,7 @@ Proses pengembangan sekitar 3 bulan
 Galeri gambar tanpa batas untuk berbagi atau akses secara publik<br>
 2. Bank Management System >> ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `done`<br>
 Pendataan data informasi bank untuk memudahkan pembuatan invoice<br>
-3. Manifest System >> ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) `on progress`<br>
+3. Manifest System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
 Sistem operasional untuk proses perjalanan barang<br>
 4. Delivery System >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
 Sistem manajamenen untuk pengantaran barang di destinasi<br>
@@ -135,7 +135,7 @@ Laporan terhadap customer dalam bentuk SMS<br>
 Timeline plan 6:
 ---------------
 Proses pengembangan sekitar 6 bulan
-1. Mobile App Android >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
+1. Mobile App Android >> ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) `on progress`<br>
 Aplikasi mobile untuk android<br>
 2. Mobile App iOS >> ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `waiting`<br>
 Aplikasi mobile untuk iOS<br>
