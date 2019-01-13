@@ -1,4 +1,4 @@
-CAP Development
+CAP Development [Development has Stopped and Abandoned!!!]
 =======
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aalfiann/cap-dev-repo/blob/master/license.md) 
 ![Skeleton](https://img.shields.io/badge/skeleton-100%25-green.svg) 
