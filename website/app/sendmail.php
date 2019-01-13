@@ -11,7 +11,7 @@ $mail = new PHPMailer();
 //Konfigurasi SMTP Server
 $mail->Host     = "server.cap-express.co.id"; 
 $mail->Mailer   = "smtp";
-$mail->Port 	= 587;
+$mail->Port 	= 25;
 $mail->SMTPAuth = true;
 $mail->SMTPSecure = false;
 $mail->SMTPOptions = array(
